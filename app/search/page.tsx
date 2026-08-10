@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { SiteFooter, SiteHeader } from "../components";
 import { SearchClient } from "./search-client";
 
@@ -8,7 +9,7 @@ export default function SearchPage() {
   return (
     <div>
       <SiteHeader />
-      <SearchClient />
+      <Suspense fallback={<main className="shell searchPage">Loading search…</main>}><SearchClient /></Suspense>
       <SiteFooter />
     </div>
   );

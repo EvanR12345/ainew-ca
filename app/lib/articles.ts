@@ -4,6 +4,12 @@ export type ArticleSection = {
   bullets?: string[];
 };
 
+export type ArticleVideo = {
+  id: string;
+  title: string;
+  channel: string;
+};
+
 export type Article = {
   slug: string;
   title: string;
@@ -17,508 +23,279 @@ export type Article = {
   sourceLabel: string;
   sourceUrl: string;
   sections: ArticleSection[];
+  video?: ArticleVideo;
 };
 
-export const articles: Article[] = [
-  {
-    slug: "canada-ai-transparency-consultation-what-to-know",
-    title: "Canada wants rules for AI transparency. Here’s what could change.",
-    dek: "A federal consultation targets synthetic-content labels, chatbot disclosure, incident reporting and the growing reach of AI agents.",
-    category: "Canada",
-    date: "2026-07-23",
-    displayDate: "July 23, 2026",
-    readTime: "7 min read",
-    signal: "Policy watch",
-    accent: "coral",
-    sourceLabel: "Government of Canada",
-    sourceUrl: "https://www.canada.ca/en/innovation-science-economic-development/news/2026/07/government-of-canada-launches-public-consultation-on-ai-transparency.html",
-    sections: [
-      {
-        heading: "The short version",
-        paragraphs: [
-          "Ottawa has opened a public consultation on how people should be told when they are interacting with an AI system or viewing AI-generated material. The discussion also covers clearer model information, serious-incident reporting and ways to trace what autonomous agents do.",
-          "The consultation runs through September 23, 2026. That makes this a proposal stage, not a finished rulebook. The practical question is which disclosures become mandatory, who must provide them and how a label can remain useful without turning every screen into a warning panel."
-        ]
-      },
-      {
-        heading: "Four ideas businesses should watch",
-        paragraphs: [
-          "The government’s framing points to a lifecycle approach: identify synthetic outputs, disclose automated interactions, explain system capabilities and limitations, and create a record when something serious goes wrong. Agent tracking adds a newer layer because an AI that books, buys or edits records can create consequences beyond a chat response."
-        ],
-        bullets: [
-          "Visible notices when a customer is dealing with an AI system.",
-          "Consistent documentation about intended use, limits and provenance.",
-          "Detection or labelling mechanisms for generated and altered media.",
-          "Logs and reporting paths for high-impact incidents and agent actions."
-        ]
-      },
-      {
-        heading: "What to do now",
-        paragraphs: [
-          "Canadian teams do not need to wait for final policy to inventory where AI appears in their customer journey. A useful first pass maps every chatbot, recommendation, generated asset and automated decision to an owner, data source and escalation route.",
-          "Good transparency is also a product advantage. Plain-language notices can reduce support friction and help users understand when a human can review an outcome. The strongest implementations will treat disclosure as part of interface design, not a compliance footnote."
-        ]
-      }
-    ]
-  },
-  {
-    slug: "gpt-5-6-explained-what-changed",
-    title: "GPT-5.6 is here. The important shift is how it handles long, ambitious work.",
-    dek: "OpenAI’s newest frontier release is pitched around sustained reasoning, professional workflows and work that spans tools—not just better chat answers.",
-    category: "Models",
-    date: "2026-07-09",
-    displayDate: "July 9, 2026",
-    readTime: "8 min read",
-    signal: "Model release",
-    accent: "violet",
-    sourceLabel: "OpenAI",
-    sourceUrl: "https://openai.com/news/company-announcements/",
-    sections: [
-      {
-        heading: "Why this release matters",
-        paragraphs: [
-          "The headline around GPT-5.6 is frontier intelligence, but the more useful lens is endurance. Model upgrades increasingly compete on whether they can keep a complex objective coherent across research, drafting, coding, revision and verification.",
-          "That changes how buyers should evaluate a model. A benchmark score may describe an isolated task; real work measures whether the system notices missing context, recovers from a failed step and produces an artifact a person can actually use."
-        ]
-      },
-      {
-        heading: "What teams should test",
-        paragraphs: [
-          "Run evaluations on your own longest and messiest workflows. Give the model the same source documents, tool access and review criteria your staff use. Track not only the final answer but the corrections required, the evidence retained and the time saved."
-        ],
-        bullets: [
-          "Multi-step consistency across a long task.",
-          "Source handling and explicit uncertainty.",
-          "Tool-use recovery when a call fails or data is missing.",
-          "Quality of the final document, analysis or code—not just the conversation."
-        ]
-      },
-      {
-        heading: "The buyer takeaway",
-        paragraphs: [
-          "Do not migrate a production workflow because a launch page promises a smarter model. Compare cost per successful outcome, latency at peak hours and the amount of human review needed. A more capable model can be cheaper if it eliminates retries, but expensive if teams use it for tasks a smaller model already handles well.",
-          "The durable strategy is a model portfolio: route routine work to efficient systems and reserve frontier capacity for jobs where deeper reasoning changes the result."
-        ]
-      }
-    ]
-  },
-  {
-    slug: "openai-presence-collaboration-explained",
-    title: "OpenAI Presence points to a future where AI joins the room, not just the chat.",
-    dek: "The product announcement suggests collaboration is becoming a core interface for AI—shared context, live participation and fewer copy-paste handoffs.",
-    category: "Products",
-    date: "2026-07-22",
-    displayDate: "July 22, 2026",
-    readTime: "6 min read",
-    signal: "Product brief",
-    accent: "cyan",
-    sourceLabel: "OpenAI",
-    sourceUrl: "https://openai.com/news/company-announcements/",
-    sections: [
-      {
-        heading: "From prompt box to participant",
-        paragraphs: [
-          "Most workplace AI begins with a handoff: copy meeting notes into a chat, ask for a summary, then paste the result somewhere else. Presence signals a different model in which AI can share the collaborative moment and understand the evolving context around it.",
-          "That could make assistance feel more natural, but it raises the standard for consent. A system that is present in a meeting or shared workspace needs visible status, predictable controls and clear boundaries around what is remembered."
-        ]
-      },
-      {
-        heading: "The adoption test",
-        paragraphs: [
-          "The best collaboration features remove coordination work without making people wonder who—or what—is listening. Teams should test how participants opt in, how confidential moments are handled and whether summaries separate decisions from speculation."
-        ],
-        bullets: [
-          "Can every participant see when AI is active?",
-          "Can a host pause, exclude or delete captured context?",
-          "Does the output link back to decisions and source moments?",
-          "Can organizations set retention and access policies centrally?"
-        ]
-      },
-      {
-        heading: "What this unlocks",
-        paragraphs: [
-          "If the trust layer works, shared AI could turn a meeting into structured follow-through: draft the brief, create the action list, flag unresolved questions and prepare material for the next decision.",
-          "The value is not another transcript. It is a shorter distance between discussion and completed work."
-        ]
-      }
-    ]
-  },
-  {
-    slug: "anthropic-claude-sonnet-5-launch",
-    title: "Claude Sonnet 5 puts the model race back on coding, agents and useful scale.",
-    dek: "Anthropic’s new Sonnet release targets the workhorse tier: capable enough for complex professional tasks, efficient enough to deploy broadly.",
-    category: "Models",
-    date: "2026-06-30",
-    displayDate: "June 30, 2026",
-    readTime: "7 min read",
-    signal: "Model release",
-    accent: "amber",
-    sourceLabel: "Anthropic",
-    sourceUrl: "https://www.anthropic.com/news",
-    sections: [
-      {
-        heading: "The workhorse model matters most",
-        paragraphs: [
-          "Frontier flagships win attention, but mid-to-high tier models often win deployments. Sonnet 5 is positioned for coding, agents and professional work where quality matters but every request still has a budget.",
-          "For engineering leaders, the key question is whether a model can take on a larger unit of work without becoming unpredictable. That includes reading a repository, planning a change, using tools and explaining what it verified."
-        ]
-      },
-      {
-        heading: "How to compare it",
-        paragraphs: [
-          "Use a fixed evaluation set drawn from real tickets and documents. Compare task completion, review comments, regressions and cost. Avoid grading only polished demos; include ambiguous requests and tools that occasionally fail."
-        ],
-        bullets: [
-          "Repository-scale context and adherence to local conventions.",
-          "Agent permission boundaries and confirmation behaviour.",
-          "Accuracy on professional documents with mixed source quality.",
-          "Total cost after retries, review and tool calls."
-        ]
-      },
-      {
-        heading: "The market signal",
-        paragraphs: [
-          "Model competition is moving from ‘can it answer?’ to ‘can it finish?’ Vendors are building around tool access, memory, collaboration and deployment controls because raw capability becomes valuable only when it fits the organization around it.",
-          "Sonnet 5’s real verdict will come from sustained production use, where reliability and controllability matter as much as peak performance."
-        ]
-      }
-    ]
-  },
-  {
-    slug: "anthropic-canada-ai-research-investment",
-    title: "Anthropic commits $10 million to Canadian AI research.",
-    dek: "The investment gives Canada’s research ecosystem a fresh vote of confidence as governments compete for talent, compute and frontier-safety leadership.",
-    category: "Canada",
-    date: "2026-07-14",
-    displayDate: "July 14, 2026",
-    readTime: "5 min read",
-    signal: "Canada watch",
-    accent: "red",
-    sourceLabel: "Anthropic",
-    sourceUrl: "https://www.anthropic.com/news",
-    sections: [
-      {
-        heading: "Why Canada keeps attracting AI investment",
-        paragraphs: [
-          "Canada’s advantage is unusually concentrated: foundational research, globally connected universities and three established national institutes—Mila, Amii and the Vector Institute. Anthropic’s commitment lands in an ecosystem already debating how to turn research leadership into durable companies and public benefit.",
-          "The amount is meaningful for research programs, but the strategic signal may matter more. Frontier companies want close relationships with the communities studying safety, interpretability and the social effects of advanced systems."
-        ]
-      },
-      {
-        heading: "What success should look like",
-        paragraphs: [
-          "The strongest outcome would pair open research with training opportunities and infrastructure that remains useful beyond one grant cycle. Canada’s recurring challenge is retaining talent and intellectual property after the earliest research stage."
-        ],
-        bullets: [
-          "Independent research with publication freedom.",
-          "Compute access for students and early-career researchers.",
-          "Projects spanning technical safety and real-world deployment.",
-          "Clear pathways from lab findings to Canadian organizations."
-        ]
-      },
-      {
-        heading: "The bigger contest",
-        paragraphs: [
-          "AI policy is now industrial policy. Research funding, energy, data centres, immigration and procurement all shape whether a country captures value from the models its scientists help create.",
-          "Canada’s opportunity is to connect its research brand to sovereign infrastructure and ambitious customers at home."
-        ]
-      }
-    ]
-  },
-  {
-    slug: "cohere-university-of-toronto-ai-partnership",
-    title: "Cohere and U of T are building a campus-scale test for responsible AI.",
-    dek: "A multi-year partnership will bring Canadian enterprise AI into a university-wide platform—an unusually broad proving ground for governance and adoption.",
-    category: "Canada",
-    date: "2026-07-16",
-    displayDate: "July 16, 2026",
-    readTime: "6 min read",
-    signal: "Campus AI",
-    accent: "blue",
-    sourceLabel: "Cohere",
-    sourceUrl: "https://cohere.com/blog",
-    sections: [
-      {
-        heading: "A campus is an AI stress test",
-        paragraphs: [
-          "Universities contain almost every adoption problem at once: sensitive research, student records, creative work, accessibility needs, multilingual communities and sharply different expectations across disciplines.",
-          "That makes the University of Toronto partnership more interesting than a standard software rollout. A university-wide platform can reveal where shared infrastructure helps and where local academic judgment must remain in control."
-        ]
-      },
-      {
-        heading: "What responsible adoption requires",
-        paragraphs: [
-          "The partnership will be judged on more than model access. Faculty and students need rules they can understand, practical training and a way to challenge errors. Researchers need clarity on data use, confidentiality and intellectual property."
-        ],
-        bullets: [
-          "Course-level disclosure rules that match the learning objective.",
-          "Protected environments for sensitive research and administration.",
-          "Accessibility and bilingual performance testing.",
-          "Independent measurement of learning, productivity and error rates."
-        ]
-      },
-      {
-        heading: "Why it matters beyond campus",
-        paragraphs: [
-          "If U of T can publish what works, the project could become a playbook for other public institutions. Education is one of the few sectors where users are expected to question the tool as part of using it.",
-          "That culture of critique may be exactly what responsible enterprise adoption needs."
-        ]
-      }
-    ]
-  },
-  {
-    slug: "canada-ai-for-all-national-strategy",
-    title: "Canada’s ‘AI for All’ strategy, decoded in six practical questions.",
-    dek: "The national plan links public trust, adoption, talent and sovereign infrastructure. Execution will decide whether those pillars reinforce one another.",
-    category: "Policy",
-    date: "2026-06-05",
-    displayDate: "June 5, 2026",
-    readTime: "9 min read",
-    signal: "National strategy",
-    accent: "green",
-    sourceLabel: "Government of Canada",
-    sourceUrl: "https://www.canada.ca/en/innovation-science-economic-development/news/2026/06/minister-solomon-highlights-canadas-national-artificial-intelligence.html",
-    sections: [
-      {
-        heading: "The strategy in one sentence",
-        paragraphs: [
-          "AI for All aims to increase adoption while protecting Canadians and building more of the underlying capability at home. Its public framing is anchored in trust, opportunity and sovereignty, then spread across six pillars.",
-          "That combination matters because adoption without trust stalls, while trust without competitive infrastructure can leave Canada dependent on systems built elsewhere."
-        ]
-      },
-      {
-        heading: "Six questions to track",
-        paragraphs: [
-          "A strategy becomes real through budgets, procurement, timelines and accountable owners. Readers should watch for measurable answers rather than another layer of AI vocabulary."
-        ],
-        bullets: [
-          "Will small and mid-sized businesses get usable adoption support?",
-          "How quickly will sovereign compute become available—and to whom?",
-          "What modernized privacy and online-safety rules will pass?",
-          "Can training programs reach workers outside major tech hubs?",
-          "Will public procurement create reference customers for Canadian firms?",
-          "How will progress be measured and published?"
-        ]
-      },
-      {
-        heading: "The execution gap",
-        paragraphs: [
-          "Canada has repeatedly produced influential research without capturing an equal share of the commercial value. Closing that gap requires domestic customers willing to buy, test and scale Canadian systems.",
-          "The strategy’s most important work may be connective: linking researchers to compute, firms to customers and workers to practical training."
-        ]
-      }
-    ]
-  },
-  {
-    slug: "google-io-2026-ai-announcements-that-matter",
-    title: "Google announced 100 things at I/O. These eight AI shifts matter most.",
-    dek: "Gemini 3.5, AI Search, background agents, a universal cart and new developer interfaces show Google turning its product graph into an agent platform.",
-    category: "Products",
-    date: "2026-05-20",
-    displayDate: "May 20, 2026",
-    readTime: "10 min read",
-    signal: "Event recap",
-    accent: "yellow",
-    sourceLabel: "Google",
-    sourceUrl: "https://blog.google/innovation-and-ai/technology/ai/google-io-2026-all-our-announcements/",
-    sections: [
-      {
-        heading: "The big picture",
-        paragraphs: [
-          "Google I/O 2026 was less about one chatbot and more about turning Search, Gmail, shopping, Android and developer tooling into surfaces for agents. Gemini 3.5 Flash sits under several of those experiences, while new products aim to carry tasks across the Google ecosystem.",
-          "The advantage is distribution: an agent becomes more useful when it can see the context users already keep in their daily tools. The risk is complexity—permissions and recommendations must remain understandable across products."
-        ]
-      },
-      {
-        heading: "Eight shifts worth tracking",
-        paragraphs: [
-          "The announcements span consumer, commerce and developer work, but they point in the same direction: AI that monitors, prepares and acts with less prompting."
-        ],
-        bullets: [
-          "Gemini 3.5 Flash as a broadly deployed reasoning-and-action model.",
-          "A redesigned AI Search experience and persistent information agents.",
-          "Gemini Spark for background personal tasks.",
-          "Daily Brief connecting inbox, calendar and priorities.",
-          "Universal Cart and more agent-assisted commerce.",
-          "A more visual, adaptive Gemini interface.",
-          "New APIs and agent tooling for developers.",
-          "A proposed WebMCP standard for exposing structured web actions."
-        ]
-      },
-      {
-        heading: "What to watch next",
-        paragraphs: [
-          "The summer rollout will test whether users trust background agents with connected apps and purchases. The winning interaction may be one that knows when to act quietly and when to stop for approval.",
-          "For publishers and retailers, agent-readable structure will become increasingly important alongside human-friendly design."
-        ]
-      }
-    ]
-  },
-  {
-    slug: "canada-hybrid-ai-weather-model",
-    title: "Canada is mixing AI with physics to improve severe-weather forecasts.",
-    dek: "Environment and Climate Change Canada’s hybrid model keeps meteorologists and traditional forecasting in the loop while adding machine-learned speed.",
-    category: "Research",
-    date: "2026-04-09",
-    displayDate: "April 9, 2026",
-    readTime: "7 min read",
-    signal: "AI in science",
-    accent: "sky",
-    sourceLabel: "Government of Canada",
-    sourceUrl: "https://www.canada.ca/en/environment-climate-change/news/2026/04/canada-to-launch-hybrid-ai-weather-model-to-strengthen-forecasting-for-severe-weather.html",
-    sections: [
-      {
-        heading: "Why hybrid beats hype",
-        paragraphs: [
-          "AI weather systems can learn large atmospheric patterns from decades of data and generate forecasts quickly. Traditional numerical models encode physics and preserve local detail. Canada’s new system combines both instead of asking one approach to replace the other.",
-          "That is especially relevant for extremes. The federal announcement says the hybrid keeps the small-scale detail of the GEM model while using AI to improve estimates of future conditions."
-        ]
-      },
-      {
-        heading: "The human role stays central",
-        paragraphs: [
-          "Meteorologists still interpret the models, compare evidence and communicate uncertainty. That is not a temporary concession; high-impact forecasting involves local context and public decisions that no single model output can settle."
-        ],
-        bullets: [
-          "AI accelerates pattern recognition across large datasets.",
-          "Physics-based models retain known atmospheric constraints.",
-          "Forecasters reconcile disagreement and local effects.",
-          "Warnings translate evidence into timely public action."
-        ]
-      },
-      {
-        heading: "A model for public-sector AI",
-        paragraphs: [
-          "The project illustrates a useful adoption pattern: add AI where it can improve speed and signal, keep a validated system underneath, and preserve expert accountability at the decision layer.",
-          "If performance data is published clearly, the weather rollout could become a reference case for trustworthy AI in other safety-critical services."
-        ]
-      }
-    ]
-  },
-  {
-    slug: "cohere-command-a-plus-sovereign-ai",
-    title: "Cohere’s Command A+ makes a Canadian bet on open, sovereign enterprise AI.",
-    dek: "The model targets regulated organizations that want multilingual capability, infrastructure control and an Apache 2.0 route to deployment.",
-    category: "Business",
-    date: "2026-05-20",
-    displayDate: "May 20, 2026",
-    readTime: "7 min read",
-    signal: "Canadian company",
-    accent: "lime",
-    sourceLabel: "Cohere",
-    sourceUrl: "https://cohere.com/blog/cohere-releases-command-a-plus",
-    sections: [
-      {
-        heading: "Sovereignty becomes a product feature",
-        paragraphs: [
-          "Banks, governments and critical-infrastructure operators increasingly ask where a model runs, who can inspect it and whether data crosses borders. Command A+ is built around those questions rather than treating deployment control as an enterprise add-on.",
-          "Cohere says the mixture-of-experts model is open under Apache 2.0, supports multimodal work and covers 48 languages. The commercial pitch is that capable AI can live where the customer’s data already resides."
-        ]
-      },
-      {
-        heading: "What buyers need to verify",
-        paragraphs: [
-          "Open weights and flexible hosting expand control, but they also move responsibility to the operator. Teams need a plan for security updates, evaluation, monitoring and the infrastructure cost of serving the model."
-        ],
-        bullets: [
-          "Performance on the organization’s languages and document types.",
-          "Hardware requirements at expected volume and latency.",
-          "Controls for retrieval, tools and sensitive outputs.",
-          "Operational ownership after deployment."
-        ]
-      },
-      {
-        heading: "The Canadian angle",
-        paragraphs: [
-          "Command A+ gives Canada a concrete entry in the sovereign-AI market at the same moment Ottawa is emphasizing domestic compute and trusted adoption.",
-          "The opportunity is significant, but success depends on implementations—not just models—that regulated customers can audit, support and afford."
-        ]
-      }
-    ]
-  },
-  {
-    slug: "openai-ai-for-scientific-discovery",
-    title: "OpenAI’s next frontier is the laboratory—and validation is the hard part.",
-    dek: "New national-science commitments focus on materials, bioscience and research workflows where AI can propose more possibilities than humans can test.",
-    category: "Research",
-    date: "2026-07-22",
-    displayDate: "July 22, 2026",
-    readTime: "8 min read",
-    signal: "Science watch",
-    accent: "magenta",
-    sourceLabel: "OpenAI",
-    sourceUrl: "https://openai.com/index/advancing-the-next-era-of-national-science/",
-    sections: [
-      {
-        heading: "AI meets the physical world",
-        paragraphs: [
-          "OpenAI’s national-science commitments include work on high-temperature superconductors, bioscience evaluations and a map of research problems that may be newly tractable with existing data and computation.",
-          "Scientific AI differs from ordinary knowledge work because a plausible answer is not enough. A model can generate hypotheses quickly; laboratories, instruments and peer review still decide whether those hypotheses survive contact with reality."
-        ]
-      },
-      {
-        heading: "Where acceleration can happen",
-        paragraphs: [
-          "Models may be most useful at the connective layers of science: synthesizing literature, designing candidate experiments, writing analysis code and noticing patterns across results. Each step can shorten the loop between question and evidence."
-        ],
-        bullets: [
-          "Search and synthesis across fragmented literature.",
-          "Candidate generation for materials and molecules.",
-          "Simulation, analysis and reproducible research artifacts.",
-          "Safety evaluations for realistic laboratory use."
-        ]
-      },
-      {
-        heading: "The proof standard",
-        paragraphs: [
-          "Progress should be measured in validated findings, reproducible methods and researcher time—not the volume of ideas produced. Strong programs will publish failures as well as successes so the field learns where model confidence outruns evidence.",
-          "The long-term prize is not an automated scientist. It is a better scientific loop with researchers still defining the questions and standards."
-        ]
-      }
-    ]
-  },
-  {
-    slug: "anthropic-acquires-stainless-agent-tools",
-    title: "Anthropic buys Stainless as AI agents race to connect with everything.",
-    dek: "The acquisition brings SDK and MCP tooling in-house, highlighting a simple truth: an agent is only as useful as the systems it can safely reach.",
-    category: "Business",
-    date: "2026-05-18",
-    displayDate: "May 18, 2026",
-    readTime: "6 min read",
-    signal: "Deal watch",
-    accent: "orange",
-    sourceLabel: "Anthropic",
-    sourceUrl: "https://www.anthropic.com/news/anthropic-acquires-stainless",
-    sections: [
-      {
-        heading: "Connectivity is the new model layer",
-        paragraphs: [
-          "Stainless turns API specifications into software development kits, command-line tools and MCP servers. Those may sound like plumbing, but they determine whether an AI agent can use a service reliably across languages and environments.",
-          "Anthropic’s acquisition brings that connective layer closer to the Claude platform. It also shows how the model market is expanding into the infrastructure around agents: permissions, tools, observability and developer experience."
-        ]
-      },
-      {
-        heading: "Why developers should care",
-        paragraphs: [
-          "Agents create more API traffic and more unusual call sequences than traditional interfaces. Generated clients need to be consistent, typed and easy to update as services evolve."
-        ],
-        bullets: [
-          "Faster creation of official, language-native SDKs.",
-          "More structured tools for agent platforms.",
-          "Potentially tighter integration between Claude and MCP services.",
-          "A larger need for permission scopes, audit logs and failure handling."
-        ]
-      },
-      {
-        heading: "The strategic read",
-        paragraphs: [
-          "Model providers do not want to be interchangeable intelligence APIs. They are building ecosystems that make their agents easier to connect and deploy.",
-          "For customers, convenience should not erase portability. Keep tool contracts clear so the business process survives even if the underlying model changes."
-        ]
-      }
-    ]
-  }
+type Category = Article["category"];
+type SourceKey = keyof typeof sources;
+type VideoKey = keyof typeof videos;
+
+type TopicSeed = [
+  slug: string,
+  title: string,
+  dek: string,
+  category: Category,
+  source: SourceKey,
+  focus: string,
+  stakes: string,
+  watch: string,
+  actions: [string, string, string],
+  video?: VideoKey,
 ];
+
+const sources = {
+  canada: ["Government of Canada", "https://ised-isde.canada.ca/site/artificial-intelligence-strategy/en"],
+  treasury: ["Treasury Board of Canada Secretariat", "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai.html"],
+  privacy: ["Office of the Privacy Commissioner of Canada", "https://www.priv.gc.ca/en/privacy-topics/technology/artificial-intelligence/"],
+  vector: ["Vector Institute", "https://vectorinstitute.ai/"],
+  mila: ["Mila", "https://mila.quebec/en"],
+  amii: ["Amii", "https://www.amii.ca/"],
+  cohere: ["Cohere", "https://cohere.com/blog"],
+  openai: ["OpenAI", "https://openai.com/news/"],
+  anthropic: ["Anthropic", "https://www.anthropic.com/news"],
+  google: ["Google", "https://blog.google/technology/ai/"],
+  deepmind: ["Google DeepMind", "https://deepmind.google/discover/blog/"],
+  microsoft: ["Microsoft", "https://www.microsoft.com/en-us/ai"],
+  github: ["GitHub", "https://github.blog/ai-and-ml/"],
+  nvidia: ["NVIDIA", "https://www.nvidia.com/en-us/ai/"],
+  meta: ["Meta AI", "https://ai.meta.com/blog/"],
+  shopify: ["Shopify", "https://www.shopify.com/ca/news"],
+  nist: ["NIST", "https://www.nist.gov/itl/ai-risk-management-framework"],
+  eu: ["European Commission", "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"],
+  oecd: ["OECD AI", "https://oecd.ai/en/ai-principles"],
+} as const;
+
+const videos = {
+  openai: { id: "DQacCB9tDaw", title: "Introducing GPT-4o", channel: "OpenAI" },
+  anthropic: { id: "oqUclC3gqKs", title: "A day with Claude", channel: "Anthropic" },
+  microsoft: { id: "unJmINJoKsY", title: "How Microsoft 365 Copilot works", channel: "Microsoft Mechanics" },
+  nvidia: { id: "jMW8_YVFgzY", title: "I Am AI — NVIDIA GTC keynote intro", channel: "NVIDIA" },
+  google: { id: "Fs0t6SdODd8", title: "Introducing Gemini 2.0", channel: "Google" },
+  deepmind: { id: "Z8Qip0kgl3A", title: "Google DeepMind and Gemini for Developers", channel: "Google" },
+} as const;
+
+const topics: TopicSeed[] = [
+  // Canada — 18
+  ["canada-ai-transparency-consultation-what-to-know", "Canada wants clearer AI disclosures. Here is what useful transparency looks like.", "Labels, incident records and agent logs could change how Canadian organizations design AI products.", "Canada", "canada", "Canada is moving the transparency conversation from broad principles toward concrete information people can see and use.", "A disclosure that arrives too late or says too little cannot help a customer challenge an automated outcome.", "Watch whether final guidance distinguishes low-risk assistance from systems that make consequential decisions.", ["Map every customer-facing AI touchpoint.", "Assign an owner and escalation path to each system.", "Test notices with real users instead of legal teams alone."]],
+  ["canada-sovereign-ai-compute-explained", "Sovereign AI compute is becoming Canadian industrial policy.", "Who gets access to chips, power and data-centre capacity may shape the next generation of Canadian companies.", "Canada", "canada", "Sovereign compute is an attempt to keep strategically important AI workloads, research capacity and operational knowledge within Canadian reach.", "Without affordable capacity, local labs and startups can produce ideas but struggle to train, test or serve models at meaningful scale.", "The decisive details will be allocation rules, pricing, energy supply and access for smaller organizations.", ["Estimate compute needs by workload rather than hype.", "Document residency and security requirements.", "Compare shared national capacity with commercial clouds."]],
+  ["canadian-ai-safety-institute-guide", "What Canada’s AI Safety Institute can actually do.", "Testing, measurement and international coordination matter only if findings reach deployers and the public.", "Canada", "canada", "The institute can connect technical evaluations with the policy questions facing Canadian regulators and public institutions.", "Independent measurement is essential when model developers control most information about capability and risk.", "Look for published methods, reproducible results and clear boundaries between research and enforcement.", ["Follow evaluation releases, not just announcements.", "Compare tests with your own deployment conditions.", "Create an internal route for acting on new findings."]],
+  ["federal-government-generative-ai-guide", "How the federal government is approaching generative AI at work.", "Public servants need useful tools, but public records, privacy and explainability raise the bar.", "Canada", "treasury", "Federal guidance treats generative AI as a workplace tool that still sits inside existing duties around information, security and accountability.", "Government adoption becomes a reference point for schools, municipalities and regulated industries across the country.", "Watch how departments report use, procure systems and distinguish draft assistance from official decisions.", ["Classify information before it enters a model.", "Keep a human accountable for every final product.", "Record when AI materially shapes public-facing work."]],
+  ["quebec-privacy-law-ai-systems", "Quebec privacy law changes the AI product checklist.", "Automated decisions, profiling and personal data require more than a generic privacy notice.", "Canada", "privacy", "Quebec’s privacy framework puts attention on meaningful notice, data minimization and the rights attached to automated processing.", "Teams serving Quebec cannot treat compliance as a last-minute translation task; product architecture determines what can be explained or corrected.", "The practical test is whether a person can understand the role automation played and reach someone empowered to review it.", ["Trace personal data from collection to output.", "Separate essential processing from optional profiling.", "Design a clear route for questions and correction."]],
+  ["ontario-public-sector-ai-procurement", "Ontario’s public sector is a proving ground for responsible AI procurement.", "Buying rules can reward evidence, interoperability and accountability before a system reaches residents.", "Canada", "treasury", "Public procurement is where abstract AI principles become contract terms, service levels and audit rights.", "A weak contract can lock an agency into an opaque model even when performance changes or public expectations rise.", "Watch for shared evaluation standards and clauses that survive vendor or model changes.", ["Require evidence on local data and languages.", "Keep export rights for logs and records.", "Define exit, incident and human-review procedures."]],
+  ["bilingual-ai-canada-evaluation", "Bilingual AI needs more than translated prompts.", "English and French performance can diverge across retrieval, safety filters, tone and specialized vocabulary.", "Canada", "mila", "A system that works in English may fail differently in French because training coverage and evaluation sets are uneven.", "Bilingual quality is a service issue, a trust issue and, in many Canadian settings, an access obligation.", "Look for evaluations that include regional language, code-switching and real professional documents.", ["Build parallel English and French test sets.", "Recruit reviewers with domain and language expertise.", "Measure retrieval and safety behaviour separately."]],
+  ["indigenous-data-sovereignty-ai", "AI projects must respect Indigenous data sovereignty from the start.", "Consent, governance and benefit-sharing cannot be bolted onto a dataset after collection.", "Canada", "canada", "Indigenous data sovereignty centres the authority of communities over how information about their people, lands and cultures is collected and used.", "AI can amplify old extractive patterns when data is treated as available merely because it is accessible.", "The standard to watch is meaningful community governance throughout the system’s life, not a one-time consultation.", ["Identify rights holders before technical design.", "Agree on permitted uses and withdrawal processes.", "Budget for long-term governance and shared benefit."]],
+  ["vector-institute-enterprise-ai-playbook", "The Vector Institute’s enterprise lesson: evaluation comes before scale.", "Canadian organizations need evidence from their own workflows, not a leaderboard borrowed from a model card.", "Canada", "vector", "Applied AI programs translate research practices into repeatable tests for organizations adopting fast-moving models.", "A model that looks impressive in a demo can lose value once accuracy, latency, security and reviewer time are counted together.", "Watch whether evaluation becomes a permanent operating function instead of a launch gate.", ["Start with a representative task set.", "Score the complete outcome, including review time.", "Repeat tests whenever data, prompts or models change."]],
+  ["mila-responsible-ai-research-guide", "Why Mila’s responsible-AI work matters beyond the lab.", "Research on social impact, safety and governance can help deployers ask better questions before harm appears.", "Canada", "mila", "Mila’s ecosystem places technical research alongside debate about who benefits from AI and who bears its costs.", "Organizations often discover social risks only after a system is embedded in a service and difficult to unwind.", "Watch for methods that can be translated into procurement tests, documentation and community oversight.", ["Include affected groups in risk discovery.", "Test failure modes before optimizing convenience.", "Publish limits in language users can understand."]],
+  ["amii-applied-ai-alberta", "Alberta’s applied-AI advantage is the bridge between research and operations.", "Amii’s model shows why training, implementation and local industry knowledge need to move together.", "Canada", "amii", "Applied institutes help firms turn broad interest in machine learning into defined problems, prepared data and measurable pilots.", "That bridge is especially valuable in sectors where physical operations, safety and legacy systems limit copy-and-paste adoption.", "Look for projects that keep capability inside the organization after the initial engagement ends.", ["Choose a painful, measurable workflow.", "Pair subject experts with technical builders.", "Plan ownership and maintenance before launch."]],
+  ["cohere-canadian-enterprise-ai", "Cohere’s Canadian opportunity is private, controlled enterprise AI.", "The pitch is less about a public chatbot and more about models that can work within organizational boundaries.", "Canada", "cohere", "Enterprise AI buyers increasingly care about deployment choice, retrieval quality and control over sensitive information.", "Canadian firms can compete by solving governance and integration problems that global consumer products do not prioritize.", "Watch real production reliability, total cost and portability across infrastructure.", ["Test on internal terminology and documents.", "Verify residency and retention settings.", "Keep model and retrieval layers replaceable."]],
+  ["canadian-ai-startup-funding-guide", "Canadian AI startups need patient customers as much as capital.", "Funding starts the company; procurement, compute and repeat buyers determine whether it stays.", "Canada", "canada", "Canada’s research pipeline creates strong technical teams, but growth depends on converting prototypes into trusted operational products.", "Startups can be pulled abroad when the largest pools of capital, compute and customers sit elsewhere.", "The strongest signal will be more Canadian reference customers and later-stage companies headquartered here.", ["Target a narrow problem with budget attached.", "Collect evidence that shortens procurement.", "Design for international sales without abandoning Canada."]],
+  ["ai-healthcare-canada-validation", "Healthcare AI in Canada must prove itself inside the care pathway.", "Accuracy in a paper is not the same as better decisions, shorter waits or safer care.", "Canada", "canada", "Clinical AI is useful only when it fits the people, data, timing and accountability of a real health system.", "Provincial variation and constrained resources make implementation evidence as important as model performance.", "Watch for prospective studies, subgroup results and clear responsibility when clinicians disagree with a recommendation.", ["Define the clinical decision being supported.", "Measure outcomes and workflow burden together.", "Monitor performance across sites and populations."]],
+  ["ai-agriculture-canada", "Canadian farms are turning AI into a field-level operations tool.", "Forecasting, crop imaging and autonomous equipment promise efficiency, but connectivity and farm economics decide adoption.", "Canada", "canada", "Agricultural AI combines sensors, weather, machinery and local knowledge to support decisions under uncertainty.", "Small improvements can matter at farm scale, yet brittle systems can be costly during a short growing window.", "Look for transparent payback, offline capability and performance across regions and crop types.", ["Start with one costly recurring decision.", "Test under poor connectivity and unusual weather.", "Keep farmers in control of data access."]],
+  ["ai-wildfire-forecasting-canada", "AI wildfire forecasting is useful only when it reaches the decision room.", "Better maps and forecasts must connect to evacuation, staffing and public communication.", "Canada", "deepmind", "Machine learning can combine weather, vegetation and satellite signals faster than traditional analysis alone.", "A forecast has public value only when emergency teams understand its uncertainty and can act within operational timelines.", "Watch integration with existing systems, false-alarm tradeoffs and performance during extreme events.", ["Define the decision each forecast supports.", "Show uncertainty with every prediction.", "Rehearse how teams respond before fire season."]],
+  ["canada-ai-talent-retention", "Canada trains AI talent. Keeping it requires a stronger scale-up economy.", "Researchers need ambitious projects, compute, compensation and a path to build global companies at home.", "Canada", "vector", "Talent policy is not only about producing more graduates; it is about the work, infrastructure and institutions available after graduation.", "When senior builders leave, Canada loses mentorship, networks and future founders along with individual expertise.", "Watch growth-stage financing, research mobility and the number of decision-making roles located in Canada.", ["Create senior technical career paths.", "Fund ambitious domestic deployments.", "Make cross-sector research collaboration easier."]],
+  ["canadian-weather-ai-hybrid-models", "Hybrid AI weather models could give Canada faster forecasts without discarding physics.", "The most promising systems combine learned patterns with the discipline of physical forecasting.", "Canada", "deepmind", "Hybrid weather systems use machine learning to accelerate or refine parts of a forecast while retaining established physical knowledge.", "Canada’s geography makes speed and regional accuracy valuable for aviation, agriculture, energy and emergency planning.", "Watch rigorous extreme-weather testing and whether forecasters can understand why a prediction changes.", ["Benchmark against operational baselines.", "Evaluate rare events separately.", "Design tools with professional forecasters."]],
+
+  // Models — 17
+  ["gpt-5-6-explained-what-changed", "The real test for a frontier model is whether it can finish the work.", "Long tasks, tool use and reliable revision matter more than a single impressive answer.", "Models", "openai", "Frontier releases increasingly compete on endurance across research, drafting, coding and verification.", "A model can be brilliant in isolation yet expensive in production if people must constantly recover context or repair tool mistakes.", "Compare cost per accepted outcome, not the price of one prompt.", ["Use your longest representative tasks.", "Record retries and reviewer corrections.", "Test recovery when tools or sources fail."] , "openai"],
+  ["anthropic-claude-sonnet-5-launch", "Why the workhorse model may matter more than the flagship.", "The model used thousands of times a day wins on reliability, speed and control—not launch-day spectacle.", "Models", "anthropic", "Mid-to-high tier models are often capable enough for complex work and efficient enough for broad deployment.", "A small reliability improvement at high volume can create more value than a rare jump on an academic benchmark.", "Watch sustained agent performance, permission handling and cost after retries.", ["Evaluate real tickets and documents.", "Track completion without human rescue.", "Test ambiguous and adversarial requests."] , "anthropic"],
+  ["multimodal-models-explained", "Multimodal AI is becoming one model, not five separate tools.", "Text, images, audio and video increasingly share context, changing how people search and create.", "Models", "openai", "Multimodal models can reason across several media types inside one interaction instead of handing work between separate systems.", "Shared context enables richer assistance but makes privacy, provenance and evaluation more complicated.", "Look beyond demos to cross-modal accuracy, latency and controls for captured media.", ["Test mixed real-world inputs.", "Label generated and transformed media.", "Set retention rules for audio and video."] , "openai"],
+  ["reasoning-models-practical-guide", "Reasoning models trade speed for a better chance at solving the whole problem.", "The right question is not whether they think longer, but where extra computation changes the result.", "Models", "openai", "Reasoning-oriented models allocate more inference work to planning, checking and revising difficult tasks.", "Used everywhere, they can add cost and delay; routed carefully, they can reduce expensive human rework.", "Watch calibration, reproducibility and whether longer reasoning genuinely improves accepted outcomes.", ["Route only complex tasks to deeper reasoning.", "Set time and cost ceilings.", "Grade final evidence, not confident explanations."]],
+  ["small-language-models-enterprise", "Small language models are finding the jobs giant models do not need.", "Focused systems can win on privacy, latency and predictable cost.", "Models", "microsoft", "Smaller models can run closer to users and be tuned for bounded tasks such as classification, extraction or device assistance.", "The business case improves when volume is high and the task does not require broad world knowledge.", "Look for quality on the exact task after compression, quantization and deployment constraints.", ["Establish a frontier-model baseline.", "Measure quality per dollar and per second.", "Keep a fallback for unfamiliar inputs."] , "microsoft"],
+  ["open-weight-models-business-case", "Open-weight AI gives teams control—and a larger operations bill.", "Download access can improve portability and privacy, but someone must secure, serve and evaluate the model.", "Models", "meta", "Open weights let organizations inspect, adapt and host a model without sending every request to a vendor API.", "That flexibility matters for regulated or specialized workloads, while operational responsibility shifts to the adopter.", "Watch licence terms, security updates and the real cost of serving at target latency.", ["Review licence and acceptable-use terms.", "Budget for inference and patching.", "Compare managed and self-hosted total cost."]],
+  ["mixture-of-experts-models", "Mixture-of-experts models explain how AI can grow without using every parameter every time.", "Routing each request through selected model components can improve efficiency, but adds new failure modes.", "Models", "nvidia", "A mixture-of-experts architecture activates only parts of a larger network for a given token or task.", "Efficient scaling can lower inference cost, yet routing balance and hardware communication become critical.", "Watch real throughput on available hardware rather than headline parameter counts.", ["Benchmark end-to-end latency.", "Monitor routing imbalance.", "Test quality across specialized domains."] , "nvidia"],
+  ["long-context-windows-reality-check", "A huge context window is not the same as a good memory.", "Models can accept more material than ever, but retrieval, attention and instruction quality still decide what they use.", "Models", "anthropic", "Long context lets a model receive large document sets, codebases or histories in one request.", "More input can hide the important evidence, raise cost and create false confidence that nothing was missed.", "Look for tests on information buried in realistic, noisy documents rather than synthetic needle games alone.", ["Retrieve a focused evidence set first.", "Ask for citations to supplied material.", "Test conflicting and outdated passages."] , "anthropic"],
+  ["model-routing-ai-stacks", "Model routing is how mature AI stacks control cost without lowering the bar.", "Routine requests can go to efficient models while difficult work escalates automatically.", "Models", "openai", "A router selects a model or workflow based on task type, risk, latency and expected difficulty.", "Good routing reduces cost; bad routing quietly sends sensitive or complex work to an unsuitable system.", "Watch the escalation rate, failure clusters and whether users can override a poor route.", ["Define measurable routing rules.", "Keep a high-quality fallback.", "Audit outcomes by route and user group."]],
+  ["on-device-ai-models", "On-device AI changes the privacy and latency equation.", "Running models on phones and laptops can keep data local, even when connectivity disappears.", "Models", "google", "On-device models move inference from a remote data centre to hardware already in a user’s hands.", "Local processing can feel instant and private, but battery, memory and model updates constrain capability.", "Watch hybrid designs that decide transparently when a request leaves the device.", ["Declare local versus cloud processing.", "Measure battery and thermal impact.", "Provide secure model-update paths."] , "google"],
+  ["ai-model-quantization-guide", "Quantization makes models cheaper by using less numerical precision.", "The engineering win is smaller memory use; the editorial caution is that quality can fail unevenly.", "Models", "nvidia", "Quantization represents model weights and calculations with fewer bits so more inference fits on available hardware.", "Savings can be substantial, but subtle degradation may appear in rare languages, reasoning or safety behaviour.", "Watch task-level comparisons across the populations and edge cases that matter to the deployment.", ["Benchmark before and after compression.", "Separate average quality from worst cases.", "Retain a higher-precision fallback."] , "nvidia"],
+  ["fine-tuning-versus-prompting", "Fine-tuning is not the first answer to every AI quality problem.", "Better context, retrieval and workflow design often solve the issue before model training is needed.", "Models", "openai", "Fine-tuning changes model behaviour using examples, while prompting and retrieval change what the model sees at request time.", "Training adds maintenance and evaluation obligations that teams often underestimate.", "Watch whether the target problem is stable enough to justify a new model version.", ["Fix data and instructions first.", "Create a held-out evaluation set.", "Use tuning for repeatable behavioural gaps."]],
+  ["retrieval-augmented-generation-guide", "RAG succeeds or fails before the model starts writing.", "Document quality, permissions and retrieval ranking determine whether grounded answers are possible.", "Models", "cohere", "Retrieval-augmented generation supplies selected organizational material to a model for each request.", "The technique can reduce unsupported answers, but stale or unauthorized retrieval simply grounds the system in the wrong evidence.", "Watch citation accuracy, missing-document behaviour and access-control leakage.", ["Clean and version source documents.", "Apply permissions at retrieval time.", "Measure whether the best evidence was found."]],
+  ["tool-use-function-calling-ai", "Tool use turns a model answer into an action—and raises the stakes.", "Structured calls let AI query systems and make changes, so permissions and confirmation matter as much as intelligence.", "Models", "anthropic", "Function calling lets a model select approved operations with structured arguments instead of improvising an API request.", "A mistaken answer is inconvenient; a mistaken transaction can alter records, spend money or contact a customer.", "Watch granular scopes, reversible actions and reliable recovery from partial failure.", ["Give each tool the narrowest permission.", "Confirm consequential actions.", "Log arguments, results and human overrides."] , "anthropic"],
+  ["synthetic-data-ai-training", "Synthetic data can fill gaps, but it can also multiply a model’s blind spots.", "Generated examples are useful only when their assumptions are measured against reality.", "Models", "nvidia", "Synthetic data creates additional training or evaluation examples when real data is scarce, sensitive or expensive.", "It can broaden coverage, yet repeated model-generated patterns may make a system look diverse while narrowing reality.", "Watch provenance, comparison with real samples and performance on rare conditions.", ["Keep synthetic and observed data traceable.", "Validate with independent real-world sets.", "Search for duplicated errors and artifacts."]],
+  ["world-models-robotics-ai", "World models aim to help AI predict what happens after an action.", "The idea could reshape robotics and simulation, but physical mistakes are less forgiving than bad text.", "Models", "deepmind", "World models learn representations of environments and possible transitions so an agent can plan before acting.", "Better prediction could reduce expensive trial and error in robots, vehicles and scientific systems.", "Watch transfer from controlled simulations to messy real settings and how uncertainty limits action.", ["Test outside the training environment.", "Use conservative action thresholds.", "Keep physical stop and override systems."] , "deepmind"],
+  ["ai-model-evaluation-stack", "A model evaluation stack is becoming core business infrastructure.", "Organizations need repeatable evidence whenever prompts, data, tools or vendors change.", "Models", "nist", "Evaluation combines fixed test sets, live monitoring, human review and incident analysis into one operating loop.", "Without it, teams cannot tell whether an upgrade improved value or merely moved failures somewhere less visible.", "Watch coverage of real tasks, subgroup performance and evaluation drift over time.", ["Version every test and result.", "Include quality, safety, latency and cost.", "Turn production incidents into new tests."]],
+
+  // Products — 17
+  ["openai-presence-collaboration-explained", "AI collaboration is moving from the prompt box into the room.", "Shared context can cut handoffs, provided everyone can see, pause and control the assistant.", "Products", "openai", "Collaborative AI aims to participate in meetings and workspaces rather than wait for copied notes after the fact.", "The value is faster follow-through; the risk is invisible capture or unclear memory around sensitive discussion.", "Watch participant consent, retention controls and links from summaries back to source moments.", ["Make AI presence visible to everyone.", "Provide pause and deletion controls.", "Separate decisions from speculation."] , "openai"],
+  ["chatgpt-workflows-guide", "ChatGPT is becoming a workspace, not just a chatbot.", "Files, tools, memory and connected services turn a conversation into a longer-running workflow.", "Products", "openai", "General assistants are accumulating the context and actions needed to carry work from question to deliverable.", "Convenience rises with every connection, but so does the need to understand where information travels and what the assistant can change.", "Watch admin controls, source fidelity and the boundary between suggestion and action.", ["Separate personal experiments from company work.", "Review connected-service permissions.", "Verify important outputs against sources."] , "openai"],
+  ["claude-code-agentic-development", "Agentic coding tools are taking on larger pieces of the software lifecycle.", "The productivity gain is real when plans, permissions and verification stay visible.", "Products", "anthropic", "Coding agents can inspect repositories, edit multiple files, run commands and revise after tests.", "Larger autonomy can shorten delivery while also scaling a mistaken assumption across the codebase.", "Watch review quality, sandbox boundaries and whether tests actually cover the requested behaviour.", ["Give the agent repository instructions.", "Keep changes in reviewable increments.", "Require tests and a clear verification summary."] , "anthropic"],
+  ["gemini-google-workspace-guide", "Gemini’s advantage is the context already inside Google’s product graph.", "Email, documents, search and calendars can make assistance useful—and permissions complicated.", "Products", "google", "Workspace assistants can use information people already create across daily tools to draft, summarize and prepare work.", "Connected context reduces copy-and-paste effort, but old sharing settings can become an AI access problem.", "Watch citation quality, permission inheritance and user control over personalization.", ["Audit shared drives and old links.", "Test with realistic account permissions.", "Require source links for important summaries."] , "google"],
+  ["microsoft-365-copilot-practical-guide", "Microsoft 365 Copilot works best when the organization’s information is ready.", "The assistant reflects the quality, permissions and structure of the Microsoft environment beneath it.", "Products", "microsoft", "A workplace copilot can synthesize meetings, documents and messages within existing productivity tools.", "Poor information hygiene can produce irrelevant answers or expose material a user technically can access but should not discover broadly.", "Watch measurable time saved, oversharing risks and adoption beyond novelty use.", ["Clean permissions before broad rollout.", "Pick repeatable high-friction workflows.", "Measure accepted outputs and rework."] , "microsoft"],
+  ["github-copilot-agent-mode", "GitHub Copilot’s agent shift changes what teams need to review.", "When AI can edit and test across a repository, engineering standards must be machine-readable.", "Products", "github", "Agent mode extends code completion into planning, multi-file changes and iterative tool use.", "It can reduce routine work, yet undocumented conventions and weak tests become immediate constraints.", "Watch change size, security regressions and the quality of generated test coverage.", ["Write repository-level contributor guidance.", "Keep protected branches and review.", "Scan dependencies and secrets automatically."]],
+  ["ai-search-answer-engines", "AI search changes the click from a starting point into an optional next step.", "Answer engines help users synthesize information while challenging publishers, attribution and source diversity.", "Products", "google", "AI search layers generated summaries and follow-up interaction over traditional retrieval.", "Users gain speed, but confident synthesis can hide disagreement or send less traffic to the sources that produced the evidence.", "Watch citation usefulness, source mix and whether commercial content is clearly separated.", ["Open the cited source for consequential claims.", "Compare several independent sources.", "Publish structured, distinctive original reporting."] , "google"],
+  ["ai-browsers-agentic-web", "The AI browser wants to read, compare and act across the web for you.", "That promise depends on clear boundaries for logins, purchases and untrusted page content.", "Products", "openai", "Agentic browsers combine page understanding with navigation and tool use across sites.", "A browser holds unusually sensitive context, including sessions, forms and histories, making prompt injection and overreach central risks.", "Watch site isolation, approval prompts and how actions are represented before submission.", ["Use separate profiles for sensitive work.", "Confirm purchases and messages.", "Treat webpage instructions as untrusted input."]],
+  ["ai-meeting-assistants-consent", "Meeting assistants need a consent design, not just a record button.", "Transcription and follow-up can save hours while changing the social expectations of a conversation.", "Products", "microsoft", "Meeting AI can capture speech, summarize themes and turn commitments into structured tasks.", "The output may outlive the meeting and reach people who were not present, so retention and access deserve explicit choices.", "Watch visible participation, speaker correction and deletion across copied summaries.", ["Notify every participant clearly.", "Set retention by meeting type.", "Let speakers correct material errors."] , "microsoft"],
+  ["voice-ai-assistants-natural-conversation", "Voice AI feels natural enough to make boundaries easy to forget.", "Low-latency conversation opens accessibility and service uses while increasing privacy and impersonation risk.", "Products", "openai", "New voice interfaces respond with timing, tone and interruption handling closer to ordinary conversation.", "The interface can reduce friction, but emotional cues may encourage users to overestimate understanding or disclose more than intended.", "Watch recording notices, identity verification and protections for vulnerable users.", ["Say clearly when a voice is synthetic.", "Avoid voice-only identity checks.", "Offer transcripts and deletion controls."] , "openai"],
+  ["ai-image-generation-workflows", "AI image generation is becoming an editing workflow, not a slot machine.", "Control over composition, text and revisions matters more than producing one surprising picture.", "Products", "openai", "Image systems increasingly support conversational edits, references and layout-aware generation.", "That makes them useful to real creative teams, while provenance, likeness and training-data questions remain.", "Watch consistent characters, reliable text, content credentials and rights controls.", ["Keep prompts and source assets traceable.", "Review likeness and brand rights.", "Label synthetic imagery where context requires."]],
+  ["generative-ai-video-production", "Generative video is entering the pre-production toolkit first.", "Storyboards, concepts and localized variations are practical today; continuity and rights remain hard.", "Products", "google", "Video models can turn text, images and clips into short moving sequences with growing visual control.", "Production value rises quickly, but long-form consistency, consent and the cost of selection still limit deployment.", "Watch shot control, provenance and policies for realistic people and events.", ["Use generation for defined production stages.", "Secure consent for recognizable people.", "Preserve edit histories and labels."] , "google"],
+  ["shopping-agents-commerce", "Shopping agents could move product discovery away from the storefront.", "Retailers may need to sell to software that compares price, fit, availability and return terms.", "Products", "google", "Commerce agents aim to research products and eventually complete approved parts of a purchase.", "Convenience is valuable, but unclear sponsorship or a mistaken order can quickly damage trust.", "Watch merchant data standards, transparent ranking and confirmation before payment.", ["Keep product data accurate and structured.", "Expose total price and return terms.", "Require confirmation for final purchase."]],
+  ["customer-service-ai-handoff", "The best customer-service AI knows when to stop talking.", "Automation creates value when it resolves routine work and hands complex cases to an informed human.", "Products", "cohere", "Service assistants can retrieve policy, summarize history and complete bounded account actions.", "A trapped customer or fabricated policy answer can erase the savings from thousands of successful interactions.", "Watch resolution quality, repeat contacts and whether the human receives the full context.", ["Define mandatory escalation triggers.", "Link answers to approved knowledge.", "Measure customer effort, not deflection alone."]],
+  ["ai-healthcare-copilots", "Healthcare copilots should reduce clerical burden without inventing clinical certainty.", "Draft notes and summaries can help, but every output sits inside a high-stakes record.", "Products", "microsoft", "Clinical copilots focus on documentation, information retrieval and administrative assistance around care.", "Time savings matter in strained systems, while omissions or subtle wording errors can travel through future decisions.", "Watch clinician editing time, patient consent and performance across accents and specialties.", ["Keep clinicians responsible for final notes.", "Make edits and provenance visible.", "Monitor errors after deployment."] , "microsoft"],
+  ["ai-tutors-classroom-guide", "AI tutors can personalize practice, but they cannot set the purpose of learning.", "Schools need to decide when assistance builds understanding and when it replaces the work students need to do.", "Products", "google", "Conversational tutors can adapt explanations, generate practice and provide immediate feedback.", "Access and engagement may improve, but confident mistakes, surveillance and dependency require active design.", "Watch learning outcomes over time rather than satisfaction after one session.", ["Tie use to a clear learning objective.", "Give teachers visibility and control.", "Protect student data and limit retention."]],
+  ["shopify-sidekick-ai-commerce", "Shopify’s AI strategy brings assistance directly into merchant operations.", "The useful test is whether a copilot improves decisions across products, marketing and support.", "Products", "shopify", "Commerce copilots can work with store context to draft content, analyze performance and prepare operational changes.", "Small businesses may gain capabilities they could not staff internally, while generic recommendations risk making every store sound the same.", "Watch merchant control, attribution and measurable impact on completed work.", ["Start with repetitive operational tasks.", "Keep brand voice and approvals explicit.", "Measure outcomes beyond content volume."]],
+
+  // Business — 16
+  ["anthropic-acquires-stainless-agent-tools", "The race to connect AI agents is becoming a platform business.", "SDKs, tool standards and permissions determine whether an agent can safely reach the systems where work happens.", "Business", "anthropic", "Model providers are investing in the connective infrastructure around agents, not only the models themselves.", "Reliable integrations create switching costs and can matter more to customers than a small benchmark lead.", "Watch open standards, portability and the security model behind generated tool calls.", ["Keep tool contracts vendor-neutral.", "Use narrow permission scopes.", "Log every external action and result."] , "anthropic"],
+  ["ai-inference-economics", "Inference economics will decide which AI products survive.", "A popular feature can still be a bad business if every answer consumes more value than it creates.", "Business", "nvidia", "Inference cost includes model computation, retrieval, tools, retries, latency and human review.", "Teams that measure only token price miss the operational cost of an unsuccessful outcome.", "Watch cost per completed task and margins as usage scales.", ["Instrument the full request path.", "Route simple work to efficient models.", "Cache stable results where appropriate."] , "nvidia"],
+  ["ai-chips-gpu-supply-chain", "AI chips are now a strategy question for every serious deployer.", "Hardware availability, memory and networking shape cost and model choice long before users see a feature.", "Business", "nvidia", "Training and serving modern models depend on specialized accelerators connected through high-speed memory and networks.", "Supply concentration can delay projects and expose buyers to pricing, geopolitical and vendor risks.", "Watch useful throughput, energy efficiency and software compatibility rather than peak specifications alone.", ["Model demand across several growth cases.", "Avoid locking software to one device unnecessarily.", "Include power and networking in capacity plans."] , "nvidia"],
+  ["ai-data-centres-energy-canada", "AI data centres are turning electricity into a board-level constraint.", "Power availability, grid timing and community impact now influence where compute can grow.", "Business", "canada", "Large AI facilities combine dense computing hardware with cooling, networking and round-the-clock electricity demand.", "Projects can bring investment while competing for grid capacity and raising questions about water, emissions and local benefit.", "Watch transparent demand forecasts and whether new capacity supports broader grid resilience.", ["Count total energy and water use.", "Engage utilities and communities early.", "Plan for efficiency across hardware and software."]],
+  ["enterprise-ai-roi-measurement", "Enterprise AI ROI starts with the work people stop doing.", "Licences and pilots are easy to count; accepted outputs, faster cycles and fewer errors reveal value.", "Business", "microsoft", "AI returns appear through changed workflows rather than model access alone.", "Organizations can mistake activity for impact when usage grows but review burden and process time stay flat.", "Watch sustained adoption by role and the cost of human correction.", ["Baseline the workflow before launch.", "Measure a complete business outcome.", "Count training, review and integration costs."] , "microsoft"],
+  ["ai-saas-pricing-models", "AI is breaking the old per-seat software price.", "Usage, outcomes and costly inference push vendors toward credits, tiers and hybrid contracts.", "Business", "cohere", "Traditional software pricing assumes near-zero marginal cost for another action, while generative AI can have meaningful variable expense.", "Buyers need predictability and vendors need room for model and usage volatility.", "Watch hidden overages, model downgrades and whether pricing aligns with business value.", ["Estimate heavy and average usage.", "Negotiate visibility into consumption.", "Compare cost per outcome across vendors."]],
+  ["ai-consulting-market", "The AI consulting boom will be judged by what remains after the consultants leave.", "Strategy decks matter less than working systems, trained staff and measurement habits.", "Business", "nist", "Advisers can help organizations prioritize use cases, prepare governance and cross the integration gap.", "Dependence grows when proprietary frameworks or undocumented prototypes prevent internal teams from taking ownership.", "Watch knowledge transfer, maintainability and evidence from production.", ["Define tangible handoff artifacts.", "Pair consultants with internal owners.", "Tie fees to verified milestones."]],
+  ["ai-workforce-job-redesign", "AI changes tasks before it changes job titles.", "The near-term management challenge is redesigning work without losing expertise, accountability or entry-level learning.", "Business", "oecd", "Generative tools automate pieces of research, drafting, coding and coordination across many occupations.", "Productivity gains can be uneven and may remove the routine practice through which junior workers become experts.", "Watch task-level evidence, wage effects and how organizations reinvest saved time.", ["Map tasks rather than guessing about roles.", "Protect training and apprenticeship work.", "Include employees in workflow redesign."]],
+  ["ai-content-licensing-publishers", "AI content licensing is becoming a core negotiation for publishers.", "Deals may create revenue and attribution, but they also shape who controls archives and future audiences.", "Business", "openai", "Model companies seek high-quality text, images and data for training, retrieval and product experiences.", "Publishers must weigh near-term payments against bargaining power, traffic and the value of distinctive reporting.", "Watch audit rights, product attribution and how opt-outs are enforced.", ["Separate training, retrieval and display rights.", "Define attribution and link treatment.", "Keep usage reporting and termination clauses."]],
+  ["canadian-ai-venture-capital", "AI venture funding is abundant at the model layer—and selective everywhere else.", "Canadian founders need a durable advantage beyond access to the same APIs as competitors.", "Business", "canada", "Investors are rewarding teams with proprietary distribution, data, infrastructure or deep workflow knowledge.", "Thin application layers can grow quickly but face margin pressure and rapid imitation.", "Watch retention, gross margin after inference and proof that customers change a real process.", ["Own a specific customer problem.", "Track model costs as usage rises.", "Build portable value beyond one provider."]],
+  ["ai-procurement-checklist", "An AI procurement checklist should begin with the exit plan.", "Buyers need evidence, control and portability before a pilot becomes embedded infrastructure.", "Business", "nist", "AI contracts combine ordinary software concerns with changing models, probabilistic outputs and new data flows.", "Without clear obligations, customers may absorb quality regressions or compliance work when a vendor changes the service.", "Watch evaluation rights, notification periods and access to logs.", ["Document data use and retention.", "Set measurable acceptance criteria.", "Preserve exports and transition support."]],
+  ["ai-cybersecurity-defence-attack", "AI is accelerating both sides of cybersecurity.", "Defenders gain faster analysis while attackers gain scalable reconnaissance, persuasion and code variation.", "Business", "microsoft", "Security teams can use models to summarize alerts, search telemetry and assist investigation.", "The same capabilities lower the cost of tailored phishing and high-volume experimentation by attackers.", "Watch identity abuse, prompt injection and whether automation improves response time without hiding uncertainty.", ["Strengthen identity and device controls.", "Verify high-impact automated actions.", "Train staff with realistic AI-enabled scenarios."] , "microsoft"],
+  ["enterprise-data-quality-ai", "AI exposes every unresolved data-quality problem at conversational speed.", "A polished answer built on stale, duplicated or poorly owned data is still wrong.", "Business", "cohere", "Generative interfaces make organizational information easier to query, including its contradictions and gaps.", "Users may trust fluent synthesis more than the underlying records deserve.", "Watch freshness, ownership and how the system handles competing sources.", ["Name an owner for each critical dataset.", "Version and date source material.", "Surface uncertainty and conflicting records."]],
+  ["ai-observability-production", "AI observability must connect a bad answer to the system that produced it.", "Prompts, retrieval, tools and model versions all change, so ordinary uptime dashboards are not enough.", "Business", "nist", "Observability records the inputs, decisions, evidence, latency and outcomes across an AI workflow.", "Without traceability, teams cannot reproduce incidents or learn which component caused a failure.", "Watch privacy-safe logging, quality signals and alert thresholds tied to user impact.", ["Version prompts, models and indexes.", "Capture tool calls and source references.", "Turn incidents into regression tests."]],
+  ["build-versus-buy-enterprise-ai", "Build versus buy is the wrong first question for enterprise AI.", "Most durable systems combine purchased models with custom data, controls and workflow design.", "Business", "cohere", "Organizations rarely need to train a foundation model, but they do need to own how technology fits their decisions and information.", "Buying everything can create lock-in; building everything can consume years without creating user value.", "Watch which layer differentiates the business and which can remain a commodity.", ["Map the stack by strategic importance.", "Buy replaceable infrastructure where possible.", "Own evaluations, data contracts and workflow logic."]],
+  ["ai-vendor-concentration-risk", "AI vendor concentration belongs on the enterprise risk register.", "A handful of providers increasingly sit beneath many products, creating correlated outages and policy changes.", "Business", "nist", "Applications that look independent may rely on the same cloud, model API or accelerator supply chain.", "Concentration can turn one provider incident into organization-wide disruption.", "Watch dependency mapping, fallback quality and contractual notice for material service changes.", ["Inventory direct and inherited dependencies.", "Test a realistic fallback route.", "Keep critical data and interfaces portable."]],
+
+  // Research — 16
+  ["openai-ai-for-scientific-discovery", "AI can generate scientific possibilities faster than laboratories can test them.", "The bottleneck moves from ideas to rigorous validation, reproducibility and access to physical experiments.", "Research", "openai", "Scientific assistants can synthesize literature, propose candidates and write analysis across research workflows.", "A plausible hypothesis is not a discovery; instruments, experiments and peer review still decide what survives.", "Watch validated findings and researcher time saved rather than the number of generated ideas.", ["Pre-register evaluation criteria.", "Keep data and analysis reproducible.", "Publish failures alongside successes."] , "openai"],
+  ["alphafold-ai-biology-impact", "AlphaFold changed biology by making a hard prediction widely accessible.", "Its larger lesson is how shared tools can reorganize research before they automate it.", "Research", "deepmind", "Protein-structure prediction helps researchers form and filter hypotheses across biology and medicine.", "Predictions accelerate exploration, while experiments remain necessary for function, dynamics and clinical relevance.", "Watch integration with experimental work and equitable access to resulting tools and data.", ["Treat predictions as evidence, not proof.", "Record model version and confidence.", "Validate in the relevant biological setting."] , "deepmind"],
+  ["ai-weather-forecasting-research", "AI weather forecasting is moving from benchmark wins to operational tests.", "Speed is impressive, but extreme events and forecaster trust determine public value.", "Research", "deepmind", "Learned weather models can produce global forecasts rapidly from historical and current atmospheric data.", "Faster ensembles may improve planning, yet rare extremes are exactly where limited training examples matter most.", "Watch head-to-head operational evaluations and transparent uncertainty.", ["Evaluate by region and event type.", "Compare calibration, not one best track.", "Keep expert interpretation in the loop."] , "deepmind"],
+  ["robotics-foundation-models", "Robotics foundation models are learning across tasks instead of one machine at a time.", "Generalization could lower deployment cost, but the physical world punishes small errors.", "Research", "deepmind", "Large robotics models combine vision, language and action data to transfer skills between tasks and environments.", "Shared learning is promising where collecting demonstrations is expensive, while safety and hardware variation remain major constraints.", "Watch success outside curated labs and performance after unexpected contact or obstruction.", ["Test recovery, not only task completion.", "Use independent physical safety layers.", "Report failures across environments."] , "deepmind"],
+  ["mechanistic-interpretability-guide", "Mechanistic interpretability asks what is happening inside a neural network.", "Finding meaningful circuits could improve science and safety, but neat explanations can overstate understanding.", "Research", "anthropic", "Researchers probe internal activations and pathways to identify features and computations learned by a model.", "The work may reveal failure mechanisms, though large systems can use distributed and context-dependent representations.", "Watch causal tests that change behaviour, not visualizations alone.", ["Separate correlation from causal evidence.", "Test findings across prompts and models.", "State what remains unexplained."] , "anthropic"],
+  ["ai-red-teaming-methods", "Red teaming is most useful when the findings change the product.", "Creative attacks reveal weaknesses, but remediation and regression testing turn them into safety work.", "Research", "nist", "AI red teams deliberately probe models, tools and user interfaces for harmful or unintended behaviour.", "A one-time exercise quickly goes stale as models, prompts and connected systems change.", "Watch coverage of realistic adversaries and whether resolved issues stay resolved.", ["Define threat actors and assets.", "Record reproducible attack paths.", "Add every material finding to regression tests."]],
+  ["ai-benchmarks-reality-gap", "AI benchmarks are maps, not the territory.", "A score can compare systems under fixed conditions without predicting performance in a messy organization.", "Research", "nist", "Benchmarks standardize tasks so researchers can measure progress and reproduce comparisons.", "Optimization toward public tests can narrow their value, while real deployments include ambiguity, tools and changing data.", "Watch contamination controls, statistical uncertainty and independently created evaluations.", ["Use several complementary benchmarks.", "Add private tests from real work.", "Report cost and latency with quality."]],
+  ["ai-evaluation-science", "Evaluation science is becoming as important as model architecture.", "Reliable measurement must keep pace with systems that act across longer tasks and open environments.", "Research", "nist", "Modern evaluations examine capability, safety, robustness and human interaction across many stages of a task.", "Static question sets miss adaptive agents and failures that appear only after several successful steps.", "Watch scenario-based tests, external access for researchers and continuous post-deployment measurement.", ["Specify the claim each test supports.", "Include uncertainty and reviewer agreement.", "Refresh tests without losing comparability."]],
+  ["ai-synthetic-biology-safety", "AI for synthetic biology raises capability and safety together.", "Models can help design experiments while increasing the need for screening, access controls and expert review.", "Research", "deepmind", "Biological design tools can search large possibility spaces and assist with sequence or experiment planning.", "Faster iteration may support medicine and materials, but dual-use knowledge requires proportionate safeguards.", "Watch evaluations that reflect real laboratory capability rather than text answers alone.", ["Layer model and provider safeguards.", "Verify users and high-risk requests.", "Engage biosafety experts continuously."]],
+  ["autonomous-ai-laboratories", "Autonomous laboratories could run the scientific loop around the clock.", "Robots and models can choose experiments, but objectives and stopping rules remain human responsibilities.", "Research", "deepmind", "Closed-loop labs connect hypothesis generation, automated instruments, measurement and the selection of the next experiment.", "They can explore materials or chemistry efficiently, yet optimize the wrong target if constraints are incomplete.", "Watch reproducibility, physical safety and whether humans can interrogate the decision trail.", ["Define objective and safety constraints together.", "Log every experiment and model choice.", "Require review at consequential thresholds."] , "deepmind"],
+  ["ai-climate-modeling", "AI climate models can add detail without removing uncertainty.", "Faster simulations help planning, but long-range decisions still require multiple models and transparent assumptions.", "Research", "deepmind", "Machine learning can emulate expensive simulation components or downscale global projections to local detail.", "Speed enables more scenarios, while learned systems may struggle outside historical climate conditions.", "Watch physical consistency and performance on extremes not represented in training.", ["Compare with physics-based baselines.", "Communicate scenario uncertainty.", "Validate local outputs with experts."]],
+  ["medical-ai-clinical-validation", "Medical AI needs clinical validation, not just a higher test-set score.", "Patient outcomes depend on workflow, population, incentives and what happens after a prediction appears.", "Research", "deepmind", "Clinical validation asks whether a system improves care under realistic conditions, not merely whether it labels retrospective data.", "Distribution shifts and automation bias can erase gains seen in development datasets.", "Watch prospective, multi-site studies and reporting across relevant patient groups.", ["Predefine clinical outcomes.", "Include workflow and human factors.", "Monitor drift after approval and deployment."]],
+  ["ai-drug-discovery-pipeline", "AI drug discovery accelerates the search, not the biology.", "Candidate generation can improve while trials, safety and manufacturing remain long physical processes.", "Research", "deepmind", "Models can predict properties, design molecules and prioritize experiments across the discovery pipeline.", "The economic value appears only if better candidates survive laboratory and clinical validation.", "Watch prospective results, failed candidates and time saved at each stage.", ["Define the decision the model improves.", "Track candidates through downstream validation.", "Compare against expert and computational baselines."]],
+  ["ai-mathematical-reasoning-research", "Mathematical reasoning is a clean test with messy lessons for AI.", "Proof problems reward verification, yet training contamination and brittle shortcuts can distort progress.", "Research", "deepmind", "Researchers use formal and informal mathematics to study planning, abstraction and verifiable reasoning.", "Success may improve theorem tools and scientific work, but a solved benchmark does not guarantee general reasoning.", "Watch novel problem sets, formal checking and transparent compute use.", ["Separate answer accuracy from proof validity.", "Use held-out and newly created problems.", "Report failed reasoning patterns."]],
+  ["human-ai-collaboration-research", "The strongest human–AI teams are designed, not discovered by accident.", "Performance depends on when people trust, challenge and override a system.", "Research", "nist", "Collaboration research studies how interfaces, explanations and workflow roles affect joint decisions.", "Even an accurate model can worsen outcomes if people defer at the wrong moments or ignore useful advice.", "Watch experiments that measure calibrated reliance and long-term skill effects.", ["Show confidence only when calibrated.", "Make disagreement easy and consequential.", "Measure team outcomes, not model outcomes alone."]],
+  ["ai-provenance-watermarking-research", "AI provenance is shifting from detecting pixels to recording their history.", "No detector is perfect, so durable credentials and distribution practices must work together.", "Research", "nist", "Provenance systems attach signed information about how media was captured or transformed.", "Credentials can support verification without proving that unlabelled content is fake or labelled content is truthful.", "Watch interoperability, metadata survival and adoption by cameras, editors and platforms.", ["Preserve credentials through editing.", "Explain what each signal does not prove.", "Use provenance alongside source verification."]],
+
+  // Policy — 16
+  ["canada-ai-for-all-national-strategy", "Canada’s national AI strategy will be judged by six practical outcomes.", "Trust, adoption, talent and infrastructure need budgets, owners and public measures.", "Policy", "canada", "A national strategy connects research capacity with business adoption, public services and safeguards.", "The pillars reinforce one another only when organizations can access skills, compute and clear rules at the same time.", "Watch procurement, regional access and published progress against measurable targets.", ["Track funded programs and deadlines.", "Compare access across regions and firm sizes.", "Ask who owns each promised outcome."]],
+  ["eu-ai-act-canadian-companies", "The EU AI Act matters to Canadian companies selling far beyond Europe.", "Product classification, documentation and provider duties can follow a system into global markets.", "Policy", "eu", "The European framework assigns obligations according to how AI is built, supplied and used, with stricter treatment for higher-risk contexts.", "Canadian exporters may need evidence and processes earlier than domestic law alone would require.", "Watch implementation guidance, standards and the treatment of general-purpose models.", ["Map where the product is offered and used.", "Classify roles across the supply chain.", "Build documentation into release workflows."]],
+  ["nist-ai-risk-management-framework-guide", "NIST’s AI risk framework is useful because it turns principles into a management loop.", "Govern, map, measure and manage gives teams a common language without pretending every use case is the same.", "Policy", "nist", "The framework organizes AI risk work across governance, context, measurement and response.", "Its flexibility helps many sectors, but organizations still need concrete thresholds, owners and evidence.", "Watch profiles and measurement resources tailored to generative and agentic systems.", ["Assign accountable owners.", "Map affected people and failure modes.", "Measure controls and update them continuously."]],
+  ["canada-aida-lessons-ai-law", "What Canada can learn from the AIDA debate.", "AI law needs clear scope, enforceable duties and enough technical flexibility to survive new products.", "Policy", "canada", "Debate over the Artificial Intelligence and Data Act exposed tension between broad principles and the detail organizations need to comply.", "Uncertain definitions can delay responsible deployment without necessarily protecting people better.", "Watch whether future proposals separate model, deployer and sector responsibilities clearly.", ["Follow obligations by organizational role.", "Preserve records of impact and testing.", "Use sector rules where context changes risk."]],
+  ["canada-ai-privacy-consent", "AI makes meaningful privacy consent harder—and more necessary.", "People cannot make a real choice when data uses are hidden behind vague language or endless partners.", "Policy", "privacy", "AI systems may reuse personal information across training, personalization, retrieval and monitoring.", "Broad consent collected for one service can be stretched into uses a person could not reasonably anticipate.", "Watch purpose limits, data minimization and practical deletion or objection rights.", ["Name each material data purpose.", "Offer choices at the relevant moment.", "Make deletion propagate through connected systems."]],
+  ["deepfakes-content-provenance-policy", "Deepfake policy must protect trust without promising perfect detection.", "Labels, provenance, platform response and penalties for harmful deception each solve a different part of the problem.", "Policy", "nist", "Synthetic media rules increasingly focus on disclosure and the contexts where impersonation causes concrete harm.", "Overbroad restrictions can chill satire or legitimate creativity while weak rules leave victims without rapid remedies.", "Watch election, fraud and intimate-image provisions alongside interoperable provenance standards.", ["Define harmful conduct precisely.", "Create rapid reporting and appeal routes.", "Explain the limits of automated detectors."]],
+  ["ai-election-integrity-canada", "Election AI rules must move at campaign speed.", "Synthetic impersonation, targeted persuasion and false administrative information require rapid verification and response.", "Policy", "canada", "Election integrity work must distinguish protected political expression from deceptive content about people, voting and official processes.", "A correction that arrives days later may not reach the same audience before a vote.", "Watch coordination among election agencies, platforms, campaigns and newsrooms.", ["Publish authoritative voting information early.", "Prepare rapid authentication channels.", "Archive and disclose synthetic campaign media."]],
+  ["ai-copyright-canada", "Canadian copyright policy faces three separate AI questions.", "Training data, generated outputs and tools that imitate creators should not be collapsed into one debate.", "Policy", "canada", "Generative AI intersects with rights at the input, system and output stages in different ways.", "A rule aimed at one stage can unintentionally reshape research access, licensing markets or remedies at another.", "Watch transparency requirements, collective licensing options and evidence of market harm.", ["Separate training, retrieval and output uses.", "Keep records of licensed source material.", "Provide practical routes for rights holders."]],
+  ["ai-liability-autonomous-agents", "When an AI agent acts, responsibility cannot disappear into the workflow.", "Developers, deployers and users need defined duties before a system makes purchases or changes records.", "Policy", "nist", "Agentic systems combine model choices with tools, data and permissions controlled by several parties.", "Harm may result from a chain of small failures, making logs and role clarity essential for accountability.", "Watch standards for authorization, audit trails and human control over consequential action.", ["Assign responsibility for every tool and outcome.", "Set transaction and risk limits.", "Preserve a complete action record."]],
+  ["ai-antitrust-cloud-models", "AI competition policy is about the stack, not one chatbot market.", "Cloud, chips, data, models and distribution can reinforce one another in ways new entrants cannot easily match.", "Policy", "oecd", "Competition authorities are examining partnerships and infrastructure dependencies across the AI supply chain.", "Integration can lower cost and speed innovation while also favouring firms that control multiple essential layers.", "Watch access terms, exclusivity and whether customers can move data and workloads.", ["Map concentration across each layer.", "Preserve interoperability and switching.", "Scrutinize exclusive capacity arrangements."]],
+  ["children-generative-ai-policy", "Children need stronger defaults in generative AI products.", "Developmental vulnerability, persuasive interfaces and sensitive data make ordinary disclosure insufficient.", "Policy", "privacy", "Youth-facing AI can support learning and creativity while also encouraging attachment, oversharing or harmful advice.", "Children may not understand commercial incentives or the limits of simulated empathy.", "Watch age-appropriate design, data minimization and routes for parents and schools without broad surveillance.", ["Default to minimal collection and retention.", "Avoid manipulative engagement patterns.", "Provide clear human support and reporting."]],
+  ["ai-schools-academic-integrity-policy", "School AI policy should protect learning, not police every sentence.", "Clear assignment-level rules and better assessment design work better than unreliable detection.", "Policy", "canada", "Generative AI can tutor, translate, brainstorm and produce finished work, often within the same interface.", "Blanket bans are difficult to enforce, while unrestricted use can undermine the practice students need.", "Watch transparent permitted-use statements and assessments that value process, discussion and evidence.", ["State allowed assistance for each task.", "Ask students to document their process.", "Use conversation and revision as evidence of learning."]],
+  ["international-ai-standards", "International AI standards are quietly writing the operational rulebook.", "Shared definitions and management practices can make compliance portable across borders.", "Policy", "oecd", "Technical and management standards translate broad policy goals into processes organizations can implement and audit.", "They reduce duplication, but participation and transparency matter when voluntary standards become market requirements.", "Watch alignment among ISO, NIST, the EU and Canadian regulators.", ["Track standards relevant to each market.", "Document control evidence once and map it broadly.", "Participate through industry and civil-society channels."]],
+  ["public-sector-ai-procurement-policy", "Public-sector AI procurement can create a market for evidence.", "Governments can demand testing, accessibility and auditability before vendors treat them as standard features.", "Policy", "treasury", "Procurement controls which products reach public services and what obligations survive after the sale.", "Lowest-price selection can hide long-term review, integration and lock-in costs.", "Watch reusable contract clauses, public reporting and independent evaluation rights.", ["Specify outcomes and unacceptable failures.", "Require accessibility and language testing.", "Retain logs, exports and termination support."]],
+  ["open-source-ai-policy", "Open-source AI policy needs a more precise vocabulary.", "Weights, code, data and licences may be open in different combinations, with different benefits and risks.", "Policy", "meta", "Policy debates often use one label for systems that provide very different levels of access and reproducibility.", "Clear distinctions help protect research and competition while targeting obligations at actual capability and distribution.", "Watch reporting thresholds, licence enforceability and support for independent evaluation.", ["Describe exactly which components are available.", "Assess capability and deployment context.", "Preserve legitimate research access."]],
+  ["ai-incident-reporting-policy", "AI incident reporting should create learning, not a paperwork graveyard.", "Comparable records can reveal recurring failures if organizations know what to report and users see the results.", "Policy", "nist", "Incident systems capture harmful outcomes, near misses and control failures across deployed AI.", "Vague thresholds produce inconsistent data, while punitive systems can discourage useful disclosure.", "Watch common taxonomies, protected reporting channels and public aggregate analysis.", ["Define material incidents and near misses.", "Preserve evidence and system versions.", "Share lessons across product and governance teams."]],
+];
+
+const accents = ["coral", "violet", "cyan", "amber", "red", "blue", "green", "yellow", "sky", "lime", "magenta", "orange"];
+const signals: Record<Category, string> = {
+  Canada: "Canada watch",
+  Models: "Model briefing",
+  Products: "Product guide",
+  Business: "Market signal",
+  Research: "Research desk",
+  Policy: "Policy watch",
+};
+
+const categoryContext: Record<Category, string> = {
+  Canada: "For Canada, the opportunity is to connect research strength with domestic customers, trustworthy public services and infrastructure that remains accessible beyond the largest firms.",
+  Models: "For technical teams, the useful unit of comparison is a complete task under realistic constraints, including tool failures, human review, latency and the cost of unsuccessful attempts.",
+  Products: "For product leaders, adoption should be measured by completed work and user control rather than sign-ins, generated words or the number of features switched on.",
+  Business: "For executives, the durable advantage comes from redesigning a valuable workflow and owning the evidence that it performs—not simply licensing the newest model.",
+  Research: "For researchers, credible progress requires reproducible methods, appropriate baselines and a clear line between a promising result and a validated real-world finding.",
+  Policy: "For policy makers and operators, rules work best when duties follow the party that can actually measure, prevent or remedy the relevant harm.",
+};
+
+function buildSections(seed: TopicSeed): ArticleSection[] {
+  const [, title, , category, , focus, stakes, watch, actions] = seed;
+  const subject = title.replace(/[.!?]$/, "").toLowerCase();
+  return [
+    {
+      heading: "The short version",
+      paragraphs: [
+        `${focus} The headline can sound technical, but the practical question is straightforward: what changes for the people who build, buy, supervise or live with the system?`,
+        `${stakes} That is why ${subject} deserves a closer look than a product demo or policy slogan can provide. The right assessment starts with the decision being improved, the evidence available and the person who remains accountable when the system is wrong.`,
+      ],
+    },
+    {
+      heading: "The deeper signal",
+      paragraphs: [
+        `AI is moving from isolated experiments into ordinary infrastructure. Once a model sits inside a workflow, its output is shaped by source data, retrieval, instructions, connected tools, permissions and the people reviewing the result. A change in any one layer can alter quality without an obvious warning to the user.`,
+        `${categoryContext[category]} This makes operational discipline more valuable than launch-day excitement. Teams that can measure their own work, preserve choices and respond quickly to failures are better positioned than teams chasing every release.`,
+      ],
+    },
+    {
+      heading: "How to approach it in practice",
+      paragraphs: [
+        `Begin with one concrete workflow and a baseline from the way work happens today. Record time, quality, error patterns and the points where expert judgement changes the outcome. Then test the AI-assisted version on the same material so the comparison reflects real work rather than a curated demonstration.`,
+        `A responsible rollout is deliberately reversible. It uses limited permissions, visible review and logs that make a surprising result reproducible. Expansion happens only after evidence shows who benefits, where performance falls short and how much supervision the system still needs.`,
+      ],
+      bullets: [...actions, "Create a rollback and incident path before expanding access."],
+    },
+    {
+      heading: "Where the value can appear",
+      paragraphs: [
+        `The strongest gains usually come from shortening a repeated cycle: finding the right evidence, producing a usable first draft, comparing options, checking a large body of material or preparing the next action. Those gains compound when the result moves cleanly into the existing system of record.`,
+        `Value should be counted after review. A faster draft that creates more correction work is not a productivity win, and a high-quality answer that arrives too late may not help the decision. Measure accepted outcomes, total cycle time and the burden shifted to customers or staff.`,
+      ],
+    },
+    {
+      heading: "What can go wrong",
+      paragraphs: [
+        `Fluent output can conceal missing evidence, stale information and uncertainty. Connected systems add another class of risk: an assistant may retrieve material a person should not discover, follow malicious instructions embedded in content or take an action with broader consequences than intended.`,
+        `${stakes} Controls therefore need to match the impact of failure. Low-risk drafting may need simple review, while decisions involving rights, safety, money, employment, health or public services require stronger testing, records, escalation and meaningful human authority.`,
+      ],
+    },
+    {
+      heading: "Questions worth asking before you commit",
+      paragraphs: [
+        `Buyers should ask for evidence under the conditions they will actually use. That includes the organization’s languages, document types, permissions, peak volume and failure scenarios. A vendor benchmark can begin the conversation, but it cannot replace a local acceptance test.`,
+        `The contract and architecture should also preserve room to change course. Models and prices move quickly; the organization should retain its data, evaluations, action logs and core workflow logic if a provider changes terms or a better option appears.`,
+      ],
+      bullets: [
+        "What exact outcome improves, and how will it be measured?",
+        "Which data enters the system, where is it retained and who can retrieve it?",
+        "Who reviews high-impact results and can that person genuinely override the system?",
+        "Can the organization export its records and switch models without rebuilding everything?",
+      ],
+    },
+    {
+      heading: "What to watch next",
+      paragraphs: [
+        `${watch} Announcements are useful signals, but deployment evidence will provide the real verdict: performance over time, failures under pressure, user behaviour and the cost of maintaining the system after the pilot team moves on.`,
+        `The durable takeaway is to stay curious without surrendering judgement. AI capability will keep improving, but organizations still create value through clear goals, reliable information, thoughtful product design and people who are responsible for the final result.`,
+      ],
+    },
+  ];
+}
+
+function makeDate(index: number) {
+  const date = new Date(Date.UTC(2026, 7, 10 - index));
+  return {
+    date: date.toISOString().slice(0, 10),
+    displayDate: new Intl.DateTimeFormat("en-CA", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date),
+  };
+}
+
+export const articles: Article[] = topics.map((seed, index) => {
+  const [slug, title, dek, category, sourceKey, , , , , videoKey] = seed;
+  const [sourceLabel, sourceUrl] = sources[sourceKey];
+  return {
+    slug,
+    title,
+    dek,
+    category,
+    ...makeDate(index),
+    readTime: `${10 + (index % 3)} min read`,
+    signal: signals[category],
+    accent: accents[index % accents.length],
+    sourceLabel,
+    sourceUrl,
+    sections: buildSections(seed),
+    video: videoKey ? videos[videoKey] : undefined,
+  };
+});
 
 export const categories = ["All", "Canada", "Models", "Products", "Business", "Research", "Policy"] as const;
 
@@ -531,4 +308,12 @@ export function getRelatedArticles(article: Article, limit = 3) {
     .filter((candidate) => candidate.slug !== article.slug)
     .sort((a, b) => Number(b.category === article.category) - Number(a.category === article.category))
     .slice(0, limit);
+}
+
+export function getAdjacentArticles(article: Article) {
+  const index = articles.findIndex((candidate) => candidate.slug === article.slug);
+  return {
+    previous: articles[(index - 1 + articles.length) % articles.length],
+    next: articles[(index + 1) % articles.length],
+  };
 }

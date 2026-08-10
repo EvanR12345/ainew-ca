@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AdSlot, ArticleCard, NewsletterBand, SiteFooter, SiteHeader } from "./components";
+import { AdQuad, AdSlot, ArticleCard, NewsletterBand, SiteFooter, SiteHeader } from "./components";
 import { articles } from "./lib/articles";
 
 export const metadata: Metadata = {
@@ -64,10 +64,12 @@ export default function Home() {
 
         <section className="shell quickTakes" aria-label="Quick takes">
           <div className="quickLabel">QUICK TAKES</div>
-          <Link href="/article/anthropic-canada-ai-research-investment"><strong>$10M</strong><span>Anthropic backs Canadian AI research</span></Link>
-          <Link href="/article/cohere-university-of-toronto-ai-partnership"><strong>U of T</strong><span>Cohere goes campus-wide</span></Link>
-          <Link href="/article/google-io-2026-ai-announcements-that-matter"><strong>8 shifts</strong><span>The Google I/O moves that matter</span></Link>
+          <Link href="/article/canada-sovereign-ai-compute-explained"><strong>Sovereign AI</strong><span>Why compute is now industrial policy</span></Link>
+          <Link href="/article/retrieval-augmented-generation-guide"><strong>RAG</strong><span>The work that happens before the model writes</span></Link>
+          <Link href="/article/eu-ai-act-canadian-companies"><strong>EU AI Act</strong><span>What Canadian exporters need to know</span></Link>
         </section>
+
+        <div className="shell"><AdQuad placement="homepage-after-quick-takes" /></div>
 
         <section className="shell sectionBlock">
           <div className="sectionHeading">
@@ -122,6 +124,7 @@ export default function Home() {
           <p>AI moves fast; accuracy still matters. Our news analysis links to the original announcement and separates reported fact, company claim and AI New analysis.</p>
           <Link href="/about">Read our standards →</Link>
         </section>
+        <div className="shell homepageBottomAds"><AdQuad placement="homepage-bottom" /></div>
       </main>
       <SiteFooter />
       <div className="mobileAdDock"><span>Advertisement</span><strong>Mobile anchor slot</strong></div>

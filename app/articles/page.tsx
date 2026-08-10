@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { NewsletterBand, SiteFooter, SiteHeader } from "../components";
 import { ArticlesClient } from "./articles-client";
 
@@ -17,7 +18,7 @@ export default function ArticlesPage() {
           <h1>AI news with the missing context put back in.</h1>
           <p>Original summaries and practical analysis across the model race, Canadian policy, products, business and research.</p>
         </section>
-        <ArticlesClient />
+        <Suspense fallback={<div className="shell archiveLoading">Loading stories…</div>}><ArticlesClient /></Suspense>
         <div className="shell"><NewsletterBand /></div>
       </main>
       <SiteFooter />

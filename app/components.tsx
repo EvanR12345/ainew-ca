@@ -79,12 +79,23 @@ export function SiteFooter() {
   );
 }
 
-export function AdSlot({ format = "leaderboard", label = "Advertisement" }: { format?: "leaderboard" | "rectangle" | "in-feed"; label?: string }) {
+export function AdSlot({ format = "leaderboard", label = "Advertisement" }: { format?: "leaderboard" | "rectangle" | "in-feed" | "tile"; label?: string }) {
   return (
     <aside className={`adSlot adSlot-${format}`} aria-label={label} data-ad-format={format}>
       <span>{label}</span>
-      <strong>{format === "rectangle" ? "300 × 250" : format === "in-feed" ? "Native story placement" : "Responsive leaderboard"}</strong>
+      <strong>{format === "rectangle" ? "300 × 250" : format === "in-feed" ? "Native story placement" : format === "tile" ? "Responsive ad unit" : "Responsive leaderboard"}</strong>
     </aside>
+  );
+}
+
+export function AdQuad({ placement = "section" }: { placement?: string }) {
+  return (
+    <section className="adQuadWrap" aria-label="Advertising">
+      <div className="adQuadHeading"><span>Advertisement</span><small>Four responsive placements</small></div>
+      <div className="adQuadGrid" data-ad-placement={placement}>
+        {[1, 2, 3, 4].map((slot) => <AdSlot format="tile" label={`Advertisement ${slot}`} key={slot} />)}
+      </div>
+    </section>
   );
 }
 

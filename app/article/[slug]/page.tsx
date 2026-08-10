@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AdSlot, ArticleCard, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
-import { articles, getArticle, getRelatedArticles } from "../../lib/articles";
+import { AdQuad, AdSlot, ArticleCard, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
+import { articles, getAdjacentArticles, getArticle, getRelatedArticles } from "../../lib/articles";
 
 export function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }));
@@ -19,11 +19,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+function sectionId(heading: string) {
+  return heading.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) notFound();
   const related = getRelatedArticles(article);
+  const adjacent = getAdjacentArticles(article);
 
   return (
     <div>
@@ -38,7 +43,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           dateModified: article.date,
           mainEntityOfPage: `https://ainew.ca/article/${article.slug}`,
           author: { "@type": "Organization", name: "AI New Desk" },
-          publisher: { "@type": "NewsMediaOrganization", name: "AI New Canada", url: "https://ainew.ca" }
+          publisher: { "@type": "NewsMediaOrganization", name: "AI New Canada", url: "https://ainew.ca" },
         }) }} />
         <div className="shell topAdWrap"><AdSlot /></div>
         <article className="articleShell shell">
@@ -57,30 +62,62 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
           <div className={`articleHero visual-${article.accent}`}>
             <span>{article.category.toUpperCase()} / AI NEW</span>
-            <strong>{article.title.split(" ").slice(0, 6).join(" ")}</strong>
+            <strong>{article.title.split(" ").slice(0, 7).join(" ")}</strong>
             <small>THE SIGNAL, EXPLAINED</small>
           </div>
+
+          <AdQuad placement={`article-${article.slug}-top`} />
 
           <div className="articleLayout">
             <div className="shareRail" aria-label="Article tools">
               <span>SHARE</span><button aria-label="Copy link">↗</button><button aria-label="Print article">⌁</button>
             </div>
             <div className="articleBody">
-              <p className="disclosure"><strong>Source note:</strong> This article summarizes a primary announcement and adds AI New analysis. Company claims are identified as such.</p>
+              <p className="disclosure"><strong>Editorial note:</strong> This explainer starts with the linked primary source and adds original AI New analysis. Product claims should be tested against your own requirements.</p>
+
+              <nav className="articleToc" aria-label="In this article">
+                <span className="eyebrow">IN THIS ARTICLE</span>
+                <ol>{article.sections.map((section) => <li key={section.heading}><a href={`#${sectionId(section.heading)}`}>{section.heading}</a></li>)}</ol>
+              </nav>
+
               {article.sections.map((section, index) => (
-                <section key={section.heading}>
+                <section id={sectionId(section.heading)} key={section.heading}>
                   <h2>{section.heading}</h2>
                   {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                   {section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
                   {index === 0 && <AdSlot format="in-feed" />}
+                  {index === 3 && <AdSlot format="in-feed" label="Advertisement — mid article" />}
+                  {index === 1 && article.video && (
+                    <aside className="videoModule" aria-label="Related video">
+                      <span className="eyebrow">WATCH THE EXPLAINER</span>
+                      <h3>{article.video.title}</h3>
+                      <div className="videoFrame">
+                        <iframe
+                          src={`https://www.youtube-nocookie.com/embed/${article.video.id}`}
+                          title={`${article.video.title} by ${article.video.channel}`}
+                          loading="lazy"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                        />
+                      </div>
+                      <p>Official video from {article.video.channel}. Playback uses YouTube’s privacy-enhanced embed domain.</p>
+                    </aside>
+                  )}
                 </section>
               ))}
+
               <div className="sourceCard">
                 <span className="eyebrow">PRIMARY SOURCE</span>
-                <h3>Read the original announcement</h3>
-                <p>Go directly to {article.sourceLabel} for the full release, exact wording and any subsequent updates.</p>
+                <h3>Continue with the original source</h3>
+                <p>Visit {article.sourceLabel} for first-party material, technical details and subsequent updates.</p>
                 <a href={article.sourceUrl} target="_blank" rel="noreferrer">Open {article.sourceLabel} ↗</a>
               </div>
+
+              <nav className="storyStepper" aria-label="Previous and next stories">
+                <Link href={`/article/${adjacent.previous.slug}`}><span>← Previous story</span><strong>{adjacent.previous.title}</strong></Link>
+                <Link href={`/article/${adjacent.next.slug}`}><span>Next story →</span><strong>{adjacent.next.title}</strong></Link>
+              </nav>
+
               <div className="articleUpdate"><strong>Corrections & updates</strong><p>See something we should fix or clarify? <Link href="/contact">Tell the newsroom</Link>. Material changes are noted here.</p></div>
             </div>
             <aside className="articleAdRail">
@@ -90,6 +127,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </div>
         </article>
 
+        <div className="shell"><AdQuad placement={`article-${article.slug}-bottom`} /></div>
         <section className="shell relatedSection">
           <div className="sectionHeading"><div><span className="eyebrow">KEEP READING</span><h2>Related signals</h2></div></div>
           <div className="threeColCards">{related.map((item) => <ArticleCard key={item.slug} article={item} />)}</div>

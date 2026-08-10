@@ -1,22 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { AdSlot, ArticleCard } from "../components";
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { Fragment } from "react";
+import { AdQuad, AdSlot, ArticleCard } from "../components";
 import { articles, categories } from "../lib/articles";
 
 type Category = (typeof categories)[number];
 
 export function ArticlesClient() {
-  const [active, setActive] = useState<Category>("All");
-
-  useEffect(() => {
-    const value = new URLSearchParams(window.location.search).get("category");
-    if (categories.includes(value as Category)) setActive(value as Category);
-  }, []);
+  const searchParams = useSearchParams();
+  const [selected, setSelected] = useState<Category | null>(null);
+  const requested = searchParams.get("category") as Category | null;
+  const active = selected ?? (requested && categories.includes(requested) ? requested : "All");
 
   function chooseCategory(category: Category) {
-    setActive(category);
+    setSelected(category);
     const url = category === "All" ? "/articles/" : `/articles/?category=${encodeURIComponent(category)}`;
     window.history.replaceState({}, "", url);
   }
@@ -35,10 +35,10 @@ export function ArticlesClient() {
           <div className="archiveTitle"><h2>{active === "All" ? "Latest stories" : `${active} stories`}</h2><span>{filtered.length} articles</span></div>
           <div className="archiveGrid">
             {filtered.map((article, index) => (
-              <div key={article.slug}>
-                <ArticleCard article={article} />
-                {index === 3 && <AdSlot format="in-feed" />}
-              </div>
+              <Fragment key={article.slug}>
+                <div><ArticleCard article={article} /></div>
+                {(index + 1) % 12 === 0 && <div className="archiveAdQuad"><AdQuad placement={`archive-${active}-${index + 1}`} /></div>}
+              </Fragment>
             ))}
           </div>
         </section>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ScrollToTop } from "./scroll-to-top";
 
 export const metadata: Metadata = {
     metadataBase: new URL("https://ainew.ca"),
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-CA">
-      <body>{children}</body>
+      <body><ScrollToTop />{children}</body>
     </html>
   );
 }
