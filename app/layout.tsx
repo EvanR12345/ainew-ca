@@ -7,6 +7,11 @@ export const metadata: Metadata = {
     title: { default: "AI New Canada", template: "%s" },
     description: "The signal in artificial intelligence: Canadian AI news, global model releases, policy, products and research without the hype.",
     keywords: ["AI news", "artificial intelligence", "Canada AI", "AI models", "AI policy", "AI New Canada"],
+    icons: {
+      icon: [{ url: "/icon.png", type: "image/png" }],
+      shortcut: "/icon.png",
+      apple: [{ url: "/apple-icon.png", type: "image/png" }],
+    },
     openGraph: {
       type: "website",
       siteName: "AI New Canada",
