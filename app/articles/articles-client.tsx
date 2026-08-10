@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Fragment } from "react";
-import { AdQuad, AdSlot, ArticleCard } from "../components";
+import { AdSlot, ArticleCard, NativeAd } from "../components";
 import { articles, categories } from "../lib/articles";
 
 type Category = (typeof categories)[number];
@@ -37,7 +37,7 @@ export function ArticlesClient() {
             {filtered.map((article, index) => (
               <Fragment key={article.slug}>
                 <div><ArticleCard article={article} /></div>
-                {(index + 1) % 12 === 0 && <div className="archiveAdQuad"><AdQuad placement={`archive-${active}-${index + 1}`} /></div>}
+                {index === 11 && <div className="archiveAdQuad"><NativeAd placement={`archive-${active}-native`} /></div>}
               </Fragment>
             ))}
           </div>

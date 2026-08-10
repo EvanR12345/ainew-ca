@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Article } from "./lib/articles";
 import { Newsletter } from "./newsletter";
-import { AdsterraBanner, AdsterraNative } from "./adsterra";
+import { AdsterraBanner, AdsterraNative, AdsterraResponsiveBanner } from "./adsterra";
 
 export function SiteHeader() {
   return (
@@ -80,21 +80,14 @@ export function SiteFooter() {
   );
 }
 
-export function AdSlot({ format = "leaderboard", label = "Advertisement" }: { format?: "leaderboard" | "rectangle" | "in-feed" | "tile"; label?: string }) {
+export function AdSlot({ format = "leaderboard", label = "Advertisement" }: { format?: "leaderboard" | "rectangle" | "in-feed"; label?: string }) {
   const placement = `${format}-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
   return (
     <aside className={`adSlot adSlot-${format}`} aria-label={label} data-ad-format={format}>
       <span className="adDisclosure">{label}</span>
-      {format === "leaderboard" && <>
-        <div className="adCreative adCreative-desktop"><AdsterraBanner size="728x90" placement={placement} /></div>
-        <div className="adCreative adCreative-mobile"><AdsterraBanner size="320x50" placement={`${placement}-mobile`} /></div>
-      </>}
+      {format === "leaderboard" && <div className="adCreative"><AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" placement={placement} /></div>}
       {format === "rectangle" && <div className="adCreative"><AdsterraBanner size="300x250" placement={placement} /></div>}
-      {format === "tile" && <div className="adCreative"><AdsterraBanner size="300x250" placement={placement} /></div>}
-      {format === "in-feed" && <>
-        <div className="adCreative adCreative-desktop"><AdsterraBanner size="468x60" placement={placement} /></div>
-        <div className="adCreative adCreative-mobile"><AdsterraBanner size="320x50" placement={`${placement}-mobile`} /></div>
-      </>}
+      {format === "in-feed" && <div className="adCreative"><AdsterraResponsiveBanner desktopSize="468x60" mobileSize="160x300" placement={placement} /></div>}
     </aside>
   );
 }
@@ -105,17 +98,6 @@ export function NativeAd({ placement }: { placement: string }) {
       <span className="adDisclosure">Advertisement</span>
       <AdsterraNative placement={placement} />
     </aside>
-  );
-}
-
-export function AdQuad({ placement = "section" }: { placement?: string }) {
-  return (
-    <section className="adQuadWrap" aria-label="Advertising">
-      <div className="adQuadHeading"><span>Advertisement</span><small>Four responsive placements</small></div>
-      <div className="adQuadGrid" data-ad-placement={placement}>
-        {[1, 2, 3, 4].map((slot) => <AdSlot format="tile" label={`Advertisement ${slot}`} key={slot} />)}
-      </div>
-    </section>
   );
 }
 

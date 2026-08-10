@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AdQuad, AdSlot, ArticleCard, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
+import { AdSlot, ArticleCard, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
 import { articles, getAdjacentArticles, getArticle, getRelatedArticles } from "../../lib/articles";
 
 export function generateStaticParams() {
@@ -66,8 +66,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <small>THE SIGNAL, EXPLAINED</small>
           </div>
 
-          <AdQuad placement={`article-${article.slug}-top`} />
-
           <div className="articleLayout">
             <div className="shareRail" aria-label="Article tools">
               <span>SHARE</span><button aria-label="Copy link">↗</button><button aria-label="Print article">⌁</button>
@@ -86,7 +84,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                   {section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
                   {index === 0 && <AdSlot format="in-feed" />}
-                  {index === 3 && <AdSlot format="in-feed" label="Advertisement — mid article" />}
                   {index === 5 && <NativeAd placement={`article-${article.slug}-native`} />}
                   {index === 1 && article.video && (
                     <aside className="videoModule" aria-label="Related video">
@@ -128,7 +125,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </div>
         </article>
 
-        <div className="shell"><AdQuad placement={`article-${article.slug}-bottom`} /></div>
         <section className="shell relatedSection">
           <div className="sectionHeading"><div><span className="eyebrow">KEEP READING</span><h2>Related signals</h2></div></div>
           <div className="threeColCards">{related.map((item) => <ArticleCard key={item.slug} article={item} />)}</div>

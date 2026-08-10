@@ -1,3 +1,7 @@
+"use client";
+
+import { useCallback, useSyncExternalStore } from "react";
+
 type BannerSize = "728x90" | "468x60" | "320x50" | "300x250" | "160x300" | "160x600";
 
 const banners: Record<BannerSize, { key: string; width: number; height: number }> = {
@@ -28,6 +32,32 @@ export function AdsterraBanner({ size, placement }: { size: BannerSize; placemen
       scrolling="no"
     />
   );
+}
+
+function useViewportMatch(query: string) {
+  const subscribe = useCallback((callback: () => void) => {
+    const media = window.matchMedia(query);
+    media.addEventListener("change", callback);
+    return () => media.removeEventListener("change", callback);
+  }, [query]);
+  const getSnapshot = useCallback(() => window.matchMedia(query).matches, [query]);
+  return useSyncExternalStore<boolean | null>(subscribe, getSnapshot, () => null);
+}
+
+export function AdsterraResponsiveBanner({
+  desktopSize,
+  mobileSize,
+  placement,
+  breakpoint = 720,
+}: {
+  desktopSize: BannerSize;
+  mobileSize: BannerSize;
+  placement: string;
+  breakpoint?: number;
+}) {
+  const isMobile = useViewportMatch(`(max-width: ${breakpoint}px)`);
+  if (isMobile === null) return <div className="adPending" aria-hidden="true" />;
+  return <AdsterraBanner size={isMobile ? mobileSize : desktopSize} placement={placement} />;
 }
 
 const nativeKey = "b06ed254f7a4c2a25dfe5a921796890a";

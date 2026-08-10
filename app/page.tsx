@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AdQuad, AdSlot, ArticleCard, NewsletterBand, SiteFooter, SiteHeader } from "./components";
+import { AdSlot, ArticleCard, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "./components";
 import { articles } from "./lib/articles";
 
 export const metadata: Metadata = {
@@ -69,7 +69,7 @@ export default function Home() {
           <Link href="/article/eu-ai-act-canadian-companies"><strong>EU AI Act</strong><span>What Canadian exporters need to know</span></Link>
         </section>
 
-        <div className="shell"><AdQuad placement="homepage-after-quick-takes" /></div>
+        <div className="shell"><NativeAd placement="homepage-native" /></div>
 
         <section className="shell sectionBlock">
           <div className="sectionHeading">
@@ -124,7 +124,6 @@ export default function Home() {
           <p>AI moves fast; accuracy still matters. Our news analysis links to the original announcement and separates reported fact, company claim and AI New analysis.</p>
           <Link href="/about">Read our standards →</Link>
         </section>
-        <div className="shell homepageBottomAds"><AdQuad placement="homepage-bottom" /></div>
       </main>
       <SiteFooter />
     </div>
