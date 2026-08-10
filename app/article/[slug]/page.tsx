@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AdQuad, AdSlot, ArticleCard, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
+import { AdQuad, AdSlot, ArticleCard, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
 import { articles, getAdjacentArticles, getArticle, getRelatedArticles } from "../../lib/articles";
 
 export function generateStaticParams() {
@@ -87,6 +87,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   {section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
                   {index === 0 && <AdSlot format="in-feed" />}
                   {index === 3 && <AdSlot format="in-feed" label="Advertisement — mid article" />}
+                  {index === 5 && <NativeAd placement={`article-${article.slug}-native`} />}
                   {index === 1 && article.video && (
                     <aside className="videoModule" aria-label="Related video">
                       <span className="eyebrow">WATCH THE EXPLAINER</span>

@@ -45,19 +45,24 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .navInner a:hover { color: var(--red); }
 .searchLink { margin-left: auto; }
 
-.adSlot { background: rgba(255,255,255,.45); border: 1px solid #d9d2c6; color: #8f897e; display: grid; place-items: center; align-content: center; gap: 4px; text-align: center; }
-.adSlot span { font-size: 8px; letter-spacing: .18em; text-transform: uppercase; }
-.adSlot strong { font-size: 10px; font-weight: 500; }
-.adSlot-leaderboard { min-height: 96px; }
-.adSlot-rectangle { width: 100%; min-height: 250px; }
-.adSlot-in-feed { min-height: 120px; margin: 30px 0; }
-.adSlot-tile { min-height: 168px; padding: 12px; }
+.adSlot { min-width: 0; overflow: hidden; background: rgba(255,255,255,.45); border: 1px solid #d9d2c6; color: #8f897e; display: grid; place-items: center; align-content: center; gap: 5px; text-align: center; }
+.adDisclosure { display: block; font-size: 8px; letter-spacing: .18em; text-transform: uppercase; }
+.adCreative { display: flex; max-width: 100%; justify-content: center; overflow: hidden; }
+.adCreative-mobile { display: none; }
+.adsterraFrame, .adsterraNativeFrame { display: block; flex: none; border: 0; background: transparent; }
+.adSlot-leaderboard { min-height: 112px; padding: 8px; }
+.adSlot-rectangle { width: 100%; min-height: 272px; padding: 8px 0; }
+.adSlot-in-feed { min-height: 84px; margin: 30px 0; padding: 8px; }
+.adSlot-tile { width: 300px; min-height: 272px; padding: 8px 0; }
+.nativeAd { margin: 42px 0; padding: 10px; overflow: hidden; border: 1px solid #d9d2c6; background: rgba(255,255,255,.45); text-align: center; }
+.nativeAd .adDisclosure { margin-bottom: 7px; color: #8f897e; }
+.adsterraNativeFrame { width: 100%; height: 300px; }
 .topAdWrap { padding: 20px 0; }
 .adQuadWrap { margin: 34px 0 52px; }
 .adQuadHeading { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; color: #8f897e; text-transform: uppercase; letter-spacing: .13em; }
 .adQuadHeading span { font-size: 8px; font-weight: 900; }
 .adQuadHeading small { font-size: 7px; }
-.adQuadGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.adQuadGrid { display: grid; grid-template-columns: repeat(4, 300px); justify-content: center; gap: 8px; }
 .homepageBottomAds { padding-bottom: 60px; }
 
 .sectionKicker { border-top: 5px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 9px 0; display: flex; justify-content: space-between; text-transform: uppercase; font-size: 10px; letter-spacing: .14em; font-weight: 800; }
@@ -168,7 +173,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .footerGrid h3 { margin: 0 0 18px; color: var(--cyan); font-size: 10px; letter-spacing: .15em; text-transform: uppercase; }
 .footerGrid > div > a:not(.brand) { display: block; margin: 10px 0; font-size: 12px; }
 .footerBottom { display: flex; justify-content: space-between; border-top: 1px solid #3d3d3d; margin-top: 48px; padding-top: 20px; color: #777; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; }
-.mobileAdDock { display: none; }
 
 /* Archive and search */
 .pageHero { padding: 80px 0 54px; border-bottom: 5px solid var(--ink); }
@@ -211,7 +215,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .articleHero > * { position: relative; z-index: 1; }
 .articleHero span, .articleHero small { align-self: flex-start; background: var(--ink); color: white; padding: 7px 9px; font-size: 9px; letter-spacing: .15em; font-weight: 900; }
 .articleHero strong { max-width: 76%; font-family: Impact, "Arial Black", sans-serif; font-size: clamp(48px, 8vw, 100px); line-height: .86; text-transform: uppercase; letter-spacing: -.035em; }
-.articleLayout { display: grid; grid-template-columns: 52px minmax(0, 680px) 260px; gap: 36px; justify-content: center; padding: 52px 0 90px; }
+.articleLayout { display: grid; grid-template-columns: 52px minmax(0, 680px) 300px; gap: 36px; justify-content: center; padding: 52px 0 90px; }
 .shareRail { position: sticky; top: 20px; height: max-content; display: grid; gap: 8px; text-align: center; }
 .shareRail span { writing-mode: vertical-rl; margin: 0 auto 8px; color: var(--muted); font-size: 8px; letter-spacing: .16em; }
 .shareRail button { width: 38px; height: 38px; background: transparent; border: 1px solid var(--line); cursor: pointer; }
@@ -260,6 +264,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .infoBody a { color: var(--red); font-weight: 800; }
 .contactGrid { max-width: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 34px; }
 
+@media (max-width: 1270px) {
+  .adQuadGrid { grid-template-columns: repeat(2, 300px); }
+}
+
 @media (max-width: 980px) {
   .heroGrid, .modelGrid, .splitSection, .archiveLayout { grid-template-columns: 1fr; }
   .signalRail { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -271,11 +279,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .articleAdRail { display: none; }
   .trustStrip { grid-template-columns: 1fr 1.2fr; }
   .footerGrid { grid-template-columns: 1.4fr repeat(3, 1fr); gap: 24px; }
-  .adQuadGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .adQuadGrid { grid-template-columns: repeat(2, 300px); }
 }
 
 @media (max-width: 720px) {
-  body { padding-bottom: 54px; }
   .shell { width: min(calc(100% - 28px), var(--max)); }
   .briefingDate, .brandTagline { display: none; }
   .masthead { min-height: 80px; grid-template-columns: 1fr auto; }
@@ -285,8 +292,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .navInner { gap: 20px; }
   .searchLink { margin-left: 0; }
   .topAdWrap { padding: 12px 0; }
-  .adSlot-leaderboard { min-height: 72px; }
-  .adSlot-tile { min-height: 126px; }
+  .adCreative-desktop { display: none; }
+  .adCreative-mobile { display: flex; }
+  .adSlot-leaderboard { min-height: 72px; padding: 7px; }
+  .adSlot-in-feed { min-height: 72px; padding: 7px; }
+  .adSlot-tile { min-height: 272px; }
   .adQuadWrap { margin: 24px 0 38px; }
   .adQuadGrid { gap: 7px; }
   .adQuadHeading small { display: none; }
@@ -320,9 +330,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .footerGrid { grid-template-columns: 1fr 1fr; }
   .footerGrid > div:first-child { grid-column: 1 / -1; }
   .footerBottom { gap: 20px; }
-  .mobileAdDock { position: fixed; z-index: 30; inset: auto 0 0; min-height: 52px; background: white; border-top: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #817c74; }
-  .mobileAdDock span { font-size: 7px; letter-spacing: .14em; text-transform: uppercase; }
-  .mobileAdDock strong { font-size: 9px; font-weight: 500; }
   .pageHero, .searchPage, .infoPage { padding-top: 55px; }
   .pageHero h1, .searchPage > h1, .infoPage h1 { font-size: 50px; }
   .articleHeader { margin-top: 32px; }
@@ -341,6 +348,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .storyStepper { grid-template-columns: 1fr; }
   .storyStepper a:last-child { text-align: left; }
   .contactGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 650px) {
+  .adQuadGrid { grid-template-columns: 300px; }
 }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

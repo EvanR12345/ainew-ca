@@ -127,7 +127,6 @@ export default function Home() {
         <div className="shell homepageBottomAds"><AdQuad placement="homepage-bottom" /></div>
       </main>
       <SiteFooter />
-      <div className="mobileAdDock"><span>Advertisement</span><strong>Mobile anchor slot</strong></div>
     </div>
   );
 }
