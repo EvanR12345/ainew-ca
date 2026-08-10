@@ -168,8 +168,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .pageHero h1, .searchPage > h1, .infoPage h1 { margin: 12px 0; max-width: 920px; font-family: Georgia, serif; font-size: clamp(46px, 7vw, 84px); line-height: .94; letter-spacing: -.055em; }
 .pageHero p, .infoPage > header > p { max-width: 760px; margin: 18px 0 0; color: var(--muted); font-family: Georgia, serif; font-size: 18px; line-height: 1.55; }
 .categoryNav { display: flex; gap: 8px; padding: 20px 0; overflow-x: auto; }
-.categoryNav a { border: 1px solid var(--ink); padding: 9px 13px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
-.categoryNav a.active, .categoryNav a:hover { background: var(--ink); color: white; }
+.categoryNav a, .categoryNav button { border: 1px solid var(--ink); padding: 9px 13px; background: transparent; color: inherit; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; cursor: pointer; white-space: nowrap; }
+.categoryNav a.active, .categoryNav a:hover, .categoryNav button.active, .categoryNav button:hover { background: var(--ink); color: white; }
 .archiveLayout { display: grid; grid-template-columns: 1fr 300px; gap: 48px; padding: 40px 0 90px; }
 .archiveTitle { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 12px; border-bottom: 1px solid var(--ink); margin-bottom: 24px; }
 .archiveTitle h2 { margin: 0; font-family: Georgia, serif; font-size: 34px; }
