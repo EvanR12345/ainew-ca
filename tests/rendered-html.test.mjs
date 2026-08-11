@@ -28,7 +28,7 @@ test("server-renders the AI New Canada publication with editorial photography", 
 
   const html = await response.text();
   assert.match(html, /<title>AI New Canada/);
-  assert.match(html, /policy-governance\.jpg/);
+  assert.match(html, /canada-ai-transparency-consultation-what-to-know\.jpg/);
   assert.match(html, /storyCard-photo-clean/);
   assert.match(html, /beginner-how-to-use-ai-everyday-work/);
   assert.match(html, /beginner-ai-prompts-without-magic-words/);
@@ -41,20 +41,23 @@ test("renders the beginner investment guide with its photo and financial disclai
   const html = await response.text();
 
   assert.match(html, /How beginners can use AI for investment research/);
-  assert.match(html, /investing-ai-editorial\.jpg/);
+  assert.match(html, /how-beginners-use-ai-investment-research\.jpg/);
   assert.match(html, /general education, not personalized investment, legal or tax advice/);
   assert.match(html, /Canadian Investment Regulatory Organization/);
   assert.match(html, /research assistant, not adviser/i);
 });
 
 test("keeps the card experiment measurable, transparent and photo-backed", async () => {
-  const [cardSource, reportSource, privacySource, articleSource, imageFiles, libraryFiles] = await Promise.all([
+  const [cardSource, reportSource, privacySource, articleSource, imageStyleSource, globalStyles, imageFiles, libraryFiles, uniqueFiles] = await Promise.all([
     readFile(new URL("../app/article-card.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/experiments/card-images/report-client.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/privacy/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/lib/articles.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/article-image-style.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readdir(new URL("../public/images/articles/", import.meta.url)),
     readdir(new URL("../public/images/articles/library/", import.meta.url)),
+    readdir(new URL("../public/images/articles/unique/", import.meta.url)),
   ]);
 
   assert.match(cardSource, /article_card_impression/);
@@ -70,6 +73,9 @@ test("keeps the card experiment measurable, transparent and photo-backed", async
   assert.match(articleSource, /advanced-human-in-the-loop-ai-agent-workflow/);
   assert.equal(imageFiles.filter((file) => file.endsWith(".jpg")).length, 7);
   assert.equal(libraryFiles.filter((file) => file.endsWith(".jpg")).length, 6);
+  assert.equal(uniqueFiles.filter((file) => file.endsWith(".jpg")).length, 111);
+  assert.doesNotMatch(imageStyleSource, /--image-tint/);
+  assert.doesNotMatch(globalStyles, /rgba\(240,68,47,\.42\)/);
 });
 
 test("shows up to ten fresh recommendations and tracks five minutes on-device", async () => {
@@ -84,14 +90,14 @@ test("shows up to ten fresh recommendations and tracks five minutes on-device", 
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /beginner's 30-minute setup/i);
-  assert.match(html, /beginner-how-to\.jpg/);
+  assert.match(html, /beginner-how-to-use-ai-everyday-work\.jpg/);
   assert.match(html, /10 more stories worth your time/);
   assert.match(trackerSource, /READ_THRESHOLD_SECONDS = 300/);
   assert.match(trackerSource, /\.slice\(0, 10\)/);
   assert.match(trackerSource, /document\.visibilityState/);
   assert.match(pageSource, /getRelatedArticles\(article, articles\.length - 1\)/);
   assert.match(imageStyleSource, /articleImageStyle/);
-  assert.match(imageStyleSource, /--image-tint/);
+  assert.doesNotMatch(imageStyleSource, /--image-tint/);
   assert.match(privacySource, /stays in your browser and is not transmitted/i);
 });
 

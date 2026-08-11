@@ -6,16 +6,7 @@ type ArticleImageStyle = CSSProperties & {
   "--image-scale": string;
   "--image-saturation": string;
   "--image-contrast": string;
-  "--image-tint": string;
 };
-
-const tints = [
-  "rgba(240, 68, 47, .10)",
-  "rgba(168, 240, 238, .10)",
-  "rgba(255, 215, 74, .09)",
-  "rgba(198, 183, 255, .10)",
-  "rgba(17, 17, 15, .05)",
-];
 
 export function articleImageStyle(slug: string): ArticleImageStyle {
   let hash = 2166136261;
@@ -26,11 +17,10 @@ export function articleImageStyle(slug: string): ArticleImageStyle {
 
   const value = hash >>> 0;
   return {
-    "--image-x": `${32 + (value % 37)}%`,
-    "--image-y": `${34 + ((value >>> 5) % 33)}%`,
-    "--image-scale": (1.02 + ((value >>> 10) % 9) / 100).toFixed(2),
-    "--image-saturation": (0.9 + ((value >>> 14) % 19) / 100).toFixed(2),
-    "--image-contrast": (0.96 + ((value >>> 18) % 13) / 100).toFixed(2),
-    "--image-tint": tints[(value >>> 22) % tints.length],
+    "--image-x": "50%",
+    "--image-y": "50%",
+    "--image-scale": "1",
+    "--image-saturation": (0.94 + ((value >>> 14) % 7) / 100).toFixed(2),
+    "--image-contrast": (1.01 + ((value >>> 18) % 5) / 100).toFixed(2),
   };
 }

@@ -684,7 +684,13 @@ const beginnerInvestmentArticles: Article[] = [
   },
 ];
 
-export const articles: Article[] = [generatedArticles[0], ...howToArticles, ...beginnerInvestmentArticles, ...generatedArticles.slice(1)];
+const articleDrafts: Article[] = [generatedArticles[0], ...howToArticles, ...beginnerInvestmentArticles, ...generatedArticles.slice(1)];
+
+export const articles: Article[] = articleDrafts.map((article) => ({
+  ...article,
+  image: `/images/articles/unique/${article.slug}.jpg`,
+  imageAlt: `Editorial photograph illustrating: ${article.title}`,
+}));
 
 export const categories = ["All", "Canada", "Models", "Products", "Business", "Research", "Policy"] as const;
 
