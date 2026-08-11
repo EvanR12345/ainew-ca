@@ -78,7 +78,7 @@ test("keeps the card experiment measurable, transparent and photo-backed", async
   assert.doesNotMatch(globalStyles, /rgba\(240,68,47,\.42\)/);
 });
 
-test("shows up to ten fresh recommendations and tracks five minutes on-device", async () => {
+test("builds an honest on-device learning path and tracks five focused minutes", async () => {
   const [response, trackerSource, pageSource, imageStyleSource, privacySource] = await Promise.all([
     render("/article/beginner-how-to-use-ai-everyday-work/"),
     readFile(new URL("../app/reading-history.tsx", import.meta.url), "utf8"),
@@ -91,10 +91,15 @@ test("shows up to ten fresh recommendations and tracks five minutes on-device", 
   const html = await response.text();
   assert.match(html, /beginner's 30-minute setup/i);
   assert.match(html, /beginner-how-to-use-ai-everyday-work\.jpg/);
-  assert.match(html, /10 more stories worth your time/);
+  assert.match(html, /10 useful next steps, ranked for you/);
+  assert.match(html, /Three ideas to take with you/);
   assert.match(trackerSource, /READ_THRESHOLD_SECONDS = 300/);
   assert.match(trackerSource, /\.slice\(0, 10\)/);
   assert.match(trackerSource, /document\.visibilityState/);
+  assert.match(trackerSource, /rankRecommendations/);
+  assert.match(trackerSource, /categorySeconds/);
+  assert.match(trackerSource, /ReadingJourney/);
+  assert.match(trackerSource, /requestAnimationFrame/);
   assert.match(pageSource, /getRelatedArticles\(article, articles\.length - 1\)/);
   assert.match(imageStyleSource, /articleImageStyle/);
   assert.doesNotMatch(imageStyleSource, /--image-tint/);
@@ -114,7 +119,8 @@ test("uses only the original sandboxed Adsterra creatives and keeps the archive 
   assert.match(adSource, /src={`\/ad-frames\/banner-\$\{size\}\.html`}/);
   assert.match(adSource, /allow-top-navigation-by-user-activation/);
   assert.doesNotMatch(adSource, /srcDoc=/);
-  assert.match(bannerFrame, /highperformanceformat\.com/);
+  assert.match(bannerFrame, /armsbroodelusive\.com\/b6fabad459005a4fbe6936fdda872ee2\/invoke\.js/);
+  assert.doesNotMatch(bannerFrame, /highperformanceformat\.com/);
   assert.match(nativeFrame, /armsbroodelusive\.com\/b06ed254f7a4c2a25dfe5a921796890a\/invoke\.js/);
   assert.match(componentSource, /adPlacement/);
   assert.doesNotMatch(componentSource, /SponsoredLink|smartlinkUrl|placement_sub_id/);

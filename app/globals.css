@@ -247,6 +247,19 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .articleUpdate strong { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
 .articleUpdate p { margin: 8px 0; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; }
 .articleUpdate a { text-decoration: underline; }
+.readingProgressTrack { position: fixed; inset: 0 0 auto; z-index: 80; height: 4px; pointer-events: none; background: transparent; }
+.readingProgressTrack span { display: block; height: 100%; background: var(--red); transition: width .12s linear; }
+.continueDock { position: fixed; right: 18px; bottom: 18px; z-index: 70; width: min(420px, calc(100vw - 36px)); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 14px 16px; border: 1px solid var(--ink); background: var(--paper); box-shadow: 6px 6px 0 var(--ink); opacity: 0; translate: 0 140%; transition: opacity .2s ease, translate .25s ease; }
+.continueDock-visible { opacity: 1; translate: 0; }
+.continueDock div { min-width: 0; display: grid; gap: 4px; }
+.continueDock small { color: var(--red); font-size: 8px; font-weight: 900; letter-spacing: .12em; }
+.continueDock strong { overflow: hidden; font-family: Georgia, serif; font-size: 14px; line-height: 1.15; text-overflow: ellipsis; white-space: nowrap; }
+.continueDock > a { padding: 9px 10px; background: var(--ink); color: white; font-size: 9px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+.learningRecap { margin-top: 56px; padding: 32px; border: 1px solid var(--ink); background: var(--ink); color: white; box-shadow: 8px 8px 0 var(--cyan); }
+.learningRecap h2 { margin: 10px 0 24px; padding: 0; border: 0; color: white; font-family: Georgia, serif; font-size: 34px; }
+.learningRecap ol { display: grid; gap: 14px; margin: 0; padding-left: 24px; }
+.articleBody .learningRecap li { padding-left: 6px; color: #ece9e2; font-size: 16px; line-height: 1.5; }
+.learningRecap a { display: block; margin-top: 26px; padding-top: 20px; border-top: 1px solid #ffffff4d; color: var(--cyan); font-size: 11px; line-height: 1.45; }
 .storyStepper { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 55px; border: 1px solid var(--ink); background: var(--ink); }
 .storyStepper a { min-width: 0; padding: 22px; background: var(--paper); }
 .storyStepper a:last-child { text-align: right; }
@@ -257,7 +270,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .stickyBrief { background: var(--violet); }
 .relatedSection { padding-bottom: 90px; }
 .relatedNote { max-width: 650px; margin: -22px 0 28px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+.learningStats { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 34px; border: 1px solid var(--ink); background: var(--ink); gap: 1px; }
+.learningStats span { display: flex; align-items: baseline; gap: 8px; padding: 16px 18px; background: var(--paper-deep); color: var(--muted); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
+.learningStats strong { color: var(--ink); font-family: Georgia, serif; font-size: 26px; letter-spacing: -.03em; }
 .recommendationGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 38px 24px; }
+.recommendationItem { min-width: 0; }
+.recommendationReason { display: inline-block; margin-bottom: 9px; padding: 6px 8px; background: var(--cyan); color: #173132; font-size: 8px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
 .recommendationEmpty { padding: 32px; border: 1px solid var(--line); background: var(--paper-deep); color: var(--muted); }
 
 /* Info pages */
@@ -366,10 +384,19 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .articleBody h2 { font-size: 32px; }
   .articleToc ol { columns: 1; }
   .videoModule { margin-inline: -1px; padding: 18px; }
+  .learningRecap { padding: 26px 22px; }
+  .learningRecap h2 { font-size: 29px; }
+  .learningStats { grid-template-columns: 1fr; }
+  .learningStats span { justify-content: space-between; }
+  .continueDock { right: 10px; bottom: 10px; width: calc(100vw - 20px); grid-template-columns: 1fr; gap: 10px; }
+  .continueDock > a { text-align: center; }
   .storyStepper { grid-template-columns: 1fr; }
   .storyStepper a:last-child { text-align: left; }
   .contactGrid { grid-template-columns: 1fr; }
   .experimentGrid { grid-template-columns: 1fr; }
 }
 
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .readingProgressTrack span, .continueDock { transition: none; }
+}

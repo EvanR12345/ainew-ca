@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { articleImageStyle } from "../../article-image-style";
 import { AdSlot, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
 import { articles, getAdjacentArticles, getArticle, getRelatedArticles, toArticleCardData } from "../../lib/articles";
-import { ArticleReadTracker, RelatedRecommendations } from "../../reading-history";
+import { ArticleReadTracker, ReadingJourney, RelatedRecommendations } from "../../reading-history";
 
 export function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }));
@@ -32,18 +32,27 @@ function sectionId(heading: string) {
   return heading.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
+function firstSentence(text: string) {
+  return text.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim() ?? text;
+}
+
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) notFound();
   const related = getRelatedArticles(article, articles.length - 1).map(toArticleCardData);
   const adjacent = getAdjacentArticles(article);
+  const sectionLinks = article.sections.map((section) => ({ id: sectionId(section.heading), heading: section.heading }));
+  const recap = [article.sections[0], article.sections[2], article.sections[5]]
+    .filter(Boolean)
+    .map((section) => firstSentence(section.paragraphs[0]));
 
   return (
     <div>
       <SiteHeader />
       <main>
-        <ArticleReadTracker slug={article.slug} />
+        <ArticleReadTracker slug={article.slug} category={article.category} />
+        <ReadingJourney sections={sectionLinks} nextArticle={toArticleCardData(adjacent.next)} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "NewsArticle",
@@ -116,6 +125,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 </section>
               ))}
 
+              <aside className="learningRecap" aria-labelledby="learning-recap-title">
+                <span className="eyebrow">LOCK IN THE SIGNAL</span>
+                <h2 id="learning-recap-title">Three ideas to take with you.</h2>
+                <ol>{recap.map((takeaway) => <li key={takeaway}>{takeaway}</li>)}</ol>
+                <Link href={`/article/${adjacent.next.slug}`}>
+                  Build on this: <strong>{adjacent.next.title}</strong> →
+                </Link>
+              </aside>
+
               <div className="sourceCard">
                 <span className="eyebrow">PRIMARY SOURCE</span>
                 <h3>Continue with the original source</h3>
@@ -138,9 +156,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </article>
 
         <section className="shell relatedSection">
-          <div className="sectionHeading"><div><span className="eyebrow">KEEP READING</span><h2>10 more stories worth your time.</h2></div></div>
-          <p className="relatedNote">Stories you have read for five minutes or longer on this device are automatically left out.</p>
-          <RelatedRecommendations candidates={related} />
+          <div className="sectionHeading"><div><span className="eyebrow">YOUR AI LEARNING PATH</span><h2>10 useful next steps, ranked for you.</h2></div></div>
+          <p className="relatedNote">Ranked on this device from the topics you actually read. Finished stories are left out, and nothing is sent to AI New Canada.</p>
+          <RelatedRecommendations candidates={related} currentCategory={article.category} />
         </section>
         <div className="shell"><NewsletterBand /></div>
       </main>
