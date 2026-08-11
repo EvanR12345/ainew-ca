@@ -138,7 +138,7 @@ test("turns the publication into a device-local Learning Lab", async () => {
 });
 
 test("publishes crawlable topic hubs, canonical URLs and complete search schema", async () => {
-  const [homeResponse, articleResponse, categoryResponse, resourceResponse, feedResponse, llmsResponse, sitemapSource, robotsSource, articleDataSource, aboutSource, newsletterSource, indexNowKey] = await Promise.all([
+  const [homeResponse, articleResponse, categoryResponse, resourceResponse, feedResponse, llmsResponse, sitemapSource, robotsSource, articleDataSource, aboutSource, newsletterSource, indexNowKey, adsTxt] = await Promise.all([
     render("/"),
     render("/article/canada-ai-transparency-consultation-what-to-know/"),
     render("/category/canada/"),
@@ -151,6 +151,7 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
     readFile(new URL("../app/about/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/newsletter.tsx", import.meta.url), "utf8"),
     readFile(new URL("../public/0367c01a930f4aa38c95452b717309bd.txt", import.meta.url), "utf8"),
+    readFile(new URL("../public/ads.txt", import.meta.url), "utf8"),
   ]);
 
   assert.equal(homeResponse.status, 200);
@@ -204,6 +205,7 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
   assert.doesNotMatch(newsletterSource, /type="email"|Join free|onSubmit/);
   assert.match(newsletterSource, /No fake signup/);
   assert.match(llmsResponse.headers.get("content-type") ?? "", /^text\/plain/i);
+  assert.equal(adsTxt.trim(), "google.com, pub-4610762209559364, DIRECT, f08c47fec0942fa0");
   assert.match(llmsText, /^# AI New Canada/m);
   assert.match(llmsText, /Citation guidance/);
   assert.match(llmsText, /Canadian AI source directory/);
