@@ -5,7 +5,7 @@ import { CardImageReport } from "./report-client";
 export const metadata: Metadata = {
   title: "Archived Article Image Test | AI New Canada",
   description: "Archived device-local diagnostics for AI New Canada's completed article-card image experiment.",
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: true },
 };
 
 export default function CardImagesExperimentPage() {

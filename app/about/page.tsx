@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { InfoPage } from "../info-page";
-import { AUTHOR_ID, buildPageMetadata, ORGANIZATION_ID, SITE_URL } from "../lib/seo";
+import Link from "next/link";
+import { buildPageMetadata, ORGANIZATION_ID, SITE_URL } from "../lib/seo";
 import { StructuredData } from "../structured-data";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -14,25 +15,17 @@ export default function AboutPage() {
     <>
       <StructuredData data={{
         "@context": "https://schema.org",
-        "@type": "ProfilePage",
-        "@id": `${SITE_URL}/about/#profile`,
+        "@type": "AboutPage",
+        "@id": `${SITE_URL}/about/#page`,
         url: `${SITE_URL}/about/`,
         dateCreated: "2026-08-10",
         dateModified: "2026-08-11",
-        mainEntity: {
-          "@type": "Organization",
-          "@id": AUTHOR_ID,
-          name: "AI New Desk",
-          url: `${SITE_URL}/about/`,
-          description: "The publication byline for AI New Canada's evidence-first Canadian AI news, analysis and practical guides.",
-          parentOrganization: { "@id": ORGANIZATION_ID },
-          publishingPrinciples: `${SITE_URL}/about/`,
-        },
+        mainEntity: { "@id": ORGANIZATION_ID },
       }} />
       <InfoPage eyebrow="ABOUT AI NEW" title="AI is noisy. We make it useful." intro="AI New Canada is an independent digital publication built to explain the model releases, policy choices and practical shifts shaping artificial intelligence.">
-        <section><h2>Who is behind the work</h2><p>AI New Desk is the publication byline used across the launch edition. AI New Canada is an independent, digital-only publication focused on Canadian AI policy, practical AI literacy and the evidence behind fast-moving technology claims. News tips, corrections and commercial inquiries have separate contact routes.</p></section>
+        <section><h2>Who is behind the work</h2><p><Link href="/authors/ai-new-desk/">AI New Desk</Link> is the transparent publication byline used across the launch edition—not a fictional person. AI New Canada is an independent, digital-only publication focused on Canadian AI policy, practical AI literacy and the evidence behind fast-moving technology claims.</p></section>
         <section><h2>How articles are produced</h2><p>AI tools may assist with research organization, outlining and drafting. Automation is not presented as first-hand reporting or independent validation. Each article names a primary source, separates source claims from AI New analysis and gives readers a direct route to the underlying material. Time-sensitive and consequential details should be checked against the linked source.</p></section>
-        <section><h2>Our editorial standard</h2><p>For current-affairs coverage, we start with official releases, public research, regulatory documents and direct company documentation. We aim to add a useful Canadian angle, practical questions and concrete next steps instead of simply rewriting an announcement.</p></section>
+        <section><h2>Our editorial standard</h2><p>For current-affairs coverage, we start with official releases, public research, regulatory documents and direct company documentation. Read the detailed <Link href="/editorial-policy/">editorial policy</Link> and <Link href="/corrections-policy/">corrections policy</Link>.</p></section>
         <section><h2>What we do not do</h2><p>We do not invent traffic counts, social proof or urgency. We do not publish paid coverage without a clear label. We do not treat a company benchmark as independent validation, and we avoid turning rumours into headlines.</p></section>
         <section><h2>Corrections</h2><p>Speed matters in AI news, but accuracy matters more. Material factual corrections are noted on the article. Smaller spelling and clarity edits may be made without a note. Readers can flag an issue through the contact page.</p></section>
         <section><h2>Ownership, funding & advertising</h2><p>The site is independently operated and currently funded through third-party display advertising. Advertising is placed separately from article copy. Advertisers and sponsors do not approve independent coverage. Any future sponsorship or affiliate relationship will be disclosed next to the relevant material.</p></section>

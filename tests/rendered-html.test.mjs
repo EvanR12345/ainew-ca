@@ -184,8 +184,10 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
   assert.match(articleHtml, /THE SHORT ANSWER/);
   assert.match(articleHtml, /How this was made/);
   assert.match(articleHtml, /AI-assisted research &amp; analysis/);
-  assert.match(articleHtml, /"author":\{"@id":"https:\/\/ainew\.ca\/about\/#ai-new-desk"\}/);
+  assert.match(articleHtml, /"author":\{"@id":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/#profile"\}/);
   assert.match(articleHtml, /rel="author"/);
+  assert.match(articleHtml, /hrefLang="en-CA"/);
+  assert.match(articleHtml, /EXPLORE THIS TOPIC/);
   assert.match(categoryHtml, /Canada(?:<!-- -->)? AI news, guides and analysis/);
   assert.match(categoryHtml, /"@type":"ItemList"/);
   assert.match(categoryHtml, /href="\/category\/models\/?"/);
@@ -193,8 +195,8 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
   assert.match(resourceHtml, /"numberOfItems":11/);
   assert.match(resourceHtml, /Canadian Artificial Intelligence Safety Institute/);
   assert.match(resourceHtml, /https:\/\/www\.priv\.gc\.ca\/en\/privacy-topics\/technology\/artificial-intelligence\/ai_business\//);
-  assert.match(aboutHtml, /"@type":"ProfilePage"/);
-  assert.match(aboutHtml, /"@id":"https:\/\/ainew\.ca\/about\/#ai-new-desk"/);
+  assert.match(aboutHtml, /"@type":"AboutPage"/);
+  assert.match(aboutHtml, /"@id":"https:\/\/ainew\.ca\/#organization"/);
   assert.match(feedResponse.headers.get("content-type") ?? "", /^application\/rss\+xml/i);
   assert.match(feedXml, /<title>AI New Canada<\/title>/);
   assert.match(feedXml, /<media:content/);
@@ -217,6 +219,74 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
   assert.match(llmsText, /Citation guidance/);
   assert.match(llmsText, /Canadian AI source directory/);
   assert.equal(indexNowKey.trim(), "0367c01a930f4aa38c95452b717309bd");
+});
+
+test("publishes substantive trust pages, topic guides, glossary, and precise discovery controls", async () => {
+  const [authorResponse, editorialResponse, correctionsResponse, topicsResponse, policyTopicResponse, useTopicResponse, modelsTopicResponse, glossaryResponse, searchResponse, experimentResponse, llmsResponse, sitemapSource, robotsSource, indexNowSource, workflowSource] = await Promise.all([
+    render("/authors/ai-new-desk/"),
+    render("/editorial-policy/"),
+    render("/corrections-policy/"),
+    render("/topics/"),
+    render("/topics/canadian-ai-policy/"),
+    render("/topics/using-ai/"),
+    render("/topics/ai-models/"),
+    render("/ai-glossary/"),
+    render("/search/"),
+    render("/experiments/card-images/"),
+    render("/llms.txt/"),
+    readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/robots.ts", import.meta.url), "utf8"),
+    readFile(new URL("../scripts/submit-indexnow.mjs", import.meta.url), "utf8"),
+    readFile(new URL("../.github/workflows/pages.yml", import.meta.url), "utf8"),
+  ]);
+
+  for (const response of [authorResponse, editorialResponse, correctionsResponse, topicsResponse, policyTopicResponse, useTopicResponse, modelsTopicResponse, glossaryResponse, searchResponse, experimentResponse, llmsResponse]) {
+    assert.equal(response.status, 200);
+  }
+
+  const authorHtml = await authorResponse.text();
+  const editorialHtml = await editorialResponse.text();
+  const correctionsHtml = await correctionsResponse.text();
+  const topicsHtml = await topicsResponse.text();
+  const policyTopicHtml = await policyTopicResponse.text();
+  const useTopicHtml = await useTopicResponse.text();
+  const modelsTopicHtml = await modelsTopicResponse.text();
+  const glossaryHtml = await glossaryResponse.text();
+  const searchHtml = await searchResponse.text();
+  const experimentHtml = await experimentResponse.text();
+  const llmsText = await llmsResponse.text();
+
+  assert.match(authorHtml, /"@type":"ProfilePage"/);
+  assert.match(authorHtml, /AI New Desk is the publication byline/);
+  assert.match(authorHtml, /not a fictional person/i);
+  assert.match(editorialHtml, /Evidence first\. Limits made visible/);
+  assert.match(editorialHtml, /AI-assisted production/);
+  assert.match(correctionsHtml, /Material corrections/);
+  assert.match(correctionsHtml, /newsroom@ainew\.ca/);
+  assert.match(topicsHtml, /Three maps through a noisy AI landscape/);
+  assert.match(policyTopicHtml, /"@type":"CollectionPage"/);
+  assert.match(policyTopicHtml, /"@type":"ItemList"/);
+  assert.match(policyTopicHtml, /Canadian AI policy: the practical guide/);
+  assert.match(useTopicHtml, /How to use AI well/);
+  assert.match(modelsTopicHtml, /AI models explained/);
+  assert.match(glossaryHtml, /"@type":"DefinedTermSet"/);
+  assert.match(glossaryHtml, /"@type":"DefinedTerm"/);
+  assert.match(glossaryHtml, /Thirty-five terms/);
+  assert.match(searchHtml, /name="robots" content="noindex, follow"/i);
+  assert.match(experimentHtml, /name="robots" content="noindex, follow"/i);
+  for (const path of ["/topics/", "/topics/canadian-ai-policy/", "/topics/using-ai/", "/topics/ai-models/", "/ai-glossary/", "/authors/ai-new-desk/", "/editorial-policy/", "/corrections-policy/"]) {
+    assert.match(sitemapSource, new RegExp(path.replaceAll("/", "\\/")));
+  }
+  assert.doesNotMatch(sitemapSource, /changeFrequency|priority:/);
+  assert.match(robotsSource, /Applebot/);
+  assert.match(robotsSource, /Claude-User/);
+  assert.match(robotsSource, /Claude-SearchBot/);
+  assert.match(llmsText, /AI New Desk author profile/);
+  assert.match(llmsText, /AI glossary/);
+  assert.match(indexNowSource, /priorityPaths\.has\(url\)/);
+  assert.doesNotMatch(indexNowSource, /priorityPaths\.some/);
+  assert.match(workflowSource, /notify-indexnow:/);
+  assert.match(workflowSource, /node scripts\/submit-indexnow\.mjs/);
 });
 
 test("uses only the original sandboxed Adsterra creatives and places responsive ads through the reading journey", async () => {

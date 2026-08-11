@@ -5,7 +5,7 @@ export const SITE_NAME = "AI New Canada";
 export const SITE_DESCRIPTION = "Independent Canadian AI news, practical guides and evidence-first analysis of models, policy, products, business and research.";
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
-export const AUTHOR_ID = `${SITE_URL}/about/#ai-new-desk`;
+export const AUTHOR_ID = `${SITE_URL}/authors/ai-new-desk/#profile`;
 
 export const categoryDescriptions: Record<string, string> = {
   Canada: "Canadian artificial intelligence policy, companies, research institutions, infrastructure and public-sector decisions.",
@@ -41,7 +41,10 @@ export function buildPageMetadata({
   return {
     title,
     description,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      languages: { "en-CA": url, "x-default": url },
+    },
     robots: { index, follow: true },
     openGraph: {
       type: "website",
@@ -74,6 +77,7 @@ export function organizationSchema() {
       height: 1254,
     },
     description: SITE_DESCRIPTION,
+    foundingDate: "2026-08-10",
     areaServed: { "@type": "Country", name: "Canada" },
     knowsAbout: [
       "Artificial intelligence",
@@ -82,14 +86,15 @@ export function organizationSchema() {
       "AI products and practical workflows",
       "Responsible AI governance",
     ],
-    publishingPrinciples: `${SITE_URL}/about/`,
-    ethicsPolicy: `${SITE_URL}/about/`,
-    correctionsPolicy: `${SITE_URL}/about/`,
-    masthead: `${SITE_URL}/about/`,
+    publishingPrinciples: `${SITE_URL}/editorial-policy/`,
+    ethicsPolicy: `${SITE_URL}/editorial-policy/`,
+    correctionsPolicy: `${SITE_URL}/corrections-policy/`,
+    masthead: `${SITE_URL}/authors/ai-new-desk/`,
     ownershipFundingInfo: `${SITE_URL}/about/`,
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "newsroom",
+      email: "newsroom@ainew.ca",
       url: `${SITE_URL}/contact/`,
     },
   };

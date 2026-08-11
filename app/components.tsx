@@ -33,6 +33,8 @@ export function SiteHeader() {
             <Link href="/articles">Latest</Link>
             <Link className="learnNavLink" href="/learn">Learning Lab</Link>
             <Link href="/canada-ai-resources/">Resources</Link>
+            <Link href="/topics/">Topics</Link>
+            <Link href="/ai-glossary/">Glossary</Link>
             <Link href={categoryPath("Canada")}>Canada</Link>
             <Link href={categoryPath("Models")}>Models</Link>
             <Link href={categoryPath("Products")}>Products</Link>
@@ -62,6 +64,8 @@ export function SiteFooter() {
           <Link href="/articles">All stories</Link>
           <Link href="/learn">Learning Lab</Link>
           <Link href="/canada-ai-resources/">Canada AI resources</Link>
+          <Link href="/topics/">Topic guides</Link>
+          <Link href="/ai-glossary/">AI glossary</Link>
           <Link href={categoryPath("Canada")}>Canada</Link>
           <Link href={categoryPath("Models")}>Models</Link>
           <Link href={categoryPath("Policy")}>Policy</Link>
@@ -70,6 +74,9 @@ export function SiteFooter() {
         <div>
           <h3>Company</h3>
           <Link href="/about">About & standards</Link>
+          <Link href="/authors/ai-new-desk/">AI New Desk</Link>
+          <Link href="/editorial-policy/">Editorial policy</Link>
+          <Link href="/corrections-policy/">Corrections policy</Link>
           <Link href="/contact">Contact</Link>
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>

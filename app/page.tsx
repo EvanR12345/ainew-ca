@@ -6,6 +6,7 @@ import { articleImageStyle } from "./article-image-style";
 import { articles } from "./lib/articles";
 import { buildPageMetadata, categoryPath, organizationSchema, websiteSchema } from "./lib/seo";
 import { StructuredData } from "./structured-data";
+import { topicHubs } from "./lib/topic-hubs";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "AI New Canada — Canadian AI News & Practical Guides",
@@ -43,7 +44,7 @@ export default function Home() {
                 <span className="eyebrow">{lead.category} · Lead story</span>
                 <h1><Link href={`/article/${lead.slug}`}>{lead.title}</Link></h1>
                 <p>{lead.dek}</p>
-                <div className="storyByline"><span>By AI New Desk</span><time dateTime={lead.date}>{lead.displayDate}</time><span>{lead.readTime}</span></div>
+                <div className="storyByline"><span>By <Link href="/authors/ai-new-desk/" rel="author">AI New Desk</Link></span><time dateTime={lead.date}>{lead.displayDate}</time><span>{lead.readTime}</span></div>
               </div>
             </article>
 
@@ -83,6 +84,16 @@ export default function Home() {
             <span><strong>02</strong>Knowledge quizzes</span>
             <span><strong>03</strong>AI flashcards</span>
             <span><strong>04</strong>Saved reading queue</span>
+          </div>
+        </section>
+
+        <section className="shell homeTopicBand" aria-labelledby="home-topic-title">
+          <div className="sectionHeading"><div><span className="eyebrow">TOPIC GUIDES</span><h2 id="home-topic-title">Choose a path through the noise.</h2></div><Link href="/topics/">View every guide →</Link></div>
+          <div className="homeTopicGrid">
+            {topicHubs.map((hub, index) => (
+              <Link href={`/topics/${hub.slug}/`} key={hub.slug}><span>0{index + 1}</span><strong>{hub.title}</strong><small>{hub.description}</small></Link>
+            ))}
+            <Link href="/ai-glossary/"><span>04</span><strong>The plain-language AI glossary</strong><small>Thirty-five core terms with practical definitions and important limits.</small></Link>
           </div>
         </section>
 

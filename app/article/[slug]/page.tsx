@@ -7,6 +7,7 @@ import { AdSlot, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../
 import { ArticleKnowledgeCheck, SaveArticleButton } from "../../learning-actions";
 import { articles, getAdjacentArticles, getArticle, getRelatedArticles, toArticleCardData } from "../../lib/articles";
 import { absoluteUrl, AUTHOR_ID, breadcrumbSchema, categoryPath, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../lib/seo";
+import { topicForArticle } from "../../lib/topic-hubs";
 import { ArticleReadTracker, ReadingJourney, RelatedRecommendations } from "../../reading-history";
 import { StructuredData } from "../../structured-data";
 
@@ -31,8 +32,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${searchTitle(article.title)} | AI New Canada`,
     description: article.dek,
-    alternates: { canonical: url },
-    authors: [{ name: "AI New Desk", url: `${SITE_URL}/about/` }],
+    alternates: { canonical: url, languages: { "en-CA": url, "x-default": url } },
+    authors: [{ name: "AI New Desk", url: `${SITE_URL}/authors/ai-new-desk/` }],
     openGraph: {
       title: article.title,
       description: article.dek,
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       publishedTime: article.date,
       modifiedTime: article.date,
       section: article.category,
-      authors: [`${SITE_URL}/about/`],
+      authors: [`${SITE_URL}/authors/ai-new-desk/`],
       images: [{ url: image, width: 1200, height: 675, alt: article.imageAlt }],
     },
     twitter: { card: "summary_large_image", title: article.title, description: article.dek, images: [image] },
@@ -78,6 +79,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     practicalTakeaway,
     firstSentence(article.sections[4]?.paragraphs[0] ?? article.sections[0].paragraphs[0]),
   ];
+  const topicHub = topicForArticle(article);
 
   return (
     <div>
@@ -144,7 +146,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <p className="articleDek">{article.dek}</p>
             <div className="articleMeta">
               <div className="authorMark">AN</div>
-              <div><strong><Link href="/about/" rel="author">AI New Desk</Link></strong><span>AI-assisted research & analysis</span></div>
+              <div><strong><Link href="/authors/ai-new-desk/" rel="author">AI New Desk</Link></strong><span>AI-assisted research & analysis</span></div>
               <time dateTime={article.date}>{article.displayDate}</time>
               <span>{article.readTime}</span>
             </div>
@@ -174,6 +176,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   <strong>How this was made:</strong> AI tools assisted with structure and drafting. The article is organized around a named primary source and practical analysis; verify time-sensitive details at the source.
                   <a href={article.sourceUrl} target="_blank" rel="noreferrer">Review {article.sourceLabel} ↗</a>
                 </div>
+              </aside>
+
+              <aside className="articleTopicPath">
+                <span className="eyebrow">EXPLORE THIS TOPIC</span>
+                <h2>{topicHub.title}</h2>
+                <p>{topicHub.description}</p>
+                <Link href={`/topics/${topicHub.slug}/`}>Open the curated guide →</Link>
               </aside>
 
               <nav className="articleToc" aria-label="In this article">
@@ -238,7 +247,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
               <AdSlot format="leaderboard" label="Article end" />
 
-              <div className="articleUpdate"><strong>Corrections & updates</strong><p>See something we should fix or clarify? <Link href="/contact">Tell the newsroom</Link>. Material changes are noted here.</p></div>
+              <div className="articleUpdate"><strong>Corrections & updates</strong><p>See something we should fix or clarify? <Link href="/corrections-policy/">Read the corrections policy</Link> or <Link href="/contact">tell the newsroom</Link>. Material changes are noted here.</p></div>
             </div>
             <aside className="articleAdRail">
               <AdSlot format="rectangle" />

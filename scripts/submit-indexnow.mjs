@@ -8,10 +8,23 @@ if (!response.ok) throw new Error(`Could not read sitemap: HTTP ${response.statu
 
 const sitemap = await response.text();
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
-const priorityPaths = ["/", "/articles/", "/learn/", "/about/", "/category/"];
+const priorityPaths = new Set([
+  `${siteUrl}/`,
+  `${siteUrl}/articles/`,
+  `${siteUrl}/learn/`,
+  `${siteUrl}/topics/`,
+  `${siteUrl}/ai-glossary/`,
+  `${siteUrl}/canada-ai-resources/`,
+  `${siteUrl}/authors/ai-new-desk/`,
+  `${siteUrl}/about/`,
+  `${siteUrl}/editorial-policy/`,
+  `${siteUrl}/corrections-policy/`,
+]);
 const urlList = process.argv.includes("--all")
   ? urls
-  : urls.filter((url) => priorityPaths.some((path) => url === `${siteUrl}${path}` || url.startsWith(`${siteUrl}${path}`)));
+  : urls.filter((url) => priorityPaths.has(url) || url.startsWith(`${siteUrl}/category/`) || url.startsWith(`${siteUrl}/topics/`));
+
+if (urlList.length === 0) throw new Error("No priority URLs were found in the sitemap.");
 
 const submission = await fetch("https://api.indexnow.org/indexnow", {
   method: "POST",

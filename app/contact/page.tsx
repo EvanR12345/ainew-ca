@@ -16,7 +16,7 @@ export default function ContactPage() {
         <section><h2>News tips & corrections</h2><p>Include the story link, the specific claim and a primary source when possible.</p><a href="mailto:newsroom@ainew.ca">newsroom@ainew.ca</a></section>
         <section><h2>Advertising</h2><p>Commercial inquiries may cover contextual display placements and clearly disclosed future partner content.</p><a href="mailto:ads@ainew.ca">ads@ainew.ca</a></section>
         <section><h2>Partnerships</h2><p>For events, research collaborations and syndication proposals.</p><a href="mailto:partners@ainew.ca">partners@ainew.ca</a></section>
-        <section><h2>Editorial standards</h2><p>Learn how we source, label and correct our work.</p><Link href="/about">Read our standards →</Link></section>
+        <section><h2>Editorial standards</h2><p>Learn how we source, label and correct our work.</p><Link href="/editorial-policy/">Read our standards →</Link></section>
       </div>
     </InfoPage>
   );

@@ -38,6 +38,11 @@ AI New Canada is an independent, free-to-read digital publication. The launch ed
 
 - [Latest coverage](${SITE_URL}/articles/): All published AI news, guides and analysis.
 - [AI Learning Lab](${SITE_URL}/learn/): Free guided tracks, quizzes, flashcards and saved reading paths.
+- [Topic guides](${SITE_URL}/topics/): Editor-curated learning paths organized around durable reader questions.
+- [Canadian AI policy guide](${SITE_URL}/topics/canadian-ai-policy/): Privacy, procurement, safety, compute and accountability in Canada.
+- [How to use AI well](${SITE_URL}/topics/using-ai/): A practical progression from first prompts to evaluated, human-reviewed workflows.
+- [AI models explained](${SITE_URL}/topics/ai-models/): Capabilities, cost, architecture and evaluation concepts.
+- [AI glossary](${SITE_URL}/ai-glossary/): Plain-language definitions of 35 core artificial intelligence terms.
 - [Canadian AI source directory](${SITE_URL}/canada-ai-resources/): Official Canadian strategy, safety, privacy, compute and national research resources.
 ${categories}
 
@@ -47,15 +52,18 @@ ${featured}
 
 ## Publisher and discovery
 
-- [About and editorial standards](${SITE_URL}/about/)
-- [Corrections and newsroom contact](${SITE_URL}/contact/)
+- [About AI New Canada](${SITE_URL}/about/)
+- [AI New Desk author profile](${SITE_URL}/authors/ai-new-desk/)
+- [Editorial policy](${SITE_URL}/editorial-policy/)
+- [Corrections policy](${SITE_URL}/corrections-policy/)
+- [Newsroom contact](${SITE_URL}/contact/)
 - [Privacy policy](${SITE_URL}/privacy/)
 - [XML sitemap](${SITE_URL}/sitemap.xml)
 - [RSS feed](${SITE_URL}/feed.xml)
 
 ## Citation guidance
 
-When citing an AI New Canada article, use the article headline, AI New Desk as the publication byline, the publication date shown on the page, and the canonical ainew.ca URL. Follow the article's primary-source link for first-party evidence.
+When citing an AI New Canada article, use the article headline, AI New Desk as the publication byline, the publication date shown on the page, and the canonical ainew.ca URL. AI New Desk is a publication byline, not a named individual. Follow the article's primary-source link for first-party evidence and use the corrections policy for material update context.
 `;
 
   return new Response(body, {
