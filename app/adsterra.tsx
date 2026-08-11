@@ -24,7 +24,7 @@ export function AdsterraBanner({ size, placement, eager = false }: { size: Banne
       height={config.height}
       loading={eager ? "eager" : "lazy"}
       referrerPolicy="strict-origin-when-cross-origin"
-      sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
       scrolling="no"
     />
   );
@@ -66,7 +66,7 @@ export function AdsterraNative({ placement }: { placement: string }) {
       title={`Native advertisement — ${placement}`}
       loading="lazy"
       referrerPolicy="strict-origin-when-cross-origin"
-      sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
       scrolling="no"
     />
   );

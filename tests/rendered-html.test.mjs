@@ -303,6 +303,8 @@ test("uses only the original sandboxed Adsterra creatives and places responsive 
   ]);
 
   assert.match(adSource, /src={`\/ad-frames\/banner-\$\{size\}\.html`}/);
+  assert.match(adSource, /allow-same-origin/);
+  assert.match(adSource, /allow-forms/);
   assert.match(adSource, /allow-top-navigation-by-user-activation/);
   assert.doesNotMatch(adSource, /srcDoc=/);
   assert.match(bannerFrame, /armsbroodelusive\.com\/b6fabad459005a4fbe6936fdda872ee2\/invoke\.js/);
