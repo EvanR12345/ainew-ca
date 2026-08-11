@@ -1,7 +1,8 @@
 import Link from "next/link";
-import type { Article } from "./lib/articles";
 import { Newsletter } from "./newsletter";
 import { AdsterraBanner, AdsterraNative, AdsterraResponsiveBanner } from "./adsterra";
+
+export { ArticleCard } from "./article-card";
 
 export function SiteHeader() {
   return (
@@ -98,23 +99,6 @@ export function NativeAd({ placement }: { placement: string }) {
       <span className="adDisclosure">Advertisement</span>
       <AdsterraNative placement={placement} />
     </aside>
-  );
-}
-
-export function ArticleCard({ article, size = "standard" }: { article: Article; size?: "standard" | "compact" | "wide" }) {
-  return (
-    <article className={`storyCard storyCard-${size}`}>
-      <Link className={`storyVisual visual-${article.accent}`} href={`/article/${article.slug}`} aria-label={article.title}>
-        <span>{article.category}</span>
-        <strong>{article.title.split(" ").slice(0, 2).join(" ")}</strong>
-      </Link>
-      <div className="storyContent">
-        <div className="storyMeta"><span>{article.category}</span><span>{article.signal}</span></div>
-        <h3><Link href={`/article/${article.slug}`}>{article.title}</Link></h3>
-        {size !== "compact" && <p>{article.dek}</p>}
-        <div className="storyByline"><time dateTime={article.date}>{article.displayDate}</time><span>{article.readTime}</span></div>
-      </div>
-    </article>
   );
 }
 

@@ -22,6 +22,9 @@ export type Article = {
   accent: string;
   sourceLabel: string;
   sourceUrl: string;
+  image: string;
+  imageAlt: string;
+  disclaimer?: string;
   sections: ArticleSection[];
   video?: ArticleVideo;
 };
@@ -278,9 +281,19 @@ function makeDate(index: number) {
   };
 }
 
-export const articles: Article[] = topics.map((seed, index) => {
+const categoryImages: Record<Category, { src: string; alt: string }> = {
+  Canada: { src: "/images/articles/canada-ai-editorial.jpg", alt: "Canadian AI policy research on a desk near Parliament" },
+  Models: { src: "/images/articles/models-ai-editorial.jpg", alt: "AI compute hardware beside model-evaluation displays" },
+  Products: { src: "/images/articles/products-ai-editorial.jpg", alt: "A person using an AI productivity product on a laptop" },
+  Business: { src: "/images/articles/business-ai-editorial.jpg", alt: "Business leaders reviewing an AI dashboard in Toronto" },
+  Research: { src: "/images/articles/research-ai-editorial.jpg", alt: "An AI researcher comparing experiment notes with evaluation plots" },
+  Policy: { src: "/images/articles/policy-ai-editorial.jpg", alt: "AI policy papers, a committee microphone and a silicon chip" },
+};
+
+const generatedArticles: Article[] = topics.map((seed, index) => {
   const [slug, title, dek, category, sourceKey, , , , , videoKey] = seed;
   const [sourceLabel, sourceUrl] = sources[sourceKey];
+  const image = categoryImages[category];
   return {
     slug,
     title,
@@ -292,10 +305,164 @@ export const articles: Article[] = topics.map((seed, index) => {
     accent: accents[index % accents.length],
     sourceLabel,
     sourceUrl,
+    image: image.src,
+    imageAlt: image.alt,
     sections: buildSections(seed),
     video: videoKey ? videos[videoKey] : undefined,
   };
 });
+
+const beginnerInvestmentArticles: Article[] = [
+  {
+    slug: "how-beginners-use-ai-investment-research",
+    title: "How beginners can use AI for investment research—without asking it what to buy.",
+    dek: "Use a chatbot to organize questions, compare documents and challenge assumptions—not to generate a stock pick or replace regulated advice.",
+    category: "Business",
+    date: "2026-08-10",
+    displayDate: "August 10, 2026",
+    readTime: "12 min read",
+    signal: "Beginner guide",
+    accent: "green",
+    sourceLabel: "Canadian Investment Regulatory Organization",
+    sourceUrl: "https://www.ciro.ca/newsroom/publications/guidance-order-execution-only-account-services-and-activities",
+    image: "/images/articles/investing-ai-editorial.jpg",
+    imageAlt: "A beginner using AI to organize an investment-research checklist",
+    disclaimer: "This article is general education, not personalized investment, legal or tax advice. AI New Canada does not recommend securities. Consider a registered adviser for decisions that depend on your goals, finances and risk tolerance.",
+    sections: [
+      {
+        heading: "The useful role: research assistant, not adviser",
+        paragraphs: [
+          "A chatbot can turn an unfamiliar filing into a reading plan, define financial terms, compare two fee schedules and suggest questions that deserve verification. Those are research tasks. Asking the same system what you should buy is a different and much riskier request because the model does not know your complete finances, may be working from stale information and can present an invented fact with great confidence.",
+          "CIRO's guidance for do-it-yourself investing draws a similar line between factual decision support and a specific recommendation. The beginner-friendly rule is simple: use AI to widen the checklist and reduce clerical work, while keeping product selection and the final decision outside the chatbot.",
+        ],
+      },
+      {
+        heading: "Start with a question, not a ticker symbol",
+        paragraphs: [
+          "A weak prompt asks whether a stock will rise. A better prompt asks what evidence would be needed to understand a business, fund or bond. That change forces the conversation toward revenue sources, costs, debt, fees, concentration, liquidity and risks instead of an unsupported prediction.",
+          "Before opening an AI tool, write down the goal, time horizon and loss you could realistically tolerate. Do not paste account numbers, tax documents, portfolio screenshots or other sensitive information into a consumer chatbot. Personal circumstances belong with you and, when appropriate, a registered professional—not in an unnecessary prompt history.",
+        ],
+        bullets: [
+          "What does this investment own or produce?",
+          "How does it make money, and what could interrupt that?",
+          "What fees, taxes, currency exposure or liquidity limits apply?",
+          "Which primary documents would confirm every important claim?",
+        ],
+      },
+      {
+        heading: "Give the model documents, then demand receipts",
+        paragraphs: [
+          "AI is more useful when it works from a specific document than when it searches its memory. Start with an issuer filing, audited statement, fund facts document, prospectus or regulator page. Ask the system to point to the page or section supporting each answer, then open that location yourself.",
+          "A citation is a clue, not proof. Models can misread tables, confuse periods and invent links. Verify revenue, debt, fees, distributions and risk language against the original source. If the number could change a decision, calculate it independently or check it in a second primary source.",
+        ],
+      },
+      {
+        heading: "A safer five-prompt workflow",
+        paragraphs: [
+          "The best prompts produce a repeatable process instead of a verdict. Keep the language neutral and explicitly ask the model to surface uncertainty, missing data and reasons the thesis could fail.",
+          "Run the same workflow across comparable options. Changing the questions for a favourite company invites confirmation bias; using one template makes missing evidence easier to notice.",
+        ],
+        bullets: [
+          "Summarize this document using only facts found inside it, with a page reference for each claim.",
+          "List the five assumptions that matter most and the evidence that would confirm or weaken each one.",
+          "Separate recurring results from one-time items and explain any judgement calls.",
+          "Compare these two documents using the same criteria; do not recommend either option.",
+          "Create a verification checklist and mark every item you cannot confirm from the supplied material.",
+        ],
+      },
+      {
+        heading: "Check the tool for hidden nudges",
+        paragraphs: [
+          "An investing interface may rank products, highlight activity or make frequent trading feel normal. CIRO warns that decision-support tools should use clear criteria, explain conflicts and avoid steering clients toward products that benefit the platform. A chatbot should be held to the same practical standard even when the interface feels neutral.",
+          "Ask what data, date and product universe shaped the output. Treat sponsored content, affiliate links and proprietary products as conflicts that need disclosure. If a tool cannot explain why one option appears above another, do not treat the ranking as independent research.",
+        ],
+      },
+      {
+        heading: "Know when the AI workflow should stop",
+        paragraphs: [
+          "AI can help organize public information; it cannot establish that an investment is suitable for you. Stop before acting when the decision depends on debt, emergency savings, taxes, retirement income, a short time horizon or a loss you cannot absorb. Those are circumstances where personalized professional judgement may matter.",
+          "If you seek help, verify the individual or firm through official registration tools instead of trusting a profile, message or AI-generated summary. A real registration check is stronger evidence than a polished website or a confident online explanation.",
+        ],
+      },
+      {
+        heading: "The beginner's bottom line",
+        paragraphs: [
+          "The productive use of AI is deliberately unexciting: structure the question, find the documents, extract claims, test assumptions and keep a record of what you verified. The model saves time around the decision without making the decision for you.",
+          "If an AI system promises certainty, personalized returns or a shortcut around basic due diligence, that is not an advanced feature. It is a reason to slow down.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "beginner-ai-investment-scam-check",
+    title: "A beginner’s AI investment scam check: seven steps before you send money.",
+    dek: "Deepfakes and personalized messages can manufacture trust. A short verification routine is more useful than trying to spot every synthetic detail.",
+    category: "Business",
+    date: "2026-08-10",
+    displayDate: "August 10, 2026",
+    readTime: "10 min read",
+    signal: "Fraud defence",
+    accent: "red",
+    sourceLabel: "Canadian Investment Regulatory Organization",
+    sourceUrl: "https://www.ciro.ca/office-investor/avoiding-fraud-and-protecting-your-investments/artificial-intelligence-ai-and-investment-fraud",
+    image: "/images/articles/investing-ai-editorial.jpg",
+    imageAlt: "An investor using a paper checklist to verify information produced by AI",
+    disclaimer: "This article provides general fraud-prevention education. It is not investment or legal advice. If you believe money or account credentials are at risk, contact your financial institution and the appropriate authorities promptly.",
+    sections: [
+      {
+        heading: "Do not make detection your first line of defence",
+        paragraphs: [
+          "A convincing face, voice or news clip is no longer strong evidence that a person said something. CIRO warns that AI can support deepfake impersonation, more persuasive phishing, account takeovers and highly personalized fraud. Trying to identify every visual glitch puts the burden on a test that gets harder as the tools improve.",
+          "A safer routine verifies the offer through a separate, trusted channel. The question is not whether the video looks fake; it is whether the person, firm, registration and investment can be independently confirmed.",
+        ],
+      },
+      {
+        heading: "Step one: stop the conversation",
+        paragraphs: [
+          "Urgency is designed to prevent verification. Do not click the message link, install an app, share a code or stay on a call while checking. Close the conversation and begin again from contact information you find independently.",
+          "A legitimate adviser or institution can tolerate a pause. Threats, secret opportunities, pressure to act today and instructions to hide the transaction from family or a bank are reasons to stop, not reasons to hurry.",
+        ],
+      },
+      {
+        heading: "Step two: verify the person and firm",
+        paragraphs: [
+          "Look up the firm and individual using CIRO's dealer and adviser tools and the Canadian Securities Administrators' National Registration Search. Type the official address yourself. Do not use a search advertisement or a link supplied by the person asking for money.",
+          "Then call the registered firm's published number and ask for the individual. A copied logo, professional profile or registration number can be part of an impersonation; independent contact is the check that matters.",
+        ],
+      },
+      {
+        heading: "Step three: test the investment claim",
+        paragraphs: [
+          "Ask for the legal product name, issuer, offering document, fees, custody arrangement and a plain-language explanation of how money can be withdrawn. Search regulator warnings and compare every claim with the issuer's official documents.",
+          "Guaranteed returns, unusually steady profits, risk-free language and complicated explanations for why ordinary protections do not apply are major warning signs. AI branding does not change the basic relationship between risk and return.",
+        ],
+      },
+      {
+        heading: "Step four: verify media at the source",
+        paragraphs: [
+          "If a celebrity, executive, journalist or public official appears to endorse an opportunity, visit that person's verified official channel and the original broadcaster or company site. Search for the full event, not a cropped clip. Look for reporting from multiple established outlets.",
+          "Do not ask another chatbot whether the clip is real and treat its answer as proof. The second model may repeat the same false context. Provenance and independent publication history are stronger checks than an AI detector score.",
+        ],
+      },
+      {
+        heading: "Steps five and six: protect accounts and payment rails",
+        paragraphs: [
+          "Never share a one-time code, recovery phrase, remote-access session or screen-control permission. Use a unique password and two-step verification for financial accounts. If a caller says security requires moving money to a safe account, end the call and contact the institution directly.",
+          "Be especially cautious when payment is requested through cryptocurrency, gift cards, wires to an unrelated name or a newly created platform. Before sending anything, ask your bank or regulated dealer how the destination will appear and whether the transfer can be reversed.",
+        ],
+      },
+      {
+        heading: "Step seven: bring in another person",
+        paragraphs: [
+          "Personalized fraud works by isolating the target and mirroring their hopes or fears. Explain the offer to someone who is not emotionally invested in it. Ask them to challenge the identity, registration, product documents, custody and exit process.",
+          "If you already sent money or credentials, act quickly. Contact the financial institution, change affected passwords from a clean device, preserve messages and transaction records, and report the event through the appropriate fraud and securities-regulator channels. Shame helps the fraudster; a fast report can help limit harm.",
+        ],
+      },
+    ],
+  },
+];
+
+export const articles: Article[] = [generatedArticles[0], ...beginnerInvestmentArticles, ...generatedArticles.slice(1)];
 
 export const categories = ["All", "Canada", "Models", "Products", "Business", "Research", "Policy"] as const;
 

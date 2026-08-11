@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { AdSlot, ArticleCard, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
 import { articles, getAdjacentArticles, getArticle, getRelatedArticles } from "../../lib/articles";
@@ -15,7 +16,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${article.title} | AI New Canada`,
     description: article.dek,
-    openGraph: { title: article.title, description: article.dek, type: "article", publishedTime: article.date },
+    openGraph: {
+      title: article.title,
+      description: article.dek,
+      type: "article",
+      publishedTime: article.date,
+      images: [{ url: article.image, width: 1200, height: 675, alt: article.imageAlt }],
+    },
   };
 }
 
@@ -41,6 +48,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           description: article.dek,
           datePublished: article.date,
           dateModified: article.date,
+          image: `https://ainew.ca${article.image}`,
           mainEntityOfPage: `https://ainew.ca/article/${article.slug}`,
           author: { "@type": "Organization", name: "AI New Desk" },
           publisher: { "@type": "NewsMediaOrganization", name: "AI New Canada", url: "https://ainew.ca" },
@@ -60,7 +68,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </div>
           </header>
 
-          <div className={`articleHero visual-${article.accent}`}>
+          <div className="articleHero">
+            <Image src={article.image} alt={article.imageAlt} width={1200} height={675} priority />
             <span>{article.category.toUpperCase()} / AI NEW</span>
             <strong>{article.title.split(" ").slice(0, 7).join(" ")}</strong>
             <small>THE SIGNAL, EXPLAINED</small>
@@ -71,7 +80,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <span>SHARE</span><button aria-label="Copy link">↗</button><button aria-label="Print article">⌁</button>
             </div>
             <div className="articleBody">
-              <p className="disclosure"><strong>Editorial note:</strong> This explainer starts with the linked primary source and adds original AI New analysis. Product claims should be tested against your own requirements.</p>
+              <p className="disclosure"><strong>Editorial note:</strong> {article.disclaimer ?? "This explainer starts with the linked primary source and adds original AI New analysis. Product claims should be tested against your own requirements."}</p>
 
               <nav className="articleToc" aria-label="In this article">
                 <span className="eyebrow">IN THIS ARTICLE</span>
