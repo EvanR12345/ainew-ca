@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { AdSlot, ArticleCard, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "./components";
+import { articleImageStyle } from "./article-image-style";
 import { articles } from "./lib/articles";
 
 export const metadata: Metadata = {
@@ -34,7 +35,7 @@ export default function Home() {
           <div className="sectionKicker"><span>Today’s briefing</span><time dateTime="2026-08-10">Monday, August 10, 2026</time></div>
           <div className="heroGrid">
             <article className="leadStory">
-              <Link className="leadVisual" href={`/article/${lead.slug}`}>
+              <Link className="leadVisual" href={`/article/${lead.slug}`} style={articleImageStyle(lead.slug)}>
                 <Image src={lead.image} alt={lead.imageAlt} width={1200} height={675} priority />
                 <span className="signalFlag">{lead.signal}</span>
                 <div className="leadVisualWords"><small>PUBLIC INPUT</small><strong>AI should say when it’s AI.</strong></div>

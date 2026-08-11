@@ -29,6 +29,8 @@ export type Article = {
   video?: ArticleVideo;
 };
 
+export type ArticleCardData = Pick<Article, "slug" | "title" | "dek" | "category" | "date" | "displayDate" | "readTime" | "signal" | "image" | "imageAlt">;
+
 type Category = Article["category"];
 type SourceKey = keyof typeof sources;
 type VideoKey = keyof typeof videos;
@@ -290,10 +292,30 @@ const categoryImages: Record<Category, { src: string; alt: string }> = {
   Policy: { src: "/images/articles/policy-ai-editorial.jpg", alt: "AI policy papers, a committee microphone and a silicon chip" },
 };
 
+const editorialLibrary = {
+  beginner: { src: "/images/articles/library/beginner-how-to.jpg", alt: "A beginner learning a practical AI workflow at a home-office desk" },
+  intermediate: { src: "/images/articles/library/intermediate-workflow.jpg", alt: "A professional building a repeatable AI research workflow" },
+  advanced: { src: "/images/articles/library/advanced-systems.jpg", alt: "AI specialists evaluating an advanced agent system" },
+  compute: { src: "/images/articles/library/compute-infrastructure.jpg", alt: "A technician inspecting AI compute and cooling infrastructure" },
+  science: { src: "/images/articles/library/science-research.jpg", alt: "Researchers validating an AI-assisted laboratory experiment" },
+  governance: { src: "/images/articles/library/policy-governance.jpg", alt: "Policy specialists reviewing an AI impact assessment" },
+} as const;
+
+function selectArticleImage(slug: string, title: string, category: Category) {
+  const topic = `${slug} ${title}`.toLowerCase();
+  if (topic.includes("beginner") || topic.includes("everyday-ai")) return editorialLibrary.beginner;
+  if (topic.includes("intermediate") || topic.includes("spreadsheet") || topic.includes("repeatable-ai")) return editorialLibrary.intermediate;
+  if (topic.includes("advanced") || /agent|retrieval|red-team|evaluation|monitor/.test(topic)) return editorialLibrary.advanced;
+  if (/compute|chip|data-cent|nvidia|inference|model-release|sovereign/.test(topic)) return editorialLibrary.compute;
+  if (/health|science|research|weather|wildfire|robot|agriculture|clinical/.test(topic)) return editorialLibrary.science;
+  if (/policy|privacy|safety|regulat|government|procurement|transparency|governance|law|indigenous/.test(topic)) return editorialLibrary.governance;
+  return categoryImages[category];
+}
+
 const generatedArticles: Article[] = topics.map((seed, index) => {
   const [slug, title, dek, category, sourceKey, , , , , videoKey] = seed;
   const [sourceLabel, sourceUrl] = sources[sourceKey];
-  const image = categoryImages[category];
+  const image = selectArticleImage(slug, title, category);
   return {
     slug,
     title,
@@ -309,6 +331,206 @@ const generatedArticles: Article[] = topics.map((seed, index) => {
     imageAlt: image.alt,
     sections: buildSections(seed),
     video: videoKey ? videos[videoKey] : undefined,
+  };
+});
+
+type HowToSeed = {
+  slug: string;
+  title: string;
+  dek: string;
+  category: Category;
+  level: "Beginner" | "Intermediate" | "Advanced";
+  focus: string;
+  firstTask: string;
+  verification: string;
+  practice: [string, string, string, string];
+  source: SourceKey;
+};
+
+const howToSeeds: HowToSeed[] = [
+  {
+    slug: "beginner-how-to-use-ai-everyday-work",
+    title: "How to use AI for everyday work: a beginner's 30-minute setup.",
+    dek: "Choose one small task, give the model useful context, and check the result before you turn a chat into a habit.",
+    category: "Products",
+    level: "Beginner",
+    focus: "turning a blank chat into a dependable helper for summaries, planning, rewriting and first drafts",
+    firstTask: "Use a low-risk task you already understand, such as turning meeting notes into an action list or rewriting a paragraph for clarity.",
+    verification: "Compare every claim with your original notes and make sure the output did not invent a deadline, owner or decision.",
+    practice: ["State the audience and desired result.", "Paste only the minimum safe context.", "Ask for a specific format.", "Review and rewrite before using the answer."],
+    source: "openai",
+  },
+  {
+    slug: "beginner-ai-prompts-without-magic-words",
+    title: "A beginner's guide to useful AI prompts—without memorizing magic words.",
+    dek: "Good prompts describe the job, context, limits and output. The method is simpler—and more reliable—than collecting secret phrases.",
+    category: "Products",
+    level: "Beginner",
+    focus: "writing clear instructions that produce usable answers without prompt-engineering theatre",
+    firstTask: "Rewrite one vague request using five parts: role, task, context, constraints and output format.",
+    verification: "Check whether the answer followed each constraint, then correct the instruction instead of merely asking the model to try again.",
+    practice: ["Name the task in one sentence.", "Include the facts the model must use.", "Say what it must avoid.", "Provide a short example of the desired output."],
+    source: "openai",
+  },
+  {
+    slug: "beginner-use-ai-safely-files-email-private-data",
+    title: "How beginners can use AI safely with files, email and private information.",
+    dek: "A practical data checklist helps you get useful assistance without pasting sensitive material into the wrong tool.",
+    category: "Policy",
+    level: "Beginner",
+    focus: "recognizing sensitive information and choosing safer inputs before an AI tool sees a document",
+    firstTask: "Take a sample document and mark personal, confidential, contractual and security-sensitive details before deciding what the model actually needs.",
+    verification: "Confirm the tool's retention, training and sharing settings, then inspect the final output for details that should not leave the original context.",
+    practice: ["Remove names, account numbers and access credentials.", "Use approved workplace tools for internal data.", "Share excerpts instead of whole files.", "Delete unnecessary uploads and chat history where supported."],
+    source: "nist",
+  },
+  {
+    slug: "intermediate-repeatable-ai-research-writing-workflow",
+    title: "Build a repeatable AI research and writing workflow: an intermediate guide.",
+    dek: "Separate discovery, source review, outlining, drafting and fact-checking so the model cannot quietly blur evidence with prose.",
+    category: "Research",
+    level: "Intermediate",
+    focus: "building a staged research workflow that keeps sources, notes and generated prose visibly separate",
+    firstTask: "Choose a recurring report and divide it into five checkpoints: question, sources, evidence table, outline and reviewed draft.",
+    verification: "Require a source for factual statements, compare quotations with the original page and keep unsupported inferences labelled as analysis.",
+    practice: ["Create a reusable research brief.", "Keep a source-and-claim table.", "Draft only from approved notes.", "Run a separate citation and contradiction check."],
+    source: "openai",
+  },
+  {
+    slug: "intermediate-compare-ai-answers-evaluation-scorecard",
+    title: "How to compare AI answers with a simple evaluation scorecard.",
+    dek: "A small test set and consistent scoring rubric reveal more than repeatedly asking which model is best.",
+    category: "Models",
+    level: "Intermediate",
+    focus: "comparing models and prompts against the tasks, evidence and failure costs that actually matter",
+    firstTask: "Collect 15 representative examples, including normal, difficult and intentionally ambiguous cases, without tuning the set to one model.",
+    verification: "Score accuracy, completeness, evidence, instruction following, time and reviewer effort with the same rubric for every candidate.",
+    practice: ["Hide model names during review where possible.", "Record failures, not just averages.", "Repeat tests after prompt or model changes.", "Choose on accepted outcome and total cost."],
+    source: "nist",
+  },
+  {
+    slug: "intermediate-use-ai-spreadsheets-structured-data",
+    title: "How to use AI with spreadsheets and structured data—without losing control of the numbers.",
+    dek: "Use AI to explain, clean and check data while keeping calculations reproducible and source cells visible.",
+    category: "Business",
+    level: "Intermediate",
+    focus: "using AI for formulas, data cleaning and analysis while preserving a reviewable spreadsheet workflow",
+    firstTask: "Work from a copy of a small table with a written data dictionary, expected row count and one known result you can use as a check.",
+    verification: "Recalculate totals independently, inspect changed rows and test formulas against edge cases such as blanks, dates, negatives and duplicates.",
+    practice: ["Describe every column before analysis.", "Ask for formulas with explanations.", "Keep raw and cleaned data separate.", "Record transformations in a change log."],
+    source: "microsoft",
+  },
+  {
+    slug: "advanced-human-in-the-loop-ai-agent-workflow",
+    title: "Design a human-in-the-loop AI agent: an advanced implementation guide.",
+    dek: "Give agents narrow tools, explicit approval gates and recoverable actions before you give them more autonomy.",
+    category: "Products",
+    level: "Advanced",
+    focus: "designing an agent that can plan and use tools without silently taking high-impact actions",
+    firstTask: "Map each proposed tool call by impact and reversibility, then require explicit approval for messages, purchases, permissions and destructive changes.",
+    verification: "Replay failed and adversarial runs, inspect the action log and confirm the system stops safely when a tool, source or instruction is untrusted.",
+    practice: ["Use least-privilege credentials.", "Separate planning from execution.", "Make consequential actions reversible.", "Log inputs, tool calls, approvals and outcomes."],
+    source: "nist",
+  },
+  {
+    slug: "advanced-retrieval-ai-own-documents-citations",
+    title: "How to build an advanced retrieval workflow that cites your own documents.",
+    dek: "Good retrieval depends on document preparation, permissions, ranking and citation checks—not simply connecting a folder to a chatbot.",
+    category: "Research",
+    level: "Advanced",
+    focus: "building retrieval-augmented generation that finds the right passage, respects permissions and shows useful evidence",
+    firstTask: "Create a representative document set, define access rules and write questions whose answers are known before selecting chunking or embedding settings.",
+    verification: "Measure retrieval recall separately from answer quality and require every important claim to point to a passage the reviewer can open.",
+    practice: ["Preserve titles, dates and document owners.", "Test permission boundaries directly.", "Use hybrid keyword and semantic retrieval.", "Show citations beside the supported claim."],
+    source: "openai",
+  },
+  {
+    slug: "advanced-ai-evaluation-red-team-monitor-production",
+    title: "Advanced AI evaluation: red-team, monitor and improve a production system.",
+    dek: "Move beyond a launch benchmark with adversarial tests, live quality samples, incident review and version-by-version comparisons.",
+    category: "Models",
+    level: "Advanced",
+    focus: "operating an evaluation program that catches regressions, misuse and changing real-world conditions",
+    firstTask: "Turn known failures and near misses into a versioned test set, then add adversarial cases designed by people outside the original build team.",
+    verification: "Track severity-weighted failure rates, reviewer disagreement, override behaviour and the exact model, prompt, retrieval and tool versions behind each result.",
+    practice: ["Define release gates before testing.", "Sample live outputs with privacy safeguards.", "Run incident reviews without hiding model mistakes.", "Retest every material system change."],
+    source: "nist",
+  },
+];
+
+function buildHowToSections(seed: HowToSeed): ArticleSection[] {
+  return [
+    {
+      heading: `What ${seed.level.toLowerCase()} success looks like`,
+      paragraphs: [
+        `This guide is about ${seed.focus}. The goal is not to use AI everywhere; it is to improve one result while keeping the work understandable and reviewable.`,
+        `${seed.level} users get better results when they can explain the workflow without mentioning a model name. Start with the outcome, evidence and review standard, then decide where AI saves useful effort.`,
+      ],
+    },
+    {
+      heading: "Start with one bounded task",
+      paragraphs: [
+        seed.firstTask,
+        "Write down what a good result contains, what would make it unacceptable and who is responsible for the final decision. That short acceptance test prevents a polished response from being mistaken for a correct one.",
+      ],
+    },
+    {
+      heading: "Use a five-part instruction",
+      paragraphs: [
+        "Give the model a role, a concrete task, the minimum necessary context, explicit constraints and the output format. Include an example when structure matters more than creativity.",
+        "Ask the system to identify missing information and uncertainty instead of filling every gap. If the answer fails, change one part of the instruction and record what improved; random retries teach you nothing.",
+      ],
+      bullets: seed.practice,
+    },
+    {
+      heading: "Run the workflow in visible stages",
+      paragraphs: [
+        "Keep collection, analysis, drafting and approval separate. Save useful prompts beside the task, not in a personal memory, and make inputs easy for another person to inspect.",
+        "A staged workflow makes mistakes cheaper. You can repair a weak evidence table before it becomes a confident report, or stop an unsafe action before it reaches a customer or system of record.",
+      ],
+    },
+    {
+      heading: "Verify before you trust",
+      paragraphs: [
+        seed.verification,
+        "Use a small set of representative examples and keep the scoring rule stable. Check difficult and unusual cases separately because an acceptable average can hide the failures that matter most.",
+      ],
+    },
+    {
+      heading: "Protect people and information",
+      paragraphs: [
+        "Do not enter credentials, private identifiers, confidential client material or restricted workplace data unless the tool and the intended use are explicitly approved. Minimize the input even when a system is approved.",
+        "Consequential work involving money, health, employment, education, rights or public services needs meaningful human authority. A reviewer must have the evidence, time and permission to reject the AI result.",
+      ],
+    },
+    {
+      heading: `Your next ${seed.level.toLowerCase()} practice cycle`,
+      paragraphs: [
+        "Repeat the same task several times, record corrections and turn recurring failure checks into a reusable checklist. Keep the workflow only if accepted quality improves after review time and errors are counted.",
+        "Mastery is not a longer prompt. It is a process that remains useful when the input changes, the model is upgraded or a teammate has to understand what happened.",
+      ],
+    },
+  ];
+}
+
+const howToArticles: Article[] = howToSeeds.map((seed, index) => {
+  const [sourceLabel, sourceUrl] = sources[seed.source];
+  const image = seed.level === "Beginner" ? editorialLibrary.beginner : seed.level === "Intermediate" ? editorialLibrary.intermediate : editorialLibrary.advanced;
+  return {
+    slug: seed.slug,
+    title: seed.title,
+    dek: seed.dek,
+    category: seed.category,
+    date: "2026-08-10",
+    displayDate: "August 10, 2026",
+    readTime: `${12 + (index % 3)} min read`,
+    signal: `${seed.level} how-to`,
+    accent: accents[(index + 3) % accents.length],
+    sourceLabel,
+    sourceUrl,
+    image: image.src,
+    imageAlt: `${image.alt}: ${seed.title}`,
+    sections: buildHowToSections(seed),
   };
 });
 
@@ -462,7 +684,7 @@ const beginnerInvestmentArticles: Article[] = [
   },
 ];
 
-export const articles: Article[] = [generatedArticles[0], ...beginnerInvestmentArticles, ...generatedArticles.slice(1)];
+export const articles: Article[] = [generatedArticles[0], ...howToArticles, ...beginnerInvestmentArticles, ...generatedArticles.slice(1)];
 
 export const categories = ["All", "Canada", "Models", "Products", "Business", "Research", "Policy"] as const;
 
@@ -475,6 +697,11 @@ export function getRelatedArticles(article: Article, limit = 3) {
     .filter((candidate) => candidate.slug !== article.slug)
     .sort((a, b) => Number(b.category === article.category) - Number(a.category === article.category))
     .slice(0, limit);
+}
+
+export function toArticleCardData(article: Article): ArticleCardData {
+  const { slug, title, dek, category, date, displayDate, readTime, signal, image, imageAlt } = article;
+  return { slug, title, dek, category, date, displayDate, readTime, signal, image, imageAlt };
 }
 
 export function getAdjacentArticles(article: Article) {

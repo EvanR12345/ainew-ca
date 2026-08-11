@@ -28,10 +28,10 @@ test("server-renders the AI New Canada publication with editorial photography", 
 
   const html = await response.text();
   assert.match(html, /<title>AI New Canada/);
-  assert.match(html, /canada-ai-editorial\.jpg/);
+  assert.match(html, /policy-governance\.jpg/);
   assert.match(html, /storyCard-photo-clean/);
-  assert.match(html, /how-beginners-use-ai-investment-research/);
-  assert.match(html, /beginner-ai-investment-scam-check/);
+  assert.match(html, /beginner-how-to-use-ai-everyday-work/);
+  assert.match(html, /beginner-ai-prompts-without-magic-words/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|Building your site/i);
 });
 
@@ -48,12 +48,13 @@ test("renders the beginner investment guide with its photo and financial disclai
 });
 
 test("keeps the card experiment measurable, transparent and photo-backed", async () => {
-  const [cardSource, reportSource, privacySource, articleSource, imageFiles] = await Promise.all([
+  const [cardSource, reportSource, privacySource, articleSource, imageFiles, libraryFiles] = await Promise.all([
     readFile(new URL("../app/article-card.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/experiments/card-images/report-client.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/privacy/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/lib/articles.ts", import.meta.url), "utf8"),
     readdir(new URL("../public/images/articles/", import.meta.url)),
+    readdir(new URL("../public/images/articles/library/", import.meta.url)),
   ]);
 
   assert.match(cardSource, /article_card_impression/);
@@ -63,7 +64,35 @@ test("keeps the card experiment measurable, transparent and photo-backed", async
   assert.match(reportSource, /device-local diagnostics/i);
   assert.match(privacySource, /random style assignment and device-local impression and click counts/i);
   assert.match(articleSource, /beginnerInvestmentArticles/);
+  assert.match(articleSource, /howToArticles/);
+  assert.match(articleSource, /beginner-how-to-use-ai-everyday-work/);
+  assert.match(articleSource, /intermediate-repeatable-ai-research-writing-workflow/);
+  assert.match(articleSource, /advanced-human-in-the-loop-ai-agent-workflow/);
   assert.equal(imageFiles.filter((file) => file.endsWith(".jpg")).length, 7);
+  assert.equal(libraryFiles.filter((file) => file.endsWith(".jpg")).length, 6);
+});
+
+test("shows up to ten fresh recommendations and tracks five minutes on-device", async () => {
+  const [response, trackerSource, pageSource, imageStyleSource, privacySource] = await Promise.all([
+    render("/article/beginner-how-to-use-ai-everyday-work/"),
+    readFile(new URL("../app/reading-history.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/article/[slug]/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/article-image-style.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/privacy/page.tsx", import.meta.url), "utf8"),
+  ]);
+
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /beginner's 30-minute setup/i);
+  assert.match(html, /beginner-how-to\.jpg/);
+  assert.match(html, /10 more stories worth your time/);
+  assert.match(trackerSource, /READ_THRESHOLD_SECONDS = 300/);
+  assert.match(trackerSource, /\.slice\(0, 10\)/);
+  assert.match(trackerSource, /document\.visibilityState/);
+  assert.match(pageSource, /getRelatedArticles\(article, articles\.length - 1\)/);
+  assert.match(imageStyleSource, /articleImageStyle/);
+  assert.match(imageStyleSource, /--image-tint/);
+  assert.match(privacySource, /stays in your browser and is not transmitted/i);
 });
 
 test("uses real sandboxed ad-frame pages and keeps the archive initial render light", async () => {

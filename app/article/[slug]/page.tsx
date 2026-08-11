@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { AdSlot, ArticleCard, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
-import { articles, getAdjacentArticles, getArticle, getRelatedArticles } from "../../lib/articles";
+import { articleImageStyle } from "../../article-image-style";
+import { AdSlot, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
+import { articles, getAdjacentArticles, getArticle, getRelatedArticles, toArticleCardData } from "../../lib/articles";
+import { ArticleReadTracker, RelatedRecommendations } from "../../reading-history";
 
 export function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }));
@@ -34,13 +36,14 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) notFound();
-  const related = getRelatedArticles(article);
+  const related = getRelatedArticles(article, articles.length - 1).map(toArticleCardData);
   const adjacent = getAdjacentArticles(article);
 
   return (
     <div>
       <SiteHeader />
       <main>
+        <ArticleReadTracker slug={article.slug} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "NewsArticle",
@@ -68,7 +71,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </div>
           </header>
 
-          <div className="articleHero">
+          <div className="articleHero" style={articleImageStyle(article.slug)}>
             <Image src={article.image} alt={article.imageAlt} width={1200} height={675} priority />
             <span>{article.category.toUpperCase()} / AI NEW</span>
             <strong>{article.title.split(" ").slice(0, 7).join(" ")}</strong>
@@ -135,8 +138,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </article>
 
         <section className="shell relatedSection">
-          <div className="sectionHeading"><div><span className="eyebrow">KEEP READING</span><h2>Related signals</h2></div></div>
-          <div className="threeColCards">{related.map((item) => <ArticleCard key={item.slug} article={item} />)}</div>
+          <div className="sectionHeading"><div><span className="eyebrow">KEEP READING</span><h2>10 more stories worth your time.</h2></div></div>
+          <p className="relatedNote">Stories you have read for five minutes or longer on this device are automatically left out.</p>
+          <RelatedRecommendations candidates={related} />
         </section>
         <div className="shell"><NewsletterBand /></div>
       </main>

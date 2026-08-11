@@ -3,7 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useSyncExternalStore } from "react";
-import type { Article } from "./lib/articles";
+import { articleImageStyle } from "./article-image-style";
+import type { ArticleCardData } from "./lib/articles";
 
 export const CARD_EXPERIMENT_KEY = "ainew-photo-card-treatment-v1";
 export const CARD_METRICS_KEY = "ainew-photo-card-metrics-v1";
@@ -51,7 +52,7 @@ function readMetrics(): CardMetrics {
   return { clean: { impressions: 0, clicks: 0 }, bold: { impressions: 0, clicks: 0 } };
 }
 
-function record(kind: "impressions" | "clicks", variant: CardVariant, article: Article) {
+function record(kind: "impressions" | "clicks", variant: CardVariant, article: ArticleCardData) {
   const metrics = readMetrics();
   metrics[variant][kind] += 1;
   metrics.updatedAt = new Date().toISOString();
@@ -71,7 +72,7 @@ function record(kind: "impressions" | "clicks", variant: CardVariant, article: A
   window.dispatchEvent(new CustomEvent("ainew-card-metrics-updated"));
 }
 
-export function ArticleCard({ article, size = "standard" }: { article: Article; size?: "standard" | "compact" | "wide" }) {
+export function ArticleCard({ article, size = "standard" }: { article: ArticleCardData; size?: "standard" | "compact" | "wide" }) {
   const cardRef = useRef<HTMLElement>(null);
   const variant = useSyncExternalStore<CardVariant>(subscribeVariant, () => storedVariant() ?? "clean", () => "clean");
 
@@ -107,7 +108,7 @@ export function ArticleCard({ article, size = "standard" }: { article: Article; 
       data-card-experiment={CARD_EXPERIMENT_KEY}
       data-card-variant={activeVariant}
     >
-      <Link className="storyVisual" href={`/article/${article.slug}`} aria-label={article.title} onClick={trackClick}>
+      <Link className="storyVisual" href={`/article/${article.slug}`} aria-label={article.title} onClick={trackClick} style={articleImageStyle(article.slug)}>
         <Image src={article.image} alt={article.imageAlt} width={1200} height={675} loading="lazy" />
         <span>{article.category}</span>
         <strong>{article.title.split(" ").slice(0, 3).join(" ")}</strong>
