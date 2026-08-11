@@ -1,0 +1,4 @@
+Contact: mailto:newsroom@ainew.ca
+Expires: 2027-08-01T00:00:00Z
+Preferred-Languages: en
+Canonical: https://ainew.ca/.well-known/security.txt
