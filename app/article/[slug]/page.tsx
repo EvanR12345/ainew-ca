@@ -6,7 +6,7 @@ import { articleImageStyle } from "../../article-image-style";
 import { AdSlot, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
 import { ArticleKnowledgeCheck, SaveArticleButton } from "../../learning-actions";
 import { articles, getAdjacentArticles, getArticle, getRelatedArticles, toArticleCardData } from "../../lib/articles";
-import { absoluteUrl, breadcrumbSchema, categoryPath, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../lib/seo";
+import { absoluteUrl, AUTHOR_ID, breadcrumbSchema, categoryPath, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../lib/seo";
 import { ArticleReadTracker, ReadingJourney, RelatedRecommendations } from "../../reading-history";
 import { StructuredData } from "../../structured-data";
 
@@ -120,7 +120,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 },
               },
               isPartOf: { "@id": WEBSITE_ID },
-              author: { "@type": "Organization", name: "AI New Desk", url: `${SITE_URL}/about/` },
+              author: { "@id": AUTHOR_ID },
               publisher: { "@id": ORGANIZATION_ID },
               citation: [article.sourceUrl],
               about: [
@@ -144,7 +144,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <p className="articleDek">{article.dek}</p>
             <div className="articleMeta">
               <div className="authorMark">AN</div>
-              <div><strong><Link href="/about/">AI New Desk</Link></strong><span>AI-assisted research & analysis</span></div>
+              <div><strong><Link href="/about/" rel="author">AI New Desk</Link></strong><span>AI-assisted research & analysis</span></div>
               <time dateTime={article.date}>{article.displayDate}</time>
               <span>{article.readTime}</span>
             </div>

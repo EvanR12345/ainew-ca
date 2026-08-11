@@ -5,6 +5,7 @@ export const SITE_NAME = "AI New Canada";
 export const SITE_DESCRIPTION = "Independent Canadian AI news, practical guides and evidence-first analysis of models, policy, products, business and research.";
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
+export const AUTHOR_ID = `${SITE_URL}/about/#ai-new-desk`;
 
 export const categoryDescriptions: Record<string, string> = {
   Canada: "Canadian artificial intelligence policy, companies, research institutions, infrastructure and public-sector decisions.",

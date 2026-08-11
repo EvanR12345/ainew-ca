@@ -138,11 +138,12 @@ test("turns the publication into a device-local Learning Lab", async () => {
 });
 
 test("publishes crawlable topic hubs, canonical URLs and complete search schema", async () => {
-  const [homeResponse, articleResponse, categoryResponse, resourceResponse, feedResponse, llmsResponse, sitemapSource, robotsSource, articleDataSource, aboutSource, newsletterSource, indexNowKey, adsTxt] = await Promise.all([
+  const [homeResponse, articleResponse, categoryResponse, resourceResponse, aboutResponse, feedResponse, llmsResponse, sitemapSource, robotsSource, articleDataSource, aboutSource, newsletterSource, indexNowKey, adsTxt] = await Promise.all([
     render("/"),
     render("/article/canada-ai-transparency-consultation-what-to-know/"),
     render("/category/canada/"),
     render("/canada-ai-resources/"),
+    render("/about/"),
     render("/feed.xml/"),
     render("/llms.txt/"),
     readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
@@ -158,6 +159,7 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
   assert.equal(articleResponse.status, 200);
   assert.equal(categoryResponse.status, 200);
   assert.equal(resourceResponse.status, 200);
+  assert.equal(aboutResponse.status, 200);
   assert.equal(feedResponse.status, 200);
   assert.equal(llmsResponse.status, 200);
 
@@ -165,6 +167,7 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
   const articleHtml = await articleResponse.text();
   const categoryHtml = await categoryResponse.text();
   const resourceHtml = await resourceResponse.text();
+  const aboutHtml = await aboutResponse.text();
   const feedXml = await feedResponse.text();
   const llmsText = await llmsResponse.text();
 
@@ -181,6 +184,8 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
   assert.match(articleHtml, /THE SHORT ANSWER/);
   assert.match(articleHtml, /How this was made/);
   assert.match(articleHtml, /AI-assisted research &amp; analysis/);
+  assert.match(articleHtml, /"author":\{"@id":"https:\/\/ainew\.ca\/about\/#ai-new-desk"\}/);
+  assert.match(articleHtml, /rel="author"/);
   assert.match(categoryHtml, /Canada(?:<!-- -->)? AI news, guides and analysis/);
   assert.match(categoryHtml, /"@type":"ItemList"/);
   assert.match(categoryHtml, /href="\/category\/models\/?"/);
@@ -188,6 +193,8 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
   assert.match(resourceHtml, /"numberOfItems":11/);
   assert.match(resourceHtml, /Canadian Artificial Intelligence Safety Institute/);
   assert.match(resourceHtml, /https:\/\/www\.priv\.gc\.ca\/en\/privacy-topics\/technology\/artificial-intelligence\/ai_business\//);
+  assert.match(aboutHtml, /"@type":"ProfilePage"/);
+  assert.match(aboutHtml, /"@id":"https:\/\/ainew\.ca\/about\/#ai-new-desk"/);
   assert.match(feedResponse.headers.get("content-type") ?? "", /^application\/rss\+xml/i);
   assert.match(feedXml, /<title>AI New Canada<\/title>/);
   assert.match(feedXml, /<media:content/);
