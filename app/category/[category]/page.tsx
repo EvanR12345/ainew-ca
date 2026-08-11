@@ -86,6 +86,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
               {categoryArticles.map((article, index) => (
                 <Fragment key={article.slug}>
                   <div><ArticleCard article={article} /></div>
+                  {index === 3 && <div className="archiveAdQuad"><AdSlot label={`Category ${category} mid-list`} /></div>}
                   {index === 7 && <div className="archiveAdQuad"><NativeAd placement={`category-${category.toLowerCase()}-native`} /></div>}
                 </Fragment>
               ))}

@@ -3,8 +3,8 @@ import { SiteFooter, SiteHeader } from "../../components";
 import { CardImageReport } from "./report-client";
 
 export const metadata: Metadata = {
-  title: "Article Image Test Report | AI New Canada",
-  description: "Device-local diagnostics for AI New Canada's article-card image experiment.",
+  title: "Archived Article Image Test | AI New Canada",
+  description: "Archived device-local diagnostics for AI New Canada's completed article-card image experiment.",
   robots: { index: false, follow: false },
 };
 
@@ -14,9 +14,9 @@ export default function CardImagesExperimentPage() {
       <SiteHeader />
       <main className="shell experimentPage">
         <header>
-          <span className="eyebrow">EXPERIMENT / CARD PHOTOS</span>
-          <h1>Clean photo vs. bold branded photo</h1>
-          <p>The site assigns each browser one treatment and measures viewable card impressions plus article clicks. A winner requires real traffic in both groups.</p>
+          <span className="eyebrow">ARCHIVED EXPERIMENT / CARD PHOTOS</span>
+          <h1>Colour photography is now the permanent treatment.</h1>
+          <p>The grayscale variant has been retired across desktop and mobile. Historical device-local counts remain below only as an archived diagnostic record.</p>
         </header>
         <CardImageReport />
       </main>

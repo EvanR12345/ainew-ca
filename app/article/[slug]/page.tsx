@@ -14,6 +14,14 @@ export function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }));
 }
 
+function searchTitle(title: string) {
+  const first = title.match(/^.*?[.!?](?:\s|$)/)?.[0]?.replace(/[.!?]$/, "").trim();
+  const candidate = first && first.length >= 32 ? first : title;
+  if (candidate.length <= 62) return candidate;
+  const clipped = candidate.slice(0, 59).replace(/\s+\S*$/, "");
+  return `${clipped}…`;
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticle(slug);
@@ -21,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const url = absoluteUrl(`/article/${article.slug}/`);
   const image = absoluteUrl(article.image);
   return {
-    title: `${article.title} | AI New Canada`,
+    title: `${searchTitle(article.title)} | AI New Canada`,
     description: article.dek,
     alternates: { canonical: url },
     authors: [{ name: "AI New Desk", url: `${SITE_URL}/about/` }],
@@ -58,7 +66,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) notFound();
-  const related = getRelatedArticles(article, articles.length - 1).map(toArticleCardData);
+  const related = getRelatedArticles(article, 24).map(toArticleCardData);
   const adjacent = getAdjacentArticles(article);
   const sectionLinks = article.sections.map((section) => ({ id: sectionId(section.heading), heading: section.heading }));
   const recap = [article.sections[0], article.sections[2], article.sections[5]]
@@ -104,10 +112,21 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               mainEntityOfPage: {
                 "@type": "WebPage",
                 "@id": absoluteUrl(`/article/${article.slug}/`),
+                primaryImageOfPage: {
+                  "@type": "ImageObject",
+                  url: absoluteUrl(article.image),
+                  width: 1200,
+                  height: 675,
+                },
               },
               isPartOf: { "@id": WEBSITE_ID },
               author: { "@type": "Organization", name: "AI New Desk", url: `${SITE_URL}/about/` },
               publisher: { "@id": ORGANIZATION_ID },
+              citation: [article.sourceUrl],
+              about: [
+                { "@type": "Thing", name: article.category },
+                { "@type": "Thing", name: "Artificial intelligence" },
+              ],
               articleSection: article.category,
               wordCount: wordCount(article),
               inLanguage: "en-CA",
@@ -125,7 +144,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <p className="articleDek">{article.dek}</p>
             <div className="articleMeta">
               <div className="authorMark">AN</div>
-              <div><strong>AI New Desk</strong><span>Reporting & analysis</span></div>
+              <div><strong><Link href="/about/">AI New Desk</Link></strong><span>AI-assisted research & analysis</span></div>
               <time dateTime={article.date}>{article.displayDate}</time>
               <span>{article.readTime}</span>
             </div>
@@ -146,6 +165,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <div className="articleBody">
               <p className="disclosure"><strong>Editorial note:</strong> {article.disclaimer ?? "This explainer starts with the linked primary source and adds original AI New analysis. Product claims should be tested against your own requirements."}</p>
 
+              <aside className="articleAnswerSummary" aria-labelledby="article-answer-title">
+                <span className="eyebrow">THE SHORT ANSWER</span>
+                <h2 id="article-answer-title">What you need to know</h2>
+                <p>{article.dek}</p>
+                <ul>{recap.map((takeaway) => <li key={takeaway}>{takeaway}</li>)}</ul>
+                <div>
+                  <strong>How this was made:</strong> AI tools assisted with structure and drafting. The article is organized around a named primary source and practical analysis; verify time-sensitive details at the source.
+                  <a href={article.sourceUrl} target="_blank" rel="noreferrer">Review {article.sourceLabel} ↗</a>
+                </div>
+              </aside>
+
               <nav className="articleToc" aria-label="In this article">
                 <span className="eyebrow">IN THIS ARTICLE</span>
                 <ol>{article.sections.map((section) => <li key={section.heading}><a href={`#${sectionId(section.heading)}`}>{section.heading}</a></li>)}</ol>
@@ -156,7 +186,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   <h2>{section.heading}</h2>
                   {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                   {section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
-                  {index === 0 && <AdSlot format="in-feed" />}
+                  {index === 0 && <AdSlot format="in-feed" label="Article opening" />}
+                  {index === 3 && <AdSlot format="leaderboard" label="Article mid-story" />}
                   {index === 5 && <NativeAd placement={`article-${article.slug}-native`} />}
                   {index === 1 && article.video && (
                     <aside className="videoModule" aria-label="Related video">
@@ -205,11 +236,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <Link href={`/article/${adjacent.next.slug}`}><span>Next story →</span><strong>{adjacent.next.title}</strong></Link>
               </nav>
 
+              <AdSlot format="leaderboard" label="Article end" />
+
               <div className="articleUpdate"><strong>Corrections & updates</strong><p>See something we should fix or clarify? <Link href="/contact">Tell the newsroom</Link>. Material changes are noted here.</p></div>
             </div>
             <aside className="articleAdRail">
               <AdSlot format="rectangle" />
-              <div className="stickyBrief"><span className="eyebrow">DAILY SIGNAL</span><h3>One useful AI email. No hype.</h3><Link href="#newsletter">Get the briefing →</Link></div>
+              <div className="stickyBrief"><span className="eyebrow">AI LEARNING LAB</span><h3>Turn this story into a practical learning path.</h3><Link href="/learn/">Start learning free →</Link></div>
             </aside>
           </div>
         </article>

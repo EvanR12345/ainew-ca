@@ -686,8 +686,19 @@ const beginnerInvestmentArticles: Article[] = [
 
 const articleDrafts: Article[] = [generatedArticles[0], ...howToArticles, ...beginnerInvestmentArticles, ...generatedArticles.slice(1)];
 
+function accurateReadTime(article: Article) {
+  const words = article.sections
+    .flatMap((section) => [...section.paragraphs, ...(section.bullets ?? [])])
+    .join(" ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+  return `${Math.max(3, Math.ceil(words / 200))} min read`;
+}
+
 export const articles: Article[] = articleDrafts.map((article) => ({
   ...article,
+  readTime: accurateReadTime(article),
   image: `/images/articles/unique/${article.slug}.jpg`,
   imageAlt: `Editorial photograph illustrating: ${article.title}`,
 }));

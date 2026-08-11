@@ -15,7 +15,7 @@ export default function TermsPage() {
       <section><h2>Intellectual property</h2><p>AI New’s original writing, branding and design are protected by applicable law. You may link to our pages and quote short excerpts with attribution. Republishing complete articles or systematic scraping requires permission.</p></section>
       <section><h2>Third-party links</h2><p>Links to primary sources and other sites are provided for context. AI New does not control third-party content, availability or privacy practices.</p></section>
       <section><h2>Availability and changes</h2><p>We may update, correct, suspend or remove content and features. We provide the site as available and do not guarantee uninterrupted access.</p></section>
-      <section><h2>Commercial disclosures</h2><p>Advertising, sponsorships and affiliate links will be clearly identified. Editorial coverage is not sold. Additional commercial terms may appear next to a specific promotion or service.</p></section>
+      <section><h2>Commercial disclosures</h2><p>Third-party advertising is kept separate from article copy. Sponsorships and affiliate links will be clearly identified if introduced. Editorial coverage is not sold, and additional commercial terms may appear next to a specific promotion or service.</p></section>
     </InfoPage>
   );
 }

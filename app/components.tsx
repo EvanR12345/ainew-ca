@@ -15,7 +15,7 @@ export function SiteHeader() {
           <Link href="/article/canada-ai-transparency-consultation-what-to-know">
             Canada is asking how AI should identify itself
           </Link>
-          <span className="briefingDate">Updated daily · Toronto</span>
+          <span className="briefingDate">Independent · Toronto</span>
         </div>
       </div>
       <header className="siteHeader">
@@ -26,12 +26,13 @@ export function SiteHeader() {
             <span className="brandCa">.CA</span>
           </Link>
           <p className="brandTagline">The signal in artificial intelligence.</p>
-          <Link className="briefButton" href="#newsletter">Get the briefing</Link>
+          <Link className="briefButton" href="/learn/">Learning Lab</Link>
         </div>
         <nav className="mainNav" aria-label="Main navigation">
           <div className="shell navInner">
             <Link href="/articles">Latest</Link>
             <Link className="learnNavLink" href="/learn">Learning Lab</Link>
+            <Link href="/canada-ai-resources/">Resources</Link>
             <Link href={categoryPath("Canada")}>Canada</Link>
             <Link href={categoryPath("Models")}>Models</Link>
             <Link href={categoryPath("Products")}>Products</Link>
@@ -60,6 +61,7 @@ export function SiteFooter() {
           <h3>Explore</h3>
           <Link href="/articles">All stories</Link>
           <Link href="/learn">Learning Lab</Link>
+          <Link href="/canada-ai-resources/">Canada AI resources</Link>
           <Link href={categoryPath("Canada")}>Canada</Link>
           <Link href={categoryPath("Models")}>Models</Link>
           <Link href={categoryPath("Policy")}>Policy</Link>
@@ -116,9 +118,9 @@ export function NewsletterBand() {
   return (
     <section className="newsletterBand" id="newsletter">
       <div>
-        <span className="eyebrow lightEyebrow">THE DAILY SIGNAL</span>
-        <h2>The AI story you need. The context everyone else skipped.</h2>
-        <p>One smart email on weekdays. Canadian angle, global reach, zero breathless hype.</p>
+        <span className="eyebrow lightEyebrow">BUILD YOUR AI MAP</span>
+        <h2>Turn today’s AI story into knowledge you can use.</h2>
+        <p>The email edition is coming later. The free Learning Lab is available now, with guided tracks and practical checks.</p>
       </div>
       <Newsletter />
     </section>

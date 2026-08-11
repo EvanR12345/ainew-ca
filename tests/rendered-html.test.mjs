@@ -47,7 +47,7 @@ test("renders the beginner investment guide with its photo and financial disclai
   assert.match(html, /research assistant, not adviser/i);
 });
 
-test("keeps the card experiment measurable, transparent and photo-backed", async () => {
+test("keeps every article photo in full colour on desktop and mobile", async () => {
   const [cardSource, reportSource, privacySource, articleSource, imageStyleSource, globalStyles, imageFiles, libraryFiles, uniqueFiles] = await Promise.all([
     readFile(new URL("../app/article-card.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/experiments/card-images/report-client.tsx", import.meta.url), "utf8"),
@@ -63,9 +63,11 @@ test("keeps the card experiment measurable, transparent and photo-backed", async
   assert.match(cardSource, /article_card_impression/);
   assert.match(cardSource, /article_card_click/);
   assert.match(cardSource, /dataLayer/);
+  assert.match(cardSource, /window\.localStorage\.setItem\(CARD_EXPERIMENT_KEY, "clean"\)/);
+  assert.doesNotMatch(cardSource, /crypto\.getRandomValues/);
   assert.match(reportSource, /no reliable winner yet/i);
   assert.match(reportSource, /device-local diagnostics/i);
-  assert.match(privacySource, /random style assignment and device-local impression and click counts/i);
+  assert.match(privacySource, /all article photography now uses its original colour/i);
   assert.match(articleSource, /beginnerInvestmentArticles/);
   assert.match(articleSource, /howToArticles/);
   assert.match(articleSource, /beginner-how-to-use-ai-everyday-work/);
@@ -75,7 +77,9 @@ test("keeps the card experiment measurable, transparent and photo-backed", async
   assert.equal(libraryFiles.filter((file) => file.endsWith(".jpg")).length, 6);
   assert.equal(uniqueFiles.filter((file) => file.endsWith(".jpg")).length, 111);
   assert.doesNotMatch(imageStyleSource, /--image-tint/);
+  assert.doesNotMatch(imageStyleSource, /--image-saturation|--image-contrast/);
   assert.doesNotMatch(globalStyles, /rgba\(240,68,47,\.42\)/);
+  assert.doesNotMatch(globalStyles, /grayscale\(1\)|mix-blend-mode/);
 });
 
 test("builds an honest on-device learning path and tracks five focused minutes", async () => {
@@ -101,7 +105,7 @@ test("builds an honest on-device learning path and tracks five focused minutes",
   assert.match(trackerSource, /categorySeconds/);
   assert.match(trackerSource, /ReadingJourney/);
   assert.match(trackerSource, /requestAnimationFrame/);
-  assert.match(pageSource, /getRelatedArticles\(article, articles\.length - 1\)/);
+  assert.match(pageSource, /getRelatedArticles\(article, 24\)/);
   assert.match(imageStyleSource, /articleImageStyle/);
   assert.doesNotMatch(imageStyleSource, /--image-tint/);
   assert.match(privacySource, /stays in your browser and is not transmitted/i);
@@ -134,24 +138,34 @@ test("turns the publication into a device-local Learning Lab", async () => {
 });
 
 test("publishes crawlable topic hubs, canonical URLs and complete search schema", async () => {
-  const [homeResponse, articleResponse, categoryResponse, feedResponse, sitemapSource, robotsSource] = await Promise.all([
+  const [homeResponse, articleResponse, categoryResponse, resourceResponse, feedResponse, llmsResponse, sitemapSource, robotsSource, articleDataSource, aboutSource, newsletterSource, indexNowKey] = await Promise.all([
     render("/"),
     render("/article/canada-ai-transparency-consultation-what-to-know/"),
     render("/category/canada/"),
+    render("/canada-ai-resources/"),
     render("/feed.xml/"),
+    render("/llms.txt/"),
     readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/robots.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/lib/articles.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/about/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/newsletter.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../public/0367c01a930f4aa38c95452b717309bd.txt", import.meta.url), "utf8"),
   ]);
 
   assert.equal(homeResponse.status, 200);
   assert.equal(articleResponse.status, 200);
   assert.equal(categoryResponse.status, 200);
+  assert.equal(resourceResponse.status, 200);
   assert.equal(feedResponse.status, 200);
+  assert.equal(llmsResponse.status, 200);
 
   const homeHtml = await homeResponse.text();
   const articleHtml = await articleResponse.text();
   const categoryHtml = await categoryResponse.text();
+  const resourceHtml = await resourceResponse.text();
   const feedXml = await feedResponse.text();
+  const llmsText = await llmsResponse.text();
 
   assert.match(homeHtml, /"@type":"WebSite"/);
   assert.match(homeHtml, /"alternateName":\["AI New","ainew\.ca"\]/);
@@ -161,24 +175,49 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
   assert.match(articleHtml, /"@type":"NewsArticle"/);
   assert.match(articleHtml, /"@type":"BreadcrumbList"/);
   assert.match(articleHtml, /"wordCount":\d+/);
+  assert.match(articleHtml, /"citation":\["https:\/\//);
+  assert.match(articleHtml, /THE SHORT ANSWER/);
+  assert.match(articleHtml, /How this was made/);
+  assert.match(articleHtml, /AI-assisted research &amp; analysis/);
   assert.match(categoryHtml, /Canada(?:<!-- -->)? AI news, guides and analysis/);
   assert.match(categoryHtml, /"@type":"ItemList"/);
   assert.match(categoryHtml, /href="\/category\/models\/?"/);
+  assert.match(resourceHtml, /The Canadian AI source directory/);
+  assert.match(resourceHtml, /"numberOfItems":11/);
+  assert.match(resourceHtml, /Canadian Artificial Intelligence Safety Institute/);
+  assert.match(resourceHtml, /https:\/\/www\.priv\.gc\.ca\/en\/privacy-topics\/technology\/artificial-intelligence\/ai_business\//);
   assert.match(feedResponse.headers.get("content-type") ?? "", /^application\/rss\+xml/i);
   assert.match(feedXml, /<title>AI New Canada<\/title>/);
   assert.match(feedXml, /<media:content/);
   assert.match(sitemapSource, /categoryRoutes/);
+  assert.match(sitemapSource, /"\/canada-ai-resources\/"/);
   assert.match(sitemapSource, /images: \[absoluteUrl\(article\.image\)\]/);
   assert.doesNotMatch(sitemapSource, /"\/search"/);
   assert.match(robotsSource, /host: "https:\/\/ainew\.ca"/);
+  assert.match(robotsSource, /OAI-SearchBot/);
+  assert.match(robotsSource, /PerplexityBot/);
+  assert.match(articleDataSource, /accurateReadTime/);
+  assert.match(articleDataSource, /Math\.ceil\(words \/ 200\)/);
+  assert.match(aboutSource, /How articles are produced/);
+  assert.match(aboutSource, /AI tools may assist/);
+  assert.doesNotMatch(newsletterSource, /type="email"|Join free|onSubmit/);
+  assert.match(newsletterSource, /No fake signup/);
+  assert.match(llmsResponse.headers.get("content-type") ?? "", /^text\/plain/i);
+  assert.match(llmsText, /^# AI New Canada/m);
+  assert.match(llmsText, /Citation guidance/);
+  assert.match(llmsText, /Canadian AI source directory/);
+  assert.equal(indexNowKey.trim(), "0367c01a930f4aa38c95452b717309bd");
 });
 
-test("uses only the original sandboxed Adsterra creatives and keeps the archive initial render light", async () => {
-  const [adSource, componentSource, globalStyles, archiveSource, bannerFrame, nativeFrame] = await Promise.all([
+test("uses only the original sandboxed Adsterra creatives and places responsive ads through the reading journey", async () => {
+  const [adSource, componentSource, globalStyles, archiveSource, articleSource, homeSource, categorySource, bannerFrame, nativeFrame] = await Promise.all([
     readFile(new URL("../app/adsterra.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/articles/articles-client.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/article/[slug]/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/category/[category]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../public/ad-frames/banner-300x250.html", import.meta.url), "utf8"),
     readFile(new URL("../public/ad-frames/native.html", import.meta.url), "utf8"),
   ]);
@@ -198,4 +237,10 @@ test("uses only the original sandboxed Adsterra creatives and keeps the archive 
   assert.doesNotMatch(componentSource, /a946bebc7af14238d812f26a95432834/);
   assert.match(archiveSource, /useState\(24\)/);
   assert.match(archiveSource, /Load 24 more stories/);
+  assert.match(archiveSource, /index === 5 \|\| index === 23/);
+  assert.match(articleSource, /Article mid-story/);
+  assert.match(articleSource, /Article end/);
+  assert.match(homeSource, /Homepage mid-page/);
+  assert.match(categorySource, /Category \$\{category\} mid-list/);
+  assert.doesNotMatch(`${articleSource}${homeSource}${archiveSource}${categorySource}`, /Popunder|ANTI-ADBLOCK|Smartlink_1/);
 });

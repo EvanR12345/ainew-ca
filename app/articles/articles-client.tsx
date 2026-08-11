@@ -33,6 +33,9 @@ export function ArticlesClient() {
             {visible.map((article, index) => (
               <Fragment key={article.slug}>
                 <div><ArticleCard article={article} /></div>
+                {(index === 5 || index === 23) && (
+                  <div className="archiveAdQuad"><AdSlot label={`Archive ${active} ${index + 1}`} /></div>
+                )}
                 {index === 11 && <div className="archiveAdQuad"><NativeAd placement={`archive-${active}-native`} /></div>}
               </Fragment>
             ))}

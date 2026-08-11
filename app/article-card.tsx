@@ -24,14 +24,16 @@ declare global {
 
 function storedVariant(): CardVariant | null {
   const saved = window.localStorage.getItem(CARD_EXPERIMENT_KEY);
-  if (saved === "clean" || saved === "bold") return saved;
+  if (saved === "bold") {
+    window.localStorage.setItem(CARD_EXPERIMENT_KEY, "clean");
+    return "clean";
+  }
+  if (saved === "clean") return saved;
   return null;
 }
 
 function chooseVariant(): CardVariant {
-  const sample = new Uint32Array(1);
-  window.crypto.getRandomValues(sample);
-  return sample[0] % 2 === 0 ? "clean" : "bold";
+  return "clean";
 }
 
 function subscribeVariant(callback: () => void) {

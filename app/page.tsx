@@ -31,7 +31,7 @@ export default function Home() {
         <div className="shell topAdWrap"><AdSlot eager /></div>
 
         <section className="shell heroSection">
-          <div className="sectionKicker"><span>Today’s briefing</span><time dateTime="2026-08-10">Monday, August 10, 2026</time></div>
+          <div className="sectionKicker"><span>Launch edition</span><span>Updated when the evidence changes</span></div>
           <div className="heroGrid">
             <article className="leadStory">
               <Link className="leadVisual" href={`/article/${lead.slug}`} style={articleImageStyle(lead.slug)}>
@@ -98,6 +98,8 @@ export default function Home() {
           </div>
         </section>
 
+        <div className="shell sectionAdWrap"><AdSlot label="Homepage mid-page" /></div>
+
         <div className="shell"><NewsletterBand /></div>
 
         <section className="inkSection">
@@ -128,9 +130,9 @@ export default function Home() {
           <aside className="adRail">
             <AdSlot format="rectangle" />
             <div className="railNewsletter">
-              <span className="eyebrow">5-MINUTE BRIEFING</span>
-              <h3>Smart enough for work. Short enough for coffee.</h3>
-              <Link href="#newsletter">Join the list →</Link>
+              <span className="eyebrow">START HERE</span>
+              <h3>Build useful AI knowledge one focused lesson at a time.</h3>
+              <Link href="/learn/">Open the Learning Lab →</Link>
             </div>
           </aside>
         </section>
