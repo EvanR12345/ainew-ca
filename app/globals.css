@@ -45,32 +45,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .navInner a:hover { color: var(--red); }
 .searchLink { margin-left: auto; }
 
-.adSlot { min-width: 0; overflow: hidden; background: rgba(255,255,255,.45); border: 1px solid #d9d2c6; color: #8f897e; display: grid; place-items: center; align-content: center; gap: 5px; text-align: center; }
-.adDisclosure { display: block; font-size: 8px; letter-spacing: .18em; text-transform: uppercase; }
-.adCreative { display: flex; max-width: 100%; justify-content: center; overflow: hidden; }
+.adPlacement { min-width: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; }
 .adPending { width: 100%; min-height: 60px; }
 .adsterraFrame, .adsterraNativeFrame { display: block; flex: none; border: 0; background: transparent; }
-.adSlot-leaderboard { min-height: 112px; padding: 8px; }
-.adSlot-rectangle { width: 100%; min-height: 272px; padding: 8px 0; }
-.adSlot-in-feed { min-height: 84px; margin: 30px 0; padding: 8px; }
-.nativeAd { margin: 42px 0; padding: 10px; overflow: hidden; border: 1px solid #d9d2c6; background: rgba(255,255,255,.45); text-align: center; }
-.nativeAd .adDisclosure { margin-bottom: 7px; color: #8f897e; }
+.adPlacement-leaderboard { min-height: 90px; }
+.adPlacement-rectangle { width: 100%; min-height: 250px; }
+.adPlacement-in-feed { min-height: 60px; margin: 30px 0; }
+.nativePlacement { margin: 42px 0; overflow: hidden; }
 .adsterraNativeFrame { width: 100%; height: 300px; }
-.adSmartlink { position: relative; display: grid; grid-template-columns: 74px minmax(0, 1fr) auto; align-items: center; width: min(100%, 728px); min-height: 78px; margin: 6px auto 0; overflow: hidden; border: 1px solid #263946; background: linear-gradient(120deg, #101b22, #1e313d); color: white; text-align: left; box-shadow: 0 8px 22px rgba(17,17,15,.12); }
-.adSmartlinkMark { align-self: stretch; display: grid; place-items: center; background: linear-gradient(145deg, #dff6f4, #8fc4cf); color: #101b22; font-family: Impact, "Arial Black", sans-serif; font-size: 27px; letter-spacing: -.03em; }
-.adSmartlinkCopy { display: grid; gap: 3px; min-width: 0; padding: 12px 16px; color: white; }
-.adSmartlinkCopy small { color: #a8f0ee; font-size: 8px; font-weight: 900; letter-spacing: .14em; }
-.adSmartlinkCopy strong { color: white; font-family: Georgia, serif; font-size: 16px; line-height: 1.1; }
-.adSmartlinkCopy > span { color: #c5d0d5; font-size: 10px; line-height: 1.3; }
-.adSmartlinkCta { margin-right: 14px; padding: 9px 11px; border: 1px solid #a8f0ee; color: #a8f0ee; font-size: 9px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
-.adSmartlink:hover { background: linear-gradient(120deg, #172832, #294554); }
-.adSmartlink:hover .adSmartlinkCta { background: #a8f0ee; color: #101b22; }
-.adSmartlink-rectangle { grid-template-columns: 1fr; width: min(100%, 300px); min-height: 210px; align-content: stretch; }
-.adSmartlink-rectangle .adSmartlinkMark { min-height: 66px; }
-.adSmartlink-rectangle .adSmartlinkCopy { align-content: center; padding: 18px; }
-.adSmartlink-rectangle .adSmartlinkCopy strong { font-size: 22px; }
-.adSmartlink-rectangle .adSmartlinkCta { margin: 0 18px 18px; text-align: center; }
-.adSmartlink-native { width: 100%; min-height: 104px; }
 .topAdWrap { padding: 20px 0; }
 
 .sectionKicker { border-top: 5px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 9px 0; display: flex; justify-content: space-between; text-transform: uppercase; font-size: 10px; letter-spacing: .14em; font-weight: 800; }
@@ -202,7 +184,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .archiveTitle span { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; }
 .archiveGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 38px 24px; }
 .archiveAdQuad { grid-column: 1 / -1; }
-.archiveAdQuad .nativeAd { margin: 4px 0 14px; }
+.archiveAdQuad .nativePlacement { margin: 4px 0 14px; }
 .loadMoreWrap { grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 42px; padding-top: 28px; border-top: 1px solid var(--line); }
 .loadMoreButton { border: 1px solid var(--ink); background: var(--ink); color: white; padding: 14px 20px; font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
 .loadMoreButton:hover { background: var(--red); }
@@ -334,12 +316,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .navInner { gap: 20px; }
   .searchLink { margin-left: 0; }
   .topAdWrap { padding: 12px 0; }
-  .adSlot-leaderboard { min-height: 72px; padding: 7px; }
-  .adSlot-in-feed { min-height: 72px; padding: 7px; }
-  .adSmartlink:not(.adSmartlink-rectangle) { grid-template-columns: 56px minmax(0, 1fr); }
-  .adSmartlink:not(.adSmartlink-rectangle) .adSmartlinkCta { grid-column: 1 / -1; margin: 0 10px 10px; text-align: center; }
-  .adSmartlinkCopy { padding: 10px 12px; }
-  .adSmartlinkCopy > span { display: none; }
+  .adPlacement-leaderboard { min-height: 50px; }
+  .adPlacement-in-feed { min-height: 50px; }
   .heroGrid { padding-top: 18px; gap: 28px; }
   .leadVisual { min-height: 300px; }
   .leadVisualWords { left: 18px; bottom: 18px; max-width: 85%; }

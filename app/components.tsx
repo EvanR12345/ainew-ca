@@ -4,29 +4,6 @@ import { AdsterraBanner, AdsterraNative, AdsterraResponsiveBanner } from "./adst
 
 export { ArticleCard } from "./article-card";
 
-const smartlinkUrl = "https://armsbroodelusive.com/nh2mhka4m?key=351cfae0e404060ada1857e5c8440789";
-
-function SponsoredLink({ placement, format }: { placement: string; format: "leaderboard" | "rectangle" | "in-feed" | "native" }) {
-  const href = `${smartlinkUrl}&placement_sub_id=${encodeURIComponent(placement)}`;
-  return (
-    <a
-      className={`adSmartlink adSmartlink-${format}`}
-      href={href}
-      target="_blank"
-      rel="sponsored nofollow noopener noreferrer"
-      data-smartlink-placement={placement}
-    >
-      <span className="adSmartlinkMark" aria-hidden="true">AI+</span>
-      <span className="adSmartlinkCopy">
-        <small>ADVERTISEMENT · SPONSORED LINK</small>
-        <strong>Explore today’s featured technology offer</strong>
-        <span>Open the advertiser’s current promotion in a new tab.</span>
-      </span>
-      <span className="adSmartlinkCta">View offer ↗</span>
-    </a>
-  );
-}
-
 export function SiteHeader() {
   return (
     <>
@@ -107,23 +84,19 @@ export function SiteFooter() {
 export function AdSlot({ format = "leaderboard", label = "Advertisement" }: { format?: "leaderboard" | "rectangle" | "in-feed"; label?: string }) {
   const placement = `${format}-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
   return (
-    <aside className={`adSlot adSlot-${format}`} aria-label={label} data-ad-format={format}>
-      <span className="adDisclosure">{label}</span>
-      {format === "leaderboard" && <div className="adCreative"><AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" placement={placement} eager /></div>}
-      {format === "rectangle" && <div className="adCreative"><AdsterraBanner size="300x250" placement={placement} eager /></div>}
-      {format === "in-feed" && <div className="adCreative"><AdsterraResponsiveBanner desktopSize="468x60" mobileSize="160x300" placement={placement} /></div>}
-      <SponsoredLink placement={placement} format={format} />
-    </aside>
+    <div className={`adPlacement adPlacement-${format}`} data-ad-format={format}>
+      {format === "leaderboard" && <AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" placement={placement} eager />}
+      {format === "rectangle" && <AdsterraBanner size="300x250" placement={placement} eager />}
+      {format === "in-feed" && <AdsterraResponsiveBanner desktopSize="468x60" mobileSize="160x300" placement={placement} />}
+    </div>
   );
 }
 
 export function NativeAd({ placement }: { placement: string }) {
   return (
-    <aside className="nativeAd" aria-label="Advertisement">
-      <span className="adDisclosure">Advertisement</span>
+    <div className="nativePlacement">
       <AdsterraNative placement={placement} />
-      <SponsoredLink placement={`native-${placement}`} format="native" />
-    </aside>
+    </div>
   );
 }
 

@@ -101,7 +101,7 @@ test("shows up to ten fresh recommendations and tracks five minutes on-device", 
   assert.match(privacySource, /stays in your browser and is not transmitted/i);
 });
 
-test("uses real sandboxed ad frames plus a visible sponsored fallback and keeps the archive initial render light", async () => {
+test("uses only the original sandboxed Adsterra creatives and keeps the archive initial render light", async () => {
   const [adSource, componentSource, globalStyles, archiveSource, bannerFrame, nativeFrame] = await Promise.all([
     readFile(new URL("../app/adsterra.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components.tsx", import.meta.url), "utf8"),
@@ -116,13 +116,10 @@ test("uses real sandboxed ad frames plus a visible sponsored fallback and keeps 
   assert.doesNotMatch(adSource, /srcDoc=/);
   assert.match(bannerFrame, /highperformanceformat\.com/);
   assert.match(nativeFrame, /armsbroodelusive\.com\/b06ed254f7a4c2a25dfe5a921796890a\/invoke\.js/);
-  assert.match(componentSource, /armsbroodelusive\.com\/nh2mhka4m\?key=351cfae0e404060ada1857e5c8440789/);
-  assert.match(componentSource, /rel="sponsored nofollow noopener noreferrer"/);
-  assert.match(componentSource, /placement_sub_id/);
-  assert.match(componentSource, /Explore today’s featured technology offer/);
-  assert.match(componentSource, /ADVERTISEMENT · SPONSORED LINK/);
-  assert.match(globalStyles, /\.adSmartlink-rectangle/);
-  assert.match(globalStyles, /\.adSmartlinkCta/);
+  assert.match(componentSource, /adPlacement/);
+  assert.doesNotMatch(componentSource, /SponsoredLink|smartlinkUrl|placement_sub_id/);
+  assert.doesNotMatch(componentSource, /Explore today’s featured technology offer|ADVERTISEMENT · SPONSORED LINK/);
+  assert.doesNotMatch(globalStyles, /\.adSmartlink/);
   assert.doesNotMatch(componentSource, /a946bebc7af14238d812f26a95432834/);
   assert.match(archiveSource, /useState\(24\)/);
   assert.match(archiveSource, /Load 24 more stories/);
