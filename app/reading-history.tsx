@@ -15,6 +15,7 @@ type ReadingHistoryEntry = {
   completed: boolean;
   category?: ArticleCardData["category"];
   visits?: number;
+  daily?: Record<string, number>;
 };
 
 type ReadingHistory = Record<string, ReadingHistoryEntry>;
@@ -31,6 +32,13 @@ function readHistory(): ReadingHistory {
 function saveHistory(history: ReadingHistory) {
   window.localStorage.setItem(READING_HISTORY_KEY, JSON.stringify(history));
   window.dispatchEvent(new CustomEvent(READING_HISTORY_EVENT));
+}
+
+function localDateKey(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
 
 function recordVisit(slug: string, category: ArticleCardData["category"]) {
@@ -53,12 +61,14 @@ function addReadingTime(slug: string, category: ArticleCardData["category"], sec
   const history = readHistory();
   const current = history[slug] ?? { seconds: 0, lastVisited: "", completed: false };
   const total = current.seconds + seconds;
+  const today = localDateKey();
   history[slug] = {
     ...current,
     seconds: total,
     category,
     lastVisited: new Date().toISOString(),
     completed: total >= READ_THRESHOLD_SECONDS,
+    daily: { ...(current.daily ?? {}), [today]: (current.daily?.[today] ?? 0) + seconds },
   };
   saveHistory(history);
 }

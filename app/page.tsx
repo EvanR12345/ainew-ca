@@ -72,6 +72,21 @@ export default function Home() {
           <Link href="/article/eu-ai-act-canadian-companies"><strong>EU AI Act</strong><span>What Canadian exporters need to know</span></Link>
         </section>
 
+        <section className="shell learningLabTeaser">
+          <div>
+            <span className="eyebrow">NEW: AI LEARNING LAB</span>
+            <h2>Don’t just read the feed. Build an AI knowledge map.</h2>
+            <p>Follow curated tracks, save a queue, test yourself with practical questions and master the terms shaping every AI story.</p>
+            <Link href="/learn">Enter the Learning Lab →</Link>
+          </div>
+          <div className="teaserModules" aria-label="Learning Lab features">
+            <span><strong>01</strong>Personal learning paths</span>
+            <span><strong>02</strong>Knowledge quizzes</span>
+            <span><strong>03</strong>AI flashcards</span>
+            <span><strong>04</strong>Saved reading queue</span>
+          </div>
+        </section>
+
         <div className="shell"><NativeAd placement="homepage-native" /></div>
 
         <section className="shell sectionBlock">

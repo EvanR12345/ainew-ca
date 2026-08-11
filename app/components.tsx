@@ -30,6 +30,7 @@ export function SiteHeader() {
         <nav className="mainNav" aria-label="Main navigation">
           <div className="shell navInner">
             <Link href="/articles">Latest</Link>
+            <Link className="learnNavLink" href="/learn">Learning Lab</Link>
             <Link href="/articles?category=Canada">Canada</Link>
             <Link href="/articles?category=Models">Models</Link>
             <Link href="/articles?category=Products">Products</Link>
@@ -57,6 +58,7 @@ export function SiteFooter() {
         <div>
           <h3>Explore</h3>
           <Link href="/articles">All stories</Link>
+          <Link href="/learn">Learning Lab</Link>
           <Link href="/articles?category=Canada">Canada</Link>
           <Link href="/articles?category=Models">Models</Link>
           <Link href="/search">Search</Link>

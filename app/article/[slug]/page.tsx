@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { articleImageStyle } from "../../article-image-style";
 import { AdSlot, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
+import { ArticleKnowledgeCheck, SaveArticleButton } from "../../learning-actions";
 import { articles, getAdjacentArticles, getArticle, getRelatedArticles, toArticleCardData } from "../../lib/articles";
 import { ArticleReadTracker, ReadingJourney, RelatedRecommendations } from "../../reading-history";
 
@@ -46,6 +47,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const recap = [article.sections[0], article.sections[2], article.sections[5]]
     .filter(Boolean)
     .map((section) => firstSentence(section.paragraphs[0]));
+  const practicalTakeaway = firstSentence(article.sections[2]?.paragraphs[0] ?? article.sections[0].paragraphs[0]);
+  const knowledgeOptions = [
+    firstSentence(article.sections[1]?.paragraphs[0] ?? article.sections[0].paragraphs[1]),
+    practicalTakeaway,
+    firstSentence(article.sections[4]?.paragraphs[0] ?? article.sections[0].paragraphs[0]),
+  ];
 
   return (
     <div>
@@ -78,6 +85,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <time dateTime={article.date}>{article.displayDate}</time>
               <span>{article.readTime}</span>
             </div>
+            <SaveArticleButton article={article} />
           </header>
 
           <div className="articleHero" style={articleImageStyle(article.slug)}>
@@ -129,6 +137,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <span className="eyebrow">LOCK IN THE SIGNAL</span>
                 <h2 id="learning-recap-title">Three ideas to take with you.</h2>
                 <ol>{recap.map((takeaway) => <li key={takeaway}>{takeaway}</li>)}</ol>
+                <ArticleKnowledgeCheck
+                  articleSlug={article.slug}
+                  question="Which statement best matches this article’s practical recommendation?"
+                  options={knowledgeOptions}
+                  correctIndex={1}
+                  explanation={`The practical section’s core move is: ${practicalTakeaway}`}
+                />
                 <Link href={`/article/${adjacent.next.slug}`}>
                   Build on this: <strong>{adjacent.next.title}</strong> →
                 </Link>

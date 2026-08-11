@@ -93,6 +93,7 @@ test("builds an honest on-device learning path and tracks five focused minutes",
   assert.match(html, /beginner-how-to-use-ai-everyday-work\.jpg/);
   assert.match(html, /10 useful next steps, ranked for you/);
   assert.match(html, /Three ideas to take with you/);
+  assert.match(html, /30-SECOND KNOWLEDGE CHECK/);
   assert.match(trackerSource, /READ_THRESHOLD_SECONDS = 300/);
   assert.match(trackerSource, /\.slice\(0, 10\)/);
   assert.match(trackerSource, /document\.visibilityState/);
@@ -104,6 +105,32 @@ test("builds an honest on-device learning path and tracks five focused minutes",
   assert.match(imageStyleSource, /articleImageStyle/);
   assert.doesNotMatch(imageStyleSource, /--image-tint/);
   assert.match(privacySource, /stays in your browser and is not transmitted/i);
+});
+
+test("turns the publication into a device-local Learning Lab", async () => {
+  const [response, labSource, actionSource, cardSource, privacySource, sitemapSource] = await Promise.all([
+    render("/learn/"),
+    readFile(new URL("../app/learning-lab.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/learning-actions.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/article-card.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/privacy/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
+  ]);
+
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Turn AI news into knowledge you can actually use/);
+  assert.match(html, /5 curated tracks/);
+  assert.match(html, /111 deep reads/);
+  assert.match(labSource, /quizQuestions/);
+  assert.match(labSource, /flashcards/);
+  assert.match(labSource, /DAILY_GOAL_KEY/);
+  assert.match(labSource, /Continue what you started/);
+  assert.match(actionSource, /SAVED_ARTICLES_KEY/);
+  assert.match(actionSource, /ArticleKnowledgeCheck/);
+  assert.match(cardSource, /SaveArticleButton/);
+  assert.match(privacySource, /Daily goals, saved stories, quiz results and mastered flashcards/i);
+  assert.match(sitemapSource, /"\/learn"/);
 });
 
 test("uses only the original sandboxed Adsterra creatives and keeps the archive initial render light", async () => {

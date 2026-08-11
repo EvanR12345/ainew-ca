@@ -43,6 +43,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .navInner::-webkit-scrollbar { display: none; }
 .navInner a { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
 .navInner a:hover { color: var(--red); }
+.navInner .learnNavLink { color: var(--red); }
+.navInner .learnNavLink::after { content: "NEW"; margin-left: 5px; padding: 2px 4px; background: var(--red); color: white; font-size: 6px; vertical-align: top; }
 .searchLink { margin-left: auto; }
 
 .adPlacement { min-width: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; }
@@ -99,6 +101,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .quickTakes a:hover { background: white; }
 .quickTakes strong { color: var(--red); font-family: Georgia, serif; font-size: 17px; }
 .quickTakes span { font-size: 12px; font-weight: 700; line-height: 1.25; }
+.learningLabTeaser { margin-top: 44px; display: grid; grid-template-columns: 1.2fr .8fr; border: 1px solid var(--ink); background: var(--ink); color: white; box-shadow: 10px 10px 0 var(--cyan); }
+.learningLabTeaser > div:first-child { padding: 42px; }
+.learningLabTeaser h2 { max-width: 720px; margin: 10px 0 14px; font-family: Georgia, serif; font-size: clamp(34px, 4vw, 52px); line-height: .98; letter-spacing: -.04em; }
+.learningLabTeaser p { max-width: 690px; color: #c9c9c4; font-family: Georgia, serif; font-size: 16px; line-height: 1.55; }
+.learningLabTeaser a { display: inline-block; margin-top: 12px; padding: 12px 14px; background: var(--red); font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.teaserModules { display: grid; grid-template-columns: 1fr 1fr; background: #333; gap: 1px; }
+.teaserModules span { display: flex; min-height: 135px; flex-direction: column; justify-content: space-between; padding: 22px; background: var(--paper-deep); color: var(--ink); font-family: Georgia, serif; font-size: 18px; }
+.teaserModules strong { color: var(--red); font-family: Impact, "Arial Black", sans-serif; font-size: 28px; }
 
 .sectionBlock { padding-block: 86px; }
 .sectionHeading { display: flex; align-items: end; justify-content: space-between; gap: 30px; padding-bottom: 18px; margin-bottom: 26px; border-bottom: 1px solid var(--ink); }
@@ -122,6 +132,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .storyMeta span + span { color: var(--muted); }
 .storyContent h3 { margin: 9px 0; font-family: Georgia, serif; font-size: 24px; line-height: 1.07; letter-spacing: -.025em; }
 .storyContent > p { margin: 0 0 15px; color: #5d5952; line-height: 1.5; font-family: Georgia, serif; font-size: 14px; }
+.saveArticleButton { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 7px 9px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; font-size: 8px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.saveArticleButton:hover, .saveArticleButton[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: white; }
+.articleHeader > .saveArticleButton { margin-top: 18px; }
 
 .newsletterBand { background: var(--red); color: white; border: 1px solid var(--ink); padding: 48px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 60px; align-items: center; box-shadow: 12px 12px 0 var(--ink); margin-bottom: 86px; }
 .lightEyebrow { color: white; }
@@ -260,6 +273,18 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .learningRecap ol { display: grid; gap: 14px; margin: 0; padding-left: 24px; }
 .articleBody .learningRecap li { padding-left: 6px; color: #ece9e2; font-size: 16px; line-height: 1.5; }
 .learningRecap a { display: block; margin-top: 26px; padding-top: 20px; border-top: 1px solid #ffffff4d; color: var(--cyan); font-size: 11px; line-height: 1.45; }
+.articleKnowledgeCheck { margin-top: 28px; padding: 24px; background: var(--paper); color: var(--ink); }
+.articleKnowledgeCheck > span { color: var(--red); font-size: 8px; font-weight: 900; letter-spacing: .14em; }
+.articleKnowledgeCheck h3 { margin: 8px 0 16px; font-family: Georgia, serif; font-size: 22px; line-height: 1.15; }
+.knowledgeOptions { display: grid; gap: 8px; }
+.knowledgeOptions button { display: grid; grid-template-columns: 28px 1fr; gap: 8px; align-items: start; padding: 11px; border: 1px solid var(--line); background: white; color: var(--ink); cursor: pointer; text-align: left; font-size: 12px; line-height: 1.4; }
+.knowledgeOptions button:not(:disabled):hover { border-color: var(--ink); }
+.knowledgeOptions button > strong { display: grid; place-items: center; width: 22px; height: 22px; background: var(--ink); color: white; }
+.knowledgeOptions .knowledgeCorrect { border-color: #167847; background: #def4e7; }
+.knowledgeOptions .knowledgeIncorrect { border-color: var(--red); background: #ffe7e2; }
+.knowledgeResult { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+.knowledgeResult p { margin: 6px 0 !important; color: #4f4a43 !important; font-family: Georgia, serif !important; font-size: 13px !important; line-height: 1.5 !important; }
+.learningRecap .knowledgeResult a { display: inline-block; margin: 6px 0 0; padding: 0; border: 0; color: var(--red); font-size: 9px; font-weight: 900; }
 .storyStepper { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 55px; border: 1px solid var(--ink); background: var(--ink); }
 .storyStepper a { min-width: 0; padding: 22px; background: var(--paper); }
 .storyStepper a:last-child { text-align: right; }
@@ -277,6 +302,70 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .recommendationItem { min-width: 0; }
 .recommendationReason { display: inline-block; margin-bottom: 9px; padding: 6px 8px; background: var(--cyan); color: #173132; font-size: 8px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
 .recommendationEmpty { padding: 32px; border: 1px solid var(--line); background: var(--paper-deep); color: var(--muted); }
+
+/* Learning Lab */
+.learnHero { padding-bottom: 42px; }
+.learnHeroFeatures { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.learnHeroFeatures span { padding: 8px 10px; border: 1px solid var(--ink); font-size: 9px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.learningLab { padding: 40px 0 100px; }
+.learningDashboard { display: grid; grid-template-columns: 1.5fr repeat(4, 1fr); border: 1px solid var(--ink); background: var(--ink); gap: 1px; }
+.goalPanel, .learningMetric { min-width: 0; padding: 22px; background: var(--paper-deep); }
+.goalPanel > strong { display: block; margin: 10px 0; font-family: Impact, "Arial Black", sans-serif; font-size: 44px; line-height: 1; }
+.goalPanel > strong small { color: var(--muted); font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; }
+.goalProgress { height: 8px; overflow: hidden; background: #cfc7ba; }
+.goalProgress span { display: block; height: 100%; background: var(--red); transition: width .2s ease; }
+.goalChoices { display: flex; gap: 5px; margin-top: 12px; }
+.goalChoices button { padding: 5px 7px; border: 1px solid var(--line); background: transparent; cursor: pointer; font-size: 8px; font-weight: 900; }
+.goalChoices button.active { background: var(--ink); color: white; }
+.learningMetric { display: flex; flex-direction: column; justify-content: flex-end; }
+.learningMetric strong { font-family: Impact, "Arial Black", sans-serif; font-size: 43px; line-height: 1; }
+.learningMetric span { margin-top: 8px; color: var(--muted); font-size: 8px; font-weight: 900; letter-spacing: .09em; text-transform: uppercase; }
+.resumeStrip { margin-top: 30px; padding: 26px; border: 1px solid var(--ink); background: var(--cyan); }
+.resumeStrip > div:first-child { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
+.resumeStrip h2 { margin: 8px 0 18px; font-family: Georgia, serif; font-size: 32px; }
+.resumeStrip > div:last-child { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #4e7375; }
+.resumeStrip a { min-width: 0; display: grid; gap: 6px; padding: 15px; background: #e9ffff; }
+.resumeStrip a:hover { background: white; }
+.resumeStrip a span, .resumeStrip a small { color: #45696a; font-size: 8px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.resumeStrip a strong { display: -webkit-box; overflow: hidden; font-family: Georgia, serif; font-size: 15px; line-height: 1.2; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+.labTabs { display: flex; gap: 1px; margin-top: 44px; overflow-x: auto; background: var(--ink); border: 1px solid var(--ink); }
+.labTabs button { flex: 1; min-width: max-content; padding: 14px 18px; border: 0; background: var(--paper); cursor: pointer; font-size: 9px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.labTabs button.active { background: var(--ink); color: white; }
+.labPanel { padding-top: 32px; }
+.trackChooser { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.trackChooser button { min-width: 0; min-height: 145px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; padding: 16px; border: 1px solid var(--line); background: transparent; cursor: pointer; text-align: left; }
+.trackChooser button.active { border-color: var(--ink); background: var(--ink); color: white; box-shadow: 5px 5px 0 var(--red); }
+.trackChooser span, .trackChooser small { color: var(--muted); font-size: 8px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.trackChooser button.active span, .trackChooser button.active small { color: var(--cyan); }
+.trackChooser strong { font-family: Georgia, serif; font-size: 19px; line-height: 1.05; }
+.trackHeader, .savedHeader { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin: 44px 0 28px; padding-bottom: 20px; border-bottom: 1px solid var(--ink); }
+.trackHeader h2, .savedHeader h2 { margin: 8px 0; font-family: Georgia, serif; font-size: 42px; line-height: 1; }
+.trackHeader p { max-width: 700px; margin: 0; color: var(--muted); font-family: Georgia, serif; line-height: 1.5; }
+.trackHeader > a, .savedHeader > a { flex: none; padding: 10px; border: 1px solid var(--ink); font-size: 8px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.labArticleGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 42px 24px; }
+.quizPanel { max-width: 900px; margin: 0 auto; }
+.quizCounter, .flashcardStatus { display: flex; justify-content: space-between; color: var(--muted); font-size: 9px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.quizPanel > h2 { margin: 28px 0; font-family: Georgia, serif; font-size: clamp(34px, 5vw, 55px); line-height: 1; }
+.labQuizOptions { display: grid; gap: 10px; }
+.labQuizOptions button { display: grid; grid-template-columns: 42px 1fr; gap: 16px; align-items: center; padding: 17px; border: 1px solid var(--ink); background: white; cursor: pointer; text-align: left; font-family: Georgia, serif; font-size: 17px; }
+.labQuizOptions button > strong { display: grid; place-items: center; width: 34px; height: 34px; background: var(--ink); color: white; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; }
+.labQuizOptions button.correct { background: #dff5e8; border-color: #167847; }
+.labQuizOptions button.incorrect { background: #ffe7e2; border-color: var(--red); }
+.labQuizResult { margin-top: 20px; padding: 24px; background: var(--ink); color: white; }
+.labQuizResult > strong { font-family: Georgia, serif; font-size: 24px; }
+.labQuizResult p { color: #c9c9c4; line-height: 1.55; }
+.labQuizResult > div { display: flex; justify-content: space-between; gap: 20px; }
+.labQuizResult a, .labQuizResult button { border: 0; background: transparent; color: var(--cyan); cursor: pointer; font-size: 9px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.flashcardPanel { max-width: 850px; margin: 0 auto; }
+.flashcardStatus button { border: 0; background: transparent; color: var(--red); cursor: pointer; font: inherit; }
+.flashcard { width: 100%; min-height: 390px; margin-top: 22px; display: flex; flex-direction: column; justify-content: space-between; padding: 42px; border: 1px solid var(--ink); background: var(--violet); color: var(--ink); cursor: pointer; text-align: left; box-shadow: 12px 12px 0 var(--ink); }
+.flashcard.revealed { background: var(--yellow); }
+.flashcard > span, .flashcard > small { font-size: 9px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.flashcard > strong { max-width: 720px; font-family: Georgia, serif; font-size: clamp(38px, 6vw, 62px); line-height: 1.02; }
+.flashcardActions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 24px; }
+.flashcardActions button { padding: 11px 13px; border: 1px solid var(--ink); background: transparent; cursor: pointer; font-size: 9px; font-weight: 900; text-transform: uppercase; }
+.flashcardActions button:last-child { background: var(--ink); color: white; }
+.savedEmpty { padding: 42px; border: 1px dashed var(--line); color: var(--muted); text-align: center; }
 
 /* Info pages */
 .infoPage { padding: 80px 0 110px; }
@@ -322,6 +411,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .articleAdRail .stickyBrief { margin-top: 0; }
   .trustStrip { grid-template-columns: 1fr 1.2fr; }
   .footerGrid { grid-template-columns: 1.4fr repeat(3, 1fr); gap: 24px; }
+  .learningDashboard { grid-template-columns: repeat(2, 1fr); }
+  .goalPanel { grid-column: 1 / -1; }
+  .resumeStrip > div:last-child { grid-template-columns: repeat(2, 1fr); }
+  .trackChooser { grid-template-columns: repeat(3, 1fr); }
+  .labArticleGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 720px) {
@@ -346,6 +440,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .quickTakes { grid-template-columns: 1fr; }
   .quickLabel { min-height: 36px; }
   .quickTakes a { min-height: 64px; border-bottom: 1px solid var(--line); }
+  .learningLabTeaser { grid-template-columns: 1fr; margin-top: 28px; }
+  .learningLabTeaser > div:first-child { padding: 28px 22px; }
+  .teaserModules span { min-height: 105px; padding: 16px; }
   .sectionBlock, .inkSection { padding-block: 58px; }
   .sectionHeading { align-items: start; }
   .sectionHeading > a { display: none; }
@@ -394,6 +491,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .storyStepper a:last-child { text-align: left; }
   .contactGrid { grid-template-columns: 1fr; }
   .experimentGrid { grid-template-columns: 1fr; }
+  .learningDashboard { grid-template-columns: 1fr 1fr; }
+  .learningMetric { min-height: 130px; }
+  .resumeStrip > div:first-child { display: block; }
+  .resumeStrip > div:last-child, .trackChooser, .labArticleGrid { grid-template-columns: 1fr; }
+  .trackChooser button { min-height: 112px; }
+  .trackHeader, .savedHeader { display: block; }
+  .trackHeader > a, .savedHeader > a { display: inline-block; margin-top: 14px; }
+  .labTabs button { flex: none; }
+  .flashcard { min-height: 330px; padding: 28px 22px; box-shadow: 7px 7px 0 var(--ink); }
+  .flashcardActions, .labQuizResult > div { flex-direction: column; }
 }
 
 @media (prefers-reduced-motion: reduce) {

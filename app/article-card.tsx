@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { articleImageStyle } from "./article-image-style";
+import { SaveArticleButton } from "./learning-actions";
 import type { ArticleCardData } from "./lib/articles";
 
 export const CARD_EXPERIMENT_KEY = "ainew-photo-card-treatment-v1";
@@ -118,6 +119,7 @@ export function ArticleCard({ article, size = "standard" }: { article: ArticleCa
         <h3><Link href={`/article/${article.slug}`} onClick={trackClick}>{article.title}</Link></h3>
         {size !== "compact" && <p>{article.dek}</p>}
         <div className="storyByline"><time dateTime={article.date}>{article.displayDate}</time><span>{article.readTime}</span></div>
+        <SaveArticleButton article={article} />
       </div>
     </article>
   );
