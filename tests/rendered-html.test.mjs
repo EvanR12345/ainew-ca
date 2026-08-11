@@ -290,6 +290,7 @@ test("publishes substantive trust pages, topic guides, glossary, and precise dis
   assert.match(workflowSource, /actions\/download-artifact@v8/);
   assert.match(workflowSource, /node scripts\/submit-indexnow\.mjs --sitemap \.indexnow-site\/sitemap\.xml/);
   assert.doesNotMatch(workflowSource, /actions\/(?:checkout|setup-node)@v4/);
+  assert.doesNotMatch(workflowSource, /actions\/(?:configure-pages@v5|upload-pages-artifact@v3|deploy-pages@v4)/);
 });
 
 test("uses only the original sandboxed Adsterra creatives and places responsive ads through the reading journey", async () => {
