@@ -56,6 +56,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .nativeAd { margin: 42px 0; padding: 10px; overflow: hidden; border: 1px solid #d9d2c6; background: rgba(255,255,255,.45); text-align: center; }
 .nativeAd .adDisclosure { margin-bottom: 7px; color: #8f897e; }
 .adsterraNativeFrame { width: 100%; height: 300px; }
+.adSmartlink { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 34px; margin: 3px auto 0; padding: 8px 12px; border: 1px solid var(--ink); background: white; color: var(--ink); font-size: 9px; letter-spacing: .05em; text-align: left; }
+.adSmartlink strong { color: var(--red); text-transform: uppercase; letter-spacing: .1em; }
+.adSmartlink span { color: var(--muted); }
+.adSmartlink:hover { background: var(--yellow); }
 .topAdWrap { padding: 20px 0; }
 
 .sectionKicker { border-top: 5px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 9px 0; display: flex; justify-content: space-between; text-transform: uppercase; font-size: 10px; letter-spacing: .14em; font-weight: 800; }
