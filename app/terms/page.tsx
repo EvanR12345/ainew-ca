@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { InfoPage } from "../info-page";
+import { buildPageMetadata } from "../lib/seo";
 
-export const metadata: Metadata = { title: "Terms of Use | AI New Canada" };
+export const metadata: Metadata = buildPageMetadata({
+  title: "Terms of Use | AI New Canada",
+  description: "The terms governing informational content, intellectual property, third-party links and commercial disclosures on AI New Canada.",
+  path: "/terms/",
+});
 
 export default function TermsPage() {
   return (

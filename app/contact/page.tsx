@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { InfoPage } from "../info-page";
+import { buildPageMetadata } from "../lib/seo";
 
-export const metadata: Metadata = { title: "Contact | AI New Canada" };
+export const metadata: Metadata = buildPageMetadata({
+  title: "Contact the AI New Canada Newsroom",
+  description: "Send AI New Canada a news tip, correction, advertising inquiry or partnership proposal.",
+  path: "/contact/",
+});
 
 export default function ContactPage() {
   return (

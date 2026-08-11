@@ -130,7 +130,47 @@ test("turns the publication into a device-local Learning Lab", async () => {
   assert.match(actionSource, /ArticleKnowledgeCheck/);
   assert.match(cardSource, /SaveArticleButton/);
   assert.match(privacySource, /Daily goals, saved stories, quiz results and mastered flashcards/i);
-  assert.match(sitemapSource, /"\/learn"/);
+  assert.match(sitemapSource, /"\/learn\/"/);
+});
+
+test("publishes crawlable topic hubs, canonical URLs and complete search schema", async () => {
+  const [homeResponse, articleResponse, categoryResponse, feedResponse, sitemapSource, robotsSource] = await Promise.all([
+    render("/"),
+    render("/article/canada-ai-transparency-consultation-what-to-know/"),
+    render("/category/canada/"),
+    render("/feed.xml/"),
+    readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/robots.ts", import.meta.url), "utf8"),
+  ]);
+
+  assert.equal(homeResponse.status, 200);
+  assert.equal(articleResponse.status, 200);
+  assert.equal(categoryResponse.status, 200);
+  assert.equal(feedResponse.status, 200);
+
+  const homeHtml = await homeResponse.text();
+  const articleHtml = await articleResponse.text();
+  const categoryHtml = await categoryResponse.text();
+  const feedXml = await feedResponse.text();
+
+  assert.match(homeHtml, /"@type":"WebSite"/);
+  assert.match(homeHtml, /"alternateName":\["AI New","ainew\.ca"\]/);
+  assert.match(homeHtml, /"@type":"NewsMediaOrganization"/);
+  assert.match(homeHtml, /type="application\/rss\+xml"/);
+  assert.match(articleHtml, /rel="canonical" href="https:\/\/ainew\.ca\/article\/canada-ai-transparency-consultation-what-to-know\/?"/);
+  assert.match(articleHtml, /"@type":"NewsArticle"/);
+  assert.match(articleHtml, /"@type":"BreadcrumbList"/);
+  assert.match(articleHtml, /"wordCount":\d+/);
+  assert.match(categoryHtml, /Canada(?:<!-- -->)? AI news, guides and analysis/);
+  assert.match(categoryHtml, /"@type":"ItemList"/);
+  assert.match(categoryHtml, /href="\/category\/models\/?"/);
+  assert.match(feedResponse.headers.get("content-type") ?? "", /^application\/rss\+xml/i);
+  assert.match(feedXml, /<title>AI New Canada<\/title>/);
+  assert.match(feedXml, /<media:content/);
+  assert.match(sitemapSource, /categoryRoutes/);
+  assert.match(sitemapSource, /images: \[absoluteUrl\(article\.image\)\]/);
+  assert.doesNotMatch(sitemapSource, /"\/search"/);
+  assert.match(robotsSource, /host: "https:\/\/ainew\.ca"/);
 });
 
 test("uses only the original sandboxed Adsterra creatives and keeps the archive initial render light", async () => {
@@ -150,6 +190,8 @@ test("uses only the original sandboxed Adsterra creatives and keeps the archive 
   assert.doesNotMatch(bannerFrame, /highperformanceformat\.com/);
   assert.match(nativeFrame, /armsbroodelusive\.com\/b06ed254f7a4c2a25dfe5a921796890a\/invoke\.js/);
   assert.match(componentSource, /adPlacement/);
+  assert.match(componentSource, /eager = false/);
+  assert.match(componentSource, /eager=\{eager\}/);
   assert.doesNotMatch(componentSource, /SponsoredLink|smartlinkUrl|placement_sub_id/);
   assert.doesNotMatch(componentSource, /Explore today’s featured technology offer|ADVERTISEMENT · SPONSORED LINK/);
   assert.doesNotMatch(globalStyles, /\.adSmartlink/);

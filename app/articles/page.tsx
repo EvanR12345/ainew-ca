@@ -2,17 +2,35 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { NewsletterBand, SiteFooter, SiteHeader } from "../components";
 import { ArticlesClient } from "./articles-client";
+import { buildPageMetadata, breadcrumbSchema, SITE_URL, WEBSITE_ID } from "../lib/seo";
+import { StructuredData } from "../structured-data";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Latest AI News & Analysis | AI New Canada",
-  description: "Browse AI New Canada coverage of models, products, policy, business, research and the Canadian AI ecosystem.",
-};
+  description: "Browse evidence-first coverage of AI models, products, policy, business, research and the Canadian artificial intelligence ecosystem.",
+  path: "/articles/",
+});
 
 export default function ArticlesPage() {
   return (
     <div>
       <SiteHeader />
       <main>
+        <StructuredData data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Latest AI news", path: "/articles/" }]),
+            {
+              "@type": "CollectionPage",
+              "@id": `${SITE_URL}/articles/#collection`,
+              url: `${SITE_URL}/articles/`,
+              name: "Latest AI News & Analysis",
+              description: "Evidence-first Canadian and global artificial intelligence reporting and practical analysis.",
+              isPartOf: { "@id": WEBSITE_ID },
+              inLanguage: "en-CA",
+            },
+          ],
+        }} />
         <section className="pageHero shell">
           <span className="eyebrow">THE NEWSROOM</span>
           <h1>AI news with the missing context put back in.</h1>

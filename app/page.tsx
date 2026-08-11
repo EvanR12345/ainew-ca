@@ -4,11 +4,14 @@ import Image from "next/image";
 import { AdSlot, ArticleCard, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "./components";
 import { articleImageStyle } from "./article-image-style";
 import { articles } from "./lib/articles";
+import { buildPageMetadata, categoryPath, organizationSchema, websiteSchema } from "./lib/seo";
+import { StructuredData } from "./structured-data";
 
-export const metadata: Metadata = {
-  title: "AI New Canada — Artificial Intelligence News Without the Hype",
-  description: "The latest AI news, model releases, Canadian policy, research and practical analysis from AI New Canada.",
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "AI New Canada — Canadian AI News & Practical Guides",
+  description: "Independent Canadian AI news, model releases, policy, research and practical guides that separate evidence from hype.",
+  path: "/",
+});
 
 export default function Home() {
   const lead = articles[0];
@@ -21,15 +24,11 @@ export default function Home() {
     <div>
       <SiteHeader />
       <main>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        <StructuredData data={{
           "@context": "https://schema.org",
-          "@type": "NewsMediaOrganization",
-          name: "AI New Canada",
-          url: "https://ainew.ca",
-          description: "Independent Canadian reporting and analysis on artificial intelligence.",
-          publishingPrinciples: "https://ainew.ca/about"
-        }) }} />
-        <div className="shell topAdWrap"><AdSlot /></div>
+          "@graph": [organizationSchema(), websiteSchema()],
+        }} />
+        <div className="shell topAdWrap"><AdSlot eager /></div>
 
         <section className="shell heroSection">
           <div className="sectionKicker"><span>Today’s briefing</span><time dateTime="2026-08-10">Monday, August 10, 2026</time></div>
@@ -92,7 +91,7 @@ export default function Home() {
         <section className="shell sectionBlock">
           <div className="sectionHeading">
             <div><span className="eyebrow">THE HOME DESK</span><h2>Canada is building its AI playbook in public.</h2></div>
-            <Link href="/articles?category=Canada">All Canada coverage →</Link>
+            <Link href={categoryPath("Canada")}>All Canada coverage →</Link>
           </div>
           <div className="threeColCards">
             {canada.map((article) => <ArticleCard key={article.slug} article={article} />)}
@@ -105,7 +104,7 @@ export default function Home() {
           <div className="shell">
             <div className="sectionHeading lightHeading">
               <div><span className="eyebrow lightEyebrow">MODELS & PRODUCTS</span><h2>What changed—and what’s just a launch-day claim.</h2></div>
-              <Link href="/articles?category=Models">Model tracker →</Link>
+              <Link href={categoryPath("Models")}>Model tracker →</Link>
             </div>
             <div className="modelGrid">
               <ArticleCard article={models[0]} size="wide" />

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Newsletter } from "./newsletter";
 import { AdsterraBanner, AdsterraNative, AdsterraResponsiveBanner } from "./adsterra";
+import { categoryPath } from "./lib/seo";
 
 export { ArticleCard } from "./article-card";
 
@@ -31,12 +32,12 @@ export function SiteHeader() {
           <div className="shell navInner">
             <Link href="/articles">Latest</Link>
             <Link className="learnNavLink" href="/learn">Learning Lab</Link>
-            <Link href="/articles?category=Canada">Canada</Link>
-            <Link href="/articles?category=Models">Models</Link>
-            <Link href="/articles?category=Products">Products</Link>
-            <Link href="/articles?category=Business">Business</Link>
-            <Link href="/articles?category=Research">Research</Link>
-            <Link href="/articles?category=Policy">Policy</Link>
+            <Link href={categoryPath("Canada")}>Canada</Link>
+            <Link href={categoryPath("Models")}>Models</Link>
+            <Link href={categoryPath("Products")}>Products</Link>
+            <Link href={categoryPath("Business")}>Business</Link>
+            <Link href={categoryPath("Research")}>Research</Link>
+            <Link href={categoryPath("Policy")}>Policy</Link>
             <Link className="searchLink" href="/search" aria-label="Search AI New">Search <span aria-hidden="true">⌕</span></Link>
           </div>
         </nav>
@@ -59,8 +60,9 @@ export function SiteFooter() {
           <h3>Explore</h3>
           <Link href="/articles">All stories</Link>
           <Link href="/learn">Learning Lab</Link>
-          <Link href="/articles?category=Canada">Canada</Link>
-          <Link href="/articles?category=Models">Models</Link>
+          <Link href={categoryPath("Canada")}>Canada</Link>
+          <Link href={categoryPath("Models")}>Models</Link>
+          <Link href={categoryPath("Policy")}>Policy</Link>
           <Link href="/search">Search</Link>
         </div>
         <div>
@@ -83,12 +85,20 @@ export function SiteFooter() {
   );
 }
 
-export function AdSlot({ format = "leaderboard", label = "Advertisement" }: { format?: "leaderboard" | "rectangle" | "in-feed"; label?: string }) {
+export function AdSlot({
+  format = "leaderboard",
+  label = "Advertisement",
+  eager = false,
+}: {
+  format?: "leaderboard" | "rectangle" | "in-feed";
+  label?: string;
+  eager?: boolean;
+}) {
   const placement = `${format}-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
   return (
     <div className={`adPlacement adPlacement-${format}`} data-ad-format={format}>
-      {format === "leaderboard" && <AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" placement={placement} eager />}
-      {format === "rectangle" && <AdsterraBanner size="300x250" placement={placement} eager />}
+      {format === "leaderboard" && <AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" placement={placement} eager={eager} />}
+      {format === "rectangle" && <AdsterraBanner size="300x250" placement={placement} eager={eager} />}
       {format === "in-feed" && <AdsterraResponsiveBanner desktopSize="468x60" mobileSize="160x300" placement={placement} />}
     </div>
   );

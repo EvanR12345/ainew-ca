@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import { AdSlot, NewsletterBand, SiteFooter, SiteHeader } from "../components";
 import { LearningLab, type LearningTrack } from "../learning-lab";
 import { articles, toArticleCardData } from "../lib/articles";
+import { buildPageMetadata, breadcrumbSchema, SITE_URL, WEBSITE_ID } from "../lib/seo";
+import { StructuredData } from "../structured-data";
 
-export const metadata: Metadata = {
-  title: "AI Learning Lab | AI New Canada",
-  description: "Build practical AI knowledge with curated reading paths, quizzes, flashcards, saved stories and honest progress tracking.",
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "AI Learning Lab — Free AI Courses & Quizzes | AI New Canada",
+  description: "Build practical AI knowledge with five free guided learning paths, quizzes, flashcards, saved stories and honest progress tracking.",
+  path: "/learn/",
+});
 
 const cards = articles.map(toArticleCardData);
 
@@ -57,7 +60,23 @@ export default function LearnPage() {
     <div>
       <SiteHeader />
       <main>
-        <div className="shell topAdWrap"><AdSlot /></div>
+        <StructuredData data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            breadcrumbSchema([{ name: "Home", path: "/" }, { name: "AI Learning Lab", path: "/learn/" }]),
+            {
+              "@type": "CollectionPage",
+              "@id": `${SITE_URL}/learn/#collection`,
+              url: `${SITE_URL}/learn/`,
+              name: "AI Learning Lab",
+              description: "Five free guided learning paths through AI New Canada articles, with quizzes and flashcards.",
+              isPartOf: { "@id": WEBSITE_ID },
+              inLanguage: "en-CA",
+              about: { "@type": "Thing", name: "Artificial intelligence education" },
+            },
+          ],
+        }} />
+        <div className="shell topAdWrap"><AdSlot eager /></div>
         <section className="shell pageHero learnHero">
           <span className="eyebrow">AI NEW LEARNING LAB</span>
           <h1>Turn AI news into knowledge you can actually use.</h1>

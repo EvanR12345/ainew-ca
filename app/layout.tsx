@@ -1,12 +1,30 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ScrollToTop } from "./scroll-to-top";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./lib/seo";
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://ainew.ca"),
-    title: { default: "AI New Canada", template: "%s" },
-    description: "The signal in artificial intelligence: Canadian AI news, global model releases, policy, products and research without the hype.",
+    metadataBase: new URL(SITE_URL),
+    applicationName: SITE_NAME,
+    title: { default: "AI New Canada — Canadian AI News & Practical Guides", template: "%s" },
+    description: SITE_DESCRIPTION,
     keywords: ["AI news", "artificial intelligence", "Canada AI", "AI models", "AI policy", "AI New Canada"],
+    authors: [{ name: "AI New Desk", url: `${SITE_URL}/about/` }],
+    creator: "AI New Desk",
+    publisher: SITE_NAME,
+    category: "technology",
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
+    formatDetection: { telephone: false },
     icons: {
       icon: [{ url: "/icon.png", type: "image/png" }],
       shortcut: "/icon.png",
@@ -14,18 +32,21 @@ export const metadata: Metadata = {
     },
     openGraph: {
       type: "website",
-      siteName: "AI New Canada",
+      siteName: SITE_NAME,
       title: "AI New Canada — The signal in artificial intelligence",
-      description: "Canadian AI news, global model releases and practical analysis without the hype.",
-      images: [{ url: "https://ainew.ca/og.png", width: 1200, height: 630, alt: "AI New Canada — The signal in artificial intelligence" }],
+      description: SITE_DESCRIPTION,
+      url: `${SITE_URL}/`,
+      locale: "en_CA",
+      images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: "AI New Canada — The signal in artificial intelligence" }],
     },
-    twitter: { card: "summary_large_image", title: "AI New Canada", description: "The signal in artificial intelligence.", images: ["https://ainew.ca/og.png"] },
+    twitter: { card: "summary_large_image", title: SITE_NAME, description: SITE_DESCRIPTION, images: [`${SITE_URL}/og.png`] },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-CA">
       <head>
+        <link rel="alternate" type="application/rss+xml" title={`${SITE_NAME} RSS feed`} href="/feed.xml" />
         <link rel="preconnect" href="https://armsbroodelusive.com" />
         <link rel="dns-prefetch" href="//armsbroodelusive.com" />
       </head>

@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { InfoPage } from "../info-page";
+import { buildPageMetadata } from "../lib/seo";
 
-export const metadata: Metadata = { title: "Privacy Policy | AI New Canada" };
+export const metadata: Metadata = buildPageMetadata({
+  title: "Privacy Policy | AI New Canada",
+  description: "How AI New Canada handles reader information, device-local learning data, analytics and advertising technologies.",
+  path: "/privacy/",
+});
 
 export default function PrivacyPage() {
   return (

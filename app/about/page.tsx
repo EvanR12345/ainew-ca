@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { InfoPage } from "../info-page";
+import { buildPageMetadata } from "../lib/seo";
 
-export const metadata: Metadata = { title: "About & Editorial Standards | AI New Canada" };
+export const metadata: Metadata = buildPageMetadata({
+  title: "About & Editorial Standards | AI New Canada",
+  description: "How AI New Canada sources, labels, verifies and corrects its independent artificial intelligence coverage.",
+  path: "/about/",
+});
 
 export default function AboutPage() {
   return (

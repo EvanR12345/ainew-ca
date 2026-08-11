@@ -6,7 +6,9 @@ import { articleImageStyle } from "../../article-image-style";
 import { AdSlot, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
 import { ArticleKnowledgeCheck, SaveArticleButton } from "../../learning-actions";
 import { articles, getAdjacentArticles, getArticle, getRelatedArticles, toArticleCardData } from "../../lib/articles";
+import { absoluteUrl, breadcrumbSchema, categoryPath, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../lib/seo";
 import { ArticleReadTracker, ReadingJourney, RelatedRecommendations } from "../../reading-history";
+import { StructuredData } from "../../structured-data";
 
 export function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }));
@@ -16,16 +18,26 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) return { title: "Story not found | AI New Canada" };
+  const url = absoluteUrl(`/article/${article.slug}/`);
+  const image = absoluteUrl(article.image);
   return {
     title: `${article.title} | AI New Canada`,
     description: article.dek,
+    alternates: { canonical: url },
+    authors: [{ name: "AI New Desk", url: `${SITE_URL}/about/` }],
     openGraph: {
       title: article.title,
       description: article.dek,
       type: "article",
+      siteName: SITE_NAME,
+      url,
       publishedTime: article.date,
-      images: [{ url: article.image, width: 1200, height: 675, alt: article.imageAlt }],
+      modifiedTime: article.date,
+      section: article.category,
+      authors: [`${SITE_URL}/about/`],
+      images: [{ url: image, width: 1200, height: 675, alt: article.imageAlt }],
     },
+    twitter: { card: "summary_large_image", title: article.title, description: article.dek, images: [image] },
   };
 }
 
@@ -35,6 +47,11 @@ function sectionId(heading: string) {
 
 function firstSentence(text: string) {
   return text.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim() ?? text;
+}
+
+function wordCount(article: NonNullable<ReturnType<typeof getArticle>>) {
+  const text = article.sections.flatMap((section) => [...section.paragraphs, ...(section.bullets ?? [])]).join(" ");
+  return text.trim().split(/\s+/).filter(Boolean).length;
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -60,22 +77,49 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <main>
         <ArticleReadTracker slug={article.slug} category={article.category} />
         <ReadingJourney sections={sectionLinks} nextArticle={toArticleCardData(adjacent.next)} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        <StructuredData data={{
           "@context": "https://schema.org",
-          "@type": "NewsArticle",
-          headline: article.title,
-          description: article.dek,
-          datePublished: article.date,
-          dateModified: article.date,
-          image: `https://ainew.ca${article.image}`,
-          mainEntityOfPage: `https://ainew.ca/article/${article.slug}`,
-          author: { "@type": "Organization", name: "AI New Desk" },
-          publisher: { "@type": "NewsMediaOrganization", name: "AI New Canada", url: "https://ainew.ca" },
-        }) }} />
-        <div className="shell topAdWrap"><AdSlot /></div>
+          "@graph": [
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: article.category, path: categoryPath(article.category) },
+              { name: article.title, path: `/article/${article.slug}/` },
+            ]),
+            {
+              "@type": "NewsArticle",
+              "@id": `${absoluteUrl(`/article/${article.slug}/`)}#article`,
+              url: absoluteUrl(`/article/${article.slug}/`),
+              headline: article.title,
+              description: article.dek,
+              datePublished: article.date,
+              dateModified: article.date,
+              image: {
+                "@type": "ImageObject",
+                url: absoluteUrl(article.image),
+                width: 1200,
+                height: 675,
+                caption: article.imageAlt,
+              },
+              thumbnailUrl: absoluteUrl(article.image),
+              mainEntityOfPage: {
+                "@type": "WebPage",
+                "@id": absoluteUrl(`/article/${article.slug}/`),
+              },
+              isPartOf: { "@id": WEBSITE_ID },
+              author: { "@type": "Organization", name: "AI New Desk", url: `${SITE_URL}/about/` },
+              publisher: { "@id": ORGANIZATION_ID },
+              articleSection: article.category,
+              wordCount: wordCount(article),
+              inLanguage: "en-CA",
+              isAccessibleForFree: true,
+              keywords: [article.category, "artificial intelligence", "AI news", "Canada AI"],
+            },
+          ],
+        }} />
+        <div className="shell topAdWrap"><AdSlot eager /></div>
         <article className="articleShell shell">
           <header className="articleHeader">
-            <div className="articleBreadcrumb"><Link href="/">Home</Link><span>/</span><Link href={`/articles?category=${article.category}`}>{article.category}</Link></div>
+            <div className="articleBreadcrumb"><Link href="/">Home</Link><span>/</span><Link href={categoryPath(article.category)}>{article.category}</Link></div>
             <span className="signalPill">{article.signal}</span>
             <h1>{article.title}</h1>
             <p className="articleDek">{article.dek}</p>

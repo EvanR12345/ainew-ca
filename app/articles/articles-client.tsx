@@ -6,22 +6,15 @@ import { useState } from "react";
 import { Fragment } from "react";
 import { AdSlot, ArticleCard, NativeAd } from "../components";
 import { articles, categories } from "../lib/articles";
+import { categoryPath } from "../lib/seo";
 
 type Category = (typeof categories)[number];
 
 export function ArticlesClient() {
   const searchParams = useSearchParams();
-  const [selected, setSelected] = useState<Category | null>(null);
   const [visibleCount, setVisibleCount] = useState(24);
   const requested = searchParams.get("category") as Category | null;
-  const active = selected ?? (requested && categories.includes(requested) ? requested : "All");
-
-  function chooseCategory(category: Category) {
-    setSelected(category);
-    setVisibleCount(24);
-    const url = category === "All" ? "/articles/" : `/articles/?category=${encodeURIComponent(category)}`;
-    window.history.replaceState({}, "", url);
-  }
+  const active = requested && categories.includes(requested) ? requested : "All";
 
   const filtered = active === "All" ? articles : articles.filter((article) => article.category === active);
   const visible = filtered.slice(0, visibleCount);
@@ -30,7 +23,7 @@ export function ArticlesClient() {
     <>
       <div className="shell categoryNav" aria-label="Filter stories by category">
         {categories.map((item) => (
-          <button className={active === item ? "active" : ""} key={item} type="button" onClick={() => chooseCategory(item)}>{item}</button>
+          <Link className={active === item ? "active" : ""} href={item === "All" ? "/articles/" : categoryPath(item)} key={item}>{item}</Link>
         ))}
       </div>
       <div className="shell archiveLayout">
