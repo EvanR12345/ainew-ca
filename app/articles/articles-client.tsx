@@ -12,16 +12,19 @@ type Category = (typeof categories)[number];
 export function ArticlesClient() {
   const searchParams = useSearchParams();
   const [selected, setSelected] = useState<Category | null>(null);
+  const [visibleCount, setVisibleCount] = useState(24);
   const requested = searchParams.get("category") as Category | null;
   const active = selected ?? (requested && categories.includes(requested) ? requested : "All");
 
   function chooseCategory(category: Category) {
     setSelected(category);
+    setVisibleCount(24);
     const url = category === "All" ? "/articles/" : `/articles/?category=${encodeURIComponent(category)}`;
     window.history.replaceState({}, "", url);
   }
 
   const filtered = active === "All" ? articles : articles.filter((article) => article.category === active);
+  const visible = filtered.slice(0, visibleCount);
 
   return (
     <>
@@ -34,13 +37,21 @@ export function ArticlesClient() {
         <section>
           <div className="archiveTitle"><h2>{active === "All" ? "Latest stories" : `${active} stories`}</h2><span>{filtered.length} articles</span></div>
           <div className="archiveGrid">
-            {filtered.map((article, index) => (
+            {visible.map((article, index) => (
               <Fragment key={article.slug}>
                 <div><ArticleCard article={article} /></div>
                 {index === 11 && <div className="archiveAdQuad"><NativeAd placement={`archive-${active}-native`} /></div>}
               </Fragment>
             ))}
           </div>
+          {visibleCount < filtered.length && (
+            <div className="loadMoreWrap">
+              <button className="loadMoreButton" type="button" onClick={() => setVisibleCount((count) => count + 24)}>
+                Load 24 more stories
+              </button>
+              <span>Showing {visible.length} of {filtered.length}</span>
+            </div>
+          )}
         </section>
         <aside className="archiveRail">
           <AdSlot format="rectangle" />

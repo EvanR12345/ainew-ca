@@ -25,6 +25,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-CA">
+      <head>
+        <link rel="preconnect" href="https://www.highperformanceformat.com" />
+        <link rel="preconnect" href="https://pl30789006.effectivecpmnetwork.com" />
+        <link rel="dns-prefetch" href="//www.highperformanceformat.com" />
+        <link rel="dns-prefetch" href="//pl30789006.effectivecpmnetwork.com" />
+      </head>
       <body><ScrollToTop />{children}</body>
     </html>
   );

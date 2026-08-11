@@ -65,3 +65,20 @@ test("keeps the card experiment measurable, transparent and photo-backed", async
   assert.match(articleSource, /beginnerInvestmentArticles/);
   assert.equal(imageFiles.filter((file) => file.endsWith(".jpg")).length, 7);
 });
+
+test("uses real sandboxed ad-frame pages and keeps the archive initial render light", async () => {
+  const [adSource, archiveSource, bannerFrame, nativeFrame] = await Promise.all([
+    readFile(new URL("../app/adsterra.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/articles/articles-client.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../public/ad-frames/banner-300x250.html", import.meta.url), "utf8"),
+    readFile(new URL("../public/ad-frames/native.html", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(adSource, /src={`\/ad-frames\/banner-\$\{size\}\.html`}/);
+  assert.match(adSource, /allow-top-navigation-by-user-activation/);
+  assert.doesNotMatch(adSource, /srcDoc=/);
+  assert.match(bannerFrame, /highperformanceformat\.com/);
+  assert.match(nativeFrame, /effectivecpmnetwork\.com/);
+  assert.match(archiveSource, /useState\(24\)/);
+  assert.match(archiveSource, /Load 24 more stories/);
+});

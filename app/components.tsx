@@ -86,8 +86,8 @@ export function AdSlot({ format = "leaderboard", label = "Advertisement" }: { fo
   return (
     <aside className={`adSlot adSlot-${format}`} aria-label={label} data-ad-format={format}>
       <span className="adDisclosure">{label}</span>
-      {format === "leaderboard" && <div className="adCreative"><AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" placement={placement} /></div>}
-      {format === "rectangle" && <div className="adCreative"><AdsterraBanner size="300x250" placement={placement} /></div>}
+      {format === "leaderboard" && <div className="adCreative"><AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" placement={placement} eager /></div>}
+      {format === "rectangle" && <div className="adCreative"><AdsterraBanner size="300x250" placement={placement} eager /></div>}
       {format === "in-feed" && <div className="adCreative"><AdsterraResponsiveBanner desktopSize="468x60" mobileSize="160x300" placement={placement} /></div>}
     </aside>
   );
