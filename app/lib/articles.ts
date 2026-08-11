@@ -1,3 +1,5 @@
+import { expansionArticles } from "./expansion-articles";
+
 export type ArticleSection = {
   heading: string;
   paragraphs: string[];
@@ -8,6 +10,12 @@ export type ArticleVideo = {
   id: string;
   title: string;
   channel: string;
+};
+
+export type ArticleSource = {
+  label: string;
+  url: string;
+  note?: string;
 };
 
 export type Article = {
@@ -22,6 +30,7 @@ export type Article = {
   accent: string;
   sourceLabel: string;
   sourceUrl: string;
+  sources?: ArticleSource[];
   image: string;
   imageAlt: string;
   disclaimer?: string;
@@ -684,7 +693,7 @@ const beginnerInvestmentArticles: Article[] = [
   },
 ];
 
-const articleDrafts: Article[] = [generatedArticles[0], ...howToArticles, ...beginnerInvestmentArticles, ...generatedArticles.slice(1)];
+const articleDrafts: Article[] = [generatedArticles[0], ...expansionArticles, ...howToArticles, ...beginnerInvestmentArticles, ...generatedArticles.slice(1)];
 
 function accurateReadTime(article: Article) {
   const words = article.sections
@@ -700,7 +709,7 @@ export const articles: Article[] = articleDrafts.map((article) => ({
   ...article,
   readTime: accurateReadTime(article),
   image: `/images/articles/unique/${article.slug}.jpg`,
-  imageAlt: `Editorial photograph illustrating: ${article.title}`,
+  imageAlt: article.imageAlt || `Editorial photograph illustrating: ${article.title}`,
 }));
 
 export const categories = ["All", "Canada", "Models", "Products", "Business", "Research", "Policy"] as const;

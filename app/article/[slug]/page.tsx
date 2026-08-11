@@ -67,6 +67,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) notFound();
+  const sourceList = article.sources?.length ? article.sources : [{ label: article.sourceLabel, url: article.sourceUrl }];
   const related = getRelatedArticles(article, 24).map(toArticleCardData);
   const adjacent = getAdjacentArticles(article);
   const sectionLinks = article.sections.map((section) => ({ id: sectionId(section.heading), heading: section.heading }));
@@ -124,7 +125,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               isPartOf: { "@id": WEBSITE_ID },
               author: { "@id": AUTHOR_ID },
               publisher: { "@id": ORGANIZATION_ID },
-              citation: [article.sourceUrl],
+              citation: sourceList.map((source) => source.url),
               about: [
                 { "@type": "Thing", name: article.category },
                 { "@type": "Thing", name: "Artificial intelligence" },
@@ -174,7 +175,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <ul>{recap.map((takeaway) => <li key={takeaway}>{takeaway}</li>)}</ul>
                 <div>
                   <strong>How this was made:</strong> AI tools assisted with structure and drafting. The article is organized around a named primary source and practical analysis; verify time-sensitive details at the source.
-                  <a href={article.sourceUrl} target="_blank" rel="noreferrer">Review {article.sourceLabel} ↗</a>
+                  <a href={sourceList[0].url} target="_blank" rel="noreferrer">Review {sourceList[0].label} ↗</a>
                 </div>
               </aside>
 
@@ -234,10 +235,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               </aside>
 
               <div className="sourceCard">
-                <span className="eyebrow">PRIMARY SOURCE</span>
-                <h3>Continue with the original source</h3>
-                <p>Visit {article.sourceLabel} for first-party material, technical details and subsequent updates.</p>
-                <a href={article.sourceUrl} target="_blank" rel="noreferrer">Open {article.sourceLabel} ↗</a>
+                <span className="eyebrow">EVIDENCE &amp; FURTHER READING</span>
+                <h3>Continue with the original sources</h3>
+                <p>These first-party and primary references support the reporting above. Open them for technical detail, current requirements and subsequent updates.</p>
+                <ul className="sourceList">
+                  {sourceList.map((source) => (
+                    <li key={source.url}>
+                      <a href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a>
+                      {source.note && <small>{source.note}</small>}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               <nav className="storyStepper" aria-label="Previous and next stories">

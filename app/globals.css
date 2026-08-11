@@ -328,6 +328,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .sourceCard h3 { margin: 8px 0; font-family: Georgia, serif; font-size: 28px; }
 .sourceCard p { font-size: 14px; line-height: 1.55; }
 .sourceCard a { display: inline-block; margin-top: 8px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: .1em; }
+.sourceList { display: grid; gap: 12px; margin: 20px 0 0; padding: 0; list-style: none; }
+.sourceList li { padding-top: 12px; border-top: 1px solid color-mix(in srgb, var(--ink) 35%, transparent); }
+.sourceList a { margin-top: 0; }
+.sourceList small { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; line-height: 1.45; }
 .articleUpdate { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); }
 .articleUpdate strong { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
 .articleUpdate p { margin: 8px 0; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; }

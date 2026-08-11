@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
@@ -30,8 +31,8 @@ test("server-renders the AI New Canada publication with editorial photography", 
   assert.match(html, /<title>AI New Canada/);
   assert.match(html, /canada-ai-transparency-consultation-what-to-know\.jpg/);
   assert.match(html, /storyCard-photo-clean/);
-  assert.match(html, /beginner-how-to-use-ai-everyday-work/);
-  assert.match(html, /beginner-ai-prompts-without-magic-words/);
+  assert.match(html, /canada-ai-for-all-strategy-field-guide/);
+  assert.match(html, /canada-sovereign-ai-compute-capacity-guide/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|Building your site/i);
 });
 
@@ -75,7 +76,7 @@ test("keeps every article photo in full colour on desktop and mobile", async () 
   assert.match(articleSource, /advanced-human-in-the-loop-ai-agent-workflow/);
   assert.equal(imageFiles.filter((file) => file.endsWith(".jpg")).length, 7);
   assert.equal(libraryFiles.filter((file) => file.endsWith(".jpg")).length, 6);
-  assert.equal(uniqueFiles.filter((file) => file.endsWith(".jpg")).length, 111);
+  assert.equal(uniqueFiles.filter((file) => file.endsWith(".jpg")).length, 211);
   assert.doesNotMatch(imageStyleSource, /--image-tint/);
   assert.doesNotMatch(imageStyleSource, /--image-saturation|--image-contrast/);
   assert.doesNotMatch(globalStyles, /rgba\(240,68,47,\.42\)/);
@@ -125,7 +126,7 @@ test("turns the publication into a device-local Learning Lab", async () => {
   const html = await response.text();
   assert.match(html, /Turn AI news into knowledge you can actually use/);
   assert.match(html, /5 curated tracks/);
-  assert.match(html, /111 deep reads/);
+  assert.match(html, /211 deep reads/);
   assert.match(labSource, /quizQuestions/);
   assert.match(labSource, /flashcards/);
   assert.match(labSource, /DAILY_GOAL_KEY/);
@@ -135,6 +136,53 @@ test("turns the publication into a device-local Learning Lab", async () => {
   assert.match(cardSource, /SaveArticleButton/);
   assert.match(privacySource, /Daily goals, saved stories, quiz results and mastered flashcards/i);
   assert.match(sitemapSource, /"\/learn\/"/);
+});
+
+test("publishes 100 substantial sourced articles with unique full-colour feature images", async () => {
+  const [articleResponse, videoResponse, expansionSource, promptManifest, imageFiles] = await Promise.all([
+    render("/article/canada-ai-for-all-strategy-field-guide/"),
+    render("/article/claude-code-demo-video-debrief/"),
+    readFile(new URL("../app/lib/expansion-articles.ts", import.meta.url), "utf8"),
+    readFile(new URL("../scripts/export-image-prompts.mjs", import.meta.url), "utf8"),
+    readdir(new URL("../public/images/articles/unique/", import.meta.url)),
+  ]);
+
+  assert.equal(articleResponse.status, 200);
+  assert.equal(videoResponse.status, 200);
+  const articleHtml = await articleResponse.text();
+  const videoHtml = await videoResponse.text();
+  const wordCountMatch = articleHtml.match(/"wordCount":(\d+)/);
+  assert.ok(wordCountMatch, "expected NewsArticle wordCount");
+  assert.ok(Number(wordCountMatch[1]) >= 1400, `expected at least 1,400 words, found ${wordCountMatch[1]}`);
+  assert.match(articleHtml, /EVIDENCE &amp; FURTHER READING/);
+  assert.match(articleHtml, /Canada(?:&#x27;|')s AI for All strategy/);
+  assert.match(articleHtml, /AI Strategy for the Federal Public Service 2025-2027/);
+  assert.match(articleHtml, /canada-ai-for-all-strategy-field-guide\.jpg/);
+  assert.match(videoHtml, /youtube-nocookie\.com\/embed\/AJpK3YTTKZ4/);
+  assert.match(videoHtml, /This independent analysis summarizes an official product or research video/);
+  assert.match(expansionSource, /const publishedExpansionSeeds = expansionSeeds\.filter/);
+  assert.match(expansionSource, /formatLabels/);
+  assert.match(expansionSource, /EVIDENCE &amp; FURTHER READING|sources,/);
+  assert.match(promptManifest, /Expected 100 image prompts/);
+
+  const jpgFiles = imageFiles.filter((file) => file.endsWith(".jpg"));
+  assert.equal(jpgFiles.length, 211);
+  const generatedSlugs = [...expansionSource.matchAll(/^\s+slug: "([^"]+)",$/gm)].map((match) => match[1]);
+  const heldMatch = expansionSource.match(/const heldForLater = new Set\(\[([\s\S]*?)\]\);/);
+  assert.ok(heldMatch, "expected heldForLater list");
+  const heldSlugs = new Set([...heldMatch[1].matchAll(/"([^"]+)"/g)].map((match) => match[1]));
+  const publishedSlugs = generatedSlugs.filter((slug) => !heldSlugs.has(slug));
+  assert.equal(publishedSlugs.length, 100);
+  for (const slug of publishedSlugs) assert.ok(jpgFiles.includes(`${slug}.jpg`), `missing image for ${slug}`);
+
+  const generatedImages = await Promise.all(publishedSlugs.map((slug) => readFile(new URL(`../public/images/articles/unique/${slug}.jpg`, import.meta.url))));
+  const hashes = generatedImages.map((buffer) => createHash("sha256").update(buffer).digest("hex"));
+  assert.equal(new Set(hashes).size, 100, "every new article must use a different image file");
+  for (const buffer of generatedImages) {
+    assert.equal(buffer[0], 0xff);
+    assert.equal(buffer[1], 0xd8);
+    assert.ok(buffer.length >= 75_000, "feature images should retain editorial detail");
+  }
 });
 
 test("publishes crawlable topic hubs, canonical URLs and complete search schema", async () => {
