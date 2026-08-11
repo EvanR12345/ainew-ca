@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
   pages: write
   id-token: write
@@ -19,9 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -52,10 +53,19 @@ jobs:
     needs: deploy
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
+      - name: Download deployed Pages artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: github-pages
+          path: .indexnow-artifact
+      - name: Extract deployed sitemap
+        run: |
+          mkdir -p .indexnow-site
+          tar -xf .indexnow-artifact/artifact.tar -C .indexnow-site
       - name: Notify search engines about priority URLs
-        run: node scripts/submit-indexnow.mjs
+        run: node scripts/submit-indexnow.mjs --sitemap .indexnow-site/sitemap.xml

@@ -1,12 +1,31 @@
+import { readFile } from "node:fs/promises";
+
 const siteUrl = "https://ainew.ca";
 const host = "ainew.ca";
 const key = "0367c01a930f4aa38c95452b717309bd";
 const keyLocation = `${siteUrl}/${key}.txt`;
 
-const response = await fetch(`${siteUrl}/sitemap.xml`);
-if (!response.ok) throw new Error(`Could not read sitemap: HTTP ${response.status}`);
+const sitemapFlagIndex = process.argv.indexOf("--sitemap");
+const sitemapPath = sitemapFlagIndex === -1 ? null : process.argv[sitemapFlagIndex + 1];
 
-const sitemap = await response.text();
+if (sitemapFlagIndex !== -1 && (!sitemapPath || sitemapPath.startsWith("--"))) {
+  throw new Error("The --sitemap option requires a file path.");
+}
+
+let sitemap;
+if (sitemapPath) {
+  sitemap = await readFile(sitemapPath, "utf8");
+} else {
+  const response = await fetch(`${siteUrl}/sitemap.xml`, {
+    headers: {
+      Accept: "application/xml,text/xml;q=0.9,*/*;q=0.8",
+      "User-Agent": "AI-New-Canada-IndexNow/1.0 (+https://ainew.ca/)",
+    },
+  });
+  if (!response.ok) throw new Error(`Could not read sitemap: HTTP ${response.status}`);
+  sitemap = await response.text();
+}
+
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
 const priorityPaths = new Set([
   `${siteUrl}/`,
@@ -25,6 +44,11 @@ const urlList = process.argv.includes("--all")
   : urls.filter((url) => priorityPaths.has(url) || url.startsWith(`${siteUrl}/category/`) || url.startsWith(`${siteUrl}/topics/`));
 
 if (urlList.length === 0) throw new Error("No priority URLs were found in the sitemap.");
+
+if (process.argv.includes("--dry-run")) {
+  console.log(`IndexNow dry run found ${urlList.length} priority URLs.`);
+  process.exit(0);
+}
 
 const submission = await fetch("https://api.indexnow.org/indexnow", {
   method: "POST",

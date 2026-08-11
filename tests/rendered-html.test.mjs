@@ -285,8 +285,11 @@ test("publishes substantive trust pages, topic guides, glossary, and precise dis
   assert.match(llmsText, /AI glossary/);
   assert.match(indexNowSource, /priorityPaths\.has\(url\)/);
   assert.doesNotMatch(indexNowSource, /priorityPaths\.some/);
+  assert.match(indexNowSource, /readFile\(sitemapPath, "utf8"\)/);
   assert.match(workflowSource, /notify-indexnow:/);
-  assert.match(workflowSource, /node scripts\/submit-indexnow\.mjs/);
+  assert.match(workflowSource, /actions\/download-artifact@v8/);
+  assert.match(workflowSource, /node scripts\/submit-indexnow\.mjs --sitemap \.indexnow-site\/sitemap\.xml/);
+  assert.doesNotMatch(workflowSource, /actions\/(?:checkout|setup-node)@v4/);
 });
 
 test("uses only the original sandboxed Adsterra creatives and places responsive ads through the reading journey", async () => {
