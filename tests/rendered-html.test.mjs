@@ -170,6 +170,7 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
   assert.match(homeHtml, /"@type":"WebSite"/);
   assert.match(homeHtml, /"alternateName":\["AI New","ainew\.ca"\]/);
   assert.match(homeHtml, /"@type":"NewsMediaOrganization"/);
+  assert.match(homeHtml, /pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=ca-pub-4610762209559364/);
   assert.match(homeHtml, /type="application\/rss\+xml"/);
   assert.match(articleHtml, /rel="canonical" href="https:\/\/ainew\.ca\/article\/canada-ai-transparency-consultation-what-to-know\/?"/);
   assert.match(articleHtml, /"@type":"NewsArticle"/);

@@ -46,6 +46,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en-CA">
       <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4610762209559364"
+          crossOrigin="anonymous"
+        />
         <link rel="alternate" type="application/rss+xml" title={`${SITE_NAME} RSS feed`} href="/feed.xml" />
         <link rel="preconnect" href="https://armsbroodelusive.com" />
         <link rel="dns-prefetch" href="//armsbroodelusive.com" />
