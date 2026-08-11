@@ -27,9 +27,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en-CA">
       <head>
         <link rel="preconnect" href="https://www.highperformanceformat.com" />
-        <link rel="preconnect" href="https://pl30789006.effectivecpmnetwork.com" />
+        <link rel="preconnect" href="https://armsbroodelusive.com" />
         <link rel="dns-prefetch" href="//www.highperformanceformat.com" />
-        <link rel="dns-prefetch" href="//pl30789006.effectivecpmnetwork.com" />
+        <link rel="dns-prefetch" href="//armsbroodelusive.com" />
       </head>
       <body><ScrollToTop />{children}</body>
     </html>

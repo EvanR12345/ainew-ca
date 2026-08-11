@@ -115,7 +115,7 @@ test("uses real sandboxed ad frames plus a visible sponsored fallback and keeps 
   assert.match(adSource, /allow-top-navigation-by-user-activation/);
   assert.doesNotMatch(adSource, /srcDoc=/);
   assert.match(bannerFrame, /highperformanceformat\.com/);
-  assert.match(nativeFrame, /effectivecpmnetwork\.com/);
+  assert.match(nativeFrame, /armsbroodelusive\.com\/b06ed254f7a4c2a25dfe5a921796890a\/invoke\.js/);
   assert.match(componentSource, /armsbroodelusive\.com\/nh2mhka4m\?key=351cfae0e404060ada1857e5c8440789/);
   assert.match(componentSource, /rel="sponsored nofollow noopener noreferrer"/);
   assert.match(componentSource, /placement_sub_id/);
