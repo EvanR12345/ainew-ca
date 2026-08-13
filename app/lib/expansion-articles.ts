@@ -3,7 +3,7 @@ import { SITE_FEATURES } from "./site-features";
 
 type ArticleFormat = "field-guide" | "explainer" | "research-brief" | "video-recap" | "policy-analysis" | "operator-playbook";
 
-const sourceLibrary = {
+export const sourceLibrary = {
   canadaAi: { label: "Government of Canada: Artificial intelligence", url: "https://www.canada.ca/en/services/science/innovation/artificial-intelligence.html" },
   canadaStrategy: { label: "Canada's AI for All strategy", url: "https://www.canada.ca/en/innovation-science-economic-development/news/2026/06/minister-solomon-highlights-canadas-national-artificial-intelligence.html" },
   canadaCompute: { label: "Canadian sovereign AI compute initiative", url: "https://www.canada.ca/en/innovation-science-economic-development/news/2026/04/canada-launches-national-initiative-to-build-large-scale-ai-supercomputing-capacity.html" },

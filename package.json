@@ -12,6 +12,7 @@
     "start": "vinext start",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",
     "audit:sources": "node scripts/audit-expansion-sources.mjs --problems-only --strict",
+    "audit:legacy": "tsx scripts/audit-legacy-upgrades.mjs",
     "audit:seo": "node scripts/audit-search-quality.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"

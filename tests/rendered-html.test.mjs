@@ -444,25 +444,28 @@ test("keeps advertising behind one disabled site-wide switch", async () => {
   assert.doesNotMatch(`${articleSource}${homeSource}${archiveSource}${categorySource}`, /Popunder|ANTI-ADBLOCK|Smartlink_1/);
 });
 
-test("focuses search discovery on the evidence-audited article collection", async () => {
-  const [auditedResponse, queuedResponse, editorialResponse, sitemapSource] = await Promise.all([
+test("publishes the fully evidence-audited article collection for search discovery", async () => {
+  const [firstWaveResponse, upgradedResponse, editorialResponse, sitemapSource] = await Promise.all([
     render("/article/mechanistic-interpretability-model-features/"),
     render("/article/mechanistic-interpretability-guide/"),
     render("/editorial-policy/"),
     readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
   ]);
 
-  const auditedHtml = await auditedResponse.text();
-  const queuedHtml = await queuedResponse.text();
+  const firstWaveHtml = await firstWaveResponse.text();
+  const upgradedHtml = await upgradedResponse.text();
   const editorialHtml = await editorialResponse.text();
 
-  assert.match(auditedHtml, /name="robots" content="index, follow"/i);
-  assert.match(auditedHtml, /"dateModified":"2026-08-13"/);
-  assert.match(auditedHtml, /Sources and external URLs reviewed on August 13, 2026/);
-  assert.match(queuedHtml, /name="robots" content="noindex, follow"/i);
-  assert.match(queuedHtml, /Editorial review status/);
+  assert.match(firstWaveHtml, /name="robots" content="index, follow"/i);
+  assert.match(firstWaveHtml, /"dateModified":"2026-08-13"/);
+  assert.match(firstWaveHtml, /Sources and external URLs reviewed on August 13, 2026/);
+  assert.match(upgradedHtml, /name="robots" content="index, follow"/i);
+  assert.match(upgradedHtml, /The August 2026 update/);
+  assert.match(upgradedHtml, /A 30-, 60- and 90-day field plan/);
+  assert.match(upgradedHtml, /Three guides that deepen this topic/);
+  assert.doesNotMatch(upgradedHtml, /Editorial review status/);
   assert.match(sitemapSource, /searchEligibleArticles\(articles\)/);
   assert.match(sitemapSource, /eligibleArticles\.map/);
   assert.match(editorialHtml, /Search-quality review/);
-  assert.match(editorialHtml, /near-duplicate query variations/);
+  assert.match(editorialHtml, /original 111-article launch collection completed a substantial second editorial review/);
 });

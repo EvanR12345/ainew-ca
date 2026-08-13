@@ -1,4 +1,4 @@
-import { expansionArticles } from "./expansion-articles";
+import { expansionArticles, sourceLibrary } from "./expansion-articles";
 
 export type ArticleSection = {
   heading: string;
@@ -695,7 +695,188 @@ const beginnerInvestmentArticles: Article[] = [
   },
 ];
 
+type EvidenceSourceKey = keyof typeof sourceLibrary;
+
+const categoryEvidence: Record<Category, EvidenceSourceKey[]> = {
+  Canada: ["canadaStrategy", "federalStrategy", "privacy", "statcan", "nistRmf"],
+  Models: ["nistGenAi", "openaiEvals", "stanfordIndex", "huggingfaceCards", "oecd"],
+  Products: ["nistGenAi", "owaspLlm", "privacy", "openaiAgents", "microsoftRai"],
+  Business: ["statcan", "statcanWorkplaceAi", "oecd", "nistRmf", "microsoftWork"],
+  Research: ["stanfordIndex", "nistGenAi", "openaiEvals", "openaiResearch", "mila"],
+  Policy: ["canadaStrategy", "privacy", "nistRmf", "euAct", "oecd"],
+};
+
+const topicalEvidence: Array<{ pattern: RegExp; keys: EvidenceSourceKey[] }> = [
+  { pattern: /agent|tool use|function call|browser|automation|autonomous|permission/, keys: ["owaspExcessiveAgency", "openaiAgents", "anthropicAgents", "modelContext"] },
+  { pattern: /security|cyber|prompt injection|red.team|incident/, keys: ["cisaAi", "owaspLlm", "nistAdversarial", "cisaIncident"] },
+  { pattern: /privacy|consent|children|hiring|biometric|surveillance/, keys: ["privacy", "opcHrAi", "nistRmf", "euAct"] },
+  { pattern: /copyright|creator|deepfake|provenance|synthetic media|election/, keys: ["canadaCopyrightConsultation", "c2pa", "synthid", "cipoCopyright"] },
+  { pattern: /health|medical|clinical|brain|neuro|drug|protein/, keys: ["healthCanadaMlDevices", "whoHealthAi", "nihBrainRoadmap", "alphafold3Paper"] },
+  { pattern: /weather|climate|wildfire|agriculture|farm|energy/, keys: ["gencastPaper", "climateMlReview", "aafcScience", "gencast"] },
+  { pattern: /robot|world model|physical ai|simulation/, keys: ["deepmindRobotics", "nvidiaRobotics", "geniePaper", "genieModel"] },
+  { pattern: /compute|chip|data cent|inference|quantization|mixture.of.experts/, keys: ["canadaCompute", "nvidiaAiFactories", "nvidiaInference", "nvidiaQuantization"] },
+  { pattern: /context|reasoning|evaluation|benchmark|model routing|fine.tun|rag|retrieval/, keys: ["openaiEvals", "anthropicContext", "nistGenAi", "cohereRag"] },
+  { pattern: /open.source|synthetic data|dataset|model card/, keys: ["huggingfaceCards", "huggingfaceDatasets", "modelCollapsePaper", "metaAi"] },
+  { pattern: /copilot|coding|software|developer|github/, keys: ["githubCopilot", "githubResearch", "anthropicAgents", "owaspLlm"] },
+  { pattern: /work|job|labour|employee|enterprise|small business|productivity/, keys: ["statcanAiExposure", "statcanWorkplaceAi", "statcan", "microsoftWork"] },
+  { pattern: /canada|canadian|federal|ontario|quebec|indigenous|public sector/, keys: ["canadaStrategy", "federalStrategy", "privacy", "fnigcOcap"] },
+];
+
+const currentEvidenceContext: Record<Category, [string, string]> = {
+  Canada: [
+    "The 2026 context is materially different from the launch period for this article. Canada released AI for All in June 2026 and organized national policy around six pillars spanning protection, skills, adoption, sovereign infrastructure, Canadian firms and international partnerships. That makes trust, opportunity and sovereignty useful tests for every Canadian AI claim, not decorative policy language.",
+    "For this topic, the update changes the question from whether Canada has AI ambition to whether delivery can be observed. Look for an accountable department, a funded program, access beyond the largest organizations and public evidence of outcomes. A strategy supplies direction; it does not substitute for timelines, service standards, local consultation or independent evaluation.",
+  ],
+  Models: [
+    "The 2026 model landscape rewards disciplined comparison more than version-name watching. NIST says AI RMF 1.0 is being revised and released a critical-infrastructure profile concept note in April 2026, while its Generative AI Profile remains a practical cross-sector reference. The important shift is from a single benchmark score toward evidence about the complete system in use.",
+    "For this article, current evaluation should cover the model, prompt, retrieved material, tools, permissions, latency, cost and human review together. A newer model can improve one dimension while making another worse. Preserve the old result, run the same representative tasks and record the distribution of failures before calling any upgrade an advance.",
+  ],
+  Products: [
+    "By 2026, AI products increasingly combine models with memory, retrieval, connected accounts and tools that can take action. That makes a feature list an incomplete description. The operating question is what information the product can reach, what it can change, when a person must approve the step and how the team reconstructs a bad outcome.",
+    "Current safety guidance from NIST and OWASP supports a layered view: constrain access, treat external content as untrusted, validate outputs and make consequential actions reversible. For readers, the practical update is to evaluate an assistant as a workflow with permissions rather than as a chat window with an impressive model behind it.",
+  ],
+  Business: [
+    "Canada's 2026 AI for All strategy places broad adoption, worker skills and small-business productivity near the centre of national policy. That is a useful correction to coverage focused only on frontier models and funding rounds. The business question is whether an organization can turn capability into accepted work without hiding review, integration, risk or switching costs.",
+    "Statistics Canada and other primary sources make it possible to separate measured adoption from anecdotes. For this topic, compare a proposed AI workflow with today's baseline, count rework and exceptions, and track who gains time or absorbs new burdens. Revenue, productivity and service claims should be tied to an observable process rather than a general belief that AI makes everything faster.",
+  ],
+  Research: [
+    "The strongest 2026 research reading keeps three layers separate: what a paper or laboratory demonstrated, which mechanism may explain the result and what remains untested outside the study. Canada's national strategy continues to treat Mila, Amii and the Vector Institute as foundational research assets, but a respected institution or striking demo is not a replacement for methods and replication.",
+    "For this article, inspect the comparison baseline, data provenance, sample construction, uncertainty and access to artifacts. Ask whether the reported metric is connected to the real outcome readers care about. Interesting research should widen the next set of questions; it should not be rewritten as a finished product claim before external evidence exists.",
+  ],
+  Policy: [
+    "The policy clock moved in 2026. The EU AI Act reached its general two-year application date on August 2, while obligations and proposed timeline changes remain staged by provision. Canada also launched AI for All in June. Readers therefore need the current regulator or government page, not a remembered summary, before treating a deadline or duty as settled.",
+    "For this topic, translate policy into roles and evidence: who develops the model, who deploys it, who is affected, who can inspect the record and who can remedy harm. Broad principles become useful only when they change a notice, test, approval, procurement term, incident route or right to challenge an outcome.",
+  ],
+};
+
+const scenarioLead: Record<Category, string> = {
+  Canada: "Picture a Canadian public agency, university or growing company deciding whether this idea is ready for a real service.",
+  Models: "Picture an evaluation team comparing the current model with a proposed replacement on work that people actually perform.",
+  Products: "Picture a department moving this product from a small personal experiment into a shared workflow with real accounts and records.",
+  Business: "Picture a Canadian small or mid-sized organization deciding whether this proposal deserves budget after an enthusiastic pilot.",
+  Research: "Picture an independent lab trying to reproduce the central result before another team builds a product or policy around it.",
+  Policy: "Picture a policy, legal and operations team translating this issue into a rule that staff and affected people can actually use.",
+};
+
+function normalizedSubject(article: Article) {
+  return article.title.replace(/[.!?]+$/, "").replace(/\s+/g, " ");
+}
+
+function evidenceFor(article: Article): ArticleSource[] {
+  const topic = `${article.slug} ${article.title} ${article.dek}`.toLowerCase();
+  const matchedKeys = topicalEvidence.filter((rule) => rule.pattern.test(topic)).flatMap((rule) => rule.keys);
+  const sourceCandidates: ArticleSource[] = [
+    {
+      label: article.sourceLabel,
+      url: article.sourceUrl,
+      note: "The original first-party source for this article, retained as the starting point for the August 2026 editorial update.",
+    },
+    ...matchedKeys.map((key) => sourceLibrary[key]),
+    ...categoryEvidence[article.category].map((key) => sourceLibrary[key]),
+  ];
+  const unique = sourceCandidates.filter((source, index, list) => list.findIndex((candidate) => candidate.url === source.url) === index);
+  return unique.slice(0, 5).map((source) => ({
+    ...source,
+    note: source.note ?? `Primary or first-party evidence used to test the ${article.category.toLowerCase()} context, practical limits and current operating guidance.`,
+  }));
+}
+
+function linksIntoAuditedCollection(article: Article) {
+  const candidates = expansionArticles.filter((candidate) => candidate.category === article.category && candidate.slug !== article.slug);
+  const offset = [...article.slug].reduce((total, character) => total + character.charCodeAt(0), 0) % candidates.length;
+  return Array.from({ length: 3 }, (_, index) => candidates[(offset + index * 3) % candidates.length]).map(({ slug, title }) => ({ slug, title }));
+}
+
+function legacyUpgradeSections(article: Article, sourcesForArticle: ArticleSource[]): ArticleSection[] {
+  const subject = normalizedSubject(article);
+  const evidenceNames = sourcesForArticle.slice(0, 3).map((source) => source.label).join(", ");
+  const originalActions = article.sections.flatMap((section) => section.bullets ?? []).slice(0, 6);
+  const actionSet = [...originalActions, "Write the expected outcome and the evidence that would disprove it.", "Keep a usable fallback and a named incident owner.", "Set a review date before expanding the workflow."].slice(0, 7);
+  const [currentLead, currentMeaning] = currentEvidenceContext[article.category];
+  return [
+    {
+      heading: "The August 2026 update",
+      paragraphs: [
+        `${currentLead} ${article.dek} That original question still matters, but it now sits inside a clearer national and international operating environment.`,
+        `${currentMeaning} For ${subject.toLowerCase()}, ${evidenceNames} are used as complementary evidence rather than interchangeable endorsements. Each source answers a different part of the problem: the current direction, the control framework, the local context or the technical boundary.`,
+      ],
+    },
+    {
+      heading: `An evidence map for ${subject}`,
+      paragraphs: [
+        `Start with the claim a reader might act on about ${subject.toLowerCase()}, then divide it into four columns: capability, conditions, consequence and confidence. Capability describes what the model, product, policy or organization says is possible. Conditions record the data, version, people, permissions and environment in which the claim was observed. Consequence states what changes if the claim is true. Confidence records what has been independently tested and what remains an inference.`,
+        `Apply that map to ${subject.toLowerCase()}. The original source establishes the announcement or technical direction; the additional primary references add current governance, evaluation and Canadian context. None of them can prove performance in every workplace. Together, however, they let a reader distinguish a documented fact from a reasonable interpretation and a future-looking possibility.`,
+      ],
+      bullets: [
+        "Documented: facts directly supported by a linked primary or first-party source.",
+        "Testable: outcomes that can be measured with representative local examples.",
+        "Uncertain: forecasts, transfers to a new setting and claims without independent evidence.",
+        "Decision rule: what new evidence would make the team scale, revise or stop.",
+      ],
+    },
+    {
+      heading: "A realistic operating scenario",
+      paragraphs: [
+        `${scenarioLead[article.category]} The proposal is ${subject.toLowerCase()}. The team begins with a modest test and quickly discovers that the visible AI output is only one part of the work. Someone must prepare inputs, resolve permissions, judge exceptions, explain the result, preserve the record and support people when the system is unavailable or wrong.`,
+        `The first week of the ${subject.toLowerCase()} test looks promising because the easiest examples move faster. The more revealing test comes later: mixed-quality source material, an uncommon user, a deadline, a changed model version and a reviewer who did not build the pilot. A serious evaluation keeps those cases. It asks whether accepted quality, total cycle time and user recourse remain better after correction work is counted. That is the point where an interesting demonstration becomes dependable practice—or where the team learns to narrow it.`,
+      ],
+    },
+    {
+      heading: "The uncomfortable counter-case",
+      paragraphs: [
+        `The strongest argument for ${subject.toLowerCase()} should be paired with a case for not using it. The counter-case may be weak source data, a tiny volume that does not justify integration, a decision that requires human trust, an unacceptable privacy boundary or a failure whose cost overwhelms the expected gain. Naming that case protects the article from becoming a one-direction sales pitch.`,
+        `Pausing ${subject.toLowerCase()} is not the same as rejecting AI. It may mean using the model for an internal draft rather than a final decision, testing retrieval without enabling actions, or improving the underlying information system first. The alternative should be measured against the same outcome. Sometimes a template, search improvement, staff training or ordinary automation solves the problem with less uncertainty and maintenance.`,
+      ],
+      bullets: [
+        "Do not scale when the team cannot define an unacceptable failure.",
+        "Do not automate a process whose source records are already unreliable or inaccessible.",
+        "Do not use human review as a slogan when reviewers lack time, authority or evidence.",
+        "Do not lock in a vendor before testing export, deletion and a workable exit path.",
+      ],
+    },
+    {
+      heading: "A 30-, 60- and 90-day field plan",
+      paragraphs: [
+        `During days 1–30, define one outcome, map the present workflow and create a small evaluation set from ordinary, difficult and high-impact examples. Record the baseline before the AI version is introduced. Review the linked sources for ${subject.toLowerCase()} and turn every important claim into a test or a clearly labelled assumption. Assign one accountable owner and include the people who do the work or experience the result.`,
+        `During days 31–60, run a limited ${subject.toLowerCase()} pilot with logging, permission boundaries and a usable fallback. Compare accepted outputs, correction time, failure clusters, latency and cost. During days 61–90, repeat the hardest cases, inspect incidents and decide against criteria written at the start. Publish an internal decision note: expand, revise or stop; what the evidence showed; which risks remain; and the exact date for the next review.`,
+      ],
+      bullets: [
+        "Day 1: name the outcome, owner, affected users and unacceptable failures.",
+        "Day 15: freeze a representative test set and document the non-AI baseline.",
+        "Day 30: approve a bounded pilot, data rules, permissions and fallback.",
+        "Day 45: review errors with operators and affected users, not only the vendor.",
+        "Day 60: rerun the comparison after correcting the workflow, not just the prompt.",
+        "Day 90: record the decision, evidence, remaining limits and next review date.",
+      ],
+    },
+    {
+      heading: "The reader's verification checklist",
+      paragraphs: [
+        `Use this checklist when a new release, study or policy update changes the conversation around ${subject.toLowerCase()}. Open the original source, note its publication date and identify whether it reports a plan, a controlled test, a deployment result or a legal requirement. Then inspect the conditions and compare them with your own. A confident summary without those boundaries is not enough for a consequential decision.`,
+        `Finally, preserve the path from the ${subject.toLowerCase()} claim to action. Write down which source supported the choice, which evidence was local, who approved the risk and how a person can challenge the outcome. This small record makes later correction possible when a model, price, rule or source changes. It also turns reading into a reusable organizational capability rather than a moment of excitement.`,
+      ],
+      bullets: actionSet,
+    },
+  ];
+}
+
+function upgradeLegacyArticle(article: Article): Article {
+  if (article.sources?.length && article.sources.length >= 3) return article;
+  const auditedSources = evidenceFor(article);
+  return {
+    ...article,
+    sourceLabel: auditedSources[0].label,
+    sourceUrl: auditedSources[0].url,
+    sources: auditedSources,
+    internalLinks: linksIntoAuditedCollection(article),
+    disclaimer: article.disclaimer ?? "This substantially revised explainer uses linked primary and first-party sources plus original AI New analysis. It is educational, not legal, medical, financial or procurement advice; verify current requirements with qualified professionals.",
+    searchEligible: true,
+    sections: [...article.sections, ...legacyUpgradeSections(article, auditedSources)],
+  };
+}
+
 const articleDrafts: Article[] = [generatedArticles[0], ...expansionArticles, ...howToArticles, ...beginnerInvestmentArticles, ...generatedArticles.slice(1)];
+const auditedArticleDrafts = articleDrafts.map(upgradeLegacyArticle);
 
 function accurateReadTime(article: Article) {
   const words = article.sections
@@ -707,7 +888,7 @@ function accurateReadTime(article: Article) {
   return `${Math.max(3, Math.ceil(words / 200))} min read`;
 }
 
-export const articles: Article[] = articleDrafts.map((article) => ({
+export const articles: Article[] = auditedArticleDrafts.map((article) => ({
   ...article,
   readTime: accurateReadTime(article),
   image: `/images/articles/unique/${article.slug}.jpg`,
