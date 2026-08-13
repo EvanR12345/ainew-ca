@@ -1,5 +1,6 @@
 import { articles } from "../lib/articles";
 import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/seo";
+import { articleModifiedDate, searchEligibleArticles, SEARCH_REVIEW_DATE } from "../lib/search-quality";
 
 export const dynamic = "force-static";
 
@@ -13,7 +14,8 @@ function escapeXml(value: string) {
 }
 
 export function GET() {
-  const items = articles.slice(0, 50).map((article) => {
+  const eligibleArticles = searchEligibleArticles(articles);
+  const items = eligibleArticles.slice(0, 50).map((article) => {
     const url = absoluteUrl(`/article/${article.slug}/`);
     return `
       <item>
@@ -22,7 +24,7 @@ export function GET() {
         <guid isPermaLink="true">${url}</guid>
         <description>${escapeXml(article.dek)}</description>
         <category>${escapeXml(article.category)}</category>
-        <pubDate>${new Date(`${article.date}T12:00:00Z`).toUTCString()}</pubDate>
+        <pubDate>${new Date(`${articleModifiedDate(article)}T12:00:00Z`).toUTCString()}</pubDate>
         <media:content url="${absoluteUrl(article.image)}" type="image/jpeg" width="1200" height="675" />
       </item>`;
   }).join("");
@@ -34,7 +36,7 @@ export function GET() {
     <link>${SITE_URL}/</link>
     <description>${escapeXml(SITE_DESCRIPTION)}</description>
     <language>en-ca</language>
-    <lastBuildDate>${new Date("2026-08-11T12:00:00Z").toUTCString()}</lastBuildDate>
+    <lastBuildDate>${new Date(`${SEARCH_REVIEW_DATE}T12:00:00Z`).toUTCString()}</lastBuildDate>
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />
     ${items}
   </channel>

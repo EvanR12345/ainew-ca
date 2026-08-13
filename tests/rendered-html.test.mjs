@@ -33,7 +33,7 @@ test("server-renders the AI New Canada publication with editorial photography", 
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>AI New Canada/);
+  assert.match(html, /<title>Canadian AI News, Guides &amp; Analysis \| AI New Canada/);
   assert.match(html, /canada-ai-transparency-consultation-what-to-know\.jpg/);
   assert.match(html, /storyCard-photo-clean/);
   assert.match(html, /canada-ai-for-all-strategy-field-guide/);
@@ -296,10 +296,10 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
   assert.match(articleHtml, /rel="author"/);
   assert.match(articleHtml, /hrefLang="en-CA"/);
   assert.match(articleHtml, /EXPLORE THIS TOPIC/);
-  assert.match(categoryHtml, /Canada(?:<!-- -->)? AI news, guides and analysis/);
+  assert.match(categoryHtml, /Canadian AI news, policy and industry analysis/);
   assert.match(categoryHtml, /"@type":"ItemList"/);
   assert.match(categoryHtml, /href="\/category\/models\/?"/);
-  assert.match(resourceHtml, /The Canadian AI source directory/);
+  assert.match(resourceHtml, /Canada(?:&apos;|&#x27;|')s AI policy and institutions tracker/);
   assert.match(resourceHtml, /"numberOfItems":11/);
   assert.match(resourceHtml, /Canadian Artificial Intelligence Safety Institute/);
   assert.match(resourceHtml, /https:\/\/www\.priv\.gc\.ca\/en\/privacy-topics\/technology\/artificial-intelligence\/ai_business\//);
@@ -442,4 +442,27 @@ test("keeps advertising behind one disabled site-wide switch", async () => {
   assert.match(homeSource, /Homepage mid-page/);
   assert.match(categorySource, /Category \$\{category\} mid-list/);
   assert.doesNotMatch(`${articleSource}${homeSource}${archiveSource}${categorySource}`, /Popunder|ANTI-ADBLOCK|Smartlink_1/);
+});
+
+test("focuses search discovery on the evidence-audited article collection", async () => {
+  const [auditedResponse, queuedResponse, editorialResponse, sitemapSource] = await Promise.all([
+    render("/article/mechanistic-interpretability-model-features/"),
+    render("/article/mechanistic-interpretability-guide/"),
+    render("/editorial-policy/"),
+    readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
+  ]);
+
+  const auditedHtml = await auditedResponse.text();
+  const queuedHtml = await queuedResponse.text();
+  const editorialHtml = await editorialResponse.text();
+
+  assert.match(auditedHtml, /name="robots" content="index, follow"/i);
+  assert.match(auditedHtml, /"dateModified":"2026-08-13"/);
+  assert.match(auditedHtml, /Sources and external URLs reviewed on August 13, 2026/);
+  assert.match(queuedHtml, /name="robots" content="noindex, follow"/i);
+  assert.match(queuedHtml, /Editorial review status/);
+  assert.match(sitemapSource, /searchEligibleArticles\(articles\)/);
+  assert.match(sitemapSource, /eligibleArticles\.map/);
+  assert.match(editorialHtml, /Search-quality review/);
+  assert.match(editorialHtml, /near-duplicate query variations/);
 });

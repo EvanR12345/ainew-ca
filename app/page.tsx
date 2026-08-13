@@ -9,8 +9,8 @@ import { StructuredData } from "./structured-data";
 import { topicHubs } from "./lib/topic-hubs";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "AI New Canada — Canadian AI News & Practical Guides",
-  description: "Independent Canadian AI news, model releases, policy, research and practical guides that separate evidence from hype.",
+  title: "Canadian AI News, Guides & Analysis | AI New Canada",
+  description: "Independent Canadian AI news, policy trackers, model explainers and practical guides built from named primary sources.",
   path: "/",
 });
 
@@ -32,6 +32,12 @@ export default function Home() {
         }} />
         <div className="shell topAdWrap"><AdSlot eager /></div>
 
+        <header className="shell homeMission">
+          <span className="eyebrow">INDEPENDENT / CANADA</span>
+          <h1>Canadian AI news, practical guides and source-led analysis.</h1>
+          <p>Follow policy, products, models and research without losing the primary evidence or the limits behind the headline.</p>
+        </header>
+
         <section className="shell heroSection">
           <div className="sectionKicker"><span>Today&apos;s briefing</span><span>{articles.length} source-led stories and guides</span></div>
           <div className="heroGrid">
@@ -42,7 +48,7 @@ export default function Home() {
               </Link>
               <div className="leadCopy">
                 <span className="eyebrow">{lead.category} · Lead story</span>
-                <h1><Link href={`/article/${lead.slug}`}>{lead.title}</Link></h1>
+                <h2><Link href={`/article/${lead.slug}`}>{lead.title}</Link></h2>
                 <p>{lead.dek}</p>
                 <div className="storyByline"><span>By <Link href="/authors/ai-new-desk/" rel="author">AI New Desk</Link></span><time dateTime={lead.date}>{lead.displayDate}</time><span>{lead.readTime}</span></div>
               </div>
@@ -93,6 +99,7 @@ export default function Home() {
           <Link href="/topics/canadian-ai-policy/"><strong>Canada</strong><span>Policy, privacy and public-sector AI</span></Link>
           <Link href="/topics/using-ai/"><strong>Use AI well</strong><span>Practical workflows and beginner guides</span></Link>
           <Link href="/topics/ai-models/"><strong>AI models</strong><span>Capabilities, costs and evaluation</span></Link>
+          <Link href="/canada-ai-resources/"><strong>Official tracker</strong><span>Verified Canadian AI programs and institutions</span></Link>
         </nav>
 
         <section className="shell sectionBlock compactSection">

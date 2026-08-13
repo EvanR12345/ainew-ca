@@ -35,6 +35,7 @@ export type Article = {
   image: string;
   imageAlt: string;
   disclaimer?: string;
+  searchEligible?: boolean;
   sections: ArticleSection[];
   video?: ArticleVideo;
 };

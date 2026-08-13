@@ -23,7 +23,7 @@ export default function AiNewDeskPage() {
           "@id": `${SITE_URL}/authors/ai-new-desk/#page`,
           url: `${SITE_URL}/authors/ai-new-desk/`,
           dateCreated: "2026-08-10",
-          dateModified: "2026-08-11",
+          dateModified: "2026-08-13",
           mainEntity: {
             "@type": "Organization",
             "@id": AUTHOR_ID,
@@ -42,7 +42,7 @@ export default function AiNewDeskPage() {
         </header>
         <div className="authorDetails">
           <section><h2>What the desk covers</h2><p>Canadian AI policy, model releases, evaluation, products, research and practical workflows. Coverage is written for readers who want to understand what changed, what evidence supports it and what to do next.</p></section>
-          <section><h2>How the work is made</h2><p>AI tools may assist with research organization, outlining and drafting. Each current-affairs article identifies a primary source and distinguishes source claims from AI New analysis. Time-sensitive or consequential details should be checked at that source.</p></section>
+          <section><h2>How the work is made</h2><p>AI tools may assist with research organization, outlining and drafting. Evidence-audited guides use multiple named sources, record source notes and display the original links beside the article. Launch pages that have not completed that review are held out of search promotion until their sources and original contribution are checked.</p></section>
           <section><h2>Accountability</h2><p>Material factual corrections are noted publicly. Advertising does not approve editorial coverage. Read the <Link href="/editorial-policy/">editorial policy</Link>, <Link href="/corrections-policy/">corrections policy</Link> or <Link href="/contact/">contact the newsroom</Link>.</p></section>
         </div>
         <section className="authorWork">

@@ -9,6 +9,10 @@ import { StructuredData } from "../../structured-data";
 
 const indexedCategories = categories.filter((category) => category !== "All");
 
+const categoryTitles: Record<string, string> = {
+  Canada: "Canadian AI News, Policy & Industry",
+};
+
 function categoryName(slug: string) {
   return indexedCategories.find((category) => category.toLowerCase() === slug.toLowerCase());
 }
@@ -24,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   const category = categoryName(slug);
   if (!category) return { title: "AI topic not found | AI New Canada", robots: { index: false, follow: true } };
   return buildPageMetadata({
-    title: `${category} AI News & Analysis | AI New Canada`,
+    title: `${categoryTitles[category] ?? `${category} AI News & Analysis`} | AI New Canada`,
     description: categoryDescriptions[category],
     path: categoryPath(category),
   });
@@ -48,7 +52,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
               "@type": "CollectionPage",
               "@id": `${absoluteUrl(categoryPath(category))}#collection`,
               url: absoluteUrl(categoryPath(category)),
-              name: `${category} AI News & Analysis`,
+              name: categoryTitles[category] ?? `${category} AI News & Analysis`,
               description: categoryDescriptions[category],
               isPartOf: { "@id": WEBSITE_ID },
               inLanguage: "en-CA",
@@ -68,8 +72,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         <section className="pageHero shell categoryHero">
           <div className="articleBreadcrumb"><Link href="/">Home</Link><span>/</span><Link href="/articles/">Latest</Link><span>/</span><span>{category}</span></div>
           <span className="eyebrow">{category.toUpperCase()} DESK</span>
-          <h1>{category} AI news, guides and analysis.</h1>
+          <h1>{category === "Canada" ? "Canadian AI news, policy and industry analysis." : `${category} AI news, guides and analysis.`}</h1>
           <p>{categoryDescriptions[category]}</p>
+          {category === "Canada" && <p><Link href="/canada-ai-resources/">Open the verified Canadian AI policy and institutions tracker &rarr;</Link></p>}
         </section>
 
         <nav className="shell categoryNav categoryLinkNav" aria-label="Browse AI news topics">

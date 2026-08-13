@@ -5,8 +5,8 @@ import { buildPageMetadata, breadcrumbSchema, SITE_URL, WEBSITE_ID } from "../li
 import { StructuredData } from "../structured-data";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Canadian AI Resources — Official Policy, Safety & Research Links",
-  description: "A curated directory of official Canadian AI strategy, government-use, privacy, safety, compute and national research-institute resources.",
+  title: "Canada AI Policy & Institutions Tracker | AI New Canada",
+  description: "A verified tracker of Canada's AI strategy, sovereign compute, federal government use, privacy rules, safety institute and national research ecosystem.",
   path: "/canada-ai-resources/",
 });
 
@@ -110,7 +110,7 @@ export default function CanadaAiResourcesPage() {
               description: "A maintained directory of official Canadian AI policy, safety, privacy, compute and research resources.",
               isPartOf: { "@id": WEBSITE_ID },
               inLanguage: "en-CA",
-              dateModified: "2026-08-11",
+              dateModified: "2026-08-13",
               mainEntity: {
                 "@type": "ItemList",
                 numberOfItems: resources.length,
@@ -126,11 +126,21 @@ export default function CanadaAiResourcesPage() {
         }} />
         <header>
           <div className="articleBreadcrumb"><Link href="/">Home</Link><span>/</span><span>Canadian AI Resources</span></div>
-          <span className="eyebrow">BOOKMARK THIS / CANADA</span>
-          <h1>The Canadian AI source directory.</h1>
+          <span className="eyebrow">VERIFIED TRACKER / CANADA</span>
+          <h1>Canada&apos;s AI policy and institutions tracker.</h1>
           <p>Official strategy, government-use, privacy, safety, compute and national research links—collected in one place so readers and answer engines can start with primary material.</p>
-          <div className="resourceUpdated"><strong>Last checked</strong><time dateTime="2026-08-11">August 11, 2026</time><span>{resources.length} primary resources</span></div>
+          <div className="resourceUpdated"><strong>Last checked</strong><time dateTime="2026-08-13">August 13, 2026</time><span>{resources.length} primary resources</span></div>
         </header>
+        <section className="resourceSummary" aria-labelledby="tracker-reading-title">
+          <span className="eyebrow">HOW TO READ THE TRACKER</span>
+          <h2 id="tracker-reading-title">Canada&apos;s AI system is a stack, not a single law.</h2>
+          <p>The durable picture comes from reading strategy, infrastructure, public-sector controls and research institutions together. This tracker separates those roles so an announcement can be connected to the institution responsible for delivering or supervising it.</p>
+          <div className="resourceSummaryGrid">
+            <article><strong>Direction</strong><p>The national strategies set priorities for adoption, talent, safety, Canadian companies and research. Budgets, program rules and measured outcomes determine whether those priorities become delivery.</p></article>
+            <article><strong>Capacity and controls</strong><p>Sovereign compute can expand domestic capacity, while privacy guidance and federal automated-decision rules define boundaries for specific uses.</p></article>
+            <article><strong>Research network</strong><p>CIFAR, Vector, Mila and Amii connect long-term research, talent and applied adoption. Their roles are related but not interchangeable with government regulation.</p></article>
+          </div>
+        </section>
         <div className="resourceGrid">
           {resources.map((resource, index) => (
             <article className="resourceCard" key={resource.url}>
@@ -143,8 +153,8 @@ export default function CanadaAiResourcesPage() {
           ))}
         </div>
         <aside className="resourceMethod">
-          <span className="eyebrow">DIRECTORY METHOD</span>
-          <h2>Primary links, no pay-to-play listings.</h2>
+          <span className="eyebrow">TRACKER METHOD</span>
+          <h2>Primary links, explicit scope, no pay-to-play listings.</h2>
           <p>This directory prioritizes federal agencies, the federal privacy regulator and organizations formally participating in Canada’s national AI research ecosystem. Inclusion is not an endorsement. AI New Canada is not affiliated with the Government of Canada or the listed institutes.</p>
           <Link href="/contact/">Suggest a correction or missing official source →</Link>
         </aside>
