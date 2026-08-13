@@ -101,7 +101,7 @@ export default function Home() {
             </div>
 
             <aside className="popularRail" aria-labelledby="popular-title">
-              <header><span>THE READ LIST</span><h2 id="popular-title">Popular now</h2></header>
+              <header><span>EDITOR&apos;S READ LIST</span><h2 id="popular-title">Read next</h2></header>
               <ol>
                 {popular.map((article, index) => (
                   <li key={article.slug}>
