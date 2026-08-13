@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Newsletter } from "./newsletter";
 import { AdsterraBanner, AdsterraNative, AdsterraResponsiveBanner } from "./adsterra";
 import { categoryPath } from "./lib/seo";
+import { SITE_FEATURES } from "./lib/site-features";
 
 export { ArticleCard } from "./article-card";
 
@@ -31,17 +32,23 @@ export function SiteHeader() {
         <nav className="mainNav" aria-label="Main navigation">
           <div className="shell navInner">
             <Link href="/articles">Latest</Link>
-            <Link className="learnNavLink" href="/learn">Learning Lab</Link>
-            <Link href="/canada-ai-resources/">Resources</Link>
-            <Link href="/topics/">Topics</Link>
-            <Link href="/ai-glossary/">Glossary</Link>
             <Link href={categoryPath("Canada")}>Canada</Link>
-            <Link href={categoryPath("Models")}>Models</Link>
-            <Link href={categoryPath("Products")}>Products</Link>
-            <Link href={categoryPath("Business")}>Business</Link>
-            <Link href={categoryPath("Research")}>Research</Link>
-            <Link href={categoryPath("Policy")}>Policy</Link>
-            <Link className="searchLink" href="/search" aria-label="Search AI New">Search <span aria-hidden="true">⌕</span></Link>
+            <Link className="learnNavLink" href="/learn">Learn</Link>
+            <Link href="/topics/">Guides</Link>
+            <Link className="navOptional" href={categoryPath("Models")}>Models</Link>
+            <Link className="navOptional" href={categoryPath("Business")}>Business</Link>
+            <details className="navMore">
+              <summary>More</summary>
+              <div>
+                <Link href={categoryPath("Products")}>Products</Link>
+                <Link href={categoryPath("Research")}>Research</Link>
+                <Link href={categoryPath("Policy")}>Policy</Link>
+                <Link href="/canada-ai-resources/">Canada resources</Link>
+                <Link href="/ai-glossary/">AI glossary</Link>
+                <Link href="/about/">About &amp; standards</Link>
+              </div>
+            </details>
+            <Link className="searchLink" href="/search" aria-label="Search AI New"><span className="searchWord">Search</span> <span aria-hidden="true">⌕</span></Link>
           </div>
         </nav>
       </header>
@@ -103,6 +110,7 @@ export function AdSlot({
   label?: string;
   eager?: boolean;
 }) {
+  if (!SITE_FEATURES.ads) return null;
   const placement = `${format}-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
   return (
     <div className={`adPlacement adPlacement-${format}`} data-ad-format={format}>
@@ -114,6 +122,7 @@ export function AdSlot({
 }
 
 export function NativeAd({ placement }: { placement: string }) {
+  if (!SITE_FEATURES.ads) return null;
   return (
     <div className="nativePlacement">
       <AdsterraNative placement={placement} />

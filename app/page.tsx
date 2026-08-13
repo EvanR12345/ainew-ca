@@ -17,6 +17,7 @@ export const metadata: Metadata = buildPageMetadata({
 export default function Home() {
   const lead = articles[0];
   const secondary = articles.slice(1, 4);
+  const latest = articles.slice(4, 12);
   const canada = articles.filter((article) => article.category === "Canada").slice(0, 3);
   const models = articles.filter((article) => ["Models", "Products"].includes(article.category)).slice(0, 4);
   const analysis = articles.filter((article) => ["Research", "Business", "Policy"].includes(article.category)).slice(0, 4);
@@ -32,13 +33,12 @@ export default function Home() {
         <div className="shell topAdWrap"><AdSlot eager /></div>
 
         <section className="shell heroSection">
-          <div className="sectionKicker"><span>Launch edition</span><span>Updated when the evidence changes</span></div>
+          <div className="sectionKicker"><span>Today&apos;s briefing</span><span>{articles.length} source-led stories and guides</span></div>
           <div className="heroGrid">
             <article className="leadStory">
               <Link className="leadVisual" href={`/article/${lead.slug}`} style={articleImageStyle(lead.slug)}>
                 <Image src={lead.image} alt={lead.imageAlt} width={1200} height={675} priority />
                 <span className="signalFlag">{lead.signal}</span>
-                <div className="leadVisualWords"><small>PUBLIC INPUT</small><strong>AI should say when it’s AI.</strong></div>
               </Link>
               <div className="leadCopy">
                 <span className="eyebrow">{lead.category} · Lead story</span>
@@ -65,11 +65,44 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="shell quickTakes" aria-label="Quick takes">
-          <div className="quickLabel">QUICK TAKES</div>
-          <Link href="/article/canada-sovereign-ai-compute-explained"><strong>Sovereign AI</strong><span>Why compute is now industrial policy</span></Link>
-          <Link href="/article/retrieval-augmented-generation-guide"><strong>RAG</strong><span>The work that happens before the model writes</span></Link>
-          <Link href="/article/eu-ai-act-canadian-companies"><strong>EU AI Act</strong><span>What Canadian exporters need to know</span></Link>
+        <section className="shell latestSection" aria-labelledby="latest-heading">
+          <div className="sectionHeading latestHeading">
+            <div><span className="eyebrow">LATEST</span><h2 id="latest-heading">New reporting and useful explainers.</h2></div>
+            <Link href="/articles/">View all latest →</Link>
+          </div>
+          <div className="latestNewsList">
+            {latest.map((article) => (
+              <article className="latestNewsItem" key={article.slug}>
+                <Link className="latestNewsImage" href={`/article/${article.slug}`} style={articleImageStyle(article.slug)}>
+                  <Image src={article.image} alt={article.imageAlt} width={320} height={180} />
+                </Link>
+                <div>
+                  <div className="latestNewsMeta"><span>{article.category}</span><time dateTime={article.date}>{article.displayDate}</time></div>
+                  <h3><Link href={`/article/${article.slug}`}>{article.title}</Link></h3>
+                  <p>{article.dek}</p>
+                </div>
+                <small>{article.readTime}</small>
+              </article>
+            ))}
+          </div>
+          <Link className="mobileSectionLink" href="/articles/">View all latest →</Link>
+        </section>
+
+        <nav className="shell quickTakes" aria-label="Browse popular AI topics">
+          <div className="quickLabel">BROWSE</div>
+          <Link href="/topics/canadian-ai-policy/"><strong>Canada</strong><span>Policy, privacy and public-sector AI</span></Link>
+          <Link href="/topics/using-ai/"><strong>Use AI well</strong><span>Practical workflows and beginner guides</span></Link>
+          <Link href="/topics/ai-models/"><strong>AI models</strong><span>Capabilities, costs and evaluation</span></Link>
+        </nav>
+
+        <section className="shell sectionBlock compactSection">
+          <div className="sectionHeading">
+            <div><span className="eyebrow">THE HOME DESK</span><h2>Canada is building its AI playbook in public.</h2></div>
+            <Link href={categoryPath("Canada")}>All Canada coverage →</Link>
+          </div>
+          <div className="threeColCards">
+            {canada.map((article) => <ArticleCard key={article.slug} article={article} />)}
+          </div>
         </section>
 
         <section className="shell learningLabTeaser">
@@ -98,16 +131,6 @@ export default function Home() {
         </section>
 
         <div className="shell"><NativeAd placement="homepage-native" /></div>
-
-        <section className="shell sectionBlock">
-          <div className="sectionHeading">
-            <div><span className="eyebrow">THE HOME DESK</span><h2>Canada is building its AI playbook in public.</h2></div>
-            <Link href={categoryPath("Canada")}>All Canada coverage →</Link>
-          </div>
-          <div className="threeColCards">
-            {canada.map((article) => <ArticleCard key={article.slug} article={article} />)}
-          </div>
-        </section>
 
         <div className="shell sectionAdWrap"><AdSlot label="Homepage mid-page" /></div>
 

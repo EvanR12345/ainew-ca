@@ -157,9 +157,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <div className="articleHero" style={articleImageStyle(article.slug)}>
             <Image src={article.image} alt={article.imageAlt} width={1200} height={675} priority />
             <span>{article.category.toUpperCase()} / AI NEW</span>
-            <strong>{article.title.split(" ").slice(0, 7).join(" ")}</strong>
-            <small>THE SIGNAL, EXPLAINED</small>
           </div>
+          <p className="articleImageCaption">{article.imageAlt}</p>
 
           <div className="articleLayout">
             <div className="shareRail" aria-label="Article tools">

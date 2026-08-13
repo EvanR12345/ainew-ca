@@ -222,7 +222,8 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
   assert.match(homeHtml, /"@type":"WebSite"/);
   assert.match(homeHtml, /"alternateName":\["AI New","ainew\.ca"\]/);
   assert.match(homeHtml, /"@type":"NewsMediaOrganization"/);
-  assert.match(homeHtml, /pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=ca-pub-4610762209559364/);
+  assert.doesNotMatch(homeHtml, /pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js/);
+  assert.doesNotMatch(homeHtml, /ad-frames\/|armsbroodelusive\.com/);
   assert.match(homeHtml, /type="application\/rss\+xml"/);
   assert.match(articleHtml, /rel="canonical" href="https:\/\/ainew\.ca\/article\/canada-ai-transparency-consultation-what-to-know\/?"/);
   assert.match(articleHtml, /"@type":"NewsArticle"/);
@@ -341,10 +342,12 @@ test("publishes substantive trust pages, topic guides, glossary, and precise dis
   assert.doesNotMatch(workflowSource, /actions\/(?:configure-pages@v5|upload-pages-artifact@v3|deploy-pages@v4)/);
 });
 
-test("uses only the original sandboxed Adsterra creatives and places responsive ads through the reading journey", async () => {
-  const [adSource, componentSource, globalStyles, archiveSource, articleSource, homeSource, categorySource, bannerFrame, nativeFrame] = await Promise.all([
+test("keeps advertising behind one disabled site-wide switch", async () => {
+  const [featureSource, adSource, componentSource, layoutSource, globalStyles, archiveSource, articleSource, homeSource, categorySource, bannerFrame, nativeFrame] = await Promise.all([
+    readFile(new URL("../app/lib/site-features.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/adsterra.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/articles/articles-client.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/article/[slug]/page.tsx", import.meta.url), "utf8"),
@@ -354,6 +357,9 @@ test("uses only the original sandboxed Adsterra creatives and places responsive 
     readFile(new URL("../public/ad-frames/native.html", import.meta.url), "utf8"),
   ]);
 
+  assert.match(featureSource, /ads: false/);
+  assert.match(componentSource, /if \(!SITE_FEATURES\.ads\) return null/);
+  assert.match(layoutSource, /SITE_FEATURES\.ads &&/);
   assert.match(adSource, /src={`\/ad-frames\/banner-\$\{size\}\.html`}/);
   assert.match(adSource, /allow-same-origin/);
   assert.match(adSource, /allow-forms/);
