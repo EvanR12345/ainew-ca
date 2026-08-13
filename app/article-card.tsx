@@ -113,14 +113,12 @@ export function ArticleCard({ article, size = "standard" }: { article: ArticleCa
     >
       <Link className="storyVisual" href={`/article/${article.slug}`} aria-label={article.title} onClick={trackClick} style={articleImageStyle(article.slug)}>
         <Image src={article.image} alt={article.imageAlt} width={1200} height={675} loading="lazy" />
-        <span>{article.category}</span>
-        <strong>{article.title.split(" ").slice(0, 3).join(" ")}</strong>
       </Link>
       <div className="storyContent">
-        <div className="storyMeta"><span>{article.category}</span><span>{article.signal}</span></div>
+        <div className="storyMeta"><span>{article.category}</span><time dateTime={article.date}>{article.displayDate}</time></div>
         <h3><Link href={`/article/${article.slug}`} onClick={trackClick}>{article.title}</Link></h3>
         {size !== "compact" && <p>{article.dek}</p>}
-        <div className="storyByline"><time dateTime={article.date}>{article.displayDate}</time><span>{article.readTime}</span></div>
+        <div className="storyByline"><span>AI New Desk</span><span>{article.readTime}</span><span>{article.signal}</span></div>
         <SaveArticleButton article={article} />
       </div>
     </article>

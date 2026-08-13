@@ -148,7 +148,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <article className="articleShell shell">
           <header className="articleHeader">
             <div className="articleBreadcrumb"><Link href="/">Home</Link><span>/</span><Link href={categoryPath(article.category)}>{article.category}</Link></div>
-            <span className="signalPill">{article.signal}</span>
+            <div className="articleLabelLine"><span className="signalPill">{article.signal}</span><span>IN-DEPTH / {article.category.toUpperCase()}</span></div>
             <h1>{article.title}</h1>
             <p className="articleDek">{article.dek}</p>
             <div className="articleMeta">
@@ -199,10 +199,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <Link href={`/topics/${topicHub.slug}/`}>Open the curated guide →</Link>
               </aside>
 
-              <nav className="articleToc" aria-label="In this article">
-                <span className="eyebrow">IN THIS ARTICLE</span>
-                <ol>{article.sections.map((section) => <li key={section.heading}><a href={`#${sectionId(section.heading)}`}>{section.heading}</a></li>)}</ol>
-              </nav>
+              <details className="articleToc" open>
+                <summary><span className="eyebrow">IN THIS ARTICLE</span><strong>{article.sections.length} sections</strong></summary>
+                <nav aria-label="In this article"><ol>{article.sections.map((section) => <li key={section.heading}><a href={`#${sectionId(section.heading)}`}>{section.heading}</a></li>)}</ol></nav>
+              </details>
 
               {article.internalLinks?.length ? (
                 <nav className="articleCollectionLinks" aria-label="Related guides in the 100-article collection">

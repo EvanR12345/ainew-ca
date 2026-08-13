@@ -70,6 +70,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           ],
         }} />
         <section className="pageHero shell categoryHero">
+          <div className="pageHeroIndex">DESK / {String(indexedCategories.indexOf(category) + 1).padStart(2, "0")}</div>
           <div className="articleBreadcrumb"><Link href="/">Home</Link><span>/</span><Link href="/articles/">Latest</Link><span>/</span><span>{category}</span></div>
           <span className="eyebrow">{category.toUpperCase()} DESK</span>
           <h1>{category === "Canada" ? "Canadian AI news, policy and industry analysis." : `${category} AI news, guides and analysis.`}</h1>

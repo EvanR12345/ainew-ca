@@ -32,9 +32,10 @@ export default function ArticlesPage() {
           ],
         }} />
         <section className="pageHero shell">
-          <span className="eyebrow">THE NEWSROOM</span>
+          <div className="pageHeroIndex">NEWSROOM / 01</div>
+          <span className="eyebrow">THE COMPLETE EDITION</span>
           <h1>AI news with the missing context put back in.</h1>
-          <p>Original summaries and practical analysis across the model race, Canadian policy, products, business and research.</p>
+          <p>Browse a dated, chronological edition of source-led reporting and practical analysis across Canada, models, products, business, research and policy.</p>
         </section>
         <Suspense fallback={<div className="shell archiveLoading">Loading stories…</div>}><ArticlesClient /></Suspense>
         <div className="shell"><NewsletterBand /></div>

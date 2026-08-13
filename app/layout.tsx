@@ -34,13 +34,13 @@ export const metadata: Metadata = {
     openGraph: {
       type: "website",
       siteName: SITE_NAME,
-      title: "AI New Canada — The signal in artificial intelligence",
+      title: "AI New Canada — Intelligence, made useful",
       description: SITE_DESCRIPTION,
       url: `${SITE_URL}/`,
       locale: "en_CA",
-      images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: "AI New Canada — The signal in artificial intelligence" }],
+      images: [{ url: `${SITE_URL}/og-newsroom.png`, width: 1200, height: 630, alt: "AI New Canada — independent Canadian AI reporting" }],
     },
-    twitter: { card: "summary_large_image", title: SITE_NAME, description: SITE_DESCRIPTION, images: [`${SITE_URL}/og.png`] },
+    twitter: { card: "summary_large_image", title: SITE_NAME, description: SITE_DESCRIPTION, images: [`${SITE_URL}/og-newsroom.png`] },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
