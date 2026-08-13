@@ -31,6 +31,7 @@ export type Article = {
   sourceLabel: string;
   sourceUrl: string;
   sources?: ArticleSource[];
+  internalLinks?: Array<{ slug: string; title: string }>;
   image: string;
   imageAlt: string;
   disclaimer?: string;

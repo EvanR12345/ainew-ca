@@ -13,13 +13,15 @@ const heldForLater = new Set([
   "ai-personal-automation-permission-ladder",
   "ai-neuroscience-brain-data",
 ]);
+const secondWave = process.argv.includes("--second-wave");
 
 const prompts = [...source.matchAll(/slug: "([^"]+)",\r?\n\s+title: "([^"]+)",[\s\S]*?visualPrompt: "([^"]+)"/g)]
   .map((match) => ({ slug: match[1], title: match[2], visualPrompt: match[3] }))
-  .filter((item) => !heldForLater.has(item.slug));
+  .filter((item) => secondWave === heldForLater.has(item.slug));
 
-if (prompts.length !== 100) {
-  throw new Error(`Expected 100 image prompts, found ${prompts.length}.`);
+const expected = secondWave ? 10 : 100;
+if (prompts.length !== expected) {
+  throw new Error(`Expected ${expected} image prompts, found ${prompts.length}.`);
 }
 
 process.stdout.write(JSON.stringify(prompts));

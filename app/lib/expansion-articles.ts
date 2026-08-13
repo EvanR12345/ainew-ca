@@ -1,4 +1,5 @@
 import type { Article, ArticleSource, ArticleVideo } from "./articles";
+import { SITE_FEATURES } from "./site-features";
 
 type ArticleFormat = "field-guide" | "explainer" | "research-brief" | "video-recap" | "policy-analysis" | "operator-playbook";
 
@@ -10,13 +11,41 @@ const sourceLibrary = {
   genAiGuide: { label: "Government of Canada guide on generative AI", url: "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html" },
   aia: { label: "Government of Canada Algorithmic Impact Assessment", url: "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/algorithmic-impact-assessment.html" },
   directive: { label: "Directive on Automated Decision-Making", url: "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32592" },
-  privacy: { label: "Office of the Privacy Commissioner of Canada: AI", url: "https://www.priv.gc.ca/en/privacy-topics/technology/artificial-intelligence/" },
+  privacy: { label: "Office of the Privacy Commissioner of Canada: AI", url: "https://www.priv.gc.ca/en/privacy-topics/ai-technology-and-innovation/artificial-intelligence/" },
   transparency: { label: "Canada's AI transparency consultation", url: "https://www.canada.ca/en/innovation-science-economic-development/news/2026/07/government-of-canada-launches-public-consultation-on-ai-transparency.html" },
   ircc: { label: "IRCC Artificial Intelligence Strategy", url: "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/artificial-intelligence-strategy.html" },
-  statcan: { label: "Statistics Canada: artificial intelligence", url: "https://www.statcan.gc.ca/en/subjects-start/science_and_technology/artificial_intelligence" },
-  cihr: { label: "Canadian Institutes of Health Research", url: "https://cihr-irsc.gc.ca/e/53426.html" },
-  vector: { label: "Vector Institute research", url: "https://vectorinstitute.ai/research/" },
-  mila: { label: "Mila research", url: "https://mila.quebec/en/research" },
+  statcan: {
+    label: "Statistics Canada: AI adoption and productivity in Canadian firms",
+    url: "https://www150.statcan.gc.ca/n1/pub/36-28-0001/2026004/article/00002-eng.htm",
+    note: "Primary Canadian business evidence on AI adoption, firm characteristics and measured productivity outcomes.",
+  },
+  healthCanadaMlDevices: {
+    label: "Health Canada: pre-market guidance for machine-learning medical devices",
+    url: "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/pre-market-guidance-machine-learning-enabled-medical-devices.html",
+    note: "Primary Canadian regulatory guidance on evidence, risk, transparency and lifecycle controls for machine-learning-enabled medical devices.",
+  },
+  whoHealthAi: {
+    label: "WHO: ethics and governance of AI for health",
+    url: "https://www.who.int/publications/i/item/9789240084759",
+    note: "WHO guidance on safe, evidence-based use of large multimodal models in health care, public health and scientific research.",
+  },
+  vector: { label: "Vector Institute research and talent", url: "https://vectorinstitute.ai/research-talent/" },
+  mila: { label: "Mila core research expertise", url: "https://mila.quebec/en/research/core-expertise" },
+  milaLanguage: {
+    label: "Mila: language and image research",
+    url: "https://mila.quebec/en/research/strategic-priorities/language-and-image",
+    note: "First-party account of Mila's natural-language, multimodal and language-technology research in Canada.",
+  },
+  fnigcOcap: {
+    label: "First Nations Information Governance Centre: OCAP principles",
+    url: "https://fnigc.ca/ocap-training/",
+    note: "First Nations-led primary guidance on ownership, control, access and possession of First Nations data.",
+  },
+  aafcScience: {
+    label: "Agriculture and Agri-Food Canada: strategic plan for science",
+    url: "https://agriculture.canada.ca/en/science/scientific-research-and-collaboration-agriculture/agriculture-and-agri-food-canadas-strategic-plan-science",
+    note: "Official Canadian agriculture research plan covering data-driven tools, automation and artificial intelligence.",
+  },
   amii: { label: "Amii research", url: "https://www.amii.ca/research" },
   nistRmf: { label: "NIST AI Risk Management Framework", url: "https://www.nist.gov/itl/ai-risk-management-framework" },
   nistGenAi: { label: "NIST Generative AI Profile", url: "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence" },
@@ -24,38 +53,231 @@ const sourceLibrary = {
   oecd: { label: "OECD AI Principles", url: "https://oecd.ai/en/ai-principles" },
   euAct: { label: "European Commission: AI Act", url: "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" },
   euLiteracy: { label: "European Commission: AI literacy", url: "https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers" },
-  c2pa: { label: "C2PA content provenance specification", url: "https://c2pa.org/specifications/specifications/2.2/index.html" },
+  c2pa: { label: "C2PA content provenance specification", url: "https://spec.c2pa.org/specifications/specifications/2.2/index.html" },
+  canadaCopyrightConsultation: {
+    label: "ISED: Consultation on Copyright in the Age of Generative AI",
+    url: "https://ised-isde.canada.ca/site/strategic-policy-sector/en/marketplace-framework-policy/consultation-copyright-age-generative-artificial-intelligence",
+    note: "Primary Canadian policy record covering text-and-data mining, authorship and ownership, and liability for AI-generated works.",
+  },
+  cipoCopyright: {
+    label: "Canadian Intellectual Property Office: What you should know about copyright",
+    url: "https://ised-isde.canada.ca/site/canadian-intellectual-property-office/en/what-you-should-know-about-copyright",
+    note: "Official Canadian overview of copyright protection, ownership and registration.",
+  },
+  statcanAiExposure: {
+    label: "Statistics Canada: Artificial intelligence and occupational transformation",
+    url: "https://www150.statcan.gc.ca/n1/en/catalogue/36280001202400900004",
+    note: "Primary Canadian study of occupational exposure to AI and possible job transformation.",
+  },
+  statcanWorkplaceAi: {
+    label: "Statistics Canada: AI use in the workplace",
+    url: "https://www150.statcan.gc.ca/n1/pub/75-006-x/2026001/article/00007-eng.htm",
+    note: "Primary 2026 Canadian evidence on workers' reported use of AI and related job characteristics.",
+  },
+  calibrationPaper: {
+    label: "Guo et al.: On Calibration of Modern Neural Networks",
+    url: "https://proceedings.mlr.press/v70/guo17a",
+    note: "Original peer-reviewed calibration paper introducing practical reliability analysis and temperature scaling for modern neural networks.",
+  },
+  switchTransformer: {
+    label: "Switch Transformers: Scaling to Trillion Parameter Models",
+    url: "https://arxiv.org/abs/2101.03961",
+    note: "Original sparse mixture-of-experts paper describing token routing, expert capacity and training trade-offs.",
+  },
+  mixtralPaper: {
+    label: "Mixtral of Experts",
+    url: "https://arxiv.org/abs/2401.04088",
+    note: "Original technical report documenting active-versus-total parameters in a sparse mixture-of-experts language model.",
+  },
+  modelCollapsePaper: {
+    label: "Nature: AI models collapse when trained on recursively generated data",
+    url: "https://www.nature.com/articles/s41586-024-07566-y",
+    note: "Original research showing how indiscriminate recursive training on generated data can lose distribution tails.",
+  },
+  opcHrAi: {
+    label: "Office of the Privacy Commissioner of Canada: AI in hiring and HR",
+    url: "https://www.priv.gc.ca/en/opc-news/speeches-and-statements/2026/sp-d_20260205/",
+    note: "Canadian privacy regulator's 2026 discussion of virtual hiring tools, automated assessment, bias and accountability.",
+  },
+  travelAdvisories: {
+    label: "Government of Canada: Travel advice and advisories",
+    url: "https://travel.gc.ca/travelling/advisories?lang=en",
+    note: "Official, current Canadian source for destination advisories and changing travel conditions.",
+  },
+  caslConsent: {
+    label: "Government of Canada: Getting consent to send email under CASL",
+    url: "https://ised-isde.canada.ca/site/canada-anti-spam-legislation/en/getting-consent-send-email",
+    note: "Official guidance on consent and proof requirements for commercial electronic messages.",
+  },
+  owaspExcessiveAgency: {
+    label: "OWASP: Excessive Agency",
+    url: "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/",
+    note: "Primary security guidance on limiting agent functionality, permissions and autonomy.",
+  },
+  nihBrainRoadmap: {
+    label: "NIH BRAIN Initiative: NeuroAI research roadmap",
+    url: "https://www.braininitiative.nih.gov/sites/default/files/2025-11/BRAIN%20Research%20Roadmap%20Innovation%20Domains_508c.pdf",
+    note: "Official NIH roadmap addressing NeuroAI research alongside autonomy, privacy, safety, fairness and consent.",
+  },
+  semanticBrainDecoder: {
+    label: "Nature Neuroscience: Semantic reconstruction of continuous language from non-invasive brain recordings",
+    url: "https://www.nature.com/articles/s41593-023-01304-9",
+    note: "Original participant-specific fMRI decoding study with explicit generalization and cooperation limits.",
+  },
   openaiResearch: { label: "OpenAI research", url: "https://openai.com/research/" },
+  openaiModelCompare: {
+    label: "OpenAI API: compare model context windows",
+    url: "https://developers.openai.com/api/docs/models/compare",
+    note: "Primary model documentation separating context-window capacity from output limits and other model properties.",
+  },
+  openaiReasoning: {
+    label: "OpenAI: learning to reason with LLMs",
+    url: "https://openai.com/index/learning-to-reason-with-llms/",
+    note: "Primary research report documenting train-time and test-time compute results for a reasoning model.",
+  },
+  gpt4oSystemCard: {
+    label: "OpenAI GPT-4o System Card",
+    url: "https://openai.com/index/gpt-4o-system-card/",
+    note: "Primary technical and safety documentation for an end-to-end multimodal model spanning text, image, audio and video.",
+  },
+  openaiImageGuide: {
+    label: "OpenAI Academy: creating images with clear prompts",
+    url: "https://openai.com/academy/image-generation/",
+    note: "First-party practical guidance on subject, composition, style, lighting, constraints and iterative image prompting.",
+  },
   openaiAgents: { label: "OpenAI guide to building agents", url: "https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/" },
-  openaiEvals: { label: "OpenAI evaluation best practices", url: "https://platform.openai.com/docs/guides/evals" },
+  openaiEvals: { label: "OpenAI evaluation best practices", url: "https://developers.openai.com/api/docs/guides/evals" },
   openaiSafety: { label: "OpenAI safety approach", url: "https://openai.com/safety/" },
   openaiAcademic: { label: "ChatGPT for Academic Researchers", url: "https://openai.com/index/chatgpt-for-academic-researchers/" },
   lifeSciBench: { label: "OpenAI LifeSciBench", url: "https://openai.com/index/introducing-life-sci-bench/" },
   scientificComputing: { label: "OpenAI field report on agentic scientific computing", url: "https://openai.com/index/scientific-computing-agentic-ai/" },
   anthropicResearch: { label: "Anthropic research", url: "https://www.anthropic.com/research" },
   anthropicInterp: { label: "Anthropic interpretability research", url: "https://www.anthropic.com/research/mapping-mind-language-model" },
-  anthropicAgents: { label: "Anthropic: building effective agents", url: "https://www.anthropic.com/research/building-effective-agents" },
+  anthropicSae: {
+    label: "Anthropic: scaling monosemanticity with sparse autoencoders",
+    url: "https://transformer-circuits.pub/2024/scaling-monosemanticity/index.html",
+    note: "Original interpretability research applying sparse autoencoders to extract and analyze features in a production language model.",
+  },
+  anthropicInterpEngineering: {
+    label: "Anthropic: engineering challenges of scaling interpretability",
+    url: "https://www.anthropic.com/research/engineering-challenges-interpretability",
+    note: "First-party account of the validation, scaling and reliability challenges in sparse-autoencoder interpretability work.",
+  },
+  anthropicContext: {
+    label: "Anthropic: effective context engineering for AI agents",
+    url: "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+    note: "First-party explanation of context as a finite inference resource that must be curated rather than treated as durable memory.",
+  },
+  anthropicRsp: {
+    label: "Anthropic Responsible Scaling Policy",
+    url: "https://www.anthropic.com/responsible-scaling-policy",
+    note: "The developer's current primary framework for capability thresholds, safeguards and catastrophic-risk governance.",
+  },
+  anthropicAgents: { label: "Anthropic: building effective agents", url: "https://www.anthropic.com/engineering/building-effective-agents" },
   anthropicEducation: { label: "Anthropic Education Report", url: "https://www.anthropic.com/news/anthropic-education-report-how-university-students-use-claude" },
   anthropicFluency: { label: "Anthropic AI Fluency Index", url: "https://www.anthropic.com/research/AI-fluency-index" },
   modelContext: { label: "Model Context Protocol specification", url: "https://modelcontextprotocol.io/specification/2025-06-18" },
   deepmind: { label: "Google DeepMind research", url: "https://deepmind.google/research/" },
   alphafold: { label: "Google DeepMind: AlphaFold", url: "https://deepmind.google/science/alphafold/" },
-  gencast: { label: "Google DeepMind: GenCast", url: "https://deepmind.google/discover/blog/gencast-predicts-weather-and-the-risks-of-extreme-conditions-with-sota-accuracy/" },
-  deepmindRobotics: { label: "Google DeepMind robotics", url: "https://deepmind.google/discover/blog/gemini-robotics-brings-ai-into-the-physical-world/" },
-  synthid: { label: "Google DeepMind: SynthID", url: "https://deepmind.google/technologies/synthid/" },
+  gemini2: {
+    label: "Google: Gemini 2.0 launch and agent capabilities",
+    url: "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/google-gemini-ai-update-december-2024/",
+    note: "First-party launch record for Gemini 2.0's multimodal output, tool use and agent-oriented experiments.",
+  },
+  gencast: { label: "Google DeepMind: GenCast", url: "https://deepmind.google/blog/gencast-predicts-weather-and-the-risks-of-extreme-conditions-with-sota-accuracy/" },
+  gencastPaper: {
+    label: "Nature: probabilistic weather forecasting with machine learning",
+    url: "https://www.nature.com/articles/s41586-024-08252-9",
+    note: "The original peer-reviewed GenCast paper, including benchmark design, probabilistic forecasts and stated limitations.",
+  },
+  deepmindRobotics: { label: "Google DeepMind: Gemini Robotics", url: "https://deepmind.google/blog/gemini-robotics-brings-ai-into-the-physical-world/" },
+  synthid: { label: "Google DeepMind: SynthID", url: "https://deepmind.google/models/synthid/" },
+  alphafold3Paper: {
+    label: "Nature: accurate structure prediction of biomolecular interactions with AlphaFold 3",
+    url: "https://www.nature.com/articles/s41586-024-07487-w",
+    note: "The original peer-reviewed AlphaFold 3 paper and its reported evaluation results.",
+  },
+  alphafoldLimits: {
+    label: "Nature Methods: performance and limitations of AlphaFold",
+    url: "https://www.nature.com/articles/s41592-023-02087-4",
+    note: "Peer-reviewed assessment of where AlphaFold predictions are strong and where experimental validation remains necessary.",
+  },
+  gnomePaper: {
+    label: "Nature: scaling deep learning for materials discovery",
+    url: "https://www.nature.com/articles/s41586-023-06735-9",
+    note: "The original peer-reviewed GNoME study, including prediction, verification and synthesizability limits.",
+  },
+  geniePaper: {
+    label: "Google DeepMind: Genie generative interactive environments",
+    url: "https://deepmind.google/research/publications/60474/",
+    note: "The original Genie publication describing a foundation world model learned from unlabelled video.",
+  },
+  genieModel: {
+    label: "Google DeepMind: Genie world model",
+    url: "https://deepmind.google/models/genie/",
+    note: "First-party model overview explaining controllable world simulation, applications and current limitations.",
+  },
+  alphaProofPaper: {
+    label: "Google Research: Olympiad-level formal mathematical reasoning",
+    url: "https://research.google/pubs/olympiad-level-formal-mathematical-reasoning-with-reinforcement-learning/",
+    note: "The peer-reviewed AlphaProof publication documenting formal verification, reinforcement learning and test-time adaptation.",
+  },
+  climateMlReview: {
+    label: "Nature Reviews Physics: machine learning for weather and climate modelling",
+    url: "https://www.nature.com/articles/s42254-024-00776-3",
+    note: "Peer-reviewed synthesis of machine-learning opportunities, evaluation limits and uncertainty in weather and climate modelling.",
+  },
   microsoftRai: { label: "Microsoft Responsible AI Standard", url: "https://www.microsoft.com/en-us/ai/principles-and-approach" },
   microsoftWork: { label: "Microsoft Work Trend Index", url: "https://www.microsoft.com/en-us/worklab/work-trend-index" },
   githubCopilot: { label: "GitHub Copilot documentation", url: "https://docs.github.com/en/copilot" },
-  githubResearch: { label: "GitHub research on Copilot", url: "https://github.blog/news-insights/research/" },
+  githubResearch: { label: "GitHub research on Copilot productivity and developer experience", url: "https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/" },
   nvidiaAi: { label: "NVIDIA AI resources", url: "https://www.nvidia.com/en-us/ai/" },
+  nvidiaAiFactories: {
+    label: "NVIDIA: AI factory infrastructure",
+    url: "https://www.nvidia.com/en-us/solutions/ai-factories/",
+    note: "First-party architecture overview connecting energy, chips, infrastructure, models and applications for large-scale AI operations.",
+  },
+  nvidiaQuantization: {
+    label: "NVIDIA: post-training model quantization workflow",
+    url: "https://developer.nvidia.com/blog/model-quantization-post-training-quantization-using-nvidia-model-optimizer/",
+    note: "First-party technical workflow covering calibration, simulated precision loss, evaluation and deployment of quantized models.",
+  },
+  nvidiaInference: {
+    label: "NVIDIA: full-stack AI inference optimization",
+    url: "https://developer.nvidia.com/blog/optimize-ai-inference-performance-with-nvidia-full-stack-solutions/",
+    note: "First-party technical discussion of throughput, latency, precision, hardware utilization and inference cost trade-offs.",
+  },
+  nvidiaRobotics: {
+    label: "NVIDIA: humanoid robotics development stack",
+    url: "https://www.nvidia.com/en-us/use-cases/humanoid-robots/",
+    note: "First-party overview of training, simulation, validation and edge deployment for physical AI systems.",
+  },
   nvidiaGtc: { label: "NVIDIA GTC", url: "https://www.nvidia.com/gtc/" },
   huggingfaceCards: { label: "Hugging Face model cards", url: "https://huggingface.co/docs/hub/model-cards" },
   huggingfaceDatasets: { label: "Hugging Face dataset cards", url: "https://huggingface.co/docs/hub/datasets-cards" },
   stanfordIndex: { label: "Stanford AI Index", url: "https://hai.stanford.edu/ai-index" },
   owaspLlm: { label: "OWASP Top 10 for LLM Applications", url: "https://genai.owasp.org/llm-top-10/" },
-  cisaAi: { label: "CISA guidance for AI", url: "https://www.cisa.gov/topics/cybersecurity-best-practices/artificial-intelligence" },
+  cisaAi: {
+    label: "CISA and NCSC: guidelines for secure AI system development",
+    url: "https://www.cisa.gov/news-events/alerts/2023/11/26/cisa-and-uk-ncsc-unveil-joint-guidelines-secure-ai-system-development",
+    note: "First-party secure-development guidance spanning design, development, deployment and operation of AI systems.",
+  },
+  cisaProcurement: {
+    label: "CISA: choosing secure and verifiable technologies",
+    url: "https://www.cisa.gov/resources-tools/resources/choosing-secure-and-verifiable-technologies",
+    note: "First-party procurement guidance for evaluating product security, supplier evidence and verifiability before purchase.",
+  },
+  cisaIncident: {
+    label: "CISA: AI cybersecurity collaboration playbook",
+    url: "https://www.cisa.gov/news-events/alerts/2025/01/14/cisa-releases-jcdc-ai-cybersecurity-collaboration-playbook-and-fact-sheet",
+    note: "First-party playbook for voluntary information sharing and coordinated response to AI-related cybersecurity incidents.",
+  },
   mitAiRisk: { label: "MIT AI Risk Repository", url: "https://airisk.mit.edu/" },
-  natureAi: { label: "Nature: artificial intelligence research", url: "https://www.nature.com/subjects/machine-learning" },
+  syntheticBiologyAi: {
+    label: "Nature: generative biology and AI-enhanced synthetic biology",
+    url: "https://www.nature.com/collections/iiiddbahja",
+    note: "Directly scoped Nature collection on AI methods that augment the synthetic-biology design-build-test-learn cycle.",
+  },
   appleMl: { label: "Apple machine learning research", url: "https://machinelearning.apple.com/" },
   metaAi: { label: "Meta AI research", url: "https://ai.meta.com/research/" },
   cohereRag: { label: "Cohere retrieval-augmented generation guide", url: "https://docs.cohere.com/docs/retrieval-augmented-generation-rag" },
@@ -91,7 +313,9 @@ type ExpansionSeed = {
   actions: [string, string, string];
   questions: [string, string, string];
   sourceKeys: SourceKey[];
+  relatedSlugs?: [string, string, string];
   visualPrompt: string;
+  imageAlt?: string;
   videoKey?: VideoKey;
 };
 
@@ -125,7 +349,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "procurement milestones, power contracts, regional network connections, allocation policies and evidence that smaller labs can obtain meaningful access",
     actions: ["Separate announced capacity from installed and usable capacity.", "Compare access rules alongside peak performance numbers.", "Track operating budgets and talent, not only construction spending."],
     questions: ["Who controls scheduling and priority access?", "What software dependencies remain outside Canada?", "How will energy and water impacts be disclosed?"],
-    sourceKeys: ["canadaCompute", "canadaStrategy", "nvidiaAi"],
+    sourceKeys: ["canadaCompute", "canadaStrategy", "nvidiaAiFactories"],
     visualPrompt: "Cinematic night photograph inside a Canadian high-performance computing centre, vivid blue and magenta server light, technicians inspecting liquid-cooled accelerator racks, recognizable but subtle northern setting, no logos",
   },
   {
@@ -237,7 +461,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "public bilingual benchmarks, French-language data partnerships, regional testing and whether service-level metrics are reported separately by language",
     actions: ["Test complete user journeys in both official languages.", "Include Quebec, Acadian and mixed-language usage where relevant.", "Measure whether users receive the same answer, action and recourse."],
     questions: ["Are the underlying sources equally complete?", "Who reviews specialized terminology?", "Does safety behaviour change with language?"],
-    sourceKeys: ["federalStrategy", "mila", "vector"],
+    sourceKeys: ["milaLanguage", "federalStrategy", "vector"],
     visualPrompt: "Colourful editorial portrait of two Canadian researchers testing the same AI interface in English and French, mirrored screens with abstract speech forms, Montreal studio atmosphere, no readable text or logos",
   },
   {
@@ -253,7 +477,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "community-governed infrastructure, procurement requirements, Indigenous language projects and whether benefits and intellectual property remain under meaningful local control",
     actions: ["Identify whose authority is required before data work begins.", "Write governance and benefit terms with the community, not for it.", "Plan how models, copies and derived data can be audited or withdrawn."],
     questions: ["Who has the right to approve secondary use?", "What value returns to the community?", "Which knowledge should never enter a model?"],
-    sourceKeys: ["privacy", "federalStrategy", "mila"],
+    sourceKeys: ["fnigcOcap", "privacy", "federalStrategy"],
     visualPrompt: "Respectful documentary landscape photograph of an Indigenous-led technology workshop in northern Canada, community members around a digital map, vivid natural earth and sky colours, no stereotypes, no readable text",
   },
   {
@@ -269,7 +493,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "prospective Canadian studies, post-deployment performance by subgroup, clinician workload, patient communication and clear regulatory classification",
     actions: ["Write the intended-use statement in plain language.", "Test on local data before clinical influence begins.", "Define a stop condition and incident owner before launch."],
     questions: ["What decision changes because of the output?", "Who is underrepresented in the validation set?", "Can a patient learn about and challenge an AI-supported error?"],
-    sourceKeys: ["cihr", "vector", "nistRmf"],
+    sourceKeys: ["healthCanadaMlDevices", "vector", "nistRmf"],
     visualPrompt: "High-energy clinical documentary photograph in a Canadian hospital simulation lab, clinicians testing an AI diagnostic display with colourful medical imaging, human-centred and realistic, no logos or readable patient data",
   },
   {
@@ -333,7 +557,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "interoperable equipment data, affordable rural connectivity, farmer-controlled data terms and independent trials across Canadian climates",
     actions: ["Define the field decision before choosing the sensor.", "Keep an offline and manual fallback.", "Negotiate ownership and portability of farm data and derived models."],
     questions: ["Does the model work in this soil and climate?", "Who repairs the system during the season?", "Can the farmer export historical data in a usable format?"],
-    sourceKeys: ["canadaStrategy", "amii", "statcan"],
+    sourceKeys: ["aafcScience", "amii", "canadaStrategy"],
     visualPrompt: "Lively golden-hour documentary photograph on a Canadian prairie farm, agronomist using a tablet beside a colourful crop-scouting robot and real tractor, big dramatic sky, no logos or interface text",
   },
   {
@@ -397,8 +621,10 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "Canadian legislative and court developments, collective licensing proposals, vendor terms and practical adoption of content credentials",
     actions: ["Record where every important input came from.", "Check model and platform terms for the intended commercial use.", "Run similarity and brand review before publication."],
     questions: ["What rights are needed at each stage?", "Can the creative process be documented?", "Who bears the cost if a claim appears?"],
-    sourceKeys: ["canadaAi", "c2pa", "privacy"],
-    visualPrompt: "Bold editorial still-life photograph of a Canadian illustrator's colourful studio with sketchbook, camera, generative image screen and provenance seal motifs, layered paper and paint, no copied characters or text",
+    sourceKeys: ["canadaCopyrightConsultation", "cipoCopyright", "c2pa"],
+    relatedSlugs: ["ai-training-data-copyright-policy-map", "canada-ai-privacy-impact-assessment-guide", "public-ai-benchmark-accountability"],
+    visualPrompt: "Tactile mixed-media magazine still life photographed overhead: a Canadian illustrator's studio table traces original artwork through input, licensing, provenance and publication checks with layered paper, paint, contact sheets and a subtle maple-leaf cutout, warm daylight, no copied characters or readable text",
+    imageAlt: "An overhead mixed-media studio table maps original artwork through licensing, provenance and publication checks.",
   },
   {
     slug: "canada-ai-job-transition-local-playbook",
@@ -413,8 +639,10 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "funding tied to outcomes, access outside large cities, employer co-investment, wage progression and worker participation in technology decisions",
     actions: ["Map tasks before choosing a curriculum.", "Make learning paid and connected to a role.", "Report completion, placement, wages and six-month retention."],
     questions: ["Which tasks are changing now?", "What job does the credential lead to?", "Who absorbs the time and income risk of retraining?"],
-    sourceKeys: ["canadaStrategy", "statcan", "oecd"],
-    visualPrompt: "Optimistic colourful documentary photograph in a Canadian community college workshop, mid-career workers learning to use AI alongside real trades and office tools, energetic and inclusive, no readable text",
+    sourceKeys: ["statcanAiExposure", "statcanWorkplaceAi", "canadaStrategy"],
+    relatedSlugs: ["canadian-small-business-ai-adoption-playbook", "enterprise-ai-evaluation-suite", "ai-roi-full-workflow-math"],
+    visualPrompt: "Cinematic Canadian documentary photograph in a community-college workshop where mid-career workers map changing tasks and learn one practical AI tool beside real trades and office work samples, saturated winter daylight, candid and inclusive, no readable text",
+    imageAlt: "Mid-career workers map changing tasks during a practical AI workshop at a Canadian community college.",
   },
   {
     slug: "canadian-ai-safety-capacity-explained",
@@ -477,7 +705,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "long-context evaluation quality, cost per useful answer, persistent-memory controls and transparent reporting of retrieval failures",
     actions: ["Give every long document a clear task and navigation structure.", "Ask the model to cite the exact supporting passage.", "Test important facts placed at the beginning, middle and end."],
     questions: ["What must be present in the current request?", "What should be retrieved on demand?", "What information should never become persistent memory?"],
-    sourceKeys: ["openaiResearch", "anthropicResearch", "nistGenAi"],
+    sourceKeys: ["openaiModelCompare", "anthropicContext", "nistGenAi"],
     visualPrompt: "Surreal wide-angle editorial photograph of an enormous colourful library desk feeding selected pages into a glowing AI workspace, visible foreground-to-background depth, lively and elegant, no text",
   },
   {
@@ -493,7 +721,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "task-adaptive compute, reliable uncertainty signals, reproducible agent traces and evaluations that price accuracy against latency and energy",
     actions: ["Define what a correct result can be checked against.", "Compare fast and deliberate modes on the same private tasks.", "Set a cost and time ceiling before deployment."],
     questions: ["Does this task reward search or simply require facts?", "Can intermediate work be independently checked?", "What error remains after more compute?"],
-    sourceKeys: ["openaiResearch", "deepmind", "stanfordIndex"],
+    sourceKeys: ["openaiReasoning", "openaiEvals", "stanfordIndex"],
     visualPrompt: "Cinematic macro photograph of a transparent mechanical puzzle with multiple illuminated reasoning paths converging on one answer chamber, deep jewel colours, scientific editorial style, no symbols or text",
   },
   {
@@ -509,7 +737,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "latency, accessibility gains, consent indicators, on-device processing and evaluations that include real environmental variation",
     actions: ["State which sensor input the answer relies on.", "Offer a text or manual alternative.", "Require confirmation before saving, sending or deciding."],
     questions: ["What might the camera or microphone be missing?", "Does everyone present know the system is active?", "Can a user inspect or delete captured data?"],
-    sourceKeys: ["openaiResearch", "nistGenAi", "privacy"],
+    sourceKeys: ["gpt4oSystemCard", "nistGenAi", "privacy"],
     videoKey: "gpt4o",
     visualPrompt: "Colour-rich candid photograph of a person using one AI assistant across voice, camera and text in a bustling kitchen workshop, visible sound and image cues as subtle light, natural human energy, no logos",
   },
@@ -542,7 +770,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "on-device multimodality, efficient long context, standardized energy reporting and better methods for knowing when to escalate",
     actions: ["Segment tasks by difficulty before selecting a model.", "Measure abstention and escalation quality.", "Test on the actual device and network."],
     questions: ["Which capability is truly required?", "What errors appear after compression?", "When should the system hand off to a larger model or human?"],
-    sourceKeys: ["appleMl", "metaAi", "nvidiaAi"],
+    sourceKeys: ["appleMl", "metaAi", "nvidiaInference"],
     visualPrompt: "Whimsical macro photograph of a tiny but intricate colourful AI device powering a full-size studio workflow, strong scale contrast, premium product photography, no logos or text",
   },
   {
@@ -606,8 +834,10 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "selective prediction, uncertainty for generated sequences, user-facing confidence design and drift-sensitive recalibration",
     actions: ["Define what confidence refers to.", "Plot predicted confidence against real correctness.", "Choose escalation thresholds from harm and workload, not convenience."],
     questions: ["Is uncertainty stable across groups?", "Does wording change user trust independently of accuracy?", "What happens near the decision threshold?"],
-    sourceKeys: ["nistRmf", "openaiEvals", "natureAi"],
-    visualPrompt: "Elegant editorial laboratory photograph of a glass confidence gauge being calibrated against coloured test weights, scientist recording outcomes, crisp shadows and rich primary colours, no numbers or text",
+    sourceKeys: ["calibrationPaper", "nistRmf", "openaiEvals"],
+    relatedSlugs: ["ai-benchmark-scores-reading-guide", "ai-hallucinations-system-problem", "enterprise-ai-evaluation-suite"],
+    visualPrompt: "High-concept precision still-life photograph of translucent confidence vessels aligned against many revealed outcome markers while a gloved hand corrects one mismatch, vivid cobalt and yellow, crisp studio shadows, no numbers or text",
+    imageAlt: "A gloved hand corrects one confidence vessel after comparing predictions with observed outcomes.",
   },
   {
     slug: "tool-calling-ai-models-safe-design",
@@ -670,7 +900,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "lower-bit formats, hardware-native kernels, quantization-aware training and transparent energy-per-task measurements",
     actions: ["Measure on the deployment device.", "Keep an uncompressed reference result.", "Re-run safety and formatting tests after every conversion."],
     questions: ["Which tensors were compressed?", "What task slice loses the most quality?", "Does the runtime actually accelerate this format?"],
-    sourceKeys: ["nvidiaAi", "appleMl", "huggingfaceCards"],
+    sourceKeys: ["nvidiaQuantization", "appleMl", "huggingfaceCards"],
     visualPrompt: "High-detail macro editorial photograph of a large colourful crystal lattice being carefully compressed into a tiny precision chip, laboratory tweezers and measurement light, no text",
   },
   {
@@ -686,8 +916,10 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "more stable routers, expert specialization analysis, efficient distributed serving and clearer reporting of active versus total parameters",
     actions: ["Ask how many parameters are active per token.", "Test latency under real batching.", "Compare rare-domain and multilingual behaviour."],
     questions: ["What does the router optimize?", "Do some experts become overloaded?", "Does claimed efficiency survive production serving?"],
-    sourceKeys: ["deepmind", "openaiResearch", "nvidiaAi"],
-    visualPrompt: "Vivid editorial photograph of a circular workshop where specialist craftspeople handle different pieces selected by a central light router, energetic choreography, contemporary and human, no text",
+    sourceKeys: ["switchTransformer", "mixtralPaper", "nistRmf"],
+    relatedSlugs: ["ai-benchmark-scores-reading-guide", "fine-tuning-vs-prompting-vs-rag", "public-ai-benchmark-accountability"],
+    visualPrompt: "Whimsical handcrafted architectural diorama of a central routing wheel sending coloured token pieces through only two of eight specialist workshops before recombining their output, coral, teal, amber and violet, intricate physical materials, no text",
+    imageAlt: "A miniature routing wheel sends coloured pieces through selected specialist workshops before recombining them.",
   },
   {
     slug: "synthetic-data-ai-training-guide",
@@ -702,8 +934,10 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "verifiable simulators, privacy accounting, provenance for generated datasets and studies of repeated model-on-model training",
     actions: ["Name the exact gap synthetic data should fill.", "Never validate only on data from the same generator.", "Track lineage and synthetic proportion."],
     questions: ["What real distribution is being approximated?", "Which rare cases disappear?", "Could a source record be reconstructed?"],
-    sourceKeys: ["nistGenAi", "huggingfaceDatasets", "natureAi"],
-    visualPrompt: "Surreal editorial greenhouse photograph where colourful synthetic plants grow beside a smaller bed of real reference plants, scientist comparing diversity and flaws, dramatic natural light, no text",
+    sourceKeys: ["modelCollapsePaper", "nistGenAi", "huggingfaceDatasets"],
+    relatedSlugs: ["fine-tuning-vs-prompting-vs-rag", "ai-hallucinations-system-problem", "ai-training-data-copyright-policy-map"],
+    visualPrompt: "Surreal botanical macro photograph in a greenhouse: a diverse real plant bed feeds successive translucent synthetic beds that become more uniform as rare wildflowers disappear, researcher comparing against the original holdout, luminous green, magenta and cyan, no text",
+    imageAlt: "A researcher compares diverse real plants with increasingly uniform generations of translucent synthetic plants.",
   },
   {
     slug: "fine-tuning-vs-prompting-vs-rag",
@@ -801,7 +1035,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "production computer-use access, evaluation transparency, on-device capabilities and user controls for persistent state",
     actions: ["Break the demo into individual capabilities.", "Test each capability under realistic noise and delay.", "Add approval exactly where an action becomes consequential."],
     questions: ["Which step is model behaviour and which is product code?", "How often does the loop recover from a wrong action?", "What data persists after the session?"],
-    sourceKeys: ["deepmind", "nistRmf", "openaiAgents"],
+    sourceKeys: ["gemini2", "nistRmf", "openaiAgents"],
     videoKey: "gemini2",
     visualPrompt: "Colourful cinematic editorial photograph of a multimodal AI assistant coordinating camera, map, code and robotic tools around one user, complex but legible composition, no logos or text",
   },
@@ -818,7 +1052,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "system delivery dates, inference demand, power availability, open software compatibility and evidence from independent production workloads",
     actions: ["Translate peak numbers into a target workload.", "Price networking, power and operations.", "Plan a portability test before committing at scale."],
     questions: ["What useful task is produced per unit of time and energy?", "Which software layers create lock-in?", "How does performance change under real concurrency?"],
-    sourceKeys: ["nvidiaGtc", "nvidiaAi", "stanfordIndex"],
+    sourceKeys: ["nvidiaGtc", "nvidiaAiFactories", "stanfordIndex"],
     videoKey: "gtc2026",
     visualPrompt: "Epic wide editorial photograph of a vast liquid-cooled AI factory in motion, colourful data streams, technicians and power infrastructure visible at human scale, cinematic realism, no logos or text",
   },
@@ -936,7 +1170,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "on-device speech processing, speaker separation, accessible interruption controls and evaluation across languages, accents and noisy spaces",
     actions: ["Make capture status unmistakable.", "Repeat consequential details before acting.", "Offer a private text alternative and simple deletion."],
     questions: ["Who can hear or store this conversation?", "Did the assistant understand the exact name or number?", "Is the friendly tone masking uncertainty?"],
-    sourceKeys: ["privacy", "openaiSafety", "nistGenAi"],
+    sourceKeys: ["gpt4oSystemCard", "privacy", "nistGenAi"],
     videoKey: "gpt4o",
     visualPrompt: "Colourful cinematic photograph of a lively voice conversation with visible sound waves between a person and a small AI device, clear privacy light and bustling real-world background, no logos",
   },
@@ -953,7 +1187,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "layout-aware generation, editable layers, stronger identity consistency and embedded creation history",
     actions: ["Define the message and crop first.", "Request distinct concepts before fine variations.", "Save the prompt, seed context and edit decisions."],
     questions: ["What should a viewer understand in one second?", "Where must empty space remain for the layout?", "Which details must be literally correct?"],
-    sourceKeys: ["c2pa", "synthid", "openaiResearch"],
+    sourceKeys: ["openaiImageGuide", "c2pa", "synthid"],
     visualPrompt: "Meta editorial photograph of an art director framing a spectacular colourful AI-generated scene with crop guides, lighting cards and physical composition models, exuberant but tasteful, no text",
   },
   {
@@ -1066,8 +1300,10 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "employer disclosure rules, AI-based screening transparency, portable skills evidence and tools that favour fit over application spam",
     actions: ["Create a factual master record first.", "Tailor by selecting evidence, not inventing it.", "Read every line aloud before submitting."],
     questions: ["Can I defend this claim with an example?", "Does the document sound like me?", "Am I applying because the role fits or because automation made it easy?"],
-    sourceKeys: ["anthropicFluency", "oecd", "nistRmf"],
-    visualPrompt: "Colourful candid editorial photograph of a job seeker arranging real achievement artifacts while an AI coach helps connect them to one role, confident human focus, no readable resume text",
+    sourceKeys: ["opcHrAi", "nistRmf", "oecd"],
+    relatedSlugs: ["ai-hallucinations-system-problem", "ai-memory-products-privacy-guide", "canada-ai-privacy-impact-assessment-guide"],
+    visualPrompt: "Candid lifestyle reportage with a lively zine-inspired composition: a job seeker builds an evidence wall from real work samples and uses a laptop assistant to connect verified achievements to one role, colourful sunlit apartment, no readable resume text",
+    imageAlt: "A job seeker checks real work samples while tailoring an application with an AI assistant.",
   },
   {
     slug: "ai-travel-planning-verification-guide",
@@ -1082,8 +1318,10 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "permissioned booking agents, accessibility data quality, disruption-aware replanning and clearer separation of live versus model-derived facts",
     actions: ["Mark every time-sensitive claim for verification.", "Add realistic transit and recovery buffers.", "Keep a human-readable offline plan."],
     questions: ["When was this fact checked?", "What breaks if one connection is late?", "Is the accessibility detail first-party and current?"],
-    sourceKeys: ["nistGenAi", "openaiAgents", "privacy"],
-    visualPrompt: "Joyful editorial travel photograph of a colourful itinerary assembled from real tickets, map routes and verified venue cards, traveller checking sources with an AI companion, no readable names",
+    sourceKeys: ["travelAdvisories", "nistGenAi", "openaiAgents"],
+    relatedSlugs: ["ai-hallucinations-system-problem", "ai-agents-vs-chatbots", "computer-use-ai-agents-guide"],
+    visualPrompt: "Exuberant overhead travel editorial made from real photography and hand-cut analog collage: branching itinerary options are clipped to first-party confirmation objects for flights, time, accessibility, transit and weather, bright blue, citrus, red and sand, no readable names",
+    imageAlt: "An overhead travel plan connects route options to confirmations for flights, timing, accessibility, transit and weather.",
   },
   {
     slug: "ai-customer-support-escalation-design",
@@ -1115,8 +1353,10 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "anti-spam enforcement, privacy rules for enrichment, source-linked sales tools and metrics that reward qualified conversations over volume",
     actions: ["Use first-party company sources where possible.", "Remove any claim you cannot verify.", "Cap outreach volume and measure positive relevance signals."],
     questions: ["Would the recipient find this context reasonable?", "Is the inferred need supported by evidence?", "Can the data source and purpose be explained?"],
-    sourceKeys: ["privacy", "microsoftWork", "oecd"],
-    visualPrompt: "Sophisticated editorial photograph of a salesperson studying a small set of colourful verified company artifacts instead of a giant spam cannon, human and witty visual metaphor, no text",
+    sourceKeys: ["caslConsent", "privacy", "microsoftWork"],
+    relatedSlugs: ["retrieval-augmented-generation-rag-guide", "canada-ai-privacy-impact-assessment-guide", "enterprise-ai-evaluation-suite"],
+    visualPrompt: "Witty conceptual studio photograph with bold coral, navy, cream and green: a careful researcher connects three verified company artifacts into one question while an absurd machine sprays blank envelopes into recycling, crisp composition, no text",
+    imageAlt: "A researcher studies three verified company signals beside a machine dumping mass email into recycling.",
   },
   {
     slug: "ai-cybersecurity-copilot-safe-use",
@@ -1147,7 +1387,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "clinically evaluated assistants, better emergency detection, privacy-preserving health modes and transparent boundaries between education and care",
     actions: ["Write a factual timeline and current medication list.", "Ask what information a clinician would need.", "Verify any action with a qualified professional or official source."],
     questions: ["Could this require urgent care?", "What important information is missing?", "Where did the medical claim come from?"],
-    sourceKeys: ["cihr", "lifeSciBench", "nistGenAi"],
+    sourceKeys: ["whoHealthAi", "lifeSciBench", "nistGenAi"],
     visualPrompt: "Calm colourful editorial photograph of a person organizing a symptom timeline and medication containers before a clinical appointment, AI assistant as a small planning light, no diagnoses or readable text",
   },
   {
@@ -1180,7 +1420,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "stable tool interfaces, portable evaluation suites, on-device Gemini capabilities and more transparent model-change notices",
     actions: ["Ship one end-to-end path before adding features.", "Log source, tool and validation outcomes.", "Re-run tests on every model or prompt change."],
     questions: ["Which component caused the failure?", "What happens when a tool is slow or unavailable?", "Can the application switch models without losing its tests?"],
-    sourceKeys: ["deepmind", "openaiEvals", "nistRmf"],
+    sourceKeys: ["gemini2", "openaiEvals", "nistRmf"],
     videoKey: "geminiDevelopers",
     visualPrompt: "Energetic editorial photograph of developers assembling colourful modular AI components into one working application, visible tests and tool connectors on a studio bench, no logos or code text",
   },
@@ -1197,7 +1437,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "on-device multimodal processing, assistive-technology APIs, adjustable description styles and public accessibility evaluations",
     actions: ["Treat multimodality as choice, not replacement.", "Test with real assistive setups.", "Make error correction faster than starting over."],
     questions: ["Which users were missing from the demo?", "What happens after a wrong visual description?", "Can the person complete the task without voice or camera?"],
-    sourceKeys: ["openaiSafety", "microsoftRai", "nistRmf"],
+    sourceKeys: ["gpt4oSystemCard", "microsoftRai", "nistRmf"],
     videoKey: "gpt4o",
     visualPrompt: "Vibrant documentary photograph of multiple people choosing voice, camera, keyboard and tactile controls around one multimodal assistant, real accessibility devices and lively colour, no logos",
   },
@@ -1214,8 +1454,10 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "capability-based authorization, consumer audit logs, transaction simulation and portable permission dashboards",
     actions: ["Start with read-only suggestions.", "Add one reversible action at a time.", "Review and expire permissions on a schedule."],
     questions: ["What is the smallest permission that works?", "Can the action be undone?", "How will the user notice silent drift?"],
-    sourceKeys: ["openaiAgents", "anthropicAgents", "owaspLlm"],
-    visualPrompt: "Playful editorial photograph of a human climbing a colourful permission ladder beside an AI assistant, each step unlocking one carefully guarded tool, bright neutral studio, no text",
+    sourceKeys: ["owaspExcessiveAgency", "openaiAgents", "anthropicAgents"],
+    relatedSlugs: ["tool-calling-ai-models-safe-design", "ai-agents-vs-chatbots", "computer-use-ai-agents-guide"],
+    visualPrompt: "Colourful architectural miniature photographed as a museum diorama: a person climbs from observation to suggestions, drafts, one reversible action and a tightly bounded automation loop, with guardrails, undo cords and broad sensitive doors still locked, no text",
+    imageAlt: "A miniature permission ladder moves from observation to a small guarded automation loop while sensitive doors remain locked.",
   },
   {
     slug: "ai-roi-full-workflow-math",
@@ -1262,7 +1504,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "standard model cards for services, independent audits, portable agent interfaces and contract terms covering material model changes",
     actions: ["Use identical tasks and scoring across vendors.", "Test export and deletion before signing.", "Write remedies for performance or security failures."],
     questions: ["What changes without notice?", "Can the customer independently evaluate the system?", "What does leaving cost in time and data?"],
-    sourceKeys: ["nistRmf", "privacy", "cisaAi"],
+    sourceKeys: ["cisaProcurement", "nistRmf", "privacy"],
     visualPrompt: "Stylish editorial photograph of three AI vendor machines opened for inspection on equal test benches, evaluators checking evidence, locks, cost and exit ports, vivid colours, no logos",
   },
   {
@@ -1278,7 +1520,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "standard public-sector clauses, sector-specific warranties, model-change transparency and clearer allocation of generated-output claims",
     actions: ["Define a material model or policy change.", "Preserve audit and evaluation rights.", "Price and rehearse exit before renewal."],
     questions: ["Can inputs or outputs train another model?", "What happens after a serious incident?", "Which data and configuration return at termination?"],
-    sourceKeys: ["privacy", "nistRmf", "cisaAi"],
+    sourceKeys: ["cisaProcurement", "privacy", "nistRmf"],
     visualPrompt: "Dramatic editorial still-life of an AI service contract as ten colourful interlocking protective layers around data and a clear exit door, premium legal desk photography, no readable text",
   },
   {
@@ -1342,7 +1584,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "privacy-preserving usage analytics, better enterprise data controls and policy designs that distinguish experimentation from consequential deployment",
     actions: ["Ask which work problem employees are solving.", "Offer a safe approved path quickly.", "Collect the minimum telemetry needed for risk."],
     questions: ["Is monitoring proportionate and disclosed?", "Why is the unapproved tool easier?", "Can workers raise needs without penalty?"],
-    sourceKeys: ["privacy", "cisaAi", "genAiGuide"],
+    sourceKeys: ["privacy", "genAiGuide", "owaspLlm"],
     visualPrompt: "Human-centred editorial photograph of employees bringing colourful unofficial AI tools into an open governance clinic instead of a surveillance room, trustful atmosphere, no text",
   },
   {
@@ -1390,7 +1632,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "smaller capable models, efficient inference hardware, outcome-based pricing and better carbon and energy accounting",
     actions: ["Define a successful completed task.", "Allocate retries and human review.", "Stress-test price, volume and quality assumptions."],
     questions: ["What percentage of calls become useful outcomes?", "Which stage drives cost variance?", "Can margins survive a provider or model change?"],
-    sourceKeys: ["nvidiaAi", "openaiEvals", "stanfordIndex"],
+    sourceKeys: ["nvidiaInference", "openaiEvals", "stanfordIndex"],
     videoKey: "gtc2026",
     visualPrompt: "Stylized editorial photograph of an AI production line where colourful tokens enter but only verified useful outcomes exit, accountant measuring every stage, clever visual metaphor, no text",
   },
@@ -1439,7 +1681,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "shared AI incident taxonomies, model-version attestations, sector reporting duties and better cross-vendor forensic tools",
     actions: ["Protect people and limit capability first.", "Preserve model, prompt, retrieval and tool evidence.", "Communicate known facts, uncertainty and next update time."],
     questions: ["Who is affected right now?", "Can the harmful path be disabled without losing evidence?", "Which supplier or regulator must be notified?"],
-    sourceKeys: ["nistRmf", "cisaAi", "mitAiRisk"],
+    sourceKeys: ["cisaIncident", "nistRmf", "mitAiRisk"],
     visualPrompt: "Cinematic crisis-room photograph during an AI incident, multidisciplinary team containing a vivid system map while preserving evidence and opening a support channel, high energy, no text",
   },
   {
@@ -1471,7 +1713,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "interaction modelling, dynamic ensembles, integration with experimental data and evidence of faster therapeutic or biological discovery",
     actions: ["Treat the structure as a testable hypothesis.", "Use confidence at the residue and interaction level.", "Record which experiment changed because of the prediction."],
     questions: ["Which region is uncertain?", "What biological state is represented?", "What result would disconfirm the interpretation?"],
-    sourceKeys: ["alphafold", "natureAi", "openaiAcademic"],
+    sourceKeys: ["alphafold3Paper", "alphafoldLimits", "alphafold"],
     visualPrompt: "Spectacular macro scientific photograph of a colourful folded protein model floating above a real wet lab bench, researchers designing the next experiment, luminous molecular detail, no text",
   },
   {
@@ -1487,7 +1729,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "hybrid physical-AI systems, kilometre-scale forecasts, climate-shift robustness and operational adoption by national weather services",
     actions: ["Evaluate probabilities, not one dramatic map.", "Test extremes and local regions separately.", "Connect forecast improvement to a concrete warning decision."],
     questions: ["Is the ensemble calibrated?", "How does skill change outside the training climate?", "Who translates forecast uncertainty into action?"],
-    sourceKeys: ["gencast", "deepmind", "natureAi"],
+    sourceKeys: ["gencastPaper", "gencast", "climateMlReview"],
     visualPrompt: "Epic aerial scientific visualization blended with documentary photography, colourful ensemble weather paths over Canada while meteorologists interpret local risk, cinematic clouds, no text",
   },
   {
@@ -1503,7 +1745,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "self-driving labs, uncertainty-guided experimentation, open negative-result datasets and materials that advance energy storage or catalysis",
     actions: ["Include manufacturability in the objective.", "Use uncertainty to choose informative experiments.", "Preserve failed synthesis attempts as data."],
     questions: ["Can the candidate be made reproducibly?", "Which property was optimized at another property's expense?", "What does scale change?"],
-    sourceKeys: ["deepmind", "natureAi", "scientificComputing"],
+    sourceKeys: ["gnomePaper", "scientificComputing", "openaiAcademic"],
     visualPrompt: "Vivid editorial photograph of a self-driving materials lab where colourful crystal candidates move between AI simulation and robotic synthesis, scientists inspecting real samples, no text",
   },
   {
@@ -1551,7 +1793,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "independent replication, contamination-resistant updates, calibrated expert graders and links between benchmark gains and laboratory outcomes",
     actions: ["Inspect the benchmark task distribution.", "Separate reasoning from factual recall.", "Validate on private, current lab work."],
     questions: ["Whose research practice is represented?", "How consistent are expert graders?", "Does performance transfer to an active project?"],
-    sourceKeys: ["lifeSciBench", "openaiAcademic", "natureAi"],
+    sourceKeys: ["lifeSciBench", "openaiEvals", "openaiAcademic"],
     visualPrompt: "Colourful scientific editorial photograph of an AI being tested in a realistic life-science obstacle course with messy evidence, experiment design and validation stations, human experts observing, no text",
   },
   {
@@ -1567,7 +1809,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "scalable causal interventions, cross-model feature comparison, automated anomaly discovery and operational use in monitoring",
     actions: ["Ask what fraction of behaviour is explained.", "Look for causal intervention, not only a striking example.", "Connect the feature to an externally measured outcome."],
     questions: ["How was the feature label assigned?", "Does intervention change behaviour predictably?", "Which activations remain unexplained?"],
-    sourceKeys: ["anthropicInterp", "anthropicResearch", "natureAi"],
+    sourceKeys: ["anthropicInterp", "anthropicSae", "anthropicInterpEngineering"],
     visualPrompt: "Mesmerizing scientific editorial photograph of researchers opening a vast colourful neural mechanism and tracing one causal circuit with light, intricate but not mystical, no text",
   },
   {
@@ -1583,7 +1825,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "larger cross-layer dictionaries, feature universality, efficient real-time monitoring and standards for evaluating explanation quality",
     actions: ["Inspect what the autoencoder fails to reconstruct.", "Compare features across prompts and checkpoints.", "Test whether changing the feature changes behaviour."],
     questions: ["Is the feature stable or a labelling artifact?", "How much model activity remains outside the dictionary?", "What safety decision can this measurement support?"],
-    sourceKeys: ["anthropicInterp", "anthropicResearch", "natureAi"],
+    sourceKeys: ["anthropicSae", "anthropicInterpEngineering", "anthropicInterp"],
     visualPrompt: "Scientific macro photograph of a prism-like microscope separating a tangled neural light signal into many sparse colourful feature beams, researcher adjusting reconstruction, no text",
   },
   {
@@ -1599,7 +1841,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "cross-robot transfer, tactile models, data-efficient learning, safety certification and evidence from long-duration deployments",
     actions: ["Separate semantic planning from motion safety.", "Test under clutter, occlusion and interruption.", "Measure recovery and near misses."],
     questions: ["Which controller can stop the model?", "How far does behaviour transfer beyond the demo?", "What happens after an unexpected human action?"],
-    sourceKeys: ["deepmindRobotics", "deepmind", "nistRmf"],
+    sourceKeys: ["deepmindRobotics", "nistRmf", "cisaAi"],
     videoKey: "gemini2",
     visualPrompt: "Dynamic documentary photograph of a colourful general-purpose robot carefully collaborating with humans in a cluttered workshop, visible safe-stop zone and tactile interaction, no logos",
   },
@@ -1616,7 +1858,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "interactive long-horizon consistency, physics grounding, controllable simulation and benchmarks tied to downstream decision quality",
     actions: ["Measure error as the rollout length grows.", "Keep multiple plausible futures.", "Re-anchor to real observations frequently."],
     questions: ["Which parts of the environment are not represented?", "Does the model preserve causal constraints?", "How does uncertainty affect the chosen plan?"],
-    sourceKeys: ["deepmind", "openaiResearch", "natureAi"],
+    sourceKeys: ["geniePaper", "genieModel", "nistRmf"],
     visualPrompt: "Surreal cinematic photograph of an AI planning room projecting several colourful possible futures of the same physical scene, one real sensor anchor in foreground, no text",
   },
   {
@@ -1632,7 +1874,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "secure sequence design, automated labs, benefit-sharing for biological data and governance for increasingly capable design models",
     actions: ["Set biosafety and dual-use boundaries first.", "Keep design and build permissions separate.", "Use experimental failure as training evidence."],
     questions: ["Could the design create unintended function?", "Which containment level is required?", "Who authorizes moving from prediction to synthesis?"],
-    sourceKeys: ["lifeSciBench", "openaiAcademic", "natureAi"],
+    sourceKeys: ["syntheticBiologyAi", "lifeSciBench", "alphafold3Paper"],
     visualPrompt: "Vivid scientific editorial photograph of a secure synthetic-biology lab cycling colourful DNA designs through build, test and learn stations, human biosafety oversight clearly visible, no text",
   },
   {
@@ -1648,7 +1890,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "autoformalization, reusable libraries, collaboration with mathematicians and systems that propose valuable conjectures rather than only solve assigned ones",
     actions: ["Check the formal statement matches the intended theorem.", "Verify with an independent trusted kernel.", "Translate the proof into human mathematical insight."],
     questions: ["Was the hard part formalization or proof search?", "Is the proof new, shorter or merely valid?", "Can experts understand why it works?"],
-    sourceKeys: ["deepmind", "openaiResearch", "openaiAcademic"],
+    sourceKeys: ["alphaProofPaper", "openaiReasoning", "openaiEvals"],
     visualPrompt: "Elegant editorial photograph of a mathematician and AI building a colourful proof bridge where every logical block clicks into a verification frame, blackboard atmosphere, no readable equations",
   },
   {
@@ -1664,7 +1906,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "physics-informed hybrids, extreme-event calibration, open regional datasets and evaluations based on adaptation outcomes",
     actions: ["Keep scenario and model uncertainty visible.", "Validate tails, not only average weather.", "Match map resolution to evidence resolution."],
     questions: ["Which uncertainty dominates this decision?", "Does the model extrapolate beyond its climate history?", "Would another method change the adaptation choice?"],
-    sourceKeys: ["gencast", "natureAi", "scientificComputing"],
+    sourceKeys: ["climateMlReview", "gencastPaper", "scientificComputing"],
     visualPrompt: "Dramatic Canadian landscape photograph overlaid with colourful but transparent climate probability layers, scientist and community planner comparing futures, no false precision or text",
   },
   {
@@ -1680,8 +1922,10 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "multisite datasets, closed-loop neurotechnology, privacy-preserving analysis and standards for claims about inferred mental states",
     actions: ["Separate within-person from across-person results.", "Describe the laboratory task precisely.", "Protect inferred neural information as sensitive data."],
     questions: ["Is this prediction or mechanism?", "Does it generalize to new people?", "What personal information could be inferred unintentionally?"],
-    sourceKeys: ["openaiAcademic", "natureAi", "privacy"],
-    visualPrompt: "Respectful scientific editorial photograph of a neuroscience lab with colourful neural signal maps and one consenting participant, researchers emphasizing uncertainty and privacy, no text",
+    sourceKeys: ["semanticBrainDecoder", "nihBrainRoadmap", "privacy"],
+    relatedSlugs: ["lifescibench-realistic-ai-science-evals", "agentic-scientific-computing-field-report", "ai-synthetic-biology-design-build-test"],
+    visualPrompt: "Respectful cinematic science documentary in a contemporary fMRI lab: one consenting participant and researchers compare participant-specific neural patterns with a blurred cross-person test panel behind a privacy screen, violet, cyan and amber light, no sensational mind-reading imagery or text",
+    imageAlt: "Researchers compare participant-specific neural patterns in an fMRI lab with privacy controls visible.",
   },
   {
     slug: "openai-academic-researchers-program-analysis",
@@ -1712,7 +1956,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "foundation models across robot types, synthetic-data evidence, certified safety layers and long-duration deployments outside factories",
     actions: ["List assumptions that simulation makes.", "Test transfer under sensor and environment shifts.", "Keep safety control independent from learned policy."],
     questions: ["Which real failures never appeared in simulation?", "What runs on the robot during network loss?", "How are near misses captured?"],
-    sourceKeys: ["nvidiaGtc", "nvidiaAi", "deepmindRobotics"],
+    sourceKeys: ["nvidiaGtc", "nvidiaRobotics", "deepmindRobotics"],
     videoKey: "gtc2026",
     visualPrompt: "Epic cinematic editorial photograph of simulated colourful robots crossing through a portal into a real factory test floor, engineers measuring the reality gap, no logos or text",
   },
@@ -1777,7 +2021,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "mandatory reporting rules, common incident taxonomies, public databases and safeguards for whistleblowers and researchers",
     actions: ["Define materiality before an incident.", "Tell affected people what they can do now.", "Separate preliminary notice from final root-cause reporting."],
     questions: ["Who needs information to reduce harm?", "Which fact is verified?", "What learning should benefit the wider ecosystem?"],
-    sourceKeys: ["nistRmf", "cisaAi", "mitAiRisk"],
+    sourceKeys: ["cisaIncident", "nistRmf", "mitAiRisk"],
     visualPrompt: "Editorial newsroom photograph of an AI incident disclosure being prepared with three clear layers: urgent support, verified facts and later lessons, calm transparent atmosphere, no text",
   },
   {
@@ -1857,7 +2101,7 @@ const expansionSeeds: ExpansionSeed[] = [
     watch: "international evaluation protocols, researcher access programs, incident evidence and governance that includes public-interest science",
     actions: ["Describe the concrete misuse pathway.", "Compare harms of release and restriction.", "Set review dates and expansion criteria."],
     questions: ["What new capability becomes easier?", "Who is excluded by the control?", "Which safeguard can be tested before release?"],
-    sourceKeys: ["openaiSafety", "anthropicResearch", "mitAiRisk"],
+    sourceKeys: ["anthropicRsp", "nistGenAi", "mitAiRisk"],
     visualPrompt: "Dramatic editorial photograph of scientists at a branching release gate for a powerful colourful AI research artifact, paths for open, staged and protected access, thoughtful not dystopian, no text",
   },
   {
@@ -1908,6 +2152,14 @@ const accentByCategory: Record<Article["category"], string> = {
 function publicationDate(index: number) {
   const date = new Date(Date.UTC(2026, 7, 10));
   date.setUTCDate(date.getUTCDate() - index);
+  return {
+    date: date.toISOString().slice(0, 10),
+    displayDate: new Intl.DateTimeFormat("en-CA", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date),
+  };
+}
+
+function secondWavePublicationDate() {
+  const date = new Date(Date.UTC(2026, 7, 17));
   return {
     date: date.toISOString().slice(0, 10),
     displayDate: new Intl.DateTimeFormat("en-CA", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date),
@@ -2021,10 +2273,15 @@ const heldForLater = new Set([
   "ai-neuroscience-brain-data",
 ]);
 
-const publishedExpansionSeeds = expansionSeeds.filter((seed) => !heldForLater.has(seed.slug));
+const firstWaveSeeds = expansionSeeds.filter((seed) => !heldForLater.has(seed.slug));
+const preparedSecondWaveSeeds = expansionSeeds.filter((seed) => heldForLater.has(seed.slug));
+const publishedExpansionSeeds = SITE_FEATURES.secondWaveGuides
+  ? [...firstWaveSeeds, ...preparedSecondWaveSeeds]
+  : firstWaveSeeds;
+const seedTitles = new Map(expansionSeeds.map((seed) => [seed.slug, seed.title]));
 
 export const expansionArticles: Article[] = publishedExpansionSeeds.map((seed, index) => {
-  const published = publicationDate(index);
+  const published = heldForLater.has(seed.slug) ? secondWavePublicationDate() : publicationDate(index);
   const sources = seed.sourceKeys.map((key) => sourceLibrary[key]);
   return {
     slug: seed.slug,
@@ -2039,8 +2296,9 @@ export const expansionArticles: Article[] = publishedExpansionSeeds.map((seed, i
     sourceLabel: sources[0].label,
     sourceUrl: sources[0].url,
     sources,
+    internalLinks: seed.relatedSlugs?.map((slug) => ({ slug, title: seedTitles.get(slug) ?? slug })),
     image: `/images/articles/unique/${seed.slug}.jpg`,
-    imageAlt: seed.visualPrompt,
+    imageAlt: seed.imageAlt ?? seed.visualPrompt,
     disclaimer: seed.format === "video-recap"
       ? "This independent analysis summarizes an official product or research video and adds original context, limitations and a practical evaluation framework. It is not a transcript, endorsement or substitute for watching the source."
       : "This evidence-led explainer uses the linked primary sources and original AI New analysis. It is educational, not legal, medical, financial or procurement advice; verify current requirements with qualified professionals.",
@@ -2053,5 +2311,12 @@ export const expansionImagePrompts = publishedExpansionSeeds.map(({ slug, title,
   slug,
   title,
   styleIndex: index % 12,
+  prompt: visualPrompt,
+}));
+
+export const preparedSecondWaveImagePrompts = preparedSecondWaveSeeds.map(({ slug, title, visualPrompt }, index) => ({
+  slug,
+  title,
+  styleIndex: index,
   prompt: visualPrompt,
 }));

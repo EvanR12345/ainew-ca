@@ -1,7 +1,12 @@
 import assert from "node:assert/strict";
+import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
+import { promisify } from "node:util";
+
+const execFileAsync = promisify(execFile);
 
 async function render(pathname = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -76,7 +81,7 @@ test("keeps every article photo in full colour on desktop and mobile", async () 
   assert.match(articleSource, /advanced-human-in-the-loop-ai-agent-workflow/);
   assert.equal(imageFiles.filter((file) => file.endsWith(".jpg")).length, 7);
   assert.equal(libraryFiles.filter((file) => file.endsWith(".jpg")).length, 6);
-  assert.equal(uniqueFiles.filter((file) => file.endsWith(".jpg")).length, 211);
+  assert.equal(uniqueFiles.filter((file) => file.endsWith(".jpg")).length, 221);
   assert.doesNotMatch(imageStyleSource, /--image-tint/);
   assert.doesNotMatch(imageStyleSource, /--image-saturation|--image-contrast/);
   assert.doesNotMatch(globalStyles, /rgba\(240,68,47,\.42\)/);
@@ -139,16 +144,22 @@ test("turns the publication into a device-local Learning Lab", async () => {
 });
 
 test("publishes 100 substantial sourced articles with unique full-colour feature images", async () => {
-  const [articleResponse, videoResponse, expansionSource, promptManifest, imageFiles] = await Promise.all([
+  const promptScript = fileURLToPath(new URL("../scripts/export-image-prompts.mjs", import.meta.url));
+  const [articleResponse, videoResponse, heldResponse, expansionSource, featureSource, promptManifest, imageFiles, firstWavePromptRun, secondWavePromptRun] = await Promise.all([
     render("/article/canada-ai-for-all-strategy-field-guide/"),
     render("/article/claude-code-demo-video-debrief/"),
+    render("/article/canadian-ai-copyright-creator-checklist/"),
     readFile(new URL("../app/lib/expansion-articles.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/lib/site-features.ts", import.meta.url), "utf8"),
     readFile(new URL("../scripts/export-image-prompts.mjs", import.meta.url), "utf8"),
     readdir(new URL("../public/images/articles/unique/", import.meta.url)),
+    execFileAsync(process.execPath, [promptScript]),
+    execFileAsync(process.execPath, [promptScript, "--second-wave"]),
   ]);
 
   assert.equal(articleResponse.status, 200);
   assert.equal(videoResponse.status, 200);
+  assert.equal(heldResponse.status, 404);
   const articleHtml = await articleResponse.text();
   const videoHtml = await videoResponse.text();
   const wordCountMatch = articleHtml.match(/"wordCount":(\d+)/);
@@ -160,25 +171,73 @@ test("publishes 100 substantial sourced articles with unique full-colour feature
   assert.match(articleHtml, /canada-ai-for-all-strategy-field-guide\.jpg/);
   assert.match(videoHtml, /youtube-nocookie\.com\/embed\/AJpK3YTTKZ4/);
   assert.match(videoHtml, /This independent analysis summarizes an official product or research video/);
-  assert.match(expansionSource, /const publishedExpansionSeeds = expansionSeeds\.filter/);
+  assert.match(expansionSource, /const preparedSecondWaveSeeds = expansionSeeds\.filter/);
+  assert.match(expansionSource, /SITE_FEATURES\.secondWaveGuides/);
+  assert.match(featureSource, /secondWaveGuides: false/);
   assert.match(expansionSource, /formatLabels/);
   assert.match(expansionSource, /EVIDENCE &amp; FURTHER READING|sources,/);
-  assert.match(promptManifest, /Expected 100 image prompts/);
+  assert.match(expansionSource, /Health Canada: pre-market guidance for machine-learning medical devices/);
+  assert.match(expansionSource, /First Nations Information Governance Centre: OCAP principles/);
+  assert.match(expansionSource, /Nature: accurate structure prediction of biomolecular interactions with AlphaFold 3/);
+  assert.doesNotMatch(expansionSource, /https:\/\/cihr-irsc\.gc\.ca\/e\/53426\.html/);
+  assert.doesNotMatch(expansionSource, /https:\/\/mila\.quebec\/en\/research"/);
+  assert.doesNotMatch(expansionSource, /https:\/\/www\.cisa\.gov\/topics\/cybersecurity-best-practices\/artificial-intelligence/);
+  assert.doesNotMatch(expansionSource, /https:\/\/www\.statcan\.gc\.ca\/en\/subjects-start\/science_and_technology\/artificial_intelligence/);
+  assert.doesNotMatch(expansionSource, /sourceKeys: \[[^\]]*"natureAi"/);
+  assert.doesNotMatch(expansionSource, /sourceKeys: \[[^\]]*"openaiResearch"/);
+  assert.doesNotMatch(expansionSource, /sourceKeys: \[[^\]]*"anthropicResearch"/);
+  assert.doesNotMatch(expansionSource, /sourceKeys: \[[^\]]*"deepmind"/);
+  assert.match(promptManifest, /secondWave \? 10 : 100/);
+  assert.equal(JSON.parse(firstWavePromptRun.stdout).length, 100);
+  assert.equal(JSON.parse(secondWavePromptRun.stdout).length, 10);
 
   const jpgFiles = imageFiles.filter((file) => file.endsWith(".jpg"));
-  assert.equal(jpgFiles.length, 211);
+  assert.equal(jpgFiles.length, 221);
   const generatedSlugs = [...expansionSource.matchAll(/^\s+slug: "([^"]+)",$/gm)].map((match) => match[1]);
   const heldMatch = expansionSource.match(/const heldForLater = new Set\(\[([\s\S]*?)\]\);/);
   assert.ok(heldMatch, "expected heldForLater list");
   const heldSlugs = new Set([...heldMatch[1].matchAll(/"([^"]+)"/g)].map((match) => match[1]));
+  assert.equal(heldSlugs.size, 10);
   const publishedSlugs = generatedSlugs.filter((slug) => !heldSlugs.has(slug));
   assert.equal(publishedSlugs.length, 100);
   for (const slug of publishedSlugs) assert.ok(jpgFiles.includes(`${slug}.jpg`), `missing image for ${slug}`);
+  for (const slug of heldSlugs) assert.ok(jpgFiles.includes(`${slug}.jpg`), `missing prepared second-wave image for ${slug}`);
+
+  const expectedPrimarySources = new Map([
+    ["canadian-ai-copyright-creator-checklist", "canadaCopyrightConsultation"],
+    ["canada-ai-job-transition-local-playbook", "statcanAiExposure"],
+    ["confidence-calibration-ai-systems", "calibrationPaper"],
+    ["mixture-of-experts-models-explained", "switchTransformer"],
+    ["synthetic-data-ai-training-guide", "modelCollapsePaper"],
+    ["ai-job-search-honest-workflow", "opcHrAi"],
+    ["ai-travel-planning-verification-guide", "travelAdvisories"],
+    ["ai-sales-research-source-backed", "caslConsent"],
+    ["ai-personal-automation-permission-ladder", "owaspExcessiveAgency"],
+    ["ai-neuroscience-brain-data", "semanticBrainDecoder"],
+  ]);
+  for (const slug of heldSlugs) {
+    const start = expansionSource.indexOf(`slug: "${slug}"`);
+    const end = expansionSource.indexOf("\n  },", start);
+    assert.ok(start >= 0 && end > start, `missing seed block for ${slug}`);
+    const block = expansionSource.slice(start, end);
+    assert.match(block, new RegExp(`sourceKeys: \\["${expectedPrimarySources.get(slug)}"`));
+    const relatedMatch = block.match(/relatedSlugs: \[([^\]]+)\]/);
+    assert.ok(relatedMatch, `missing internal links for ${slug}`);
+    const relatedSlugs = [...relatedMatch[1].matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+    assert.equal(relatedSlugs.length, 3, `expected three internal links for ${slug}`);
+    for (const relatedSlug of relatedSlugs) {
+      assert.ok(publishedSlugs.includes(relatedSlug), `${slug} links outside the published 100-guide collection: ${relatedSlug}`);
+    }
+  }
 
   const generatedImages = await Promise.all(publishedSlugs.map((slug) => readFile(new URL(`../public/images/articles/unique/${slug}.jpg`, import.meta.url))));
   const hashes = generatedImages.map((buffer) => createHash("sha256").update(buffer).digest("hex"));
   assert.equal(new Set(hashes).size, 100, "every new article must use a different image file");
-  for (const buffer of generatedImages) {
+  const secondWaveImages = await Promise.all([...heldSlugs].map((slug) => readFile(new URL(`../public/images/articles/unique/${slug}.jpg`, import.meta.url))));
+  const secondWaveHashes = secondWaveImages.map((buffer) => createHash("sha256").update(buffer).digest("hex"));
+  assert.equal(new Set(secondWaveHashes).size, 10, "every prepared second-wave guide must use a different image file");
+  assert.equal(new Set([...hashes, ...secondWaveHashes]).size, 110, "second-wave images must also be distinct from the first 100");
+  for (const buffer of [...generatedImages, ...secondWaveImages]) {
     assert.equal(buffer[0], 0xff);
     assert.equal(buffer[1], 0xd8);
     assert.ok(buffer.length >= 75_000, "feature images should retain editorial detail");

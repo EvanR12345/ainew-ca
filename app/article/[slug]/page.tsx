@@ -190,6 +190,22 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <ol>{article.sections.map((section) => <li key={section.heading}><a href={`#${sectionId(section.heading)}`}>{section.heading}</a></li>)}</ol>
               </nav>
 
+              {article.internalLinks?.length ? (
+                <nav className="articleCollectionLinks" aria-label="Related guides in the 100-article collection">
+                  <span className="eyebrow">CONTINUE THROUGH THE COLLECTION</span>
+                  <h2>Three guides that deepen this topic</h2>
+                  <p>These hand-picked links connect this second-wave guide to the most useful reporting and practical explainers in our original 100-guide collection.</p>
+                  <ul>
+                    {article.internalLinks.map((relatedArticle, index) => (
+                      <li key={relatedArticle.slug}>
+                        <span>{String(index + 1).padStart(2, "0")}</span>
+                        <Link href={`/article/${relatedArticle.slug}/`}>{relatedArticle.title} â†’</Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              ) : null}
+
               {article.sections.map((section, index) => (
                 <section id={sectionId(section.heading)} key={section.heading}>
                   <h2>{section.heading}</h2>

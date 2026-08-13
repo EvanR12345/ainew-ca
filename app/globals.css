@@ -350,6 +350,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .articleToc ol { columns: 2; column-gap: 34px; margin: 16px 0 0; padding-left: 22px; }
 .articleToc li { break-inside: avoid; padding: 4px 0; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; line-height: 1.35; }
 .articleToc a:hover { color: var(--red); text-decoration: underline; }
+.articleCollectionLinks { margin: -18px 0 42px; padding: 26px; border: 1px solid var(--ink); background: var(--paper); }
+.articleCollectionLinks h2 { margin: 8px 0 8px; font-size: clamp(24px, 3vw, 34px); }
+.articleCollectionLinks > p { max-width: 670px; margin: 0 0 20px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.articleCollectionLinks ul { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.articleCollectionLinks li { display: grid; grid-template-columns: 42px 1fr; align-items: baseline; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.articleCollectionLinks li > span { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 11px; }
+.articleCollectionLinks a { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 15px; font-weight: 750; line-height: 1.35; }
+.articleCollectionLinks a:hover { color: var(--red); text-decoration: underline; }
 .videoModule { margin: 40px 0 12px; padding: 26px; border: 1px solid var(--ink); background: var(--ink); color: white; }
 .videoModule h3 { margin: 9px 0 18px; font-family: Georgia, serif; font-size: 27px; line-height: 1.08; }
 .videoFrame { overflow: hidden; width: 100%; aspect-ratio: 16 / 9; background: #000; }
