@@ -1152,3 +1152,207 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .latestNewsImage img,
   .storyVisual img { transition: none; }
 }
+
+/* Bilingual edition selector */
+.languageSwitch {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: none;
+  color: #8a867e;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .1em;
+}
+.languageSwitch button {
+  min-width: 30px;
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: #77736c;
+  cursor: pointer;
+  font: inherit;
+}
+.languageSwitch button:hover { color: var(--ink); }
+.languageSwitch button.isActive { border-bottom-color: var(--blue); color: var(--ink); }
+
+.languageDialog {
+  width: min(760px, calc(100vw - 32px));
+  max-height: min(760px, calc(100dvh - 32px));
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  border: 1px solid #11110f;
+  border-radius: 3px;
+  background: #f7f3eb;
+  color: #11110f;
+  box-shadow: 18px 18px 0 rgba(17,17,15,.24);
+}
+.languageDialog::backdrop {
+  background: rgba(17,17,15,.76);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+.languageDialog[open] { animation: language-dialog-in .24s cubic-bezier(.16,1,.3,1); }
+.languageDialogPanel { padding: 30px; }
+.languageDialogBrand {
+  display: flex;
+  align-items: end;
+  width: max-content;
+  margin-bottom: 30px;
+  font-family: "Arial Black", Arial, sans-serif;
+  line-height: 1;
+}
+.languageDialogBrand > span {
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  border-radius: 3px;
+  background: var(--blue);
+  color: white;
+  font-size: 22px;
+}
+.languageDialogBrand strong { margin-left: 6px; font-size: 43px; letter-spacing: -.08em; }
+.languageDialogBrand small { margin: 0 0 4px 6px; color: var(--blue); font-size: 11px; }
+.languageKicker {
+  display: block;
+  color: var(--blue);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .16em;
+}
+.languageDialogIntro h2 {
+  margin: 10px 0 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(36px, 6vw, 58px);
+  line-height: .96;
+  letter-spacing: -.055em;
+}
+.languageDialogIntro h2 span { color: #625e57; font-family: Georgia, "Times New Roman", serif; font-size: .68em; font-weight: 400; letter-spacing: -.035em; }
+.languageDialogIntro p { max-width: 610px; margin: 0; color: #4f4b45; font-family: Georgia, "Times New Roman", serif; font-size: 14px; line-height: 1.5; }
+.languageDialogIntro .languageDescriptionFr { margin-top: 3px; color: #767169; font-size: 13px; }
+.languageChoices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 28px 0;
+  padding: 0;
+  border: 0;
+}
+.languageChoice {
+  min-width: 0;
+  min-height: 118px;
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  gap: 15px;
+  align-items: center;
+  padding: 18px;
+  border: 1px solid #c9c2b8;
+  border-radius: 3px;
+  background: #fff;
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease, background-color .18s ease;
+}
+.languageChoice:hover { border-color: #11110f; transform: translateY(-2px); }
+.languageChoice.isSelected { border-color: #11110f; background: #11110f; color: white; }
+.languageChoice input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.languageChoice:has(input:focus-visible) { outline: 3px solid var(--cyan); outline-offset: 3px; }
+.languageCode {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+.languageChoice.isSelected .languageCode { color: var(--cyan); }
+.languageChoice > span:nth-of-type(2) { min-width: 0; display: grid; gap: 5px; }
+.languageChoice strong { font-size: 19px; }
+.languageChoice small { color: #777169; font-family: Georgia, "Times New Roman", serif; font-size: 11px; line-height: 1.35; }
+.languageChoice.isSelected small { color: #c5c0b8; }
+.languageChoice em { align-self: start; padding-top: 3px; color: var(--blue); font-size: 8px; font-style: normal; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
+.languageChoice.isSelected em { color: var(--cyan); }
+.languageDialogFooter {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 22px;
+  align-items: center;
+  padding-top: 22px;
+  border-top: 1px solid #c9c2b8;
+}
+.languageDialogFooter p { margin: 0; color: #706b63; font-size: 10px; line-height: 1.45; }
+.languageDialogFooter p span { color: #8c867d; }
+.languageDialogFooter button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 0 17px;
+  border: 1px solid #11110f;
+  border-radius: 2px;
+  background: var(--blue);
+  color: white;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.languageDialogFooter button:hover { background: #11110f; }
+.languageDialogFooter button:active { transform: translateY(1px); }
+.frenchAvailabilityNote {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 760px);
+  gap: 22px;
+  align-items: start;
+  margin-top: 22px;
+  padding: 16px 18px;
+  border-left: 4px solid var(--blue);
+  background: #fff;
+}
+.frenchAvailabilityNote strong { color: var(--blue); font-size: 9px; letter-spacing: .13em; }
+.frenchAvailabilityNote p { margin: 0; color: #5c5851; font-family: Georgia, "Times New Roman", serif; font-size: 13px; line-height: 1.5; }
+
+@keyframes language-dialog-in {
+  from { opacity: 0; transform: translateY(12px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 760px) {
+  .mastheadActions { gap: 8px; }
+  .languageSwitch { margin-right: 2px; }
+  .languageDialog { width: min(620px, calc(100vw - 20px)); max-height: calc(100dvh - 20px); box-shadow: 9px 9px 0 rgba(17,17,15,.22); }
+  .languageDialogPanel { padding: 22px; }
+  .languageDialogBrand { margin-bottom: 22px; }
+  .languageDialogIntro h2 { font-size: clamp(35px, 10vw, 48px); }
+  .languageChoices { grid-template-columns: 1fr; margin: 22px 0; }
+  .languageChoice { min-height: 94px; }
+  .languageDialogFooter { grid-template-columns: 1fr; }
+  .languageDialogFooter button { width: 100%; }
+  .frenchAvailabilityNote { grid-template-columns: 1fr; gap: 5px; }
+}
+
+@media (max-width: 420px) {
+  .languageDialogPanel { padding: 18px; }
+  .languageDialogBrand { margin-bottom: 16px; }
+  .languageDialogIntro h2 { margin-bottom: 11px; font-size: 34px; }
+  .languageDialogIntro p { font-size: 12px; }
+  .languageChoices { gap: 8px; margin: 17px 0; }
+  .languageChoice { min-height: 82px; grid-template-columns: 42px 1fr auto; padding: 13px; }
+  .languageCode { width: 40px; height: 40px; }
+  .languageChoice strong { font-size: 17px; }
+  .languageDialogFooter { gap: 13px; padding-top: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .languageDialog[open] { animation: none; }
+  .languageChoice { transition: none; }
+}

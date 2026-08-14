@@ -3,6 +3,7 @@ import "./globals.css";
 import { ScrollToTop } from "./scroll-to-top";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./lib/seo";
 import { SITE_FEATURES } from "./lib/site-features";
+import { LanguagePreference } from "./language-preference";
 
 export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
@@ -58,7 +59,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {SITE_FEATURES.ads && <link rel="preconnect" href="https://armsbroodelusive.com" />}
         {SITE_FEATURES.ads && <link rel="dns-prefetch" href="//armsbroodelusive.com" />}
       </head>
-      <body><ScrollToTop />{children}</body>
+      <body><ScrollToTop /><LanguagePreference />{children}</body>
     </html>
   );
 }

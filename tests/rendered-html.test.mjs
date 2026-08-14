@@ -111,6 +111,41 @@ test("ships a lightweight, accessible editorial browsing shell", async () => {
   assert.match(globalStyles, /@media \(max-width: 520px\)/);
 });
 
+test("offers a remembered English-first language choice and a substantive French edition", async () => {
+  const [homeResponse, frenchResponse, preferenceSource, componentSource, sitemapSource, globalStyles] = await Promise.all([
+    render("/"),
+    render("/fr/"),
+    readFile(new URL("../app/language-preference.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  assert.equal(homeResponse.status, 200);
+  assert.equal(frenchResponse.status, 200);
+  const homeHtml = await homeResponse.text();
+  const frenchHtml = await frenchResponse.text();
+
+  assert.match(homeHtml, /Choose your language/);
+  assert.match(homeHtml, /Choisissez votre langue/);
+  assert.match(homeHtml, /hrefLang="fr-CA" href="https:\/\/ainew\.ca\/fr\/?"/);
+  assert.match(frenchHtml, /Actualités et guides sur l’IA au Canada/);
+  assert.match(frenchHtml, /Le bulletin de l’intelligence artificielle/);
+  assert.match(frenchHtml, /inLanguage":"fr-CA"/);
+  assert.match(frenchHtml, /Les articles complets sont actuellement publiés en anglais/);
+  assert.match(frenchHtml, /hrefLang="en-CA" href="https:\/\/ainew\.ca\/?"/);
+  assert.match(preferenceSource, /LANGUAGE_PREFERENCE_KEY/);
+  assert.match(preferenceSource, /localStorage\.setItem/);
+  assert.match(preferenceSource, /useState<Language>\("en"\)/);
+  assert.match(preferenceSource, /showModal\(\)/);
+  assert.match(preferenceSource, /onCancel=\{\(event\) => event\.preventDefault\(\)\}/);
+  assert.match(preferenceSource, /aria-pressed/);
+  assert.match(componentSource, /<LanguageSwitch \/>/);
+  assert.match(sitemapSource, /"\/fr\/"/);
+  assert.match(globalStyles, /\.languageDialog::backdrop/);
+  assert.match(globalStyles, /prefers-reduced-motion: reduce/);
+});
+
 test("builds an honest on-device learning path and tracks five focused minutes", async () => {
   const [response, trackerSource, pageSource, imageStyleSource, privacySource] = await Promise.all([
     render("/article/beginner-how-to-use-ai-everyday-work/"),

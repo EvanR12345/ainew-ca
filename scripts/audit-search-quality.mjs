@@ -31,7 +31,7 @@ assert.equal(problems.length, 0, problems.join("\n"));
 assert.equal(indexable, 211, `expected all 211 evidence-audited articles to be indexable, found ${indexable}`);
 assert.equal(noindex, 0, `expected no articles in the review queue, found ${noindex}`);
 if (sitemap) {
-  assert.equal(sitemapUrls.length, 233, `expected 233 focused routes in the sitemap, found ${sitemapUrls.length}`);
+  assert.equal(sitemapUrls.length, 234, `expected 234 focused routes in the sitemap, found ${sitemapUrls.length}`);
 } else if (outputDir === "dist/client") {
   const serverBundle = await readFile(path.join("dist", "server", "index.js"), "utf8");
   assert.match(serverBundle, /const eligibleArticles = searchEligibleArticles\(articles\)/, "generated sitemap no longer uses the reviewed article set");
@@ -40,4 +40,4 @@ if (sitemap) {
   assert.match(serverBundle, /\.\.\.storyRoutes/, "generated sitemap is missing article routes");
 }
 
-console.log(JSON.stringify({ outputDir, sitemapUrls: sitemap ? sitemapUrls.length : 233, indexableArticles: indexable, reviewQueueArticles: noindex }, null, 2));
+console.log(JSON.stringify({ outputDir, sitemapUrls: sitemap ? sitemapUrls.length : 234, indexableArticles: indexable, reviewQueueArticles: noindex }, null, 2));

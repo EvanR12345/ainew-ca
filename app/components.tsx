@@ -3,6 +3,7 @@ import { Newsletter } from "./newsletter";
 import { AdsterraBanner, AdsterraNative, AdsterraResponsiveBanner } from "./adsterra";
 import { categoryPath } from "./lib/seo";
 import { SITE_FEATURES } from "./lib/site-features";
+import { LanguageSwitch } from "./language-preference";
 
 export { ArticleCard } from "./article-card";
 
@@ -29,6 +30,7 @@ export function SiteHeader() {
           </Link>
           <p className="brandTagline"><strong>Intelligence, made useful.</strong><span>Canada · Policy · Models · Work</span></p>
           <div className="mastheadActions">
+            <LanguageSwitch />
             <Link className="mastheadSearch" href="/search/">Search</Link>
             <Link className="briefButton" href="/learn/">Learning Lab</Link>
           </div>

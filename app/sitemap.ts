@@ -8,6 +8,7 @@ export const dynamic = "force-static";
 export default function sitemap(): MetadataRoute.Sitemap {
   const routeDates: Record<string, string> = {
     "/": SEARCH_REVIEW_DATE,
+    "/fr/": "2026-08-14",
     "/articles/": SEARCH_REVIEW_DATE,
     "/learn/": "2026-08-11",
     "/topics/": SEARCH_REVIEW_DATE,

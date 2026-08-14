@@ -31,11 +31,13 @@ export function buildPageMetadata({
   description,
   path,
   index = true,
+  languages,
 }: {
   title: string;
   description: string;
   path: string;
   index?: boolean;
+  languages?: Record<string, string>;
 }): Metadata {
   const url = absoluteUrl(path);
   return {
@@ -43,7 +45,7 @@ export function buildPageMetadata({
     description,
     alternates: {
       canonical: url,
-      languages: { "en-CA": url, "x-default": url },
+      languages: languages ?? { "en-CA": url, "x-default": url },
     },
     robots: { index, follow: true },
     openGraph: {

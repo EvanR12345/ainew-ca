@@ -11,6 +11,7 @@ export const metadata: Metadata = buildPageMetadata({
   title: "Canadian AI News, Guides & Analysis | AI New Canada",
   description: "Independent Canadian AI news, policy trackers, model explainers and practical guides built from named primary sources.",
   path: "/",
+  languages: { "en-CA": `${SITE_URL}/`, "fr-CA": `${SITE_URL}/fr/`, "x-default": `${SITE_URL}/` },
 });
 
 function DeskSection({
