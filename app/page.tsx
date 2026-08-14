@@ -4,7 +4,7 @@ import Link from "next/link";
 import { AdSlot, ArticleCard, NewsletterBand, SiteFooter, SiteHeader } from "./components";
 import { articleImageStyle } from "./article-image-style";
 import { articles, type Article } from "./lib/articles";
-import { buildPageMetadata, categoryPath, organizationSchema, websiteSchema } from "./lib/seo";
+import { buildPageMetadata, categoryPath, organizationSchema, SITE_URL, WEBSITE_ID, websiteSchema } from "./lib/seo";
 import { StructuredData } from "./structured-data";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -58,7 +58,27 @@ export default function Home() {
       <main id="content">
         <StructuredData data={{
           "@context": "https://schema.org",
-          "@graph": [organizationSchema(), websiteSchema()],
+          "@graph": [
+            organizationSchema(),
+            websiteSchema(),
+            {
+              "@type": "CollectionPage",
+              "@id": `${SITE_URL}/#front-page`,
+              url: `${SITE_URL}/`,
+              name: "AI New Canada intelligence briefing",
+              isPartOf: { "@id": WEBSITE_ID },
+              mainEntity: {
+                "@type": "ItemList",
+                numberOfItems: 12,
+                itemListElement: articles.slice(0, 12).map((article, index) => ({
+                  "@type": "ListItem",
+                  position: index + 1,
+                  url: `${SITE_URL}/article/${article.slug}/`,
+                  name: article.title,
+                })),
+              },
+            },
+          ],
         }} />
         <div className="shell topAdWrap"><AdSlot eager /></div>
 
@@ -92,7 +112,7 @@ export default function Home() {
               {spotlight.map((article) => (
                 <article key={article.slug}>
                   <Link className="frontSpotlightImage" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
-                    <Image src={article.image} alt={article.imageAlt} width={640} height={360} />
+                    <Image src={`/images/articles/thumbs/${article.slug}.webp`} alt={article.imageAlt} width={800} height={450} />
                   </Link>
                   <div className="frontStoryMeta"><Link href={categoryPath(article.category)}>{article.category}</Link><time dateTime={article.date}>{article.displayDate}</time></div>
                   <h2><Link href={`/article/${article.slug}/`}>{article.title}</Link></h2>
@@ -138,7 +158,7 @@ export default function Home() {
             {latest.map((article) => (
               <article className="latestNewsItem" key={article.slug}>
                 <Link className="latestNewsImage" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
-                  <Image src={article.image} alt={article.imageAlt} width={420} height={236} />
+                  <Image src={`/images/articles/thumbs/${article.slug}.webp`} alt={article.imageAlt} width={800} height={450} />
                 </Link>
                 <div>
                   <div className="latestNewsMeta"><span>{article.category}</span><time dateTime={article.date}>{article.displayDate}</time></div>

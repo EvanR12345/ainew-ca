@@ -94,7 +94,7 @@ export default function CanadaAiResourcesPage() {
   return (
     <div>
       <SiteHeader />
-      <main className="shell resourceDirectory">
+      <main className="shell resourceDirectory" id="content">
         <StructuredData data={{
           "@context": "https://schema.org",
           "@graph": [

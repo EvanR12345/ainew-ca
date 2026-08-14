@@ -9,6 +9,7 @@ export { ArticleCard } from "./article-card";
 export function SiteHeader() {
   return (
     <>
+      <a className="skipLink" href="#content">Skip to main content</a>
       <div className="briefingBar">
         <div className="shell briefingInner">
           <span className="liveDot" aria-hidden="true" />
@@ -85,6 +86,39 @@ export function SiteHeader() {
             <Link className="navAbout" href="/about/">About</Link>
             <Link className="searchLink" href="/search/" aria-label="Search AI New"><span className="searchWord">Search</span><span aria-hidden="true">⌕</span></Link>
           </div>
+          <details className="shell mobileNav">
+            <summary><span>Browse AI New</span><span aria-hidden="true">Menu</span></summary>
+            <div className="mobileNavPanel">
+              <section>
+                <span>Newsroom</span>
+                <Link href="/articles/">Latest</Link>
+                <Link href={categoryPath("Canada")}>Canada</Link>
+                <Link href={categoryPath("Policy")}>Policy</Link>
+                <Link href={categoryPath("Business")}>Business</Link>
+              </section>
+              <section>
+                <span>Technology</span>
+                <Link href={categoryPath("Models")}>Models</Link>
+                <Link href={categoryPath("Products")}>Products</Link>
+                <Link href={categoryPath("Research")}>Research</Link>
+                <Link href="/topics/ai-models/">Model guide</Link>
+              </section>
+              <section>
+                <span>Learn</span>
+                <Link href="/learn/">Learning Lab</Link>
+                <Link href="/topics/">Topic guides</Link>
+                <Link href="/topics/using-ai/">How to use AI</Link>
+                <Link href="/ai-glossary/">AI glossary</Link>
+              </section>
+              <section>
+                <span>AI New</span>
+                <Link href="/canada-ai-resources/">Canada tracker</Link>
+                <Link href="/search/">Search</Link>
+                <Link href="/about/">About</Link>
+                <Link href="/contact/">Contact</Link>
+              </section>
+            </div>
+          </details>
         </nav>
       </header>
     </>

@@ -11,6 +11,7 @@ import { topicForArticle } from "../../lib/topic-hubs";
 import { articleModifiedDate, isSearchEligibleArticle, SEARCH_REVIEW_DATE } from "../../lib/search-quality";
 import { ArticleReadTracker, ReadingJourney, RelatedRecommendations } from "../../reading-history";
 import { StructuredData } from "../../structured-data";
+import { ArticleTools } from "../../article-tools";
 
 export function generateStaticParams() {
   return articles.map((article) => ({ slug: article.slug }));
@@ -91,7 +92,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   return (
     <div>
       <SiteHeader />
-      <main>
+      <main id="content">
         <ArticleReadTracker slug={article.slug} category={article.category} />
         <ReadingJourney sections={sectionLinks} nextArticle={toArticleCardData(adjacent.next)} />
         <StructuredData data={{
@@ -167,9 +168,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <p className="articleImageCaption">{article.imageAlt}</p>
 
           <div className="articleLayout">
-            <div className="shareRail" aria-label="Article tools">
-              <span>SHARE</span><button aria-label="Copy link">↗</button><button aria-label="Print article">⌁</button>
-            </div>
+            <ArticleTools />
             <div className="articleBody">
               <p className="disclosure"><strong>Editorial note:</strong> {article.disclaimer ?? "This explainer starts with the linked primary source and adds original AI New analysis. Product claims should be tested against your own requirements."}</p>
 
@@ -208,7 +207,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <nav className="articleCollectionLinks" aria-label="Related guides in the 100-article collection">
                   <span className="eyebrow">CONTINUE THROUGH THE COLLECTION</span>
                   <h2>Three guides that deepen this topic</h2>
-                  <p>These hand-picked links connect this second-wave guide to the most useful reporting and practical explainers in our original 100-guide collection.</p>
+                  <p>These hand-picked links connect this guide to useful reporting and practical explainers elsewhere in the AI New collection.</p>
                   <ul>
                     {article.internalLinks.map((relatedArticle, index) => (
                       <li key={relatedArticle.slug}>

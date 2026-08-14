@@ -30,7 +30,7 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
   return (
     <div>
       <SiteHeader />
-      <main className="shell topicHub">
+      <main className="shell topicHub" id="content">
         <StructuredData data={{
           "@context": "https://schema.org",
           "@graph": [

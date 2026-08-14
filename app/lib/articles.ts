@@ -1,4 +1,5 @@
 import { expansionArticles, sourceLibrary } from "./expansion-articles";
+export { categories } from "./article-categories";
 
 export type ArticleSection = {
   heading: string;
@@ -894,8 +895,6 @@ export const articles: Article[] = auditedArticleDrafts.map((article) => ({
   image: `/images/articles/unique/${article.slug}.jpg`,
   imageAlt: article.imageAlt || `Editorial photograph illustrating: ${article.title}`,
 }));
-
-export const categories = ["All", "Canada", "Models", "Products", "Business", "Research", "Policy"] as const;
 
 export function getArticle(slug: string) {
   return articles.find((article) => article.slug === slug);

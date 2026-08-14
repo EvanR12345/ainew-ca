@@ -38,9 +38,9 @@ export const metadata: Metadata = {
       description: SITE_DESCRIPTION,
       url: `${SITE_URL}/`,
       locale: "en_CA",
-      images: [{ url: `${SITE_URL}/og-newsroom.png`, width: 1200, height: 630, alt: "AI New Canada — independent Canadian AI reporting" }],
+      images: [{ url: `${SITE_URL}/og-editorial-2026.jpg`, width: 1200, height: 630, alt: "An editorial research desk overlooking Parliament in Ottawa" }],
     },
-    twitter: { card: "summary_large_image", title: SITE_NAME, description: SITE_DESCRIPTION, images: [`${SITE_URL}/og-newsroom.png`] },
+    twitter: { card: "summary_large_image", title: SITE_NAME, description: SITE_DESCRIPTION, images: [`${SITE_URL}/og-editorial-2026.jpg`] },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

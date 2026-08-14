@@ -12,7 +12,7 @@ export default function CardImagesExperimentPage() {
   return (
     <div>
       <SiteHeader />
-      <main className="shell experimentPage">
+      <main className="shell experimentPage" id="content">
         <header>
           <span className="eyebrow">ARCHIVED EXPERIMENT / CARD PHOTOS</span>
           <h1>Colour photography is now the permanent treatment.</h1>

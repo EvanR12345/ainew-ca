@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { NewsletterBand, SiteFooter, SiteHeader } from "../components";
 import { ArticlesClient } from "./articles-client";
+import { articles, toArticleCardData } from "../lib/articles";
 import { buildPageMetadata, breadcrumbSchema, SITE_URL, WEBSITE_ID } from "../lib/seo";
 import { StructuredData } from "../structured-data";
 
@@ -12,10 +13,12 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function ArticlesPage() {
+  const articleCards = articles.map(toArticleCardData);
+
   return (
     <div>
       <SiteHeader />
-      <main>
+      <main id="content">
         <StructuredData data={{
           "@context": "https://schema.org",
           "@graph": [
@@ -37,7 +40,7 @@ export default function ArticlesPage() {
           <h1>AI news with the missing context put back in.</h1>
           <p>Browse a dated, chronological edition of source-led reporting and practical analysis across Canada, models, products, business, research and policy.</p>
         </section>
-        <Suspense fallback={<div className="shell archiveLoading">Loading stories…</div>}><ArticlesClient /></Suspense>
+        <Suspense fallback={<div className="shell archiveLoading">Loading stories…</div>}><ArticlesClient articles={articleCards} /></Suspense>
         <div className="shell"><NewsletterBand /></div>
       </main>
       <SiteFooter />

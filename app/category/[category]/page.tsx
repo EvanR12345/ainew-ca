@@ -43,7 +43,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   return (
     <div>
       <SiteHeader />
-      <main>
+      <main id="content">
         <StructuredData data={{
           "@context": "https://schema.org",
           "@graph": [

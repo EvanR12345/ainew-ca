@@ -88,6 +88,28 @@ test("keeps every article photo in full colour on desktop and mobile", async () 
   assert.doesNotMatch(globalStyles, /grayscale\(1\)|mix-blend-mode/);
 });
 
+test("ships a lightweight, accessible editorial browsing shell", async () => {
+  const [cardSource, archiveSource, searchSource, componentSource, layoutSource, globalStyles, thumbnails] = await Promise.all([
+    readFile(new URL("../app/article-card.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/articles/articles-client.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/search/search-client.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readdir(new URL("../public/images/articles/thumbs/", import.meta.url)),
+  ]);
+
+  assert.equal(thumbnails.filter((file) => file.endsWith(".webp")).length, 221);
+  assert.match(cardSource, /images\/articles\/thumbs/);
+  assert.doesNotMatch(archiveSource, /import \{ articles[,}]/);
+  assert.doesNotMatch(searchSource, /import \{ articles[,}]/);
+  assert.match(componentSource, /Skip to main content/);
+  assert.match(componentSource, /mobileNavPanel/);
+  assert.match(layoutSource, /og-editorial-2026\.jpg/);
+  assert.match(globalStyles, /content-visibility: auto/);
+  assert.match(globalStyles, /@media \(max-width: 520px\)/);
+});
+
 test("builds an honest on-device learning path and tracks five focused minutes", async () => {
   const [response, trackerSource, pageSource, imageStyleSource, privacySource] = await Promise.all([
     render("/article/beginner-how-to-use-ai-everyday-work/"),

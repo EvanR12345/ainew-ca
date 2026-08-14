@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { SiteFooter, SiteHeader } from "../components";
 import { SearchClient } from "./search-client";
 import { buildPageMetadata } from "../lib/seo";
+import { articles, toArticleCardData } from "../lib/articles";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Search AI News & Guides | AI New Canada",
@@ -12,10 +13,12 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function SearchPage() {
+  const articleCards = articles.map(toArticleCardData);
+
   return (
     <div>
       <SiteHeader />
-      <Suspense fallback={<main className="shell searchPage">Loading search…</main>}><SearchClient /></Suspense>
+      <Suspense fallback={<main className="shell searchPage" id="content">Loading search…</main>}><SearchClient articles={articleCards} /></Suspense>
       <SiteFooter />
     </div>
   );

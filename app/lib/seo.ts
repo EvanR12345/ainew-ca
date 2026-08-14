@@ -52,13 +52,13 @@ export function buildPageMetadata({
       title,
       description,
       url,
-      images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: `${SITE_NAME} — the signal in artificial intelligence` }],
+      images: [{ url: `${SITE_URL}/og-editorial-2026.jpg`, width: 1200, height: 630, alt: `${SITE_NAME} editorial research desk overlooking Parliament in Ottawa` }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [`${SITE_URL}/og.png`],
+      images: [`${SITE_URL}/og-editorial-2026.jpg`],
     },
   };
 }
@@ -110,6 +110,14 @@ export function websiteSchema() {
     description: SITE_DESCRIPTION,
     inLanguage: "en-CA",
     publisher: { "@id": ORGANIZATION_ID },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_URL}/search/?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   };
 }
 

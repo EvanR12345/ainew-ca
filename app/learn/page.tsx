@@ -59,7 +59,7 @@ export default function LearnPage() {
   return (
     <div>
       <SiteHeader />
-      <main>
+      <main id="content">
         <StructuredData data={{
           "@context": "https://schema.org",
           "@graph": [

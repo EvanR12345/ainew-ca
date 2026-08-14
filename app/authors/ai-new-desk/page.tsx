@@ -16,7 +16,7 @@ export default function AiNewDeskPage() {
   return (
     <div>
       <SiteHeader />
-      <main className="shell authorPage">
+      <main className="shell authorPage" id="content">
         <StructuredData data={{
           "@context": "https://schema.org",
           "@type": "ProfilePage",

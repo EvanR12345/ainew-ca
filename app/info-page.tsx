@@ -5,7 +5,7 @@ export function InfoPage({ eyebrow, title, intro, children }: { eyebrow: string;
   return (
     <div>
       <SiteHeader />
-      <main className="shell infoPage">
+      <main className="shell infoPage" id="content">
         <header><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{intro}</p></header>
         <div className="infoBody">{children}</div>
       </main>

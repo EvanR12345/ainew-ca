@@ -5,12 +5,13 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Fragment } from "react";
 import { AdSlot, ArticleCard, NativeAd } from "../components";
-import { articles, categories } from "../lib/articles";
+import type { ArticleCardData } from "../lib/articles";
+import { categories } from "../lib/article-categories";
 import { categoryPath } from "../lib/seo";
 
 type Category = (typeof categories)[number];
 
-export function ArticlesClient() {
+export function ArticlesClient({ articles }: { articles: ArticleCardData[] }) {
   const searchParams = useSearchParams();
   const [visibleCount, setVisibleCount] = useState(24);
   const requested = searchParams.get("category") as Category | null;

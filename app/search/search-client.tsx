@@ -3,9 +3,9 @@
 import { useSearchParams } from "next/navigation";
 import { FormEvent, useMemo, useState } from "react";
 import { ArticleCard } from "../components";
-import { articles } from "../lib/articles";
+import type { ArticleCardData } from "../lib/articles";
 
-export function SearchClient() {
+export function SearchClient({ articles }: { articles: ArticleCardData[] }) {
   const searchParams = useSearchParams();
   const [editedQuery, setEditedQuery] = useState<string | null>(null);
   const query = editedQuery ?? searchParams.get("q") ?? "";
@@ -24,7 +24,7 @@ export function SearchClient() {
   }
 
   return (
-    <main className="shell searchPage">
+    <main className="shell searchPage" id="content">
       <span className="eyebrow">FIND THE SIGNAL</span>
       <h1>Search AI New</h1>
       <form className="searchForm" onSubmit={submit}>
@@ -32,7 +32,8 @@ export function SearchClient() {
         <div><input id="site-search" name="q" value={query} onChange={(event) => setEditedQuery(event.target.value)} placeholder="Try Canada, Claude, agents, weather…" autoFocus /><button type="submit">Search</button></div>
       </form>
       <div className="searchSummary">{query.trim() ? `${results.length} result${results.length === 1 ? "" : "s"} for “${query}”` : "Browse every launch story"}</div>
-      <div className="archiveGrid">{results.map((article) => <ArticleCard key={article.slug} article={article} />)}</div>
+      <div className="archiveGrid">{results.slice(0, 48).map((article) => <ArticleCard key={article.slug} article={article} />)}</div>
+      {results.length > 48 && <p className="searchLimitNote">Showing the first 48 matches. Add another word to narrow the newsroom.</p>}
     </main>
   );
 }
