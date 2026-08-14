@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { articleImageStyle } from "../article-image-style";
 import { articles, type Article } from "../lib/articles";
-import { categoryPath, organizationSchema, SITE_NAME, SITE_URL, WEBSITE_ID } from "../lib/seo";
+import { organizationSchema, SITE_NAME, SITE_URL, WEBSITE_ID } from "../lib/seo";
 import { StructuredData } from "../structured-data";
 import { FrenchSiteFooter, FrenchSiteHeader } from "./french-components";
 
@@ -70,7 +70,7 @@ function frenchDate(article: Article) {
 }
 
 function articleHref(article: Article) {
-  return `/article/${article.slug}/`;
+  return `/fr/article/${article.slug}/`;
 }
 
 function EnglishArticleNotice() {
@@ -116,7 +116,7 @@ export default function FrenchHome() {
         <div className="shell editionLine">
           <span>ÉDITION D’AOÛT</span>
           <p>Reportages canadiens indépendants pour les personnes qui conçoivent, achètent et gouvernent l’IA.</p>
-          <Link href="/about/">Notre méthode</Link>
+          <Link href="/fr/">Notre méthode</Link>
         </div>
 
         <aside className="shell frenchAvailabilityNote" aria-label="Disponibilité linguistique">
@@ -137,7 +137,7 @@ export default function FrenchHome() {
                 <Image src={lead.image} alt={lead.imageAlt} width={1200} height={675} priority />
               </Link>
               <div className="frontLeadCopy">
-                <div className="frontStoryMeta"><Link href={categoryPath(lead.category)}>{frenchCategories[lead.category]}</Link><time dateTime={lead.date}>{frenchDate(lead)}</time></div>
+                <div className="frontStoryMeta"><Link href="/fr/#fr-explore">{frenchCategories[lead.category]}</Link><time dateTime={lead.date}>{frenchDate(lead)}</time></div>
                 <h2><Link href={articleHref(lead)}>{titleFor(lead)}<EnglishArticleNotice /></Link></h2>
                 <p>Les étiquettes, les registres d’incidents et les journaux d’agents pourraient transformer la conception des produits d’IA au Canada.</p>
                 <div className="storyByline"><span>La rédaction d’AI New</span><span>{lead.readTime.replace("read", "de lecture")}</span><span>Veille canadienne</span></div>
@@ -150,7 +150,7 @@ export default function FrenchHome() {
                   <Link className="frontSpotlightImage" href={articleHref(article)} style={articleImageStyle(article.slug)} aria-label={`${titleFor(article)}. Article complet en anglais.`}>
                     <Image src={`/images/articles/thumbs/${article.slug}.webp`} alt={article.imageAlt} width={800} height={450} unoptimized />
                   </Link>
-                  <div className="frontStoryMeta"><Link href={categoryPath(article.category)}>{frenchCategories[article.category]}</Link><time dateTime={article.date}>{frenchDate(article)}</time></div>
+                  <div className="frontStoryMeta"><Link href="/fr/#fr-explore">{frenchCategories[article.category]}</Link><time dateTime={article.date}>{frenchDate(article)}</time></div>
                   <h2><Link href={articleHref(article)}>{titleFor(article)}<EnglishArticleNotice /></Link></h2>
                 </article>
               ))}
@@ -170,25 +170,25 @@ export default function FrenchHome() {
                   </li>
                 ))}
               </ol>
-              <Link className="railAction" href="/articles/">Voir tous les articles <span aria-hidden="true">→</span></Link>
+              <Link className="railAction" href="/fr/#fr-latest-heading">Voir tous les articles <span aria-hidden="true">→</span></Link>
             </aside>
           </div>
         </section>
 
-        <nav className="shell topicTicker" aria-label="Parcourir la salle de nouvelles">
+        <nav className="shell topicTicker" id="fr-explore" aria-label="Parcourir la salle de nouvelles">
           <strong>EXPLORER</strong>
-          <Link href={categoryPath("Canada")}>Canada et politiques</Link>
-          <Link href={categoryPath("Models")}>Modèles et lancements</Link>
-          <Link href={categoryPath("Research")}>Notes de recherche</Link>
-          <Link href="/topics/using-ai/">Bien utiliser l’IA</Link>
-          <Link href="/canada-ai-resources/">Suivi officiel</Link>
+          <Link href="/fr/#fr-explore">Canada et politiques</Link>
+          <Link href="/fr/#fr-explore">Modèles et lancements</Link>
+          <Link href="/fr/#fr-explore">Notes de recherche</Link>
+          <Link href="/fr/#fr-explore">Bien utiliser l’IA</Link>
+          <Link href="/fr/#fr-explore">Suivi officiel</Link>
         </nav>
 
         <section className="shell latestSection" aria-labelledby="fr-latest-heading">
           <header className="newsroomSectionHeader latestHeader">
             <div><span className="eyebrow">FIL DE NOUVELLES</span><h2 id="fr-latest-heading">Les plus récents</h2></div>
             <p>Analyses fondées sur les faits et guides pratiques provenant de toutes les rubriques d’AI New.</p>
-            <Link href="/articles/">Toutes les nouvelles <span aria-hidden="true">→</span></Link>
+            <Link href="/fr/#fr-latest-heading">Toutes les nouvelles <span aria-hidden="true">→</span></Link>
           </header>
           <div className="latestNewsList">
             {latest.map((article) => (
@@ -206,13 +206,13 @@ export default function FrenchHome() {
           </div>
         </section>
 
-        <section className="learningFeature">
+        <section className="learningFeature" id="fr-learning">
           <div className="shell learningFeatureInner">
             <div>
               <span className="eyebrow">LABORATOIRE D’APPRENTISSAGE AI NEW</span>
               <h2>Transformer le cycle des nouvelles en connaissances utiles.</h2>
               <p>Choisissez un parcours ciblé, enregistrez une liste de lecture et vérifiez ce que vous avez compris. Les progrès restent sur votre appareil.</p>
-              <Link href="/learn/">Ouvrir le laboratoire gratuit <span aria-hidden="true">→</span></Link>
+              <Link href="/fr/#fr-learning">Ouvrir le laboratoire gratuit <span aria-hidden="true">→</span></Link>
             </div>
             <ol>
               <li><span>01</span><strong>Choisir un parcours</strong><small>Commencez par le Canada, les modèles, les affaires, la recherche ou l’IA pratique.</small></li>

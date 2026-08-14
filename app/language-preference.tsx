@@ -21,9 +21,16 @@ function saveLanguage(language: Language) {
   window.dispatchEvent(new CustomEvent("ainew-language-change", { detail: language }));
 }
 
-function destinationFor(language: Language) {
-  if (language === "fr") return "/fr/";
-  return window.location.pathname.startsWith("/fr") ? "/" : window.location.href;
+function destinationFor(language: Language, pathname = window.location.pathname) {
+  const normalized = pathname.endsWith("/") ? pathname : `${pathname}/`;
+  if (language === "fr") {
+    if (normalized.startsWith("/fr/")) return normalized;
+    if (normalized.startsWith("/article/")) return `/fr${normalized}`;
+    return "/fr/";
+  }
+  if (normalized.startsWith("/fr/article/")) return normalized.slice(3);
+  if (normalized.startsWith("/fr/")) return "/";
+  return normalized;
 }
 
 export function LanguagePreference() {
@@ -39,11 +46,11 @@ export function LanguagePreference() {
     }
 
     if (saved === "en" || saved === "fr") {
-      const routeLanguage = window.location.pathname.startsWith("/fr") ? "fr" : "en";
+      const routeLanguage = window.location.pathname.startsWith("/fr/") || window.location.pathname === "/fr" ? "fr" : "en";
       setDocumentLanguage(routeLanguage);
-      if (saved === "fr" && window.location.pathname === "/") {
-        window.location.replace("/fr/");
-      }
+      const destination = destinationFor(saved);
+      const current = destinationFor(routeLanguage);
+      if (saved !== routeLanguage && destination !== current) window.location.replace(destination);
       return;
     }
 
@@ -56,7 +63,7 @@ export function LanguagePreference() {
     saveLanguage(choice);
     dialogRef.current?.close();
     const destination = destinationFor(choice);
-    if (destination !== window.location.href) window.location.assign(destination);
+    if (destination !== window.location.pathname) window.location.assign(destination);
   }
 
   return (
@@ -107,7 +114,7 @@ export function LanguageSwitch({ locale = "en" }: { locale?: Language }) {
   function choose(language: Language) {
     saveLanguage(language);
     if (language === locale) return;
-    window.location.assign(language === "fr" ? "/fr/" : "/");
+    window.location.assign(destinationFor(language));
   }
 
   return (

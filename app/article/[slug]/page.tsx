@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${searchTitle(article.title)} | AI New Canada`,
     description: article.dek,
-    alternates: { canonical: url, languages: { "en-CA": url, "x-default": url } },
+    alternates: { canonical: url, languages: { "en-CA": url, "fr-CA": absoluteUrl(`/fr/article/${article.slug}/`), "x-default": url } },
     robots: { index, follow: true },
     authors: [{ name: "AI New Desk", url: `${SITE_URL}/authors/ai-new-desk/` }],
     openGraph: {
@@ -162,24 +162,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <SaveArticleButton article={article} />
           </header>
 
-          <div className="articleHero" style={articleImageStyle(article.slug)}>
+          <div className="articleHero articleHeroDesktop" style={articleImageStyle(article.slug)}>
             <Image src={article.image} alt={article.imageAlt} width={1200} height={675} priority />
             <span>{article.category.toUpperCase()} / AI NEW</span>
           </div>
-          <p className="articleImageCaption">{article.imageAlt}</p>
+          <p className="articleImageCaption articleImageCaptionDesktop">{article.imageAlt}</p>
 
           <div className="articleLayout">
             <ArticleTools />
             <div className="articleBody">
               <p className="disclosure"><strong>Editorial note:</strong> {article.disclaimer ?? "This explainer starts with the linked primary source and adds original AI New analysis. Product claims should be tested against your own requirements."}</p>
 
-              {!indexEligible && (
-                <aside className="searchReviewNote">
-                  <strong>Editorial review status</strong>
-                  <p>This launch-edition page is available to readers but is not being promoted to search engines until its primary sources and original contribution complete the same review used for the evidence-audited guide collection.</p>
-                  <Link href="/editorial-policy/">How the search-quality review works &rarr;</Link>
-                </aside>
-              )}
 
               {article.sections.map((section, index) => (
                 <Fragment key={section.heading}>
@@ -209,44 +202,47 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
                   {index === 0 && (
                     <>
-                      <aside className="articleAnswerSummary" aria-labelledby="article-answer-title">
-                        <h2 id="article-answer-title">What you need to know</h2>
-                        <p>{article.dek}</p>
-                        <ul>{recap.map((takeaway) => <li key={takeaway}>{takeaway}</li>)}</ul>
-                        <div>
-                          <strong>How this was made:</strong> AI tools assisted with structure and drafting. Verify time-sensitive details at the named source.
-                          <a href={sourceList[0].url} target="_blank" rel="noreferrer">Review {sourceList[0].label} ↗</a>
+                      <div className="articleMobileHero">
+                        <div className="articleHero" style={articleImageStyle(article.slug)}>
+                          <Image src={article.image} alt={article.imageAlt} width={1200} height={675} />
+                          <span>{article.category.toUpperCase()} / AI NEW</span>
                         </div>
-                      </aside>
-                      <aside className="articleTopicPath">
-                        <h2>{topicHub.title}</h2>
-                        <p>{topicHub.description}</p>
-                        <Link href={`/topics/${topicHub.slug}/`}>Open the curated guide →</Link>
-                      </aside>
-                    </>
-                  )}
-
-                  {index === 1 && (
-                    <>
+                        <p className="articleImageCaption">{article.imageAlt}</p>
+                      </div>
+                      {!indexEligible && (
+                        <aside className="searchReviewNote">
+                          <strong>Editorial review status</strong>
+                          <p>This short analysis remains outside search promotion until its claims have completed a claim-level source review.</p>
+                          <Link href="/editorial-policy/">How the search-quality review works &rarr;</Link>
+                        </aside>
+                      )}
                       <details className="articleToc">
                         <summary><span>In this article</span><strong>{article.sections.length} sections</strong></summary>
                         <nav aria-label="In this article"><ol>{article.sections.map((item) => <li key={item.heading}><a href={`#${sectionId(item.heading)}`}>{item.heading}</a></li>)}</ol></nav>
                       </details>
-                      {article.internalLinks?.length ? (
-                        <nav className="articleCollectionLinks" aria-label="Related guides in the 100-article collection">
-                          <h2>Three guides that deepen this topic</h2>
-                          <p>Continue through useful reporting and practical explainers elsewhere in the AI New collection.</p>
-                          <ul>
-                            {article.internalLinks.map((relatedArticle) => (
-                              <li key={relatedArticle.slug}><Link href={`/article/${relatedArticle.slug}/`}>{relatedArticle.title} →</Link></li>
-                            ))}
-                          </ul>
-                        </nav>
-                      ) : null}
                     </>
                   )}
+
                 </Fragment>
               ))}
+
+              <aside className="articleTopicPath">
+                <h2>{topicHub.title}</h2>
+                <p>{topicHub.description}</p>
+                <Link href={`/topics/${topicHub.slug}/`}>Open the curated guide &rarr;</Link>
+              </aside>
+
+              {article.internalLinks?.length ? (
+                <nav className="articleCollectionLinks" aria-label="Related evidence-led guides">
+                  <h2>Three guides that deepen this topic</h2>
+                  <p>Continue through verified reporting and practical explainers elsewhere in the AI New collection.</p>
+                  <ul>
+                    {article.internalLinks.map((relatedArticle) => (
+                      <li key={relatedArticle.slug}><Link href={`/article/${relatedArticle.slug}/`}>{relatedArticle.title} &rarr;</Link></li>
+                    ))}
+                  </ul>
+                </nav>
+              ) : null}
 
               <aside className="learningRecap" aria-labelledby="learning-recap-title">
                 <span className="eyebrow">LOCK IN THE SIGNAL</span>
@@ -265,9 +261,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               </aside>
 
               <div className="sourceCard">
-                <span className="eyebrow">EVIDENCE &amp; FURTHER READING</span>
-                <h3>Continue with the original sources</h3>
-                <p>These first-party and primary references support the reporting above. Open them for technical detail, current requirements and subsequent updates.</p>
+                <span className="eyebrow">{indexEligible ? "EVIDENCE & FURTHER READING" : "BACKGROUND & REVIEW STATUS"}</span>
+                <h3>{indexEligible ? "Continue with the original sources" : "Start with the available background"}</h3>
+                <p>{indexEligible ? "These claim-relevant primary and first-party references support the reporting above. Open them for technical detail, current requirements and subsequent updates." : "This link provides context but has not yet completed a claim-level evidence review. The page remains outside search promotion until that work is complete."}</p>
                 <ul className="sourceList">
                   {sourceList.map((source) => (
                     <li key={source.url}>

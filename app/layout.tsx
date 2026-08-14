@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@fontsource-variable/outfit/wght.css";
+import "@fontsource-variable/newsreader/wght.css";
 import "./globals.css";
 import { ScrollToTop } from "./scroll-to-top";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./lib/seo";
@@ -47,9 +48,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-CA" suppressHydrationWarning>
+    <html lang="en-CA" data-language="en" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.lang=location.pathname.startsWith('/fr')?'fr-CA':'en-CA';document.documentElement.dataset.language=location.pathname.startsWith('/fr')?'fr':'en'" }} />
         {SITE_FEATURES.ads && (
           <script
             async

@@ -117,7 +117,7 @@ test("offers a remembered English-first language choice and a substantive French
     render("/fr/"),
     readFile(new URL("../app/language-preference.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/sitemap.xml/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
 
@@ -182,14 +182,14 @@ test("turns the publication into a device-local Learning Lab", async () => {
     readFile(new URL("../app/learning-actions.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/article-card.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/privacy/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/sitemap.xml/route.ts", import.meta.url), "utf8"),
   ]);
 
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Turn AI news into knowledge you can actually use/);
   assert.match(html, /5 curated tracks/);
-  assert.match(html, /211 deep reads/);
+  assert.match(html, /101 evidence-audited reads/);
   assert.match(labSource, /quizQuestions/);
   assert.match(labSource, /flashcards/);
   assert.match(labSource, /DAILY_GOAL_KEY/);
@@ -311,7 +311,7 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
     render("/about/"),
     render("/feed.xml/"),
     render("/llms.txt/"),
-    readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/sitemap.xml/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/robots.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/lib/articles.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/about/page.tsx", import.meta.url), "utf8"),
@@ -347,9 +347,10 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
   assert.match(articleHtml, /"@type":"BreadcrumbList"/);
   assert.match(articleHtml, /"wordCount":\d+/);
   assert.match(articleHtml, /"citation":\["https:\/\//);
-  assert.match(articleHtml, /What you need to know/);
-  assert.ok(articleHtml.indexOf("The short version") < articleHtml.indexOf("What you need to know"));
-  assert.match(articleHtml, /How this was made/);
+  assert.match(articleHtml, /What Canada announced/);
+  assert.match(articleHtml, /consultation topics\. The release does not announce a final disclosure standard/i);
+  assert.ok(articleHtml.indexOf("What Canada announced") < articleHtml.indexOf("In this article"));
+  assert.match(articleHtml, /Editorial note:/);
   assert.match(articleHtml, /AI-assisted research &amp; analysis/);
   assert.match(articleHtml, /"author":\{"@id":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/#profile"\}/);
   assert.match(articleHtml, /rel="author"/);
@@ -369,7 +370,7 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
   assert.match(feedXml, /<media:content/);
   assert.match(sitemapSource, /categoryRoutes/);
   assert.match(sitemapSource, /"\/canada-ai-resources\/"/);
-  assert.match(sitemapSource, /images: \[absoluteUrl\(article\.image\)\]/);
+  assert.match(sitemapSource, /image: absoluteUrl\(article\.image\)/);
   assert.doesNotMatch(sitemapSource, /"\/search"/);
   assert.match(robotsSource, /host: "https:\/\/ainew\.ca"/);
   assert.match(robotsSource, /OAI-SearchBot/);
@@ -401,7 +402,7 @@ test("publishes substantive trust pages, topic guides, glossary, and precise dis
     render("/search/"),
     render("/experiments/card-images/"),
     render("/llms.txt/"),
-    readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/sitemap.xml/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/robots.ts", import.meta.url), "utf8"),
     readFile(new URL("../scripts/submit-indexnow.mjs", import.meta.url), "utf8"),
     readFile(new URL("../.github/workflows/pages.yml", import.meta.url), "utf8"),
@@ -503,12 +504,12 @@ test("keeps advertising behind one disabled site-wide switch", async () => {
   assert.doesNotMatch(`${articleSource}${homeSource}${archiveSource}${categorySource}`, /Popunder|ANTI-ADBLOCK|Smartlink_1/);
 });
 
-test("publishes the fully evidence-audited article collection for search discovery", async () => {
+test("limits search discovery to the evidence-audited article collection", async () => {
   const [firstWaveResponse, upgradedResponse, editorialResponse, sitemapSource] = await Promise.all([
     render("/article/mechanistic-interpretability-model-features/"),
     render("/article/mechanistic-interpretability-guide/"),
     render("/editorial-policy/"),
-    readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/sitemap.xml/route.ts", import.meta.url), "utf8"),
   ]);
 
   const firstWaveHtml = await firstWaveResponse.text();
@@ -518,13 +519,12 @@ test("publishes the fully evidence-audited article collection for search discove
   assert.match(firstWaveHtml, /name="robots" content="index, follow"/i);
   assert.match(firstWaveHtml, /"dateModified":"2026-08-13"/);
   assert.match(firstWaveHtml, /Sources and external URLs reviewed on August 13, 2026/);
-  assert.match(upgradedHtml, /name="robots" content="index, follow"/i);
-  assert.match(upgradedHtml, /The August 2026 update/);
-  assert.match(upgradedHtml, /A 30-, 60- and 90-day field plan/);
-  assert.match(upgradedHtml, /Three guides that deepen this topic/);
-  assert.doesNotMatch(upgradedHtml, /Editorial review status/);
+  assert.match(upgradedHtml, /name="robots" content="noindex, follow"/i);
+  assert.match(upgradedHtml, /Editorial review status/);
+  assert.match(upgradedHtml, /remains outside search promotion until its claims have completed a claim-level source review/i);
   assert.match(sitemapSource, /searchEligibleArticles\(articles\)/);
   assert.match(sitemapSource, /eligibleArticles\.map/);
   assert.match(editorialHtml, /Search-quality review/);
-  assert.match(editorialHtml, /original 111-article launch collection completed a substantial second editorial review/);
+  assert.match(editorialHtml, /101 articles meet that standard/);
+  assert.match(editorialHtml, /110 legacy briefings remain available/);
 });

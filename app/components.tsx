@@ -4,6 +4,7 @@ import { AdsterraBanner, AdsterraNative, AdsterraResponsiveBanner } from "./adst
 import { categoryPath } from "./lib/seo";
 import { SITE_FEATURES } from "./lib/site-features";
 import { LanguageSwitch } from "./language-preference";
+import { PrimaryNavigationController } from "./primary-navigation";
 
 export { ArticleCard } from "./article-card";
 
@@ -35,7 +36,8 @@ export function SiteHeader() {
             <Link className="briefButton" href="/learn/">Learning Lab</Link>
           </div>
         </div>
-        <nav className="mainNav" aria-label="Main navigation">
+        <nav className="mainNav" aria-label="Main navigation" data-primary-navigation>
+          <PrimaryNavigationController />
           <div className="shell navInner">
             <Link className="navLead" href="/articles/">Latest</Link>
             <details className="navMore navMega" name="desktop-navigation">

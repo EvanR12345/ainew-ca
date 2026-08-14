@@ -81,7 +81,7 @@ export default function LearnPage() {
           <span className="eyebrow">AI NEW LEARNING LAB</span>
           <h1>Turn AI news into knowledge you can actually use.</h1>
           <p>Choose a track, keep a reading queue, test what you remember and build a real map of the AI topics you understand.</p>
-          <div className="learnHeroFeatures"><span>5 curated tracks</span><span>211 deep reads</span><span>8-question knowledge circuit</span><span>12 essential flashcards</span></div>
+          <div className="learnHeroFeatures"><span>5 curated tracks</span><span>101 evidence-audited reads</span><span>8-question knowledge circuit</span><span>12 essential flashcards</span></div>
         </section>
         <div className="shell"><LearningLab articles={cards} tracks={tracks} /></div>
         <div className="shell"><NewsletterBand /></div>

@@ -40,7 +40,21 @@ const worker = {
       }, allowedWidths);
     }
 
-    return handler.fetch(request, env, ctx);
+    const response = await handler.fetch(request, env, ctx);
+    const isFrenchPage = url.pathname === "/fr" || url.pathname.startsWith("/fr/");
+    const isHtml = response.headers.get("content-type")?.includes("text/html");
+    if (!isFrenchPage || !isHtml) return response;
+
+    const headers = new Headers(response.headers);
+    const html = (await response.text()).replace(
+      /<html lang="en-CA" data-language="en"/,
+      '<html lang="fr-CA" data-language="fr"',
+    );
+    return new Response(html, {
+      status: response.status,
+      statusText: response.statusText,
+      headers,
+    });
   },
 };
 

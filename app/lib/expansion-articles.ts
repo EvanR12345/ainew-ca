@@ -2302,6 +2302,7 @@ export const expansionArticles: Article[] = publishedExpansionSeeds.map((seed, i
     disclaimer: seed.format === "video-recap"
       ? "This independent analysis summarizes an official product or research video and adds original context, limitations and a practical evaluation framework. It is not a transcript, endorsement or substitute for watching the source."
       : "This evidence-led explainer uses the linked primary sources and original AI New analysis. It is educational, not legal, medical, financial or procurement advice; verify current requirements with qualified professionals.",
+    evidenceStatus: "verified",
     searchEligible: true,
     sections: buildSections(seed),
     video: seed.videoKey ? videoLibrary[seed.videoKey] : undefined,

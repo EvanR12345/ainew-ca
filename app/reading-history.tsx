@@ -8,6 +8,8 @@ import type { ArticleCardData } from "./lib/articles";
 export const READING_HISTORY_KEY = "ainew-reading-time-v1";
 export const READ_THRESHOLD_SECONDS = 300;
 const READING_HISTORY_EVENT = "ainew-reading-history-updated";
+const SAMPLE_INTERVAL_MS = 5_000;
+const IDLE_TIMEOUT_MS = 30_000;
 
 type ReadingHistoryEntry = {
   seconds: number;
@@ -16,6 +18,7 @@ type ReadingHistoryEntry = {
   category?: ArticleCardData["category"];
   visits?: number;
   daily?: Record<string, number>;
+  maxScrollDepth?: number;
 };
 
 type ReadingHistory = Record<string, ReadingHistoryEntry>;
@@ -56,18 +59,20 @@ function recordVisit(slug: string, category: ArticleCardData["category"]) {
   saveHistory(history);
 }
 
-function addReadingTime(slug: string, category: ArticleCardData["category"], seconds: number) {
+function addReadingTime(slug: string, category: ArticleCardData["category"], seconds: number, scrollDepth: number) {
   if (seconds <= 0) return;
   const history = readHistory();
   const current = history[slug] ?? { seconds: 0, lastVisited: "", completed: false };
   const total = current.seconds + seconds;
+  const maxScrollDepth = Math.max(current.maxScrollDepth ?? 0, scrollDepth);
   const today = localDateKey();
   history[slug] = {
     ...current,
     seconds: total,
     category,
     lastVisited: new Date().toISOString(),
-    completed: total >= READ_THRESHOLD_SECONDS,
+    completed: total >= READ_THRESHOLD_SECONDS && maxScrollDepth >= 70,
+    maxScrollDepth,
     daily: { ...(current.daily ?? {}), [today]: (current.daily?.[today] ?? 0) + seconds },
   };
   saveHistory(history);
@@ -76,33 +81,59 @@ function addReadingTime(slug: string, category: ArticleCardData["category"], sec
 export function ArticleReadTracker({ slug, category }: { slug: string; category: ArticleCardData["category"] }) {
   useEffect(() => {
     recordVisit(slug, category);
-    let visibleSince = document.visibilityState === "visible" ? Date.now() : null;
+    let lastSample = performance.now();
+    let lastActivity = Date.now();
+    let hasInteracted = false;
+    let maxScrollDepth = 0;
 
-    const flush = () => {
-      if (visibleSince === null) return;
-      const seconds = Math.floor((Date.now() - visibleSince) / 1000);
-      visibleSince = Date.now();
-      addReadingTime(slug, category, seconds);
+    const readScrollDepth = () => {
+      const scrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      return Math.max(0, Math.min(100, Math.round((window.scrollY / scrollable) * 100)));
+    };
+
+    const markActive = () => {
+      hasInteracted = true;
+      lastActivity = Date.now();
+      maxScrollDepth = Math.max(maxScrollDepth, readScrollDepth());
+    };
+
+    const sample = () => {
+      const now = performance.now();
+      const elapsedSeconds = Math.min(6, Math.floor((now - lastSample) / 1000));
+      lastSample = now;
+      if (
+        elapsedSeconds <= 0 ||
+        document.visibilityState !== "visible" ||
+        !hasInteracted ||
+        Date.now() - lastActivity > IDLE_TIMEOUT_MS
+      ) return;
+      addReadingTime(slug, category, elapsedSeconds, maxScrollDepth);
     };
 
     const handleVisibility = () => {
-      if (document.visibilityState === "hidden") {
-        flush();
-        visibleSince = null;
-      } else {
-        visibleSince = Date.now();
-      }
+      sample();
+      lastSample = performance.now();
     };
 
-    const timer = window.setInterval(flush, 15_000);
+    const timer = window.setInterval(sample, SAMPLE_INTERVAL_MS);
     document.addEventListener("visibilitychange", handleVisibility);
-    window.addEventListener("pagehide", flush);
+    window.addEventListener("scroll", markActive, { passive: true });
+    window.addEventListener("pointerdown", markActive, { passive: true });
+    window.addEventListener("pointermove", markActive, { passive: true });
+    window.addEventListener("keydown", markActive);
+    window.addEventListener("touchstart", markActive, { passive: true });
+    window.addEventListener("pagehide", sample);
 
     return () => {
-      flush();
+      sample();
       window.clearInterval(timer);
       document.removeEventListener("visibilitychange", handleVisibility);
-      window.removeEventListener("pagehide", flush);
+      window.removeEventListener("scroll", markActive);
+      window.removeEventListener("pointerdown", markActive);
+      window.removeEventListener("pointermove", markActive);
+      window.removeEventListener("keydown", markActive);
+      window.removeEventListener("touchstart", markActive);
+      window.removeEventListener("pagehide", sample);
     };
   }, [category, slug]);
 
@@ -132,7 +163,7 @@ function rankRecommendations(candidates: ArticleCardData[], currentCategory: Art
   return candidates
     .map((article, index): Recommendation | null => {
       const entry = history[article.slug];
-      if ((entry?.seconds ?? 0) >= READ_THRESHOLD_SECONDS) return null;
+      if (entry?.completed) return null;
       const affinity = (categorySeconds.get(article.category) ?? 0) / strongestAffinity;
       const partialRead = Math.min((entry?.seconds ?? 0) / 120, 1);
       const relevance = article.category === currentCategory ? 1 : 0;
