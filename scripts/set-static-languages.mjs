@@ -1,7 +1,7 @@
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-const clientRoot = path.join(process.cwd(), "dist", "client");
+const outputRoot = path.resolve(process.cwd(), process.argv[2] ?? path.join("dist", "client"));
 
 async function htmlFiles(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -13,8 +13,8 @@ async function htmlFiles(directory) {
   return nested.flat();
 }
 
-const files = (await htmlFiles(clientRoot)).filter((file) => {
-  const relative = path.relative(clientRoot, file).replaceAll(path.sep, "/");
+const files = (await htmlFiles(outputRoot)).filter((file) => {
+  const relative = path.relative(outputRoot, file).replaceAll(path.sep, "/");
   return relative === "fr.html" || relative.startsWith("fr/");
 });
 let localizedCount = 0;
@@ -30,4 +30,5 @@ for (const file of files) {
   localizedCount += 1;
 }
 
-console.log(`Verified ${files.length} French HTML responses; localized ${localizedCount} build artifacts to fr-CA.`);
+if (files.length === 0) throw new Error(`No French HTML responses found in ${outputRoot}`);
+console.log(`Verified ${files.length} French HTML responses in ${outputRoot}; localized ${localizedCount} build artifacts to fr-CA.`);

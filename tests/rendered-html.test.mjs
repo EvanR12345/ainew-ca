@@ -112,13 +112,15 @@ test("ships a lightweight, accessible editorial browsing shell", async () => {
 });
 
 test("offers a remembered English-first language choice and a substantive French edition", async () => {
-  const [homeResponse, frenchResponse, preferenceSource, componentSource, sitemapSource, globalStyles] = await Promise.all([
+  const [homeResponse, frenchResponse, preferenceSource, componentSource, sitemapSource, globalStyles, packageSource, localizationSource] = await Promise.all([
     render("/"),
     render("/fr/"),
     readFile(new URL("../app/language-preference.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/sitemap.xml/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../package.json", import.meta.url), "utf8"),
+    readFile(new URL("../scripts/set-static-languages.mjs", import.meta.url), "utf8"),
   ]);
 
   assert.equal(homeResponse.status, 200);
@@ -144,6 +146,8 @@ test("offers a remembered English-first language choice and a substantive French
   assert.match(sitemapSource, /"\/fr\/"/);
   assert.match(globalStyles, /\.languageDialog::backdrop/);
   assert.match(globalStyles, /prefers-reduced-motion: reduce/);
+  assert.match(packageSource, /next build && node scripts\/set-static-languages\.mjs out/);
+  assert.match(localizationSource, /No French HTML responses found/);
 });
 
 test("builds an honest on-device learning path and tracks five focused minutes", async () => {
