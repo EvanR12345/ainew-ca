@@ -212,7 +212,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     {article.internalLinks.map((relatedArticle, index) => (
                       <li key={relatedArticle.slug}>
                         <span>{String(index + 1).padStart(2, "0")}</span>
-                        <Link href={`/article/${relatedArticle.slug}/`}>{relatedArticle.title} â†’</Link>
+                        <Link href={`/article/${relatedArticle.slug}/`}>{relatedArticle.title} →</Link>
                       </li>
                     ))}
                   </ul>

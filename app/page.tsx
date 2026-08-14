@@ -112,7 +112,7 @@ export default function Home() {
               {spotlight.map((article) => (
                 <article key={article.slug}>
                   <Link className="frontSpotlightImage" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
-                    <Image src={`/images/articles/thumbs/${article.slug}.webp`} alt={article.imageAlt} width={800} height={450} />
+                    <Image src={`/images/articles/thumbs/${article.slug}.webp`} alt={article.imageAlt} width={800} height={450} unoptimized />
                   </Link>
                   <div className="frontStoryMeta"><Link href={categoryPath(article.category)}>{article.category}</Link><time dateTime={article.date}>{article.displayDate}</time></div>
                   <h2><Link href={`/article/${article.slug}/`}>{article.title}</Link></h2>
@@ -158,7 +158,7 @@ export default function Home() {
             {latest.map((article) => (
               <article className="latestNewsItem" key={article.slug}>
                 <Link className="latestNewsImage" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
-                  <Image src={`/images/articles/thumbs/${article.slug}.webp`} alt={article.imageAlt} width={800} height={450} />
+                  <Image src={`/images/articles/thumbs/${article.slug}.webp`} alt={article.imageAlt} width={800} height={450} unoptimized />
                 </Link>
                 <div>
                   <div className="latestNewsMeta"><span>{article.category}</span><time dateTime={article.date}>{article.displayDate}</time></div>

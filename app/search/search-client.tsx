@@ -15,7 +15,7 @@ export function SearchClient({ articles }: { articles: ArticleCardData[] }) {
     return needle
       ? articles.filter((article) => `${article.title} ${article.dek} ${article.category} ${article.signal}`.toLowerCase().includes(needle))
       : articles;
-  }, [query]);
+  }, [articles, query]);
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

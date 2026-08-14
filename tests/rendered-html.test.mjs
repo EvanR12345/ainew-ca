@@ -101,6 +101,7 @@ test("ships a lightweight, accessible editorial browsing shell", async () => {
 
   assert.equal(thumbnails.filter((file) => file.endsWith(".webp")).length, 221);
   assert.match(cardSource, /images\/articles\/thumbs/);
+  assert.match(cardSource, /unoptimized/);
   assert.doesNotMatch(archiveSource, /import \{ articles[,}]/);
   assert.doesNotMatch(searchSource, /import \{ articles[,}]/);
   assert.match(componentSource, /Skip to main content/);
