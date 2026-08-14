@@ -38,7 +38,7 @@ export function SiteHeader() {
         <nav className="mainNav" aria-label="Main navigation">
           <div className="shell navInner">
             <Link className="navLead" href="/articles/">Latest</Link>
-            <details className="navMore navMega">
+            <details className="navMore navMega" name="desktop-navigation">
               <summary>News</summary>
               <div className="megaMenu">
                 <section>
@@ -53,7 +53,7 @@ export function SiteHeader() {
                 </section>
               </div>
             </details>
-            <details className="navMore navMega">
+            <details className="navMore navMega" name="desktop-navigation">
               <summary>Technology</summary>
               <div className="megaMenu">
                 <section>
@@ -70,7 +70,7 @@ export function SiteHeader() {
             </details>
             <Link href={categoryPath("Canada")}>Canada</Link>
             <Link href="/topics/">Topic guides</Link>
-            <details className="navMore navMega navLearnMenu">
+            <details className="navMore navMega navLearnMenu" name="desktop-navigation">
               <summary>Learn</summary>
               <div className="megaMenu">
                 <section>

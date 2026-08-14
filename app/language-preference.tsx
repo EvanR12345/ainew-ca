@@ -39,7 +39,11 @@ export function LanguagePreference() {
     }
 
     if (saved === "en" || saved === "fr") {
-      setDocumentLanguage(window.location.pathname.startsWith("/fr") ? "fr" : "en");
+      const routeLanguage = window.location.pathname.startsWith("/fr") ? "fr" : "en";
+      setDocumentLanguage(routeLanguage);
+      if (saved === "fr" && window.location.pathname === "/") {
+        window.location.replace("/fr/");
+      }
       return;
     }
 

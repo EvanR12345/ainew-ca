@@ -347,13 +347,14 @@ test("publishes crawlable topic hubs, canonical URLs and complete search schema"
   assert.match(articleHtml, /"@type":"BreadcrumbList"/);
   assert.match(articleHtml, /"wordCount":\d+/);
   assert.match(articleHtml, /"citation":\["https:\/\//);
-  assert.match(articleHtml, /THE SHORT ANSWER/);
+  assert.match(articleHtml, /What you need to know/);
+  assert.ok(articleHtml.indexOf("The short version") < articleHtml.indexOf("What you need to know"));
   assert.match(articleHtml, /How this was made/);
   assert.match(articleHtml, /AI-assisted research &amp; analysis/);
   assert.match(articleHtml, /"author":\{"@id":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/#profile"\}/);
   assert.match(articleHtml, /rel="author"/);
   assert.match(articleHtml, /hrefLang="en-CA"/);
-  assert.match(articleHtml, /EXPLORE THIS TOPIC/);
+  assert.match(articleHtml, /Open the curated guide/);
   assert.match(categoryHtml, /Canadian AI news, policy and industry analysis/);
   assert.match(categoryHtml, /"@type":"ItemList"/);
   assert.match(categoryHtml, /href="\/category\/models\/?"/);

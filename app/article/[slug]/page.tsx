@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { Fragment } from "react";
 import { articleImageStyle } from "../../article-image-style";
 import { AdSlot, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
 import { ArticleKnowledgeCheck, SaveArticleButton } from "../../learning-actions";
@@ -180,70 +181,71 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 </aside>
               )}
 
-              <aside className="articleAnswerSummary" aria-labelledby="article-answer-title">
-                <span className="eyebrow">THE SHORT ANSWER</span>
-                <h2 id="article-answer-title">What you need to know</h2>
-                <p>{article.dek}</p>
-                <ul>{recap.map((takeaway) => <li key={takeaway}>{takeaway}</li>)}</ul>
-                <div>
-                  <strong>How this was made:</strong> AI tools assisted with structure and drafting. The article is organized around a named primary source and practical analysis; verify time-sensitive details at the source.
-                  <a href={sourceList[0].url} target="_blank" rel="noreferrer">Review {sourceList[0].label} ↗</a>
-                </div>
-              </aside>
-
-              <aside className="articleTopicPath">
-                <span className="eyebrow">EXPLORE THIS TOPIC</span>
-                <h2>{topicHub.title}</h2>
-                <p>{topicHub.description}</p>
-                <Link href={`/topics/${topicHub.slug}/`}>Open the curated guide →</Link>
-              </aside>
-
-              <details className="articleToc" open>
-                <summary><span className="eyebrow">IN THIS ARTICLE</span><strong>{article.sections.length} sections</strong></summary>
-                <nav aria-label="In this article"><ol>{article.sections.map((section) => <li key={section.heading}><a href={`#${sectionId(section.heading)}`}>{section.heading}</a></li>)}</ol></nav>
-              </details>
-
-              {article.internalLinks?.length ? (
-                <nav className="articleCollectionLinks" aria-label="Related guides in the 100-article collection">
-                  <span className="eyebrow">CONTINUE THROUGH THE COLLECTION</span>
-                  <h2>Three guides that deepen this topic</h2>
-                  <p>These hand-picked links connect this guide to useful reporting and practical explainers elsewhere in the AI New collection.</p>
-                  <ul>
-                    {article.internalLinks.map((relatedArticle, index) => (
-                      <li key={relatedArticle.slug}>
-                        <span>{String(index + 1).padStart(2, "0")}</span>
-                        <Link href={`/article/${relatedArticle.slug}/`}>{relatedArticle.title} →</Link>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              ) : null}
-
               {article.sections.map((section, index) => (
-                <section id={sectionId(section.heading)} key={section.heading}>
-                  <h2>{section.heading}</h2>
-                  {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-                  {section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
-                  {index === 0 && <AdSlot format="in-feed" label="Article opening" />}
-                  {index === 3 && <AdSlot format="leaderboard" label="Article mid-story" />}
-                  {index === 5 && <NativeAd placement={`article-${article.slug}-native`} />}
-                  {index === 1 && article.video && (
-                    <aside className="videoModule" aria-label="Related video">
-                      <span className="eyebrow">WATCH THE EXPLAINER</span>
-                      <h3>{article.video.title}</h3>
-                      <div className="videoFrame">
-                        <iframe
-                          src={`https://www.youtube-nocookie.com/embed/${article.video.id}`}
-                          title={`${article.video.title} by ${article.video.channel}`}
-                          loading="lazy"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                          allowFullScreen
-                        />
-                      </div>
-                      <p>Official video from {article.video.channel}. Playback uses YouTube’s privacy-enhanced embed domain.</p>
-                    </aside>
+                <Fragment key={section.heading}>
+                  <section id={sectionId(section.heading)}>
+                    <h2>{section.heading}</h2>
+                    {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                    {section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
+                    {index === 0 && <AdSlot format="in-feed" label="Article opening" />}
+                    {index === 3 && <AdSlot format="leaderboard" label="Article mid-story" />}
+                    {index === 5 && <NativeAd placement={`article-${article.slug}-native`} />}
+                    {index === 1 && article.video && (
+                      <aside className="videoModule" aria-label="Related video">
+                        <h3>{article.video.title}</h3>
+                        <div className="videoFrame">
+                          <iframe
+                            src={`https://www.youtube-nocookie.com/embed/${article.video.id}`}
+                            title={`${article.video.title} by ${article.video.channel}`}
+                            loading="lazy"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                          />
+                        </div>
+                        <p>Official video from {article.video.channel}. Playback uses YouTube’s privacy-enhanced embed domain.</p>
+                      </aside>
+                    )}
+                  </section>
+
+                  {index === 0 && (
+                    <>
+                      <aside className="articleAnswerSummary" aria-labelledby="article-answer-title">
+                        <h2 id="article-answer-title">What you need to know</h2>
+                        <p>{article.dek}</p>
+                        <ul>{recap.map((takeaway) => <li key={takeaway}>{takeaway}</li>)}</ul>
+                        <div>
+                          <strong>How this was made:</strong> AI tools assisted with structure and drafting. Verify time-sensitive details at the named source.
+                          <a href={sourceList[0].url} target="_blank" rel="noreferrer">Review {sourceList[0].label} ↗</a>
+                        </div>
+                      </aside>
+                      <aside className="articleTopicPath">
+                        <h2>{topicHub.title}</h2>
+                        <p>{topicHub.description}</p>
+                        <Link href={`/topics/${topicHub.slug}/`}>Open the curated guide →</Link>
+                      </aside>
+                    </>
                   )}
-                </section>
+
+                  {index === 1 && (
+                    <>
+                      <details className="articleToc">
+                        <summary><span>In this article</span><strong>{article.sections.length} sections</strong></summary>
+                        <nav aria-label="In this article"><ol>{article.sections.map((item) => <li key={item.heading}><a href={`#${sectionId(item.heading)}`}>{item.heading}</a></li>)}</ol></nav>
+                      </details>
+                      {article.internalLinks?.length ? (
+                        <nav className="articleCollectionLinks" aria-label="Related guides in the 100-article collection">
+                          <h2>Three guides that deepen this topic</h2>
+                          <p>Continue through useful reporting and practical explainers elsewhere in the AI New collection.</p>
+                          <ul>
+                            {article.internalLinks.map((relatedArticle) => (
+                              <li key={relatedArticle.slug}><Link href={`/article/${relatedArticle.slug}/`}>{relatedArticle.title} →</Link></li>
+                            ))}
+                          </ul>
+                        </nav>
+                      ) : null}
+                    </>
+                  )}
+                </Fragment>
               ))}
 
               <aside className="learningRecap" aria-labelledby="learning-recap-title">
