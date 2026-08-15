@@ -112,7 +112,14 @@ export function ArticleCard({ article, size = "standard" }: { article: ArticleCa
       data-card-variant={activeVariant}
     >
       <Link className="storyVisual" href={`/article/${article.slug}/`} aria-label={article.title} onClick={trackClick} style={articleImageStyle(article.slug)}>
-        <Image src={`/images/articles/thumbs/${article.slug}.webp`} alt={article.imageAlt} width={800} height={450} loading="lazy" unoptimized />
+        <Image
+          src={article.image}
+          alt={article.imageAlt}
+          width={1200}
+          height={675}
+          sizes="(max-width: 760px) 100vw, (max-width: 1180px) 50vw, 33vw"
+          loading="lazy"
+        />
       </Link>
       <div className="storyContent">
         <div className="storyMeta"><span>{article.category}</span><time dateTime={article.date}>{article.displayDate}</time></div>

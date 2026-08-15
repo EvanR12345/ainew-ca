@@ -89,8 +89,10 @@ test("keeps every article photo in full colour on desktop and mobile", async () 
 });
 
 test("ships a lightweight, accessible editorial browsing shell", async () => {
-  const [cardSource, archiveSource, searchSource, componentSource, layoutSource, globalStyles, thumbnails] = await Promise.all([
+  const [cardSource, homeSource, signalSource, archiveSource, searchSource, componentSource, layoutSource, globalStyles, thumbnails] = await Promise.all([
     readFile(new URL("../app/article-card.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/ai-signal/AISignalExperience.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/articles/articles-client.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/search/search-client.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components.tsx", import.meta.url), "utf8"),
@@ -100,8 +102,13 @@ test("ships a lightweight, accessible editorial browsing shell", async () => {
   ]);
 
   assert.equal(thumbnails.filter((file) => file.endsWith(".webp")).length, 221);
-  assert.match(cardSource, /images\/articles\/thumbs/);
-  assert.match(cardSource, /unoptimized/);
+  assert.match(cardSource, /src=\{article\.image\}/);
+  assert.match(cardSource, /sizes="\(max-width: 760px\) 100vw/);
+  assert.doesNotMatch(cardSource, /unoptimized/);
+  assert.match(homeSource, /className="tasteBentoImage"[\s\S]*?src=\{article\.image\}/);
+  assert.match(homeSource, /className="tasteStackMedia"[\s\S]*?src=\{article\.image\}/);
+  assert.match(homeSource, /className="tasteAccordionMedia"[\s\S]*?src=\{article\.image\}/);
+  assert.match(signalSource, /className="aiSignalStoryMedia"[\s\S]*?src=\{story\.image\}/);
   assert.doesNotMatch(archiveSource, /import \{ articles[,}]/);
   assert.doesNotMatch(searchSource, /import \{ articles[,}]/);
   assert.match(componentSource, /Skip to main content/);

@@ -149,7 +149,13 @@ export default function FrenchHome() {
               {spotlight.map((article) => (
                 <article key={article.slug}>
                   <Link className="frontSpotlightImage" href={articleHref(article)} style={articleImageStyle(article.slug)} aria-label={`${titleFor(article)}. Article complet en anglais.`}>
-                    <Image src={`/images/articles/thumbs/${article.slug}.webp`} alt={article.imageAlt} width={800} height={450} unoptimized />
+                    <Image
+                      src={article.image}
+                      alt={article.imageAlt}
+                      width={1200}
+                      height={675}
+                      sizes="(max-width: 820px) 100vw, 28vw"
+                    />
                   </Link>
                   <div className="frontStoryMeta"><Link href="/fr/#fr-explore">{frenchCategories[article.category]}</Link><time dateTime={article.date}>{frenchDate(article)}</time></div>
                   <h2><Link href={articleHref(article)}>{titleFor(article)}<EnglishArticleNotice /></Link></h2>

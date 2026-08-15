@@ -49,7 +49,13 @@ function TasteBento({ stories }: { stories: Article[] }) {
       {stories.map((article, index) => (
         <article className={`tasteBentoCard tasteBentoCard-${index + 1}`} key={article.slug}>
           <Link className="tasteBentoImage" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
-            <Image src={`/images/articles/thumbs/${article.slug}.webp`} alt={article.imageAlt} width={1000} height={680} unoptimized />
+            <Image
+              src={article.image}
+              alt={article.imageAlt}
+              width={1200}
+              height={675}
+              sizes="(max-width: 980px) 100vw, 58vw"
+            />
           </Link>
           <div className="tasteBentoShade" aria-hidden="true" />
           <div className="tasteBentoCopy">
@@ -74,7 +80,13 @@ function TasteStack({ stories }: { stories: Article[] }) {
         {stories.slice(0, 3).map((article) => (
           <article className="tasteStackCard" data-stack-card key={article.slug}>
             <Link className="tasteStackMedia" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
-              <Image src={`/images/articles/thumbs/${article.slug}.webp`} alt={article.imageAlt} width={900} height={600} unoptimized />
+              <Image
+                src={article.image}
+                alt={article.imageAlt}
+                width={1200}
+                height={675}
+                sizes="(max-width: 980px) 100vw, 58vw"
+              />
             </Link>
             <div className="tasteStackCopy">
               <div><span>{article.category}</span><time dateTime={article.date}>{article.displayDate}</time></div>
@@ -100,7 +112,13 @@ function TasteAccordion({ stories }: { stories: Article[] }) {
         {stories.slice(0, 3).map((article) => (
           <article key={article.slug}>
             <Link className="tasteAccordionMedia" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
-              <Image src={`/images/articles/thumbs/${article.slug}.webp`} alt={article.imageAlt} width={900} height={700} unoptimized />
+              <Image
+                src={article.image}
+                alt={article.imageAlt}
+                width={1200}
+                height={675}
+                sizes="(max-width: 760px) 100vw, 50vw"
+              />
             </Link>
             <div>
               <span>{article.category}</span>

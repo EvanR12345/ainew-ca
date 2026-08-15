@@ -135,7 +135,13 @@ export function AISignalExperience({ data }: { data: SignalData }) {
               {story && (
                 <article className="aiSignalStoryCard" aria-live="polite">
                   <div className="aiSignalStoryMedia">
-                    <Image src={`/images/articles/thumbs/${story.slug}.webp`} alt={story.imageAlt} width={960} height={640} unoptimized />
+                    <Image
+                      src={story.image}
+                      alt={story.imageAlt}
+                      width={1200}
+                      height={675}
+                      sizes="(max-width: 760px) 100vw, 34vw"
+                    />
                   </div>
                   <div className="aiSignalStoryCopy">
                     <div className="aiSignalStoryMeta">
