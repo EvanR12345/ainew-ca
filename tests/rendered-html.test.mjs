@@ -109,6 +109,7 @@ test("ships a lightweight, accessible editorial browsing shell", async () => {
   assert.match(homeSource, /className="tasteStackMedia"[\s\S]*?src=\{article\.image\}/);
   assert.match(homeSource, /className="tasteAccordionMedia"[\s\S]*?src=\{modelStackImages\[article\.slug\] \?\? article\.image\}/);
   assert.match(homeSource, /benchmark-score-lab\.jpg/);
+  assert.match(globalStyles, /\.tasteThesis p span:not\(:last-child\) \{ margin-inline-end: \.22em; \}/);
   assert.match(signalSource, /className="aiSignalStoryMedia"[\s\S]*?src=\{story\.image\}/);
   assert.doesNotMatch(archiveSource, /import \{ articles[,}]/);
   assert.doesNotMatch(searchSource, /import \{ articles[,}]/);

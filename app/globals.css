@@ -2293,6 +2293,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   text-wrap: pretty;
 }
 .tasteThesis p span { display: inline-block; will-change: transform, opacity; }
+.tasteThesis p span:not(:last-child) { margin-inline-end: .22em; }
 .tasteThesis > a,
 .tasteTextLink {
   width: max-content;

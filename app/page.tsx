@@ -224,7 +224,7 @@ export default function Home() {
         </nav>
 
         <section className="shell tasteThesis" aria-label="AI New editorial thesis">
-          <p>{"A useful AI publication does more than repeat the announcement. It shows the evidence, names the uncertainty and helps you decide what to do next.".split(" ").map((word, index) => <span data-reveal-word key={`${word}-${index}`}>{word} </span>)}</p>
+          <p>{"A useful AI publication does more than repeat the announcement. It shows the evidence, names the uncertainty and helps you decide what to do next.".split(" ").map((word, index) => <span data-reveal-word key={`${word}-${index}`}>{word}</span>)}</p>
           <Link href="/editorial-policy/">How our reporting works <span aria-hidden="true">↗</span></Link>
         </section>
 
