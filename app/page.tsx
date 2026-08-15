@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { AdSlot, ArticleCard, NewsletterBand, SiteFooter, SiteHeader } from "./components";
+import { AISignalSection } from "./components/ai-signal";
 import { articleImageStyle } from "./article-image-style";
 import { articles, type Article } from "./lib/articles";
 import { buildPageMetadata, categoryPath, organizationSchema, SITE_URL, WEBSITE_ID, websiteSchema } from "./lib/seo";
@@ -229,6 +230,8 @@ export default function Home() {
         <div className="shell sectionAdWrap"><AdSlot label="Homepage mid-page" /></div>
 
         <TasteStack stories={canada} />
+
+        <AISignalSection locale="en" />
 
         <section className="learningFeature">
           <div className="shell learningFeatureInner">

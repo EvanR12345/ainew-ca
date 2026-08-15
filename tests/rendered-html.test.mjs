@@ -532,3 +532,52 @@ test("limits search discovery to the evidence-audited article collection", async
   assert.match(editorialHtml, /101 articles meet that standard/);
   assert.match(editorialHtml, /110 legacy briefings remain available/);
 });
+
+test("ships AI Signal as a lazy, bilingual and progressively enhanced editorial experience", async () => {
+  const [homeResponse, frenchResponse, experienceSource, sceneSource, scrollSource, dataSource, globalStyles, packageSource] = await Promise.all([
+    render("/"),
+    render("/fr/"),
+    readFile(new URL("../app/components/ai-signal/AISignalExperience.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/ai-signal/AISignalScene.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/ai-signal/useSignalScroll.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/ai-signal/signal-data.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../package.json", import.meta.url), "utf8"),
+  ]);
+
+  const homeHtml = await homeResponse.text();
+  const frenchHtml = await frenchResponse.text();
+  assert.match(homeHtml, /data-locale="en"/);
+  assert.match(homeHtml, /AI SIGNAL/);
+  assert.match(homeHtml, /The forces shaping artificial intelligence right now/);
+  assert.match(homeHtml, /openai-academic-researchers-program-analysis/);
+  assert.match(homeHtml, /nvidia-gtc-2026-inference-factory-debrief/);
+  assert.match(homeHtml, /canada-ai-transparency-consultation-what-to-know/);
+  assert.match(homeHtml, /gemini-robotics-embodied-ai/);
+  assert.match(frenchHtml, /data-locale="fr"/);
+  assert.match(frenchHtml, /SIGNAL IA/);
+  assert.match(frenchHtml, /Les forces qui façonnent l’intelligence artificielle aujourd’hui/);
+  assert.match(frenchHtml, /Article complet en anglais/);
+
+  assert.match(dataSource, /evidenceStatus === "verified"/);
+  assert.match(dataSource, /searchEligible !== false/);
+  assert.match(experienceSource, /dynamic\(/);
+  assert.match(experienceSource, /ssr: false/);
+  assert.match(experienceSource, /rootMargin: "800px 0px"/);
+  assert.match(experienceSource, /prefers-reduced-motion: reduce/);
+  assert.match(experienceSource, /deviceMemory/);
+  assert.match(experienceSource, /hardwareConcurrency/);
+  assert.match(sceneSource, /particleCount = tier === "full" \? 168 : 56/);
+  assert.match(sceneSource, /Math\.min\(window\.devicePixelRatio \|\| 1, tier === "full" \? 1\.5 : 1\)/);
+  assert.match(sceneSource, /cancelAnimationFrame\(frame\)/);
+  assert.match(sceneSource, /renderer\.renderLists\.dispose\(\)/);
+  assert.match(sceneSource, /renderer\.forceContextLoss\(\)/);
+  assert.match(scrollSource, /pin: desktop \? stage : false/);
+  assert.match(scrollSource, /scrub: 0\.7/);
+  assert.match(globalStyles, /\.aiSignalFallbackGrid/);
+  assert.match(globalStyles, /grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/);
+  assert.match(globalStyles, /@media \(max-width: 760px\)/);
+  assert.match(globalStyles, /@media \(prefers-reduced-motion: reduce\)/);
+  assert.match(packageSource, /"three": "\^0\.185\.1"/);
+  assert.doesNotMatch(packageSource, /@react-three\/fiber|@react-three\/drei/);
+});

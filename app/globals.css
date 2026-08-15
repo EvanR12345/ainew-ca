@@ -16,6 +16,715 @@
   --font-serif: "Newsreader Variable", Newsreader, ui-serif, serif;
 }
 
+/* AI Signal — an isolated editorial/WebGL experience below the main stories. */
+.aiSignalSection {
+  position: relative;
+  height: 230svh;
+  min-height: 1320px;
+  margin-block: clamp(5rem, 10vw, 10rem);
+  overflow: clip;
+  isolation: isolate;
+  background: #070909;
+  color: #f2efe7;
+}
+
+.aiSignalStage {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100svh;
+  min-height: 640px;
+  overflow: hidden;
+  background: #070909;
+}
+
+.aiSignalVisual,
+.aiSignalCanvas,
+.aiSignalCanvasVeil,
+.aiSignalAtmosphere,
+.aiSignalOverlay {
+  position: absolute;
+  inset: 0;
+}
+
+.aiSignalVisual {
+  z-index: 0;
+}
+
+.aiSignalCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.aiSignalCanvasVeil {
+  background: #070909;
+  opacity: 1;
+  transition: opacity 700ms ease;
+  pointer-events: none;
+}
+
+.aiSignalCanvasVeil.is-ready {
+  opacity: 0;
+}
+
+.aiSignalAtmosphere {
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 48%, transparent 0 18%, rgb(7 9 9 / 0.08) 52%, rgb(7 9 9 / 0.88) 100%),
+    linear-gradient(90deg, rgb(7 9 9 / 0.72), transparent 28% 72%, rgb(7 9 9 / 0.72));
+}
+
+.aiSignalAtmosphere::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  opacity: 0.12;
+  background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgb(255 255 255 / 0.045) 4px);
+}
+
+.aiSignalOverlay {
+  z-index: 2;
+  width: min(100%, 1600px);
+  margin-inline: auto;
+  pointer-events: none;
+}
+
+.aiSignalPanel {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(22px);
+  transition: opacity 420ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1), visibility 420ms;
+}
+
+.aiSignalPanel.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.aiSignalEyebrow {
+  margin: 0 0 1.2rem;
+  color: #9bded9;
+  font: 700 0.68rem/1.2 var(--font-sans), sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.aiSignalEntry {
+  top: clamp(8rem, 18vh, 13rem);
+  left: clamp(1.25rem, 7vw, 7rem);
+  width: min(50rem, calc(100% - 2.5rem));
+}
+
+.aiSignalEntry h2,
+.aiSignalFallback h2 {
+  max-width: 68rem;
+  margin: 0;
+  color: #f6f2e8;
+  font-family: var(--font-sans), sans-serif;
+  font-size: clamp(4.5rem, 12vw, 11rem);
+  font-weight: 720;
+  line-height: 0.78;
+  letter-spacing: -0.075em;
+}
+
+.aiSignalTagline {
+  max-width: 40rem;
+  margin: clamp(2rem, 5vh, 3.6rem) 0 0;
+  font-family: var(--font-serif), serif;
+  font-size: clamp(1.65rem, 3vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.aiSignalIntro {
+  max-width: 39rem;
+  margin: 1.25rem 0 0;
+  color: #a9b2ae;
+  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+  line-height: 1.65;
+}
+
+.aiSignalScrollCue {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 2.2rem;
+  color: #c2cac6;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.aiSignalScrollCue i {
+  display: block;
+  width: 2.8rem;
+  height: 1px;
+  overflow: hidden;
+  background: #505a57;
+}
+
+.aiSignalScrollCue i::after {
+  display: block;
+  width: 55%;
+  height: 100%;
+  content: "";
+  background: #9bded9;
+  animation: aiSignalCue 1.8s ease-in-out infinite;
+}
+
+@keyframes aiSignalCue {
+  from { transform: translateX(-110%); }
+  to { transform: translateX(210%); }
+}
+
+.aiSignalClusters {
+  inset: 0;
+}
+
+.aiSignalClusters > p {
+  position: absolute;
+  top: clamp(5.5rem, 11vh, 8rem);
+  left: 50%;
+  width: min(34rem, calc(100% - 3rem));
+  margin: 0;
+  color: #d7d9d3;
+  font: 500 clamp(1.05rem, 1.5vw, 1.35rem)/1.4 var(--font-serif), serif;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.aiSignalClusterLabels {
+  position: absolute;
+  inset: 0;
+}
+
+.aiSignalClusterLabel {
+  position: absolute;
+  width: clamp(9rem, 15vw, 14rem);
+  padding-left: 0.8rem;
+  border-left: 1px solid rgb(155 222 217 / 0.55);
+}
+
+.aiSignalClusterLabel strong,
+.aiSignalClusterLabel span {
+  display: block;
+}
+
+.aiSignalClusterLabel strong {
+  color: #f0ede4;
+  font-size: clamp(0.8rem, 1vw, 1rem);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.aiSignalClusterLabel span {
+  margin-top: 0.45rem;
+  color: #84908c;
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.aiSignalClusterLabel-1 { top: 25%; left: 14%; }
+.aiSignalClusterLabel-2 { top: 27%; right: 12%; }
+.aiSignalClusterLabel-3 { bottom: 19%; left: 16%; }
+.aiSignalClusterLabel-4 { right: 13%; bottom: 18%; }
+
+.aiSignalStoryStage {
+  inset: clamp(5rem, 10vh, 7rem) clamp(1.25rem, 6vw, 6rem) clamp(4rem, 7vh, 5rem);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.aiSignalStoryCard {
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.72fr) minmax(20rem, 1fr);
+  width: min(62rem, 76vw);
+  min-height: 26rem;
+  overflow: hidden;
+  border: 1px solid rgb(209 226 221 / 0.2);
+  background: rgb(8 12 12 / 0.88);
+  box-shadow: 0 2.4rem 7rem rgb(0 0 0 / 0.42);
+  backdrop-filter: blur(20px);
+}
+
+.aiSignalStoryMedia {
+  position: relative;
+  min-height: 100%;
+  overflow: hidden;
+  background: #111716;
+}
+
+.aiSignalStoryMedia::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  box-shadow: inset -2rem 0 5rem rgb(7 9 9 / 0.45);
+  pointer-events: none;
+}
+
+.aiSignalStoryMedia img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.035);
+}
+
+.aiSignalStoryCopy {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.8rem, 3.5vw, 3.5rem);
+}
+
+.aiSignalStoryMeta,
+.aiSignalStoryFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: #94a09c;
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.aiSignalStoryMeta span {
+  color: #9bded9;
+}
+
+.aiSignalStoryCopy h3 {
+  max-width: 16ch;
+  margin: 2rem 0 0;
+  font-family: var(--font-serif), serif;
+  font-size: clamp(2rem, 3.5vw, 3.65rem);
+  font-weight: 530;
+  line-height: 0.99;
+  letter-spacing: -0.045em;
+}
+
+.aiSignalStoryCopy h3 a {
+  color: #f3f0e8;
+  text-decoration: none;
+}
+
+.aiSignalStoryCopy h3 a:hover {
+  color: #b7efeb;
+}
+
+.aiSignalStoryCopy > p {
+  max-width: 35rem;
+  margin: 1.25rem 0 2rem;
+  color: #a9b2ae;
+  font-size: 0.98rem;
+  line-height: 1.62;
+}
+
+.aiSignalStoryFooter {
+  margin-top: auto;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgb(255 255 255 / 0.13);
+}
+
+.aiSignalStoryFooter a {
+  min-height: 44px;
+  color: #f0ede4;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.aiSignalCarouselControls {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.aiSignalCarouselControls button {
+  width: 46px;
+  min-width: 46px;
+  height: 46px;
+  border: 1px solid rgb(255 255 255 / 0.24);
+  border-radius: 50%;
+  background: rgb(8 12 12 / 0.78);
+  color: #f4f0e7;
+  font-size: 1.05rem;
+  cursor: pointer;
+}
+
+.aiSignalCarouselControls button:hover,
+.aiSignalCarouselControls button:focus-visible {
+  border-color: #9bded9;
+  background: #9bded9;
+  color: #07100f;
+}
+
+.aiSignalCarouselControls > span {
+  min-width: 4.8rem;
+  color: #aeb8b4;
+  font: 650 0.7rem/1 var(--font-sans), sans-serif;
+  letter-spacing: 0.12em;
+  text-align: center;
+}
+
+.aiSignalFlow {
+  left: clamp(1.25rem, 8vw, 8rem);
+  bottom: clamp(7rem, 16vh, 11rem);
+  width: min(40rem, calc(100% - 2.5rem));
+}
+
+.aiSignalFlow h3,
+.aiSignalExit h3 {
+  margin: 0;
+  font-family: var(--font-serif), serif;
+  font-size: clamp(3rem, 7vw, 7.2rem);
+  font-weight: 520;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.aiSignalFlow p,
+.aiSignalExit p {
+  max-width: 36rem;
+  margin: 1.5rem 0 0;
+  color: #aab4b0;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.65;
+}
+
+.aiSignalExit {
+  top: 50%;
+  left: 50%;
+  width: min(70rem, calc(100% - 3rem));
+  text-align: center;
+  transform: translate(-50%, calc(-50% + 22px));
+}
+
+.aiSignalExit.is-active {
+  transform: translate(-50%, -50%);
+}
+
+.aiSignalExit h3 {
+  max-width: 13ch;
+  margin-inline: auto;
+}
+
+.aiSignalExit p {
+  margin-inline: auto;
+}
+
+.aiSignalExit > a,
+.aiSignalFallbackAction {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  margin-top: 2rem;
+  padding: 0.85rem 1.25rem;
+  background: #bceeea;
+  color: #07100f;
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.aiSignalExit > a:hover,
+.aiSignalExit > a:focus-visible,
+.aiSignalFallbackAction:hover,
+.aiSignalFallbackAction:focus-visible {
+  background: #f3f0e8;
+}
+
+.aiSignalInlineImage {
+  display: inline-flex;
+  width: clamp(4.3rem, 8vw, 8rem);
+  height: 0.64em;
+  margin-left: 0.18em;
+  overflow: hidden;
+  border-radius: 100vw;
+  vertical-align: 0.06em;
+}
+
+.aiSignalInlineImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aiSignalProgress {
+  position: absolute;
+  right: clamp(1rem, 2.5vw, 2.5rem);
+  top: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform: translateY(-50%);
+}
+
+.aiSignalProgress li {
+  width: 3px;
+  height: 1.8rem;
+  background: rgb(255 255 255 / 0.18);
+  transition: background 250ms, height 250ms;
+}
+
+.aiSignalProgress li.is-active {
+  height: 3.4rem;
+  background: #9bded9;
+}
+
+.aiSignalFallback {
+  position: relative;
+  z-index: 3;
+  display: none;
+  width: min(100% - 2.5rem, 1320px);
+  margin-inline: auto;
+  padding: clamp(4rem, 10vw, 8rem) 0;
+}
+
+.aiSignalFallback header {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: end;
+  gap: 2rem;
+}
+
+.aiSignalFallback header .aiSignalEyebrow,
+.aiSignalFallback header h2 {
+  grid-column: 1;
+}
+
+.aiSignalFallback header > p:last-child {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  margin: 0;
+  font: 500 clamp(1.7rem, 3vw, 3rem)/1.08 var(--font-serif), serif;
+  letter-spacing: -0.04em;
+}
+
+.aiSignalFallback > h3 {
+  margin: clamp(4rem, 8vw, 8rem) 0 1.5rem;
+  color: #bbc5c1;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.aiSignalFallbackGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-flow: dense;
+  border-top: 1px solid rgb(255 255 255 / 0.18);
+  border-bottom: 1px solid rgb(255 255 255 / 0.18);
+}
+
+.aiSignalFallbackCluster {
+  min-width: 0;
+  padding: 1.5rem;
+  border-right: 1px solid rgb(255 255 255 / 0.18);
+}
+
+.aiSignalFallbackCluster:last-child {
+  border-right: 0;
+}
+
+.aiSignalFallbackCluster summary {
+  display: flex;
+  justify-content: space-between;
+  min-height: 44px;
+  color: #f2efe7;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.aiSignalFallbackCluster summary::-webkit-details-marker { display: none; }
+.aiSignalFallbackCluster[open] summary span { transform: rotate(45deg); }
+.aiSignalFallbackCluster p { color: #8e9a96; font-size: 0.8rem; line-height: 1.6; }
+.aiSignalFallbackCluster a { display: block; margin-top: 2.5rem; color: #c0e9e6; font-family: var(--font-serif), serif; font-size: 1.15rem; line-height: 1.2; text-decoration: none; }
+.aiSignalNoScript { position: relative; z-index: 4; padding: 2rem; color: #f2efe7; }
+
+.aiSignalSection[data-mode="static"] {
+  height: auto;
+  min-height: 0;
+}
+
+.aiSignalSection[data-mode="static"] .aiSignalStage {
+  position: relative;
+  height: auto;
+  min-height: 0;
+}
+
+.aiSignalSection[data-mode="static"] .aiSignalVisual,
+.aiSignalSection[data-mode="static"] .aiSignalOverlay {
+  display: none;
+}
+
+.aiSignalSection[data-mode="static"] .aiSignalFallback {
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .aiSignalStoryCard {
+    grid-template-columns: 0.65fr 1fr;
+    width: min(53rem, calc(100vw - 5rem));
+  }
+
+  .aiSignalStoryCopy h3 { font-size: clamp(1.7rem, 4vw, 2.8rem); }
+  .aiSignalClusterLabel-1 { left: 7%; }
+  .aiSignalClusterLabel-2 { right: 6%; }
+  .aiSignalClusterLabel-3 { left: 8%; }
+  .aiSignalClusterLabel-4 { right: 6%; }
+}
+
+@media (max-width: 760px) {
+  .aiSignalSection {
+    height: 158svh;
+    min-height: 900px;
+    margin-block: 5rem;
+  }
+
+  .aiSignalStage {
+    min-height: 568px;
+  }
+
+  .aiSignalAtmosphere {
+    background: radial-gradient(circle at 50% 44%, transparent 0 16%, rgb(7 9 9 / 0.14) 56%, rgb(7 9 9 / 0.95) 100%);
+  }
+
+  .aiSignalEntry {
+    top: clamp(5.5rem, 13vh, 7.5rem);
+    left: 1.15rem;
+    width: calc(100% - 2.3rem);
+  }
+
+  .aiSignalEntry h2,
+  .aiSignalFallback h2 {
+    font-size: clamp(4rem, 23vw, 6.8rem);
+    line-height: 0.82;
+  }
+
+  .aiSignalTagline {
+    max-width: 17ch;
+    margin-top: 2.2rem;
+    font-size: clamp(1.55rem, 7vw, 2.1rem);
+  }
+
+  .aiSignalIntro {
+    max-width: 31rem;
+    font-size: 0.9rem;
+    line-height: 1.52;
+  }
+
+  .aiSignalScrollCue { margin-top: 1.5rem; }
+  .aiSignalClusters > p { top: 4.8rem; font-size: 1rem; }
+
+  .aiSignalClusterLabel {
+    width: 8.2rem;
+    padding-left: 0.55rem;
+  }
+
+  .aiSignalClusterLabel span { font-size: 0.61rem; }
+  .aiSignalClusterLabel-1 { top: 22%; left: 5%; }
+  .aiSignalClusterLabel-2 { top: 25%; right: 4%; }
+  .aiSignalClusterLabel-3 { bottom: 19%; left: 5%; }
+  .aiSignalClusterLabel-4 { right: 4%; bottom: 17%; }
+
+  .aiSignalStoryStage {
+    inset: 4.5rem 1rem 3rem;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .aiSignalStoryCard {
+    grid-template-columns: 1fr;
+    width: 100%;
+    min-height: 0;
+    max-height: calc(100svh - 9.5rem);
+  }
+
+  .aiSignalStoryMedia {
+    min-height: 0;
+    height: clamp(8.5rem, 25vh, 13rem);
+  }
+
+  .aiSignalStoryMedia::after { box-shadow: inset 0 -2rem 4rem rgb(7 9 9 / 0.45); }
+  .aiSignalStoryCopy { padding: 1.2rem; }
+  .aiSignalStoryMeta { font-size: 0.58rem; }
+  .aiSignalStoryCopy h3 { max-width: 19ch; margin-top: 0.9rem; font-size: clamp(1.45rem, 6.5vw, 2rem); line-height: 1; }
+  .aiSignalStoryCopy > p { display: -webkit-box; margin: 0.75rem 0 1rem; overflow: hidden; font-size: 0.82rem; line-height: 1.42; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+  .aiSignalStoryFooter { font-size: 0.58rem; }
+  .aiSignalStoryFooter > span { max-width: 9rem; text-align: right; }
+  .aiSignalCarouselControls { right: 0; bottom: -2.8rem; }
+  .aiSignalCarouselControls button { width: 44px; min-width: 44px; height: 44px; }
+
+  .aiSignalFlow {
+    left: 1.2rem;
+    bottom: 7rem;
+    width: calc(100% - 2.4rem);
+  }
+
+  .aiSignalFlow h3,
+  .aiSignalExit h3 { font-size: clamp(3rem, 15vw, 5.3rem); }
+  .aiSignalFlow p,
+  .aiSignalExit p { font-size: 0.95rem; line-height: 1.55; }
+
+  .aiSignalExit { width: calc(100% - 2.4rem); }
+  .aiSignalProgress { right: 0.55rem; }
+  .aiSignalProgress li { height: 1.2rem; }
+  .aiSignalProgress li.is-active { height: 2.2rem; }
+
+  .aiSignalFallback { width: min(100% - 2rem, 42rem); }
+  .aiSignalFallback header { display: block; }
+  .aiSignalFallback header > p:last-child { margin-top: 2rem; font-size: 1.8rem; }
+  .aiSignalFallback > h3 { margin-top: 4rem; }
+  .aiSignalFallbackGrid { display: block; }
+  .aiSignalFallbackCluster { padding: 1.1rem 0.2rem; border-right: 0; border-bottom: 1px solid rgb(255 255 255 / 0.15); }
+  .aiSignalFallbackCluster:last-child { border-bottom: 0; }
+}
+
+@media (max-width: 430px) and (max-height: 700px) {
+  .aiSignalEntry { top: 4.7rem; }
+  .aiSignalEntry h2 { font-size: clamp(3.8rem, 21vw, 5.2rem); }
+  .aiSignalTagline { margin-top: 1.4rem; font-size: 1.45rem; }
+  .aiSignalIntro { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+  .aiSignalScrollCue { margin-top: 1rem; }
+  .aiSignalStoryStage { top: 3.8rem; }
+  .aiSignalStoryMedia { height: 7.4rem; }
+  .aiSignalStoryCopy > p { -webkit-line-clamp: 2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aiSignalSection {
+    height: auto;
+    min-height: 0;
+  }
+
+  .aiSignalStage {
+    position: relative;
+    height: auto;
+    min-height: 0;
+  }
+
+  .aiSignalVisual,
+  .aiSignalOverlay { display: none; }
+  .aiSignalFallback { display: block; }
+  .aiSignalScrollCue i::after { animation: none; }
+}
+
 * { box-sizing: border-box; }
 html { max-width: 100%; scroll-behavior: auto; overflow-x: clip; }
 body { max-width: 100%; margin: 0; overflow-x: clip; background: var(--surface); color: var(--text); font-family: var(--font-sans); }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { articleImageStyle } from "../article-image-style";
+import { AISignalSection } from "../components/ai-signal";
 import { articles, type Article } from "../lib/articles";
 import { organizationSchema, SITE_NAME, SITE_URL, WEBSITE_ID } from "../lib/seo";
 import { StructuredData } from "../structured-data";
@@ -205,6 +206,8 @@ export default function FrenchHome() {
             ))}
           </div>
         </section>
+
+        <AISignalSection locale="fr" />
 
         <section className="learningFeature" id="fr-learning">
           <div className="shell learningFeatureInner">
