@@ -71,7 +71,7 @@ export function SiteHeader() {
               </div>
             </details>
             <Link href={categoryPath("Canada")}>Canada</Link>
-            <Link className="navSignal" href="/#ai-signal">AI Signal</Link>
+            <Link className="navSignal" href="/ai-signal/">AI Signal</Link>
             <Link href="/topics/">Topic guides</Link>
             <details className="navMore navMega navLearnMenu" name="desktop-navigation">
               <summary>Learn</summary>
@@ -117,7 +117,7 @@ export function SiteHeader() {
               </section>
               <section>
                 <span>AI New</span>
-                <Link href="/#ai-signal">AI Signal live map</Link>
+                <Link href="/ai-signal/">AI Signal live map</Link>
                 <Link href="/canada-ai-resources/">Canada tracker</Link>
                 <Link href="/search/">Search</Link>
                 <Link href="/about/">About</Link>
@@ -158,6 +158,7 @@ export function SiteFooter() {
           <Link href="/topics/">Topic guides</Link>
           <Link href="/topics/using-ai/">How to use AI</Link>
           <Link href="/ai-glossary/">AI glossary</Link>
+          <Link href="/ai-signal/">AI Signal live map</Link>
           <Link href="/canada-ai-resources/">Canada AI tracker</Link>
           <Link href="/search/">Search</Link>
         </div>

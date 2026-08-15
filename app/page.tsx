@@ -71,12 +71,15 @@ function TasteBento({ stories }: { stories: Article[] }) {
 
 function TasteStack({ stories }: { stories: Article[] }) {
   return (
-    <section className="tasteStackSection">
+    <section className="tasteStackSection" aria-labelledby="canadian-decisions-heading">
       <header className="shell tasteStackHeader">
-        <h2>Three Canadian decisions worth understanding now.</h2>
+        <p className="tasteStackEyebrow">CANADA / DECISION DESK</p>
         <p>Policy, public infrastructure and implementation, read as a connected system instead of isolated announcements.</p>
       </header>
       <div className="shell tasteStack">
+        <header className="tasteStackPersistentHeader">
+          <h2 id="canadian-decisions-heading">Three Canadian decisions worth understanding now.</h2>
+        </header>
         {stories.slice(0, 3).map((article) => (
           <article className="tasteStackCard" data-stack-card key={article.slug}>
             <Link className="tasteStackMedia" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>

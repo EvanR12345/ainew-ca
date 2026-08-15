@@ -25,6 +25,7 @@ export function sitemapEntries(): SitemapEntry[] {
     "/": SEARCH_REVIEW_DATE,
     "/fr/": "2026-08-14",
     "/articles/": SEARCH_REVIEW_DATE,
+    "/ai-signal/": SEARCH_REVIEW_DATE,
     "/learn/": "2026-08-11",
     "/topics/": SEARCH_REVIEW_DATE,
     "/topics/canadian-ai-policy/": SEARCH_REVIEW_DATE,

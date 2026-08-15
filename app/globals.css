@@ -1630,6 +1630,27 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .pageHeroIndex { position: absolute; top: 28px; right: 0; color: var(--text-muted); font-size: 9px; font-weight: 900; letter-spacing: .14em; }
 .pageHero h1, .searchPage > h1, .infoPage h1 { max-width: 1050px; font-family: "Outfit Variable", Outfit, sans-serif; font-weight: 850; font-size: clamp(48px, 6.8vw, 92px); }
 .pageHero p, .infoPage > header > p { max-width: 810px; font-family: var(--font-serif); }
+
+/* AI Signal destination: a dedicated map followed by its evidence trail. */
+.signalPageHero { position: relative; padding: clamp(74px, 8vw, 116px) 0 clamp(64px, 7vw, 96px); }
+.signalPageHeroIndex { position: absolute; top: 30px; right: 0; color: var(--text-muted); font-size: 9px; font-weight: 900; letter-spacing: .14em; }
+.signalPageHero h1 { max-width: 1150px; margin: 18px 0 0; font-size: clamp(54px, 8.4vw, 116px); line-height: .84; letter-spacing: -.07em; text-wrap: balance; }
+.signalPageHeroFooter { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(40px, 8vw, 140px); align-items: end; margin-top: clamp(42px, 6vw, 76px); padding-top: 24px; border-top: 1px solid var(--text); }
+.signalPageHeroFooter > p { max-width: 700px; margin: 0; color: var(--text-muted); font: 19px/1.55 var(--font-serif); }
+.signalPageHeroFooter nav { display: grid; min-width: 265px; border-top: 1px solid var(--border); }
+.signalPageHeroFooter nav a { display: flex; justify-content: space-between; gap: 32px; padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+.signalPageHeroFooter nav a:hover { color: var(--accent); }
+.signalPageReporting { padding: clamp(92px, 10vw, 150px) 0 72px; scroll-margin-top: 88px; }
+.signalPageReportingHeader { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(280px, .55fr); gap: clamp(42px, 8vw, 120px); align-items: end; margin-bottom: 44px; padding-bottom: 28px; border-bottom: 5px solid var(--text); }
+.signalPageReportingHeader h2 { max-width: 930px; margin: 10px 0 0; font-size: clamp(44px, 6vw, 82px); line-height: .9; letter-spacing: -.06em; text-wrap: balance; }
+.signalPageReportingHeader > p { margin: 0; color: var(--text-muted); font: 17px/1.58 var(--font-serif); }
+.signalReportingGrid .storyCard:first-child { grid-column: span 2; }
+.signalReportingGrid .storyCard:first-child .storyVisual { min-height: 410px; }
+.signalReportingGrid .storyCard:first-child .storyContent h3 { max-width: 18ch; font-size: clamp(31px, 3vw, 46px); }
+.signalPageAllStories { display: flex; justify-content: space-between; gap: 30px; margin-top: 58px; padding: 18px 0; border-block: 1px solid var(--text); font-size: 10px; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+.signalPageAllStories > span { color: var(--text-muted); }
+.signalPageAllStories a { color: var(--accent); }
+.signalPageNewsletter { padding-top: 28px; }
 .categoryNav { gap: 0; padding: 18px 0; border-bottom: 1px solid var(--border); }
 .categoryNav a, .categoryNav button { border: 0; border-right: 1px solid var(--border); padding: 11px 18px; }
 .categoryNav a:first-child { border-left: 1px solid var(--border); }
@@ -2306,16 +2327,25 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 }
 
 .tasteStackSection { padding: clamp(100px, 10vw, 150px) 0; background: var(--text); color: white; }
-.tasteStackHeader { max-width: 1220px; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr); gap: 80px; align-items: end; margin-bottom: 80px; }
-.tasteStackHeader h2 { max-width: 900px; margin: 0; font-size: clamp(48px, 6vw, 82px); line-height: .92; letter-spacing: -.06em; }
+.tasteStackHeader { max-width: 1220px; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr); gap: 80px; align-items: end; margin-bottom: 38px; }
 .tasteStackHeader p { margin: 0; color: #b8b3ab; font: 17px/1.6 var(--font-serif); }
+.tasteStackHeader .tasteStackEyebrow { color: var(--accent-soft); font: 800 11px/1.2 var(--font-sans); letter-spacing: .16em; text-transform: uppercase; }
 .tasteStack { max-width: 1220px; display: grid; gap: 32px; }
+.tasteStackPersistentHeader {
+  position: sticky;
+  top: 16px;
+  z-index: 6;
+  padding: 18px 0 20px;
+  border-block: 1px solid #45433f;
+  background: var(--text);
+}
+.tasteStackPersistentHeader h2 { max-width: 1100px; margin: 0; font-size: clamp(32px, 4.4vw, 61px); line-height: .94; letter-spacing: -.055em; text-wrap: balance; }
 .tasteStackCard {
   width: 100%;
   margin-inline: auto;
   min-height: clamp(500px, calc(100dvh - 116px), 580px);
   position: sticky;
-  top: 92px;
+  top: 112px;
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(360px, .85fr);
   overflow: hidden;
@@ -2324,8 +2354,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   background: #1d1d1a;
   transform-origin: top center;
 }
-.tasteStackCard:nth-child(2) { top: 112px; background: #24231f; }
-.tasteStackCard:nth-child(3) { top: 132px; background: #2a2924; }
+.tasteStackCard:nth-of-type(2) { top: 132px; background: #24231f; }
+.tasteStackCard:nth-of-type(3) { top: 152px; background: #2a2924; }
 .tasteStackMedia { min-height: 100%; overflow: hidden; }
 .tasteStackMedia img { width: 100%; height: 100%; object-fit: cover; object-position: var(--image-x,50%) var(--image-y,50%); transition: transform 800ms cubic-bezier(.16,1,.3,1); }
 .tasteStackCard:hover img { transform: scale(1.045); }
@@ -2370,6 +2400,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .tasteHeroMedia { aspect-ratio: 16 / 10; }
   .tasteStackCard { grid-template-columns: 1fr; min-height: 720px; }
   .tasteStackMedia { min-height: 390px; }
+  .signalPageHeroFooter,
+  .signalPageReportingHeader { grid-template-columns: 1fr; }
+  .signalPageHeroFooter nav { width: min(100%, 420px); }
+  .signalReportingGrid .storyCard:first-child { grid-column: 1 / -1; }
 }
 
 @media (min-width: 981px) and (max-height: 760px) {
@@ -2385,7 +2419,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
   }
-  .tasteStackHeader { margin-bottom: 58px; }
+  .tasteStackHeader { margin-bottom: 34px; }
   .tasteStackCard { min-height: calc(100dvh - 116px); }
   .tasteStackCopy { padding: clamp(30px, 3.5vw, 48px); }
   .tasteStackCopy h3 { font-size: clamp(32px, 3.3vw, 48px); }
@@ -2415,11 +2449,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .tasteMarqueeSet { gap: 18px; padding-right: 18px; }
   .tasteThesis { padding-block: 130px; }
   .tasteThesis p { font-size: 44px; }
-  .tasteStackHeader { grid-template-columns: 1fr; gap: 24px; margin-bottom: 52px; }
-  .tasteStackHeader h2 { font-size: 49px; }
+  .tasteStackHeader { grid-template-columns: 1fr; gap: 20px; margin-bottom: 28px; }
+  .tasteStackPersistentHeader { position: relative; top: auto; padding-block: 15px 18px; }
+  .tasteStackPersistentHeader h2 { font-size: 43px; }
   .tasteStackCard,
-  .tasteStackCard:nth-child(2),
-  .tasteStackCard:nth-child(3) { min-height: 0; position: relative; top: auto; display: block; border-radius: 22px; }
+  .tasteStackCard:nth-of-type(2),
+  .tasteStackCard:nth-of-type(3) { min-height: 0; position: relative; top: auto; display: block; border-radius: 22px; }
   .tasteStackMedia { display: block; min-height: 0; aspect-ratio: 4 / 3; }
   .tasteStackCopy { padding: 30px 24px 34px; }
   .tasteStackCopy h3 { font-size: 37px; }
@@ -2432,6 +2467,15 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .tasteAccordion article > div { inset: auto 24px 26px; }
   .tasteAccordion h3 { font-size: 32px; }
   .learningFeature li { padding-left: 54px; }
+  .signalPageHero { padding-top: 74px; }
+  .signalPageHeroIndex { top: 28px; }
+  .signalPageHero h1 { font-size: clamp(52px, 16vw, 72px); }
+  .signalPageHeroFooter { margin-top: 44px; }
+  .signalPageReporting { padding-top: 86px; }
+  .signalPageReportingHeader { gap: 24px; margin-bottom: 34px; border-bottom-width: 3px; }
+  .signalPageReportingHeader h2 { font-size: 46px; }
+  .signalReportingGrid .storyCard:first-child .storyVisual { min-height: 0; }
+  .signalPageAllStories { display: grid; }
 }
 
 @media (max-width: 360px) {

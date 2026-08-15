@@ -115,7 +115,7 @@ test("ships a lightweight, accessible editorial browsing shell", async () => {
   assert.doesNotMatch(searchSource, /import \{ articles[,}]/);
   assert.match(componentSource, /Skip to main content/);
   assert.match(componentSource, /mobileNavPanel/);
-  assert.match(componentSource, /href="\/#ai-signal">AI Signal/);
+  assert.match(componentSource, /href="\/ai-signal\/">AI Signal/);
   assert.match(layoutSource, /og-editorial-2026\.jpg/);
   assert.match(globalStyles, /content-visibility: auto/);
   assert.match(globalStyles, /@media \(max-width: 520px\)/);
@@ -544,19 +544,22 @@ test("limits search discovery to the evidence-audited article collection", async
 });
 
 test("ships AI Signal as a lazy, bilingual and progressively enhanced editorial experience", async () => {
-  const [homeResponse, frenchResponse, experienceSource, sceneSource, scrollSource, dataSource, globalStyles, packageSource] = await Promise.all([
+  const [homeResponse, frenchResponse, signalPageResponse, experienceSource, sceneSource, scrollSource, dataSource, globalStyles, packageSource, sitemapSource] = await Promise.all([
     render("/"),
     render("/fr/"),
+    render("/ai-signal/"),
     readFile(new URL("../app/components/ai-signal/AISignalExperience.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/ai-signal/AISignalScene.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/ai-signal/useSignalScroll.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/components/ai-signal/signal-data.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
+    readFile(new URL("../app/sitemap.xml/route.ts", import.meta.url), "utf8"),
   ]);
 
   const homeHtml = await homeResponse.text();
   const frenchHtml = await frenchResponse.text();
+  const signalPageHtml = await signalPageResponse.text();
   assert.match(homeHtml, /data-locale="en"/);
   assert.match(homeHtml, /AI SIGNAL/);
   assert.match(homeHtml, /The forces shaping artificial intelligence right now/);
@@ -568,6 +571,10 @@ test("ships AI Signal as a lazy, bilingual and progressively enhanced editorial 
   assert.match(frenchHtml, /SIGNAL IA/);
   assert.match(frenchHtml, /Les forces qui façonnent l’intelligence artificielle aujourd’hui/);
   assert.match(frenchHtml, /Article complet en anglais/);
+  assert.match(signalPageHtml, /See the AI ecosystem as one connected story/);
+  assert.match(signalPageHtml, /The map is the orientation\. These articles carry the evidence/);
+  assert.match(signalPageHtml, /12 reports in this edition/);
+  assert.match(sitemapSource, /"\/ai-signal\/": SEARCH_REVIEW_DATE/);
 
   assert.match(dataSource, /evidenceStatus === "verified"/);
   assert.match(dataSource, /searchEligible !== false/);
