@@ -107,12 +107,14 @@ test("ships a lightweight, accessible editorial browsing shell", async () => {
   assert.doesNotMatch(cardSource, /unoptimized/);
   assert.match(homeSource, /className="tasteBentoImage"[\s\S]*?src=\{article\.image\}/);
   assert.match(homeSource, /className="tasteStackMedia"[\s\S]*?src=\{article\.image\}/);
-  assert.match(homeSource, /className="tasteAccordionMedia"[\s\S]*?src=\{article\.image\}/);
+  assert.match(homeSource, /className="tasteAccordionMedia"[\s\S]*?src=\{modelStackImages\[article\.slug\] \?\? article\.image\}/);
+  assert.match(homeSource, /benchmark-score-lab\.jpg/);
   assert.match(signalSource, /className="aiSignalStoryMedia"[\s\S]*?src=\{story\.image\}/);
   assert.doesNotMatch(archiveSource, /import \{ articles[,}]/);
   assert.doesNotMatch(searchSource, /import \{ articles[,}]/);
   assert.match(componentSource, /Skip to main content/);
   assert.match(componentSource, /mobileNavPanel/);
+  assert.match(componentSource, /href="\/#ai-signal">AI Signal/);
   assert.match(layoutSource, /og-editorial-2026\.jpg/);
   assert.match(globalStyles, /content-visibility: auto/);
   assert.match(globalStyles, /@media \(max-width: 520px\)/);
@@ -571,6 +573,8 @@ test("ships AI Signal as a lazy, bilingual and progressively enhanced editorial 
   assert.match(experienceSource, /dynamic\(/);
   assert.match(experienceSource, /ssr: false/);
   assert.match(experienceSource, /rootMargin: "800px 0px"/);
+  assert.match(experienceSource, /id=\{data\.locale === "fr" \? "fr-ai-signal" : "ai-signal"\}/);
+  assert.match(experienceSource, /className="aiSignalStoryRail"/);
   assert.match(experienceSource, /prefers-reduced-motion: reduce/);
   assert.match(experienceSource, /deviceMemory/);
   assert.match(experienceSource, /hardwareConcurrency/);
@@ -579,7 +583,8 @@ test("ships AI Signal as a lazy, bilingual and progressively enhanced editorial 
   assert.match(sceneSource, /cancelAnimationFrame\(frame\)/);
   assert.match(sceneSource, /renderer\.renderLists\.dispose\(\)/);
   assert.match(sceneSource, /renderer\.forceContextLoss\(\)/);
-  assert.match(scrollSource, /pin: desktop \? stage : false/);
+  assert.match(scrollSource, /pin: false/);
+  assert.doesNotMatch(scrollSource, /pin: desktop \? stage : false/);
   assert.match(scrollSource, /scrub: 0\.7/);
   assert.match(globalStyles, /\.aiSignalFallbackGrid/);
   assert.match(globalStyles, /grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/);

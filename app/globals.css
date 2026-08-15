@@ -26,6 +26,7 @@
   isolation: isolate;
   background: #070909;
   color: #f2efe7;
+  scroll-margin-top: 5rem;
 }
 
 .aiSignalStage {
@@ -103,6 +104,53 @@
   visibility: visible;
   transform: translateY(0);
   pointer-events: auto;
+}
+
+.aiSignalStoryRail {
+  position: absolute;
+  z-index: 4;
+  top: clamp(7rem, 14vh, 10rem);
+  right: clamp(1.5rem, 4vw, 4rem);
+  width: min(22rem, 25vw);
+  padding: 1rem 1.1rem;
+  border: 1px solid rgb(209 226 221 / 0.2);
+  background: rgb(7 9 9 / 0.76);
+  box-shadow: 0 1.5rem 5rem rgb(0 0 0 / 0.28);
+  backdrop-filter: blur(18px);
+  pointer-events: auto;
+  transition: opacity 280ms ease, transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.aiSignalStoryRail > p {
+  margin: 0 0 0.7rem;
+  color: #9bded9;
+  font-size: 0.62rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.aiSignalStoryRail ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.aiSignalStoryRail li + li { border-top: 1px solid rgb(255 255 255 / 0.12); }
+.aiSignalStoryRail a { display: block; min-height: 44px; padding: 0.72rem 0; text-decoration: none; }
+.aiSignalStoryRail span,
+.aiSignalStoryRail strong { display: block; }
+.aiSignalStoryRail span { color: #788580; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.aiSignalStoryRail strong { margin-top: 0.3rem; color: #d4d8d2; font: 530 0.91rem/1.2 var(--font-serif), serif; }
+.aiSignalStoryRail li.is-active strong,
+.aiSignalStoryRail a:hover strong,
+.aiSignalStoryRail a:focus-visible strong { color: #f6f2e8; }
+.aiSignalStoryRail li.is-active span { color: #9bded9; }
+.aiSignalOverlay[data-stage="2"] .aiSignalStoryRail,
+.aiSignalOverlay[data-stage="4"] .aiSignalStoryRail {
+  opacity: 0;
+  transform: translateX(1rem);
+  pointer-events: none;
 }
 
 .aiSignalEyebrow {
@@ -690,6 +738,21 @@
   .aiSignalProgress { right: 0.55rem; }
   .aiSignalProgress li { height: 1.2rem; }
   .aiSignalProgress li.is-active { height: 2.2rem; }
+
+  .aiSignalStoryRail {
+    top: auto;
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    width: auto;
+    padding: 0.7rem 0.9rem;
+  }
+
+  .aiSignalStoryRail > p { margin-bottom: 0.25rem; }
+  .aiSignalStoryRail li { display: none; }
+  .aiSignalStoryRail li.is-active { display: block; }
+  .aiSignalStoryRail a { padding-block: 0.45rem; }
+  .aiSignalStoryRail strong { font-size: 0.88rem; }
 
   .aiSignalFallback { width: min(100% - 2rem, 42rem); }
   .aiSignalFallback header { display: block; }
@@ -2242,11 +2305,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 }
 
 .tasteStackSection { padding: clamp(100px, 10vw, 150px) 0; background: var(--text); color: white; }
-.tasteStackHeader { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr); gap: 80px; align-items: end; margin-bottom: 80px; }
+.tasteStackHeader { max-width: 1220px; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr); gap: 80px; align-items: end; margin-bottom: 80px; }
 .tasteStackHeader h2 { max-width: 900px; margin: 0; font-size: clamp(48px, 6vw, 82px); line-height: .92; letter-spacing: -.06em; }
 .tasteStackHeader p { margin: 0; color: #b8b3ab; font: 17px/1.6 var(--font-serif); }
-.tasteStack { display: grid; gap: 32px; }
+.tasteStack { max-width: 1220px; display: grid; gap: 32px; }
 .tasteStackCard {
+  width: 100%;
+  margin-inline: auto;
   min-height: clamp(500px, calc(100dvh - 116px), 580px);
   position: sticky;
   top: 92px;

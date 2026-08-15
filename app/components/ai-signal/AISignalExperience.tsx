@@ -79,7 +79,11 @@ export function AISignalExperience({ data }: { data: SignalData }) {
         setMode("static");
         return;
       }
-      setTier(window.matchMedia("(max-width: 760px), (pointer: coarse)").matches ? "compact" : "full");
+      const compactScene = window.matchMedia("(max-width: 760px), (pointer: coarse)").matches
+        || window.devicePixelRatio > 1.25
+        || (navigator.hardwareConcurrency !== undefined && navigator.hardwareConcurrency <= 6)
+        || (device.deviceMemory !== undefined && device.deviceMemory <= 4);
+      setTier(compactScene ? "compact" : "full");
       setMode("scene");
     });
     return () => cancelAnimationFrame(frame);
@@ -90,6 +94,7 @@ export function AISignalExperience({ data }: { data: SignalData }) {
 
   return (
     <section
+      id={data.locale === "fr" ? "fr-ai-signal" : "ai-signal"}
       className="aiSignalSection"
       ref={sectionRef}
       aria-labelledby={`ai-signal-title-${data.locale}`}
@@ -111,7 +116,25 @@ export function AISignalExperience({ data }: { data: SignalData }) {
         </div>
 
         {!isStatic && (
-          <div className="aiSignalOverlay">
+          <div className="aiSignalOverlay" data-stage={activeStage}>
+            <nav className="aiSignalStoryRail" aria-label={data.locale === "fr" ? "Reportages de la carte en direct" : "Reporting in the live map"}>
+              <p>{data.locale === "fr" ? "Reportages en direct" : "Live reporting"}</p>
+              <ol>
+                {data.stories.map((railStory, index) => (
+                  <li className={activeStory === index ? "is-active" : ""} key={railStory.slug}>
+                    <Link
+                      href={railStory.href}
+                      onFocus={() => setActiveStory(index)}
+                      onMouseEnter={() => setActiveStory(index)}
+                    >
+                      <span>{String(index + 1).padStart(2, "0")} · {railStory.category}</span>
+                      <strong>{railStory.title}</strong>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+
             <div className={`aiSignalPanel aiSignalEntry${activeStage === 0 ? " is-active" : ""}`} aria-hidden={activeStage !== 0}>
               <p className="aiSignalEyebrow">{data.copy.eyebrow}</p>
               <h2 id={`ai-signal-title-${data.locale}`}>{data.copy.title}</h2>

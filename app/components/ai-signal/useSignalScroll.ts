@@ -11,9 +11,8 @@ if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger, useGSAP);
 const stageThresholds = [0.14, 0.34, 0.63, 0.82];
 
 function stageFromProgress(progress: number) {
-  return stageThresholds.findIndex((threshold) => progress < threshold) === -1
-    ? 4
-    : stageThresholds.findIndex((threshold) => progress < threshold);
+  const stage = stageThresholds.findIndex((threshold) => progress < threshold);
+  return stage === -1 ? 4 : stage;
 }
 
 export type SignalScrollState = {
@@ -50,14 +49,11 @@ export function useSignalScroll(
     }
 
     const section = sectionRef.current;
-    const stage = stageRef.current;
-    const desktop = window.matchMedia("(min-width: 761px)").matches;
     const trigger = ScrollTrigger.create({
       trigger: section,
       start: "top top",
       end: "bottom bottom",
-      pin: desktop ? stage : false,
-      pinSpacing: false,
+      pin: false,
       scrub: 0.7,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
@@ -67,14 +63,6 @@ export function useSignalScroll(
         if (nextStage !== stageRefValue.current) {
           stageRefValue.current = nextStage;
           setActiveStage(nextStage);
-        }
-        if (progress >= 0.34 && progress < 0.63 && storyCount > 0) {
-          const storyProgress = (progress - 0.34) / 0.29;
-          const nextStory = Math.min(storyCount - 1, Math.floor(storyProgress * storyCount));
-          if (nextStory !== activeStoryRef.current) {
-            activeStoryRef.current = nextStory;
-            setStory(nextStory);
-          }
         }
       },
     });

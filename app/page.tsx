@@ -101,6 +101,12 @@ function TasteStack({ stories }: { stories: Article[] }) {
   );
 }
 
+const modelStackImages: Record<string, string> = {
+  "ai-benchmark-scores-reading-guide": "/images/features/model-stack/benchmark-score-lab.jpg",
+  "context-windows-ai-models-explained": "/images/features/model-stack/context-window-archive.jpg",
+  "reasoning-models-test-time-compute": "/images/features/model-stack/reasoning-compute-machine.jpg",
+};
+
 function TasteAccordion({ stories }: { stories: Article[] }) {
   return (
     <section className="shell tasteAccordionSection">
@@ -113,10 +119,10 @@ function TasteAccordion({ stories }: { stories: Article[] }) {
           <article key={article.slug}>
             <Link className="tasteAccordionMedia" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
               <Image
-                src={article.image}
+                src={modelStackImages[article.slug] ?? article.image}
                 alt={article.imageAlt}
-                width={1200}
-                height={675}
+                width={1122}
+                height={1402}
                 sizes="(max-width: 760px) 100vw, 50vw"
               />
             </Link>
