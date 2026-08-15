@@ -117,7 +117,6 @@ export function AISignalExperience({ data }: { data: SignalData }) {
               <h2 id={`ai-signal-title-${data.locale}`}>{data.copy.title}</h2>
               <p className="aiSignalTagline">{data.copy.tagline}</p>
               <p className="aiSignalIntro">{data.copy.intro}</p>
-              <span className="aiSignalScrollCue" aria-hidden="true"><i /> Scroll</span>
             </div>
 
             <div className={`aiSignalPanel aiSignalClusters${activeStage === 1 ? " is-active" : ""}`} aria-hidden={activeStage !== 1}>

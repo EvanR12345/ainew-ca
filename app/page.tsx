@@ -68,7 +68,7 @@ function TasteStack({ stories }: { stories: Article[] }) {
     <section className="tasteStackSection">
       <header className="shell tasteStackHeader">
         <h2>Three Canadian decisions worth understanding now.</h2>
-        <p>Policy, public infrastructure and implementation—read as a connected system instead of isolated announcements.</p>
+        <p>Policy, public infrastructure and implementation, read as a connected system instead of isolated announcements.</p>
       </header>
       <div className="shell tasteStack">
         {stories.slice(0, 3).map((article) => (

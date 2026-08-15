@@ -16,12 +16,12 @@
   --font-serif: "Newsreader Variable", Newsreader, ui-serif, serif;
 }
 
-/* AI Signal — an isolated editorial/WebGL experience below the main stories. */
+/* AI Signal: an isolated editorial/WebGL experience below the main stories. */
 .aiSignalSection {
   position: relative;
   height: 230svh;
   min-height: 1320px;
-  margin-block: clamp(5rem, 10vw, 10rem);
+  margin-block: 0;
   overflow: clip;
   isolation: isolate;
   background: #070909;
@@ -349,6 +349,10 @@
   gap: 0.8rem;
 }
 
+@media (min-width: 761px) {
+  .aiSignalStoryCard { margin-bottom: 3.8rem; }
+}
+
 .aiSignalCarouselControls button {
   width: 46px;
   min-width: 46px;
@@ -629,7 +633,6 @@
     line-height: 1.52;
   }
 
-  .aiSignalScrollCue { margin-top: 1.5rem; }
   .aiSignalClusters > p { top: 4.8rem; font-size: 1rem; }
 
   .aiSignalClusterLabel {
@@ -654,6 +657,7 @@
     width: 100%;
     min-height: 0;
     max-height: calc(100svh - 9.5rem);
+    margin-bottom: 0;
   }
 
   .aiSignalStoryMedia {
@@ -2083,12 +2087,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .languageSwitch button { min-width: 44px; min-height: 44px; }
 
 .tasteHero {
-  min-height: 720px;
+  min-height: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(420px, .92fr);
-  gap: clamp(48px, 7vw, 112px);
-  align-items: center;
-  padding: clamp(100px, 11vw, 170px) 0 clamp(120px, 14vw, 210px);
+  grid-template-columns: minmax(0, 1.32fr) minmax(420px, .68fr);
+  gap: clamp(42px, 5vw, 68px);
+  align-items: start;
+  padding: clamp(40px, 4vw, 62px) 0 clamp(72px, 7vw, 108px);
 }
 .tasteHeroCopy { min-width: 0; }
 .tasteHeroIntro {
@@ -2101,7 +2105,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   width: 100%;
   max-width: 72rem;
   margin: 0;
-  font-size: clamp(58px, 7.3vw, 108px);
+  font-size: clamp(58px, 5.6vw, 86px);
   font-weight: 850;
   line-height: .84;
   letter-spacing: -.07em;
@@ -2148,7 +2152,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   display: block;
   position: relative;
   overflow: hidden;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 5 / 4;
   border-radius: 32px;
   background: var(--surface-muted);
   box-shadow: 0 34px 90px rgba(62,44,30,.18);
@@ -2172,7 +2176,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   font-size: 11px;
   font-weight: 700;
 }
-.tasteHeroStoryCopy h2 { margin: 12px 0 10px; font-size: clamp(25px, 2.35vw, 38px); line-height: .98; letter-spacing: -.045em; }
+.tasteHeroStoryCopy h2 { margin: 12px 0 10px; font-size: clamp(25px, 2vw, 34px); line-height: .98; letter-spacing: -.045em; }
 .tasteHeroStoryCopy p { margin: 0; color: var(--text-muted); font: 14px/1.55 var(--font-serif); }
 
 .tasteBento {
@@ -2182,7 +2186,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   grid-template-rows: repeat(2, minmax(0, 1fr));
   grid-auto-flow: dense;
   gap: 0;
-  margin-bottom: clamp(120px, 14vw, 210px);
+  margin-bottom: clamp(76px, 8vw, 118px);
   overflow: hidden;
   border-radius: 30px;
   background: var(--text);
@@ -2215,7 +2219,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .tasteMarqueeSet span { color: var(--accent-soft); }
 @keyframes taste-marquee { to { transform: translateX(-50%); } }
 
-.tasteThesis { padding: clamp(150px, 18vw, 260px) 0; }
+.tasteThesis { padding: clamp(100px, 10vw, 150px) 0; }
 .tasteThesis p {
   max-width: 1180px;
   margin: 0;
@@ -2237,13 +2241,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   font-weight: 700;
 }
 
-.tasteStackSection { padding: clamp(120px, 14vw, 200px) 0; background: var(--text); color: white; }
+.tasteStackSection { padding: clamp(100px, 10vw, 150px) 0; background: var(--text); color: white; }
 .tasteStackHeader { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr); gap: 80px; align-items: end; margin-bottom: 80px; }
 .tasteStackHeader h2 { max-width: 900px; margin: 0; font-size: clamp(48px, 6vw, 82px); line-height: .92; letter-spacing: -.06em; }
 .tasteStackHeader p { margin: 0; color: #b8b3ab; font: 17px/1.6 var(--font-serif); }
 .tasteStack { display: grid; gap: 32px; }
 .tasteStackCard {
-  min-height: 620px;
+  min-height: clamp(500px, calc(100dvh - 116px), 580px);
   position: sticky;
   top: 92px;
   display: grid;
@@ -2265,11 +2269,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .tasteStackCopy p { margin: 0; color: #c7c2ba; font: 16px/1.6 var(--font-serif); }
 .tasteStackCopy .tasteTextLink { color: var(--accent-soft); }
 
-.tasteAccordionSection { padding: clamp(130px, 16vw, 220px) 0; }
+.tasteAccordionSection { padding: clamp(100px, 11vw, 160px) 0; }
 .tasteAccordionSection > header { display: flex; justify-content: space-between; gap: 40px; align-items: end; margin-bottom: 52px; }
 .tasteAccordionSection > header h2 { max-width: 900px; margin: 0; font-size: clamp(46px, 5.8vw, 78px); line-height: .92; letter-spacing: -.06em; }
 .tasteAccordionSection > header > a { flex: none; padding-bottom: 7px; border-bottom: 1px solid; font-weight: 700; }
-.tasteAccordion { height: 620px; display: flex; overflow: hidden; border-radius: 30px; background: var(--text); }
+.tasteAccordion { height: clamp(520px, 68vh, 580px); display: flex; overflow: hidden; border-radius: 30px; background: var(--text); }
 .tasteAccordion article { min-width: 0; position: relative; flex: 1; overflow: hidden; border-right: 1px solid rgba(255,255,255,.28); transition: flex 900ms cubic-bezier(.16,1,.3,1); }
 .tasteAccordion article:last-child { border-right: 0; }
 .tasteAccordion article:hover { flex: 2.25; }
@@ -2281,7 +2285,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .tasteAccordion article > div > span { color: var(--accent-soft); font-size: 11px; font-weight: 750; }
 .tasteAccordion h3 { max-width: 540px; margin: 12px 0 0; font-size: clamp(24px, 2.6vw, 42px); line-height: .96; letter-spacing: -.045em; }
 
-.learningFeature { padding: clamp(120px, 15vw, 210px) 0; }
+.learningFeature { margin: 0; padding: clamp(100px, 10vw, 150px) 0; }
 .learningFeatureInner { gap: clamp(60px, 9vw, 140px); }
 .learningFeature ol { counter-reset: lab-step; }
 .learningFeature li { position: relative; padding-left: 70px; }
@@ -2300,6 +2304,25 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .tasteHeroMedia { aspect-ratio: 16 / 10; }
   .tasteStackCard { grid-template-columns: 1fr; min-height: 720px; }
   .tasteStackMedia { min-height: 390px; }
+}
+
+@media (min-width: 981px) and (max-height: 760px) {
+  .tasteHero { padding: 38px 0 68px; }
+  .tasteHero h1 { font-size: clamp(58px, 5.2vw, 80px); line-height: .86; }
+  .tasteHeroIntro { margin-bottom: 18px; }
+  .tasteHeroCopy > p:last-of-type { margin-top: 26px; }
+  .tasteHeroActions { margin-top: 26px; }
+  .tasteHeroMedia { aspect-ratio: 16 / 11; }
+  .tasteHeroStoryCopy p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .tasteStackHeader { margin-bottom: 58px; }
+  .tasteStackCard { min-height: calc(100dvh - 116px); }
+  .tasteStackCopy { padding: clamp(30px, 3.5vw, 48px); }
+  .tasteStackCopy h3 { font-size: clamp(32px, 3.3vw, 48px); }
 }
 
 @media (max-width: 760px) {
