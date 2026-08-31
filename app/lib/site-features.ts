@@ -1,11 +1,14 @@
 /**
  * Site-wide feature switches.
  *
- * To restore advertising, change `ads` to `true` and redeploy. The existing
- * AdSense loader and Adsterra placements will become active again together.
+ * Advertising stays disabled during the publication-quality review. The
+ * Google AdSense account meta tag remains in the document for ownership
+ * verification, but no ad script or visible placement loads while `ads` is
+ * false. If advertising is restored, Google AdSense is the only configured
+ * provider.
  *
- * The ten fully prepared second-wave guides remain out of public routes,
- * feeds and the sitemap until `secondWaveGuides` is deliberately enabled.
+ * Prepared article drafts remain unpublished until they complete an
+ * individual evidence and originality review.
  */
 export const SITE_FEATURES = {
   ads: false,

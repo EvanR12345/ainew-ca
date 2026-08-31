@@ -37,6 +37,7 @@ export type Article = {
   imageAlt: string;
   disclaimer?: string;
   evidenceStatus?: "verified" | "editorial-review";
+  originalityStatus?: "individually-reviewed" | "template-draft";
   searchEligible?: boolean;
   sections: ArticleSection[];
   video?: ArticleVideo;
@@ -308,8 +309,8 @@ const featuredTransparencyArticle: Article = {
   ...generatedArticles[0],
   title: "Canada is consulting on clearer AI disclosure. Here is what is actually on the table.",
   dek: "The federal consultation asks about synthetic-content identification, AI interaction notices, system information, serious-incident records and agent activity.",
-  date: "2026-07-23",
-  displayDate: "July 23, 2026",
+  date: "2026-08-10",
+  displayDate: "August 10, 2026",
   sourceLabel: sourceLibrary.transparency.label,
   sourceUrl: sourceLibrary.transparency.url,
   sources: [
@@ -335,6 +336,7 @@ const featuredTransparencyArticle: Article = {
   ],
   disclaimer: "This article reports what the Government of Canada put forward for consultation and distinguishes those questions from final law or regulation. The linked government records are the controlling sources.",
   evidenceStatus: "verified",
+  originalityStatus: "individually-reviewed",
   searchEligible: true,
   sections: [
     {
@@ -390,8 +392,13 @@ type HowToSeed = {
   focus: string;
   firstTask: string;
   verification: string;
+  method: string;
+  failureModes: string;
+  evidenceUse: string;
+  measurement: string;
   practice: [string, string, string, string];
   source: SourceKey;
+  sourceKeys: Array<keyof typeof sourceLibrary>;
 };
 
 const howToSeeds: HowToSeed[] = [
@@ -404,8 +411,13 @@ const howToSeeds: HowToSeed[] = [
     focus: "turning a blank chat into a dependable helper for summaries, planning, rewriting and first drafts",
     firstTask: "Use a low-risk task you already understand, such as turning meeting notes into an action list or rewriting a paragraph for clarity.",
     verification: "Compare every claim with your original notes and make sure the output did not invent a deadline, owner or decision.",
+    method: "Work in three passes: provide the source material, request one clearly defined output, then review every line against the source. Keeping the request small makes it obvious whether the model removed drudgery or merely moved the work into correction.",
+    failureModes: "Meeting summaries often invent agreement, assign an action to the wrong person or turn a tentative idea into a commitment. Rewriting tasks can also erase necessary caution or make a colleague sound unlike themselves. Those are workflow failures, even when every sentence is grammatical.",
+    evidenceUse: "For an everyday task, the evidence is usually already in front of you: the notes, email thread, policy or draft. Ask the model to work only from that material and to mark anything it cannot support instead of filling gaps from general knowledge.",
+    measurement: "After five repetitions, compare total time, number of factual corrections and whether the result was usable without another person reconstructing the source. Keep the workflow only when the accepted result improves, not when the first draft merely arrives faster.",
     practice: ["State the audience and desired result.", "Paste only the minimum safe context.", "Ask for a specific format.", "Review and rewrite before using the answer."],
     source: "openai",
+    sourceKeys: ["genAiGuide", "nistGenAi", "oecd"],
   },
   {
     slug: "beginner-ai-prompts-without-magic-words",
@@ -416,8 +428,13 @@ const howToSeeds: HowToSeed[] = [
     focus: "writing clear instructions that produce usable answers without prompt-engineering theatre",
     firstTask: "Rewrite one vague request using five parts: role, task, context, constraints and output format.",
     verification: "Check whether the answer followed each constraint, then correct the instruction instead of merely asking the model to try again.",
+    method: "Treat a prompt as a short work brief. Put the objective first, include only facts that matter, state the boundaries explicitly and show a compact example when the shape of the answer is important. The model should not need to guess who the reader is or what done means.",
+    failureModes: "Prompts fail when they contain competing instructions, omit the source of truth or ask for several jobs at once. Decorative roles and emphatic language can hide those defects. A confident answer to an underspecified request is still an unreliable result.",
+    evidenceUse: "Save the prompt beside two or three representative inputs and the reviewed outputs. This creates a small regression set: when the model or prompt changes, rerun the same cases and compare instruction following rather than relying on memory.",
+    measurement: "Score each attempt against the written constraints. A useful prompt is one another person can reuse with similar inputs and understand why it succeeded, not one that happened to produce a striking answer once.",
     practice: ["Name the task in one sentence.", "Include the facts the model must use.", "Say what it must avoid.", "Provide a short example of the desired output."],
     source: "openai",
+    sourceKeys: ["genAiGuide", "openaiEvals", "nistGenAi"],
   },
   {
     slug: "beginner-use-ai-safely-files-email-private-data",
@@ -428,8 +445,13 @@ const howToSeeds: HowToSeed[] = [
     focus: "recognizing sensitive information and choosing safer inputs before an AI tool sees a document",
     firstTask: "Take a sample document and mark personal, confidential, contractual and security-sensitive details before deciding what the model actually needs.",
     verification: "Confirm the tool's retention, training and sharing settings, then inspect the final output for details that should not leave the original context.",
+    method: "Classify the information before choosing the tool. Separate public material from personal information, confidential business records, credentials and regulated data, then remove fields the task does not require. Tool approval and data approval are separate decisions.",
+    failureModes: "A file can expose more than its visible paragraph: names in comments, document history, hidden rows, image metadata and copied email chains can all travel with an upload. De-identification can also fail when combinations of details point back to a person.",
+    evidenceUse: "Use the provider's current product terms, enterprise controls and your organization's policy as evidence. A marketing promise about privacy is not a substitute for documented retention, training, subprocessors, access, deletion and incident procedures.",
+    measurement: "Audit a small sample of real tasks for unnecessary fields, unapproved tools and copies left behind. The success measure is useful output with less exposed information and a deletion path that has actually been tested.",
     practice: ["Remove names, account numbers and access credentials.", "Use approved workplace tools for internal data.", "Share excerpts instead of whole files.", "Delete unnecessary uploads and chat history where supported."],
     source: "nist",
+    sourceKeys: ["privacy", "genAiGuide", "nistRmf"],
   },
   {
     slug: "intermediate-repeatable-ai-research-writing-workflow",
@@ -440,8 +462,13 @@ const howToSeeds: HowToSeed[] = [
     focus: "building a staged research workflow that keeps sources, notes and generated prose visibly separate",
     firstTask: "Choose a recurring report and divide it into five checkpoints: question, sources, evidence table, outline and reviewed draft.",
     verification: "Require a source for factual statements, compare quotations with the original page and keep unsupported inferences labelled as analysis.",
+    method: "Keep discovery, reading and drafting as separate stages. Build a table that pairs each proposed claim with a source passage, date and confidence note; approve that table before asking a model to turn it into prose. This stops fluent writing from laundering weak evidence.",
+    failureModes: "Research assistants can cite a page that does not support the sentence, merge details from different versions or overstate a tentative result. Search snippets and generated summaries are especially poor substitutes for opening the underlying document.",
+    evidenceUse: "Retain the original URLs and the exact passage used for consequential claims. When sources disagree, show the disagreement in the notes rather than asking the model to average it into a false consensus.",
+    measurement: "Review a sample of claims for direct support, stale sources, missing counter-evidence and citation accuracy. The workflow earns trust when a second reader can reproduce the reasoning from the evidence table without relying on the chatbot transcript.",
     practice: ["Create a reusable research brief.", "Keep a source-and-claim table.", "Draft only from approved notes.", "Run a separate citation and contradiction check."],
     source: "openai",
+    sourceKeys: ["openaiAcademic", "openaiEvals", "nistGenAi"],
   },
   {
     slug: "intermediate-compare-ai-answers-evaluation-scorecard",
@@ -452,8 +479,13 @@ const howToSeeds: HowToSeed[] = [
     focus: "comparing models and prompts against the tasks, evidence and failure costs that actually matter",
     firstTask: "Collect 15 representative examples, including normal, difficult and intentionally ambiguous cases, without tuning the set to one model.",
     verification: "Score accuracy, completeness, evidence, instruction following, time and reviewer effort with the same rubric for every candidate.",
+    method: "Create the test set before choosing a favourite model. Write an acceptance rule and failure severity for every case, hide model names where practical and keep settings consistent so the comparison reflects the system rather than the presentation.",
+    failureModes: "Averages can hide the one failure that makes a system unusable, while an easy test set rewards polish instead of reliability. Repeatedly editing examples after seeing results also turns evaluation into tuning and makes the score impossible to interpret.",
+    evidenceUse: "Keep the input, expected properties, reviewer notes and output together. For tasks with sources, score whether the evidence actually supports the answer. For subjective tasks, record reviewer disagreement instead of forcing false precision.",
+    measurement: "Compare accepted outcomes, serious failures, latency, price and human review time. Rerun the unchanged set after every material model, prompt, retrieval or tool update so regressions are visible before deployment.",
     practice: ["Hide model names during review where possible.", "Record failures, not just averages.", "Repeat tests after prompt or model changes.", "Choose on accepted outcome and total cost."],
     source: "nist",
+    sourceKeys: ["openaiEvals", "nistRmf", "nistGenAi"],
   },
   {
     slug: "intermediate-use-ai-spreadsheets-structured-data",
@@ -464,8 +496,13 @@ const howToSeeds: HowToSeed[] = [
     focus: "using AI for formulas, data cleaning and analysis while preserving a reviewable spreadsheet workflow",
     firstTask: "Work from a copy of a small table with a written data dictionary, expected row count and one known result you can use as a check.",
     verification: "Recalculate totals independently, inspect changed rows and test formulas against edge cases such as blanks, dates, negatives and duplicates.",
+    method: "Use separate raw, working and output areas. Ask the model to propose formulas or transformation steps, then let the spreadsheet engine perform the calculation. Preserve the original cells and record each change so a reviewer can reconstruct the result.",
+    failureModes: "AI can silently infer the wrong data type, treat a blank as zero, mix date conventions, duplicate a join or summarize a filtered table as if it were complete. A plausible total is dangerous when the transformation that produced it is invisible.",
+    evidenceUse: "The workbook itself should hold the evidence: source tab, column definitions, formulas, reconciliation totals and exceptions. A prose explanation is useful only when it points back to cells and logic that can be inspected independently.",
+    measurement: "Compare row counts and control totals before and after each transformation, then spot-check edge cases. Count correction time as part of the cost; a generated formula that takes longer to audit than to write is not an efficiency gain.",
     practice: ["Describe every column before analysis.", "Ask for formulas with explanations.", "Keep raw and cleaned data separate.", "Record transformations in a change log."],
     source: "microsoft",
+    sourceKeys: ["microsoftWork", "openaiEvals", "nistRmf"],
   },
   {
     slug: "advanced-human-in-the-loop-ai-agent-workflow",
@@ -476,8 +513,13 @@ const howToSeeds: HowToSeed[] = [
     focus: "designing an agent that can plan and use tools without silently taking high-impact actions",
     firstTask: "Map each proposed tool call by impact and reversibility, then require explicit approval for messages, purchases, permissions and destructive changes.",
     verification: "Replay failed and adversarial runs, inspect the action log and confirm the system stops safely when a tool, source or instruction is untrusted.",
+    method: "Build a permission matrix before the agent. Start with read-only tools, narrow credentials and a small task budget. Separate planning from execution, show the proposed side effect to a person and require a fresh approval at the point of action.",
+    failureModes: "Agents can follow hostile instructions found in documents or websites, repeat a partially completed transaction, act with excessive permissions or continue after the original goal has changed. A human approval screen is weak if it hides the real recipient, payload or consequence.",
+    evidenceUse: "A useful trace records the user request, retrieved context, plan, tool arguments, approvals, tool results and final state. Redact secrets, but retain enough structure to explain what happened and reproduce a failure safely.",
+    measurement: "Track safe completion, blocked unsafe actions, unnecessary approvals, recovery from tool failure and side effects that required repair. Increase autonomy only when the bounded version performs reliably on adversarial as well as ordinary cases.",
     practice: ["Use least-privilege credentials.", "Separate planning from execution.", "Make consequential actions reversible.", "Log inputs, tool calls, approvals and outcomes."],
     source: "nist",
+    sourceKeys: ["openaiAgents", "anthropicAgents", "owaspExcessiveAgency"],
   },
   {
     slug: "advanced-retrieval-ai-own-documents-citations",
@@ -488,8 +530,13 @@ const howToSeeds: HowToSeed[] = [
     focus: "building retrieval-augmented generation that finds the right passage, respects permissions and shows useful evidence",
     firstTask: "Create a representative document set, define access rules and write questions whose answers are known before selecting chunking or embedding settings.",
     verification: "Measure retrieval recall separately from answer quality and require every important claim to point to a passage the reviewer can open.",
+    method: "Evaluate the retrieval layer before the generator. Preserve document title, owner, date and permission metadata; test keyword and semantic search against the same questions; then add answer generation only after the right evidence appears consistently.",
+    failureModes: "A retrieval system can return stale policy, split a crucial table from its heading, leak a document across permission boundaries or produce a citation that is topically related but does not entail the claim. Better prose cannot repair missing evidence.",
+    evidenceUse: "Show citations beside the supported sentence and let the reader open the exact passage. Include explicit no-answer cases so the system learns that refusing is preferable to composing an answer from a weak match.",
+    measurement: "Measure retrieval recall, ranking quality, permission failures, citation support and final-answer correctness separately. This tells the team whether to repair document preparation, search, prompting or review instead of changing everything at once.",
     practice: ["Preserve titles, dates and document owners.", "Test permission boundaries directly.", "Use hybrid keyword and semantic retrieval.", "Show citations beside the supported claim."],
     source: "openai",
+    sourceKeys: ["cohereRag", "anthropicContext", "openaiEvals"],
   },
   {
     slug: "advanced-ai-evaluation-red-team-monitor-production",
@@ -500,68 +547,74 @@ const howToSeeds: HowToSeed[] = [
     focus: "operating an evaluation program that catches regressions, misuse and changing real-world conditions",
     firstTask: "Turn known failures and near misses into a versioned test set, then add adversarial cases designed by people outside the original build team.",
     verification: "Track severity-weighted failure rates, reviewer disagreement, override behaviour and the exact model, prompt, retrieval and tool versions behind each result.",
+    method: "Connect release tests, red-team work, sampled production review and incident analysis into one program. Each exercise should feed new cases into a controlled test set with an owner, severity and decision about whether release is allowed.",
+    failureModes: "Evaluation can drift when graders change, test data leaks into development or teams optimize an average while rare high-impact failures remain. Production monitoring can also become surveillance if privacy limits and sampling rules are not explicit.",
+    evidenceUse: "Store representative inputs, expected safety properties, reviewer rationale and complete system versions. Use independent reviewers for high-impact cases and preserve disagreement as data that may reveal an unclear policy or task definition.",
+    measurement: "Report severity-weighted failures, regressions, incident recurrence, reviewer load and time to mitigation. A rising benchmark score does not justify release when the system becomes harder to stop, explain or recover.",
     practice: ["Define release gates before testing.", "Sample live outputs with privacy safeguards.", "Run incident reviews without hiding model mistakes.", "Retest every material system change."],
     source: "nist",
+    sourceKeys: ["nistAdversarial", "openaiEvals", "nistGenAi"],
   },
 ];
 
 function buildHowToSections(seed: HowToSeed): ArticleSection[] {
   return [
     {
-      heading: `What ${seed.level.toLowerCase()} success looks like`,
+      heading: `Define the ${seed.level.toLowerCase()} outcome`,
       paragraphs: [
         `This guide is about ${seed.focus}. The goal is not to use AI everywhere; it is to improve one result while keeping the work understandable and reviewable.`,
-        `${seed.level} users get better results when they can explain the workflow without mentioning a model name. Start with the outcome, evidence and review standard, then decide where AI saves useful effort.`,
+        seed.method,
       ],
     },
     {
-      heading: "Start with one bounded task",
+      heading: "Run one bounded exercise",
       paragraphs: [
         seed.firstTask,
-        "Write down what a good result contains, what would make it unacceptable and who is responsible for the final decision. That short acceptance test prevents a polished response from being mistaken for a correct one.",
+        `Before the first run, write an acceptance check around these actions: ${seed.practice[0]} ${seed.practice[1]} Name the person who decides whether the result is safe and useful enough to keep.`,
       ],
     },
     {
-      heading: "Use a five-part instruction",
+      heading: "Build the working protocol",
       paragraphs: [
-        "Give the model a role, a concrete task, the minimum necessary context, explicit constraints and the output format. Include an example when structure matters more than creativity.",
-        "Ask the system to identify missing information and uncertainty instead of filling every gap. If the answer fails, change one part of the instruction and record what improved; random retries teach you nothing.",
+        `The protocol should be short enough for another person to follow. It must say what enters the system, what the model may do, which output format is required and where human review begins. ${seed.practice[2]} ${seed.practice[3]}`,
+        seed.evidenceUse,
       ],
       bullets: seed.practice,
     },
     {
-      heading: "Run the workflow in visible stages",
+      heading: "Test the failure modes that matter",
       paragraphs: [
-        "Keep collection, analysis, drafting and approval separate. Save useful prompts beside the task, not in a personal memory, and make inputs easy for another person to inspect.",
-        "A staged workflow makes mistakes cheaper. You can repair a weak evidence table before it becomes a confident report, or stop an unsafe action before it reaches a customer or system of record.",
+        seed.failureModes,
+        `Turn those risks into examples before expanding the workflow. A passing result should show not only that the normal case works, but that an error is detected, contained and sent to the right person for review.`,
       ],
     },
     {
-      heading: "Verify before you trust",
+      heading: "Verify the result against evidence",
       paragraphs: [
         seed.verification,
-        "Use a small set of representative examples and keep the scoring rule stable. Check difficult and unusual cases separately because an acceptable average can hide the failures that matter most.",
+        seed.measurement,
       ],
     },
     {
-      heading: "Protect people and information",
+      heading: "Set the human and data boundary",
       paragraphs: [
-        "Do not enter credentials, private identifiers, confidential client material or restricted workplace data unless the tool and the intended use are explicitly approved. Minimize the input even when a system is approved.",
-        "Consequential work involving money, health, employment, education, rights or public services needs meaningful human authority. A reviewer must have the evidence, time and permission to reject the AI result.",
+        `Minimize information before it reaches the model and keep credentials out of ordinary prompts. An approved product does not make every dataset or action appropriate; permission depends on the task, the people affected and the consequence of error.`,
+        `The reviewer needs the source material, enough time and real authority to reject the output. For consequential work, a nominal human in the loop is not sufficient when the interface or process pressures that person to agree.`,
       ],
     },
     {
-      heading: `Your next ${seed.level.toLowerCase()} practice cycle`,
+      heading: `The next ${seed.level.toLowerCase()} practice cycle`,
       paragraphs: [
-        "Repeat the same task several times, record corrections and turn recurring failure checks into a reusable checklist. Keep the workflow only if accepted quality improves after review time and errors are counted.",
-        "Mastery is not a longer prompt. It is a process that remains useful when the input changes, the model is upgraded or a teammate has to understand what happened.",
+        `Repeat the bounded exercise with ordinary, difficult and incomplete inputs. Record corrections and stop conditions, then turn recurring checks into a shared checklist rather than personal prompt folklore.`,
+        `Expand only one dimension at a time: more users, broader data, a new model or a higher-impact action. That keeps the evidence interpretable and makes rollback possible when quality, cost or risk moves in the wrong direction.`,
       ],
     },
   ];
 }
 
 const howToArticles: Article[] = howToSeeds.map((seed, index) => {
-  const [sourceLabel, sourceUrl] = sources[seed.source];
+  const selectedSources = seed.sourceKeys.map((key) => sourceLibrary[key]);
+  const [sourceLabel, sourceUrl] = [selectedSources[0].label, selectedSources[0].url];
   const image = seed.level === "Beginner" ? editorialLibrary.beginner : seed.level === "Intermediate" ? editorialLibrary.intermediate : editorialLibrary.advanced;
   return {
     slug: seed.slug,
@@ -575,10 +628,13 @@ const howToArticles: Article[] = howToSeeds.map((seed, index) => {
     accent: accents[(index + 3) % accents.length],
     sourceLabel,
     sourceUrl,
+    sources: selectedSources,
     image: image.src,
     imageAlt: `${image.alt}: ${seed.title}`,
-    evidenceStatus: "editorial-review",
-    searchEligible: false,
+    evidenceStatus: "verified",
+    originalityStatus: "individually-reviewed",
+    searchEligible: true,
+    disclaimer: "This practical guide combines named primary guidance with AI New Canada analysis. It is educational and should be adapted to your organization, data rules and risk level.",
     sections: buildHowToSections(seed),
   };
 });
@@ -596,10 +652,16 @@ const beginnerInvestmentArticles: Article[] = [
     accent: "green",
     sourceLabel: "Canadian Investment Regulatory Organization",
     sourceUrl: "https://www.ciro.ca/newsroom/publications/guidance-order-execution-only-account-services-and-activities",
+    sources: [
+      { label: "CIRO: Guidance on order execution only account services", url: "https://www.ciro.ca/newsroom/publications/guidance-order-execution-only-account-services-and-activities" },
+      sourceLibrary.nistGenAi,
+      sourceLibrary.oecd,
+    ],
     image: "/images/articles/investing-ai-editorial.jpg",
     imageAlt: "A beginner using AI to organize an investment-research checklist",
-    evidenceStatus: "editorial-review",
-    searchEligible: false,
+    evidenceStatus: "verified",
+    originalityStatus: "individually-reviewed",
+    searchEligible: true,
     disclaimer: "This article is general education, not personalized investment, legal or tax advice. AI New Canada does not recommend securities. Consider a registered adviser for decisions that depend on your goals, finances and risk tolerance.",
     sections: [
       {
@@ -678,10 +740,16 @@ const beginnerInvestmentArticles: Article[] = [
     accent: "red",
     sourceLabel: "Canadian Investment Regulatory Organization",
     sourceUrl: "https://www.ciro.ca/office-investor/avoiding-fraud-and-protecting-your-investments/artificial-intelligence-ai-and-investment-fraud",
+    sources: [
+      { label: "CIRO: Artificial intelligence and investment fraud", url: "https://www.ciro.ca/office-investor/avoiding-fraud-and-protecting-your-investments/artificial-intelligence-ai-and-investment-fraud" },
+      { label: "CIRO: Investor alerts", url: "https://www.ciro.ca/office-investor/investor-alerts" },
+      { label: "Canadian Anti-Fraud Centre: Fraud trends in the first half of 2026", url: "https://antifraudcentre-centreantifraude.ca/features-vedette/2026/08/fraud-trends-tendances-matiere-fraude-eng.htm" },
+    ],
     image: "/images/articles/investing-ai-editorial.jpg",
     imageAlt: "An investor using a paper checklist to verify information produced by AI",
-    evidenceStatus: "editorial-review",
-    searchEligible: false,
+    evidenceStatus: "verified",
+    originalityStatus: "individually-reviewed",
+    searchEligible: true,
     disclaimer: "This article provides general fraud-prevention education. It is not investment or legal advice. If you believe money or account credentials are at risk, contact your financial institution and the appropriate authorities promptly.",
     sections: [
       {
@@ -767,8 +835,8 @@ export function getArticle(slug: string) {
   return articles.find((article) => article.slug === slug);
 }
 
-export function getRelatedArticles(article: Article, limit = 3) {
-  return articles
+export function getRelatedArticles(article: Article, limit = 3, candidates = articles) {
+  return candidates
     .filter((candidate) => candidate.slug !== article.slug)
     .sort((a, b) => Number(b.category === article.category) - Number(a.category === article.category))
     .slice(0, limit);
@@ -779,10 +847,11 @@ export function toArticleCardData(article: Article): ArticleCardData {
   return { slug, title, dek, category, date, displayDate, readTime, signal, image, imageAlt };
 }
 
-export function getAdjacentArticles(article: Article) {
-  const index = articles.findIndex((candidate) => candidate.slug === article.slug);
+export function getAdjacentArticles(article: Article, candidates = articles) {
+  const index = candidates.findIndex((candidate) => candidate.slug === article.slug);
+  const anchor = index >= 0 ? index : 0;
   return {
-    previous: articles[(index - 1 + articles.length) % articles.length],
-    next: articles[(index + 1) % articles.length],
+    previous: candidates[(anchor - 1 + candidates.length) % candidates.length],
+    next: candidates[(anchor + 1) % candidates.length],
   };
 }

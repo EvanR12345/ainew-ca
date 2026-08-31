@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { NewsletterBand, SiteFooter, SiteHeader } from "../components";
 import { ArticlesClient } from "./articles-client";
 import { articles, toArticleCardData } from "../lib/articles";
+import { searchEligibleArticles } from "../lib/search-quality";
 import { buildPageMetadata, breadcrumbSchema, SITE_URL, WEBSITE_ID } from "../lib/seo";
 import { StructuredData } from "../structured-data";
 
@@ -13,7 +14,9 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function ArticlesPage() {
-  const articleCards = articles.map(toArticleCardData);
+  const articleCards = [...searchEligibleArticles(articles)]
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .map(toArticleCardData);
 
   return (
     <div>

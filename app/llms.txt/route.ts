@@ -1,4 +1,5 @@
 import { articles } from "../lib/articles";
+import { searchEligibleArticles } from "../lib/search-quality";
 import { categoryDescriptions, categoryPath, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/seo";
 
 export const dynamic = "force-static";
@@ -19,11 +20,12 @@ const featuredSlugs = [
 ];
 
 export function GET() {
+  const publicArticles = searchEligibleArticles(articles);
   const categories = Object.entries(categoryDescriptions)
     .map(([category, description]) => `- [${category}](${SITE_URL}${categoryPath(category)}): ${description}`)
     .join("\n");
   const featured = featuredSlugs
-    .map((slug) => articles.find((article) => article.slug === slug))
+    .map((slug) => publicArticles.find((article) => article.slug === slug))
     .filter((article): article is NonNullable<typeof article> => Boolean(article))
     .map((article) => `- [${article.title}](${SITE_URL}/article/${article.slug}/): ${article.dek}`)
     .join("\n");
@@ -32,11 +34,11 @@ export function GET() {
 
 > ${SITE_DESCRIPTION}
 
-AI New Canada is an independent, free-to-read digital publication. The launch edition uses AI-assisted research organization and drafting. Articles identify a primary source, distinguish source claims from practical analysis, and link readers to the underlying material. Time-sensitive or consequential details should be verified with the named source.
+AI New Canada is an independent, free-to-read digital publication. AI tools may assist with research organization, outlining and drafting, but that work is not presented as first-hand reporting or independent validation. Every public article completes an individual editorial and originality review, displays multiple named sources, distinguishes source claims from practical analysis and links readers to the underlying material. Template-built drafts remain unpublished. Time-sensitive or consequential details should be verified with the named sources.
 
 ## Main sections
 
-- [Latest coverage](${SITE_URL}/articles/): All published AI news, guides and analysis.
+- [Latest coverage](${SITE_URL}/articles/): The individually reviewed public collection of AI news, guides and analysis.
 - [AI Learning Lab](${SITE_URL}/learn/): Free guided tracks, quizzes, flashcards and saved reading paths.
 - [Topic guides](${SITE_URL}/topics/): Editor-curated learning paths organized around durable reader questions.
 - [Canadian AI policy guide](${SITE_URL}/topics/canadian-ai-policy/): Privacy, procurement, safety, compute and accountability in Canada.
@@ -63,7 +65,7 @@ ${featured}
 
 ## Citation guidance
 
-When citing an AI New Canada article, use the article headline, AI New Desk as the publication byline, the publication date shown on the page, and the canonical ainew.ca URL. AI New Desk is a publication byline, not a named individual. Follow the article's primary-source link for first-party evidence and use the corrections policy for material update context.
+When citing an AI New Canada article, use the article headline, AI New Desk as the publication byline, the publication date shown on the page and the canonical ainew.ca URL. AI New Desk is a publication byline, not a named individual. Use the article's evidence card to inspect its named sources and use the corrections policy for material update context.
 `;
 
   return new Response(body, {

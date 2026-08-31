@@ -5,17 +5,21 @@ import { notFound } from "next/navigation";
 import { Fragment } from "react";
 import { articleImageStyle } from "../../article-image-style";
 import { AdSlot, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
-import { ArticleKnowledgeCheck, SaveArticleButton } from "../../learning-actions";
+import { SaveArticleButton } from "../../learning-actions";
 import { articles, getAdjacentArticles, getArticle, getRelatedArticles, toArticleCardData } from "../../lib/articles";
 import { absoluteUrl, AUTHOR_ID, breadcrumbSchema, categoryPath, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../lib/seo";
 import { topicForArticle } from "../../lib/topic-hubs";
-import { articleModifiedDate, isSearchEligibleArticle, SEARCH_REVIEW_DATE } from "../../lib/search-quality";
+import { articleModifiedDate, isSearchEligibleArticle, searchEligibleArticles, SEARCH_REVIEW_DATE } from "../../lib/search-quality";
 import { ArticleReadTracker, ReadingJourney, RelatedRecommendations } from "../../reading-history";
 import { StructuredData } from "../../structured-data";
 import { ArticleTools } from "../../article-tools";
 
+const publicArticles = searchEligibleArticles(articles);
+
+export const dynamicParams = false;
+
 export function generateStaticParams() {
-  return articles.map((article) => ({ slug: article.slug }));
+  return publicArticles.map((article) => ({ slug: article.slug }));
 }
 
 function searchTitle(title: string) {
@@ -29,7 +33,7 @@ function searchTitle(title: string) {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticle(slug);
-  if (!article) return { title: "Story not found | AI New Canada" };
+  if (!article || !isSearchEligibleArticle(article)) return { title: "Story not found | AI New Canada", robots: { index: false, follow: true } };
   const url = absoluteUrl(`/article/${article.slug}/`);
   const image = absoluteUrl(article.image);
   const modifiedTime = articleModifiedDate(article);
@@ -37,7 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${searchTitle(article.title)} | AI New Canada`,
     description: article.dek,
-    alternates: { canonical: url, languages: { "en-CA": url, "fr-CA": absoluteUrl(`/fr/article/${article.slug}/`), "x-default": url } },
+    alternates: { canonical: url, languages: { "en-CA": url, "x-default": url } },
     robots: { index, follow: true },
     authors: [{ name: "AI New Desk", url: `${SITE_URL}/authors/ai-new-desk/` }],
     openGraph: {
@@ -60,10 +64,6 @@ function sectionId(heading: string) {
   return heading.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
-function firstSentence(text: string) {
-  return text.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim() ?? text;
-}
-
 function wordCount(article: NonNullable<ReturnType<typeof getArticle>>) {
   const text = article.sections.flatMap((section) => [...section.paragraphs, ...(section.bullets ?? [])]).join(" ");
   return text.trim().split(/\s+/).filter(Boolean).length;
@@ -72,20 +72,11 @@ function wordCount(article: NonNullable<ReturnType<typeof getArticle>>) {
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = getArticle(slug);
-  if (!article) notFound();
+  if (!article || !isSearchEligibleArticle(article)) notFound();
   const sourceList = article.sources?.length ? article.sources : [{ label: article.sourceLabel, url: article.sourceUrl }];
-  const related = getRelatedArticles(article, 24).map(toArticleCardData);
-  const adjacent = getAdjacentArticles(article);
+  const related = getRelatedArticles(article, 24, publicArticles).map(toArticleCardData);
+  const adjacent = getAdjacentArticles(article, publicArticles);
   const sectionLinks = article.sections.map((section) => ({ id: sectionId(section.heading), heading: section.heading }));
-  const recap = [article.sections[0], article.sections[2], article.sections[5]]
-    .filter(Boolean)
-    .map((section) => firstSentence(section.paragraphs[0]));
-  const practicalTakeaway = firstSentence(article.sections[2]?.paragraphs[0] ?? article.sections[0].paragraphs[0]);
-  const knowledgeOptions = [
-    firstSentence(article.sections[1]?.paragraphs[0] ?? article.sections[0].paragraphs[1]),
-    practicalTakeaway,
-    firstSentence(article.sections[4]?.paragraphs[0] ?? article.sections[0].paragraphs[0]),
-  ];
   const topicHub = topicForArticle(article);
   const modifiedTime = articleModifiedDate(article);
   const indexEligible = isSearchEligibleArticle(article);
@@ -105,7 +96,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               { name: article.title, path: `/article/${article.slug}/` },
             ]),
             {
-              "@type": "NewsArticle",
+              "@type": article.slug === "canada-ai-transparency-consultation-what-to-know" ? "NewsArticle" : "Article",
               "@id": `${absoluteUrl(`/article/${article.slug}/`)}#article`,
               url: absoluteUrl(`/article/${article.slug}/`),
               headline: article.title,
@@ -243,22 +234,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   </ul>
                 </nav>
               ) : null}
-
-              <aside className="learningRecap" aria-labelledby="learning-recap-title">
-                <span className="eyebrow">LOCK IN THE SIGNAL</span>
-                <h2 id="learning-recap-title">Three ideas to take with you.</h2>
-                <ol>{recap.map((takeaway) => <li key={takeaway}>{takeaway}</li>)}</ol>
-                <ArticleKnowledgeCheck
-                  articleSlug={article.slug}
-                  question="Which statement best matches this article’s practical recommendation?"
-                  options={knowledgeOptions}
-                  correctIndex={1}
-                  explanation={`The practical section’s core move is: ${practicalTakeaway}`}
-                />
-                <Link href={`/article/${adjacent.next.slug}`}>
-                  Build on this: <strong>{adjacent.next.title}</strong> →
-                </Link>
-              </aside>
 
               <div className="sourceCard">
                 <span className="eyebrow">{indexEligible ? "EVIDENCE & FURTHER READING" : "BACKGROUND & REVIEW STATUS"}</span>

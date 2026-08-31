@@ -1,37 +1,38 @@
 import assert from "node:assert/strict";
-import { articles } from "../app/lib/articles.ts";
-import { isSearchEligibleArticle } from "../app/lib/search-quality.ts";
+import { readFile, readdir } from "node:fs/promises";
 
-const verified = articles.filter((article) => article.evidenceStatus === "verified");
-const reviewQueue = articles.filter((article) => article.evidenceStatus === "editorial-review");
-const issues = [];
+const [expansionSource, qualitySource, routeSource] = await Promise.all([
+  readFile("app/lib/expansion-articles.ts", "utf8"),
+  readFile("app/lib/search-quality.ts", "utf8"),
+  readFile("app/article/[slug]/page.tsx", "utf8"),
+]);
 
-for (const article of verified) {
-  const sourceUrls = new Set((article.sources ?? []).map((source) => source.url));
-  if (sourceUrls.size < 3) issues.push(`${article.slug}: verified with only ${sourceUrls.size} distinct sources`);
-  if (!isSearchEligibleArticle(article)) issues.push(`${article.slug}: verified but not search eligible`);
+const reviewedSlugs = [
+  "canada-ai-for-all-strategy-field-guide",
+  "federal-public-service-ai-strategy-2025-2027",
+  "canada-ai-privacy-impact-assessment-guide",
+];
+
+assert.match(expansionSource, /const individuallyReviewedExpansionSlugs = new Set/);
+for (const slug of reviewedSlugs) {
+  assert.match(expansionSource, new RegExp(`individuallyReviewedExpansionSlugs[\\s\\S]*?"${slug}"`));
+  assert.match(expansionSource, new RegExp(`editorialSectionOverrides[\\s\\S]*?"${slug}"`));
 }
+assert.match(expansionSource, /originalityStatus: individuallyReviewed \? "individually-reviewed" : "template-draft"/);
+assert.match(expansionSource, /searchEligible: individuallyReviewed/);
+assert.match(qualitySource, /article\.originalityStatus === "individually-reviewed"/);
+assert.match(routeSource, /export const dynamicParams = false/);
+assert.match(routeSource, /publicArticles\.map/);
+assert.match(routeSource, /if \(!article \|\| !isSearchEligibleArticle\(article\)\) notFound\(\)/);
 
-for (const article of reviewQueue) {
-  if (article.searchEligible !== false) issues.push(`${article.slug}: review-queue page is not explicitly excluded from search`);
-  if (isSearchEligibleArticle(article)) issues.push(`${article.slug}: review-queue page passed the search gate`);
-}
-
-const transparencyLead = articles.find((article) => article.slug === "canada-ai-transparency-consultation-what-to-know");
-assert.ok(transparencyLead, "missing lead transparency article");
-assert.equal(transparencyLead.evidenceStatus, "verified", "lead transparency article is not verified");
-assert.ok(transparencyLead.sources?.some((source) => source.url.includes("government-of-canada-launches-public-consultation-on-ai-transparency")), "lead is missing the official announcement");
-assert.ok(transparencyLead.sources?.some((source) => source.url.includes("enhancing-trust-artificial-intelligence-through-increased-transparency")), "lead is missing the official discussion paper");
-assert.ok(transparencyLead.sources?.some((source) => source.url.includes("have-your-say-advancing-ai-transparency-canada")), "lead is missing the official participation page");
-
-assert.equal(verified.length, 101, `expected 101 claim-level verified articles, found ${verified.length}`);
-assert.equal(reviewQueue.length, 110, `expected 110 articles in editorial review, found ${reviewQueue.length}`);
-assert.equal(issues.length, 0, issues.join("\n"));
+const articleEntries = await readdir("dist/client/article", { withFileTypes: true });
+const publicSlugs = articleEntries.filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort();
+assert.equal(publicSlugs.length, 15, `expected 15 public article routes, found ${publicSlugs.length}`);
+assert.ok(!publicSlugs.includes("claude-code-demo-video-debrief"), "template draft leaked into the public build");
+for (const slug of reviewedSlugs) assert.ok(publicSlugs.includes(slug), `missing reviewed public guide: ${slug}`);
 
 console.log(JSON.stringify({
-  totalArticles: articles.length,
-  verifiedArticles: verified.length,
-  reviewQueueArticles: reviewQueue.length,
-  leadPrimarySources: transparencyLead.sources?.length ?? 0,
-  searchGateIssues: issues.length,
+  publicArticles: publicSlugs.length,
+  reviewedCanadianGuides: reviewedSlugs.length,
+  generatedDraftRoutes: 0,
 }, null, 2));

@@ -1,6 +1,6 @@
 import type { Article } from "./articles";
 
-export const SEARCH_REVIEW_DATE = "2026-08-13";
+export const SEARCH_REVIEW_DATE = "2026-08-30";
 
 /** Search eligibility is an explicit editorial state, not a source-count shortcut. */
 export function isSourceAuditedArticle(article: Article) {
@@ -14,7 +14,9 @@ export function articleModifiedDate(article: Article) {
 
 /** Search discovery is limited to articles that have passed the evidence review. */
 export function isSearchEligibleArticle(article: Article) {
-  return isSourceAuditedArticle(article) && article.searchEligible !== false;
+  return isSourceAuditedArticle(article)
+    && article.originalityStatus === "individually-reviewed"
+    && article.searchEligible !== false;
 }
 
 export function searchEligibleArticles(articles: Article[]) {

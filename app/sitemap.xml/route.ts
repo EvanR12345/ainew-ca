@@ -23,9 +23,7 @@ function escapeXml(value: string) {
 export function sitemapEntries(): SitemapEntry[] {
   const routeDates: Record<string, string> = {
     "/": SEARCH_REVIEW_DATE,
-    "/fr/": "2026-08-14",
     "/articles/": SEARCH_REVIEW_DATE,
-    "/ai-signal/": SEARCH_REVIEW_DATE,
     "/learn/": "2026-08-11",
     "/topics/": SEARCH_REVIEW_DATE,
     "/topics/canadian-ai-policy/": SEARCH_REVIEW_DATE,
@@ -46,13 +44,17 @@ export function sitemapEntries(): SitemapEntry[] {
     lastModified,
   }));
   const eligibleArticles = searchEligibleArticles(articles);
-  const categoryRoutes = categories.filter((category) => category !== "All").map((category) => ({
-    url: absoluteUrl(categoryPath(category)),
-    lastModified: new Date(Math.max(...eligibleArticles
+  const categoryRoutes = categories.filter((category) => category !== "All").map((category) => {
+    const articleDates = eligibleArticles
       .filter((article) => article.category === category)
-      .map((article) => new Date(articleModifiedDate(article)).getTime())))
-      .toISOString().slice(0, 10),
-  }));
+      .map((article) => new Date(articleModifiedDate(article)).getTime());
+    return {
+      url: absoluteUrl(categoryPath(category)),
+      lastModified: articleDates.length
+        ? new Date(Math.max(...articleDates)).toISOString().slice(0, 10)
+        : SEARCH_REVIEW_DATE,
+    };
+  });
   const storyRoutes = eligibleArticles.map((article) => ({
     url: absoluteUrl(`/article/${article.slug}/`),
     lastModified: articleModifiedDate(article),

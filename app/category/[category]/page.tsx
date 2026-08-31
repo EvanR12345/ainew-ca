@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import { notFound } from "next/navigation";
 import { AdSlot, ArticleCard, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
 import { articles, categories } from "../../lib/articles";
+import { searchEligibleArticles } from "../../lib/search-quality";
 import { absoluteUrl, breadcrumbSchema, buildPageMetadata, categoryDescriptions, categoryPath, SITE_URL, WEBSITE_ID } from "../../lib/seo";
 import { StructuredData } from "../../structured-data";
 
@@ -38,7 +39,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   const { category: slug } = await params;
   const category = categoryName(slug);
   if (!category) notFound();
-  const categoryArticles = articles.filter((article) => article.category === category);
+  const categoryArticles = searchEligibleArticles(articles)
+    .filter((article) => article.category === category)
+    .sort((a, b) => b.date.localeCompare(a.date));
 
   return (
     <div>

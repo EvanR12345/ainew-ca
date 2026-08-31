@@ -14,7 +14,7 @@ function escapeXml(value: string) {
 }
 
 export function GET() {
-  const eligibleArticles = searchEligibleArticles(articles);
+  const eligibleArticles = [...searchEligibleArticles(articles)].sort((a, b) => b.date.localeCompare(a.date));
   const items = eligibleArticles.slice(0, 50).map((article) => {
     const url = absoluteUrl(`/article/${article.slug}/`);
     return `

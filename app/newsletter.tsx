@@ -3,11 +3,11 @@ import Link from "next/link";
 export function Newsletter() {
   return (
     <div className="newsletterPreview">
-      <span>EMAIL EDITION / COMING SOON</span>
-      <strong>No fake signup: delivery is being connected.</strong>
-      <p>Until then, use the free Learning Lab to build a saved reading path, quizzes and practical AI skills.</p>
-      <Link href="/learn/">Start learning free →</Link>
-      <small>No email address is collected on this launch edition.</small>
+      <span>FREE LEARNING LAB</span>
+      <strong>Build a source-led reading path.</strong>
+      <p>Choose a focused track, save useful articles and check what you understood with practical questions and flashcards.</p>
+      <Link href="/learn/">Open the Learning Lab →</Link>
+      <small>No signup. Learning progress stays in this browser.</small>
     </div>
   );
 }

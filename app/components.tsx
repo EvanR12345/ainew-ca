@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { Newsletter } from "./newsletter";
-import { AdsterraBanner, AdsterraNative, AdsterraResponsiveBanner } from "./adsterra";
 import { categoryPath } from "./lib/seo";
-import { SITE_FEATURES } from "./lib/site-features";
 import { LanguageSwitch } from "./language-preference";
 import { PrimaryNavigationController } from "./primary-navigation";
 
@@ -71,7 +69,6 @@ export function SiteHeader() {
               </div>
             </details>
             <Link href={categoryPath("Canada")}>Canada</Link>
-            <Link className="navSignal" href="/ai-signal/">AI Signal</Link>
             <Link href="/topics/">Topic guides</Link>
             <details className="navMore navMega navLearnMenu" name="desktop-navigation">
               <summary>Learn</summary>
@@ -117,7 +114,6 @@ export function SiteHeader() {
               </section>
               <section>
                 <span>AI New</span>
-                <Link href="/ai-signal/">AI Signal live map</Link>
                 <Link href="/canada-ai-resources/">Canada tracker</Link>
                 <Link href="/search/">Search</Link>
                 <Link href="/about/">About</Link>
@@ -158,7 +154,6 @@ export function SiteFooter() {
           <Link href="/topics/">Topic guides</Link>
           <Link href="/topics/using-ai/">How to use AI</Link>
           <Link href="/ai-glossary/">AI glossary</Link>
-          <Link href="/ai-signal/">AI Signal live map</Link>
           <Link href="/canada-ai-resources/">Canada AI tracker</Link>
           <Link href="/search/">Search</Link>
         </div>
@@ -181,42 +176,27 @@ export function SiteFooter() {
   );
 }
 
-export function AdSlot({
-  format = "leaderboard",
-  label = "Advertisement",
-  eager = false,
-}: {
+export function AdSlot(_props: {
   format?: "leaderboard" | "rectangle" | "in-feed";
   label?: string;
   eager?: boolean;
 }) {
-  if (!SITE_FEATURES.ads) return null;
-  const placement = `${format}-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
-  return (
-    <div className={`adPlacement adPlacement-${format}`} data-ad-format={format}>
-      {format === "leaderboard" && <AdsterraResponsiveBanner desktopSize="728x90" mobileSize="320x50" placement={placement} eager={eager} />}
-      {format === "rectangle" && <AdsterraBanner size="300x250" placement={placement} eager={eager} />}
-      {format === "in-feed" && <AdsterraResponsiveBanner desktopSize="468x60" mobileSize="160x300" placement={placement} />}
-    </div>
-  );
+  void _props;
+  return null;
 }
 
-export function NativeAd({ placement }: { placement: string }) {
-  if (!SITE_FEATURES.ads) return null;
-  return (
-    <div className="nativePlacement">
-      <AdsterraNative placement={placement} />
-    </div>
-  );
+export function NativeAd(_props: { placement: string }) {
+  void _props;
+  return null;
 }
 
 export function NewsletterBand() {
   return (
     <section className="newsletterBand" id="newsletter">
       <div>
-        <span className="eyebrow lightEyebrow">THE AI NEW BRIEFING</span>
+        <span className="eyebrow lightEyebrow">THE AI NEW LEARNING LAB</span>
         <h2>Turn today’s AI story into knowledge you can use.</h2>
-        <p>The email edition is coming later. The free Learning Lab is available now, with guided tracks and practical checks.</p>
+        <p>Follow guided tracks, save a focused reading path and test what you understood. Progress stays in this browser.</p>
       </div>
       <Newsletter />
     </section>

@@ -1,4 +1,4 @@
-import type { Article, ArticleSource, ArticleVideo } from "./articles";
+import type { Article, ArticleSection, ArticleSource, ArticleVideo } from "./articles";
 import { SITE_FEATURES } from "./site-features";
 
 type ArticleFormat = "field-guide" | "explainer" | "research-brief" | "video-recap" | "policy-analysis" | "operator-playbook";
@@ -2260,6 +2260,252 @@ function buildSections(seed: ExpansionSeed) {
   ];
 }
 
+const individuallyReviewedExpansionSlugs = new Set([
+  "canada-ai-for-all-strategy-field-guide",
+  "federal-public-service-ai-strategy-2025-2027",
+  "canada-ai-privacy-impact-assessment-guide",
+]);
+
+const coreInternalLinks: Record<string, Array<{ slug: string; title: string }>> = {
+  "canada-ai-for-all-strategy-field-guide": [
+    { slug: "federal-public-service-ai-strategy-2025-2027", title: "Inside Canada's Federal Public-Service AI Strategy" },
+    { slug: "canada-ai-privacy-impact-assessment-guide", title: "Privacy Impact Assessments for AI: A Canadian Working Guide" },
+    { slug: "canada-ai-transparency-consultation-what-to-know", title: "Canada wants clearer AI disclosures. Here is what useful transparency looks like." },
+  ],
+  "federal-public-service-ai-strategy-2025-2027": [
+    { slug: "canada-ai-for-all-strategy-field-guide", title: "Canada's AI for All Strategy: A Field Guide to the Six Pillars" },
+    { slug: "canada-ai-privacy-impact-assessment-guide", title: "Privacy Impact Assessments for AI: A Canadian Working Guide" },
+    { slug: "how-to-use-ai-agents-safely", title: "How to Use an AI Agent Without Handing It the Keys" },
+  ],
+  "canada-ai-privacy-impact-assessment-guide": [
+    { slug: "federal-public-service-ai-strategy-2025-2027", title: "Inside Canada's Federal Public-Service AI Strategy" },
+    { slug: "canada-ai-for-all-strategy-field-guide", title: "Canada's AI for All Strategy: A Field Guide to the Six Pillars" },
+    { slug: "how-to-use-ai-with-sensitive-files", title: "How to Use AI With Sensitive Files Without Losing Control" },
+  ],
+};
+
+const editorialSectionOverrides: Record<string, ArticleSection[]> = {
+  "canada-ai-for-all-strategy-field-guide": [
+    {
+      heading: "The strategy in one sentence",
+      paragraphs: [
+        "Canada's AI for All strategy is a national policy frame built around three priorities: public trust, economic opportunity and Canadian sovereignty. The federal launch release then divides that frame into six pillars covering protection and democracy, public capability, shared prosperity, sovereign foundations, company growth and international partnerships. That structure matters because it connects rules, skills, infrastructure and markets instead of treating AI policy as a single technology program.",
+        "The release is still a statement of direction. It names objectives but does not, on its own, establish program budgets, eligibility rules, delivery dates or measured outcomes for every commitment. The useful way to read it is as a map of future decisions. Each subsequent announcement should be tied to a pillar, a responsible department, a funded action and a result that people outside government can verify.",
+      ],
+    },
+    {
+      heading: "Pillars one and two: trust must become usable protection",
+      paragraphs: [
+        "The first pillar promises stronger privacy, online safety, AI-safety capacity and security for government systems. The second focuses on education, training, Canadian culture and preparation for changing work. Together they make a practical claim: people are more likely to use AI when they understand it and have meaningful protection when something goes wrong.",
+        "The test is not the number of principles published. Look for plain notices when AI materially shapes a service, routes to human review, incident reporting, bilingual access and training that reaches workers before their jobs change. A safeguard that exists only in a policy document is not yet a safeguard experienced by a resident, employee or small business.",
+      ],
+      bullets: [
+        "Track whether privacy and safety commitments become dated legislative, regulatory or operational actions.",
+        "Check whether training includes verification, data handling and limits, not only prompt-writing.",
+        "Look for access outside major technology hubs and in both official languages.",
+      ],
+    },
+    {
+      heading: "Pillar three: shared prosperity needs a baseline",
+      paragraphs: [
+        "The shared-prosperity pillar links small and medium-sized business adoption, industrial uses and better public services. This is where broad enthusiasm must meet measurement. Adoption is not automatically productivity, and a purchased licence is not a business outcome. A credible program should identify the workflow being changed, the current cost or delay, the people affected and the evidence that would justify expansion.",
+        "For small firms, implementation help may matter as much as access to a model. Data preparation, integration, staff time, privacy review and error handling can overwhelm a pilot that looked inexpensive in a demonstration. Public reporting should therefore distinguish companies reached, projects completed, tools still in use and outcomes sustained after support ends.",
+      ],
+    },
+    {
+      heading: "Pillars four and five: sovereignty is access plus staying power",
+      paragraphs: [
+        "The sovereign-foundation pillar covers domestic compute, research and talent. The Canadian-champions pillar adds growth capital and the federal government as a possible anchor customer. Read together, they address a familiar gap: Canada can produce research and early companies while later-stage infrastructure, financing and buyers are concentrated elsewhere.",
+        "A data centre located in Canada is not sufficient evidence of sovereignty. Readers should ask who controls scheduling, which organizations can afford access, where critical software and support come from, and whether public-interest researchers and smaller companies receive usable capacity. Likewise, an anchor-customer promise becomes meaningful only when procurement produces reference deployments without weakening evidence, security or exit requirements.",
+      ],
+      bullets: [
+        "Separate announced compute from installed, available and affordable compute.",
+        "Track Canadian ownership, operating expertise and dependency on foreign platforms separately.",
+        "Measure whether procurement creates repeat customers, not only pilot announcements.",
+      ],
+    },
+    {
+      heading: "Pillar six: partnerships should preserve Canadian choices",
+      paragraphs: [
+        "The final pillar places standards, co-investment, market access and democratic alliances in the same frame. That is a recognition that no national AI ecosystem is self-contained. Chips, cloud services, research, security information and markets cross borders even when a government wants greater domestic control.",
+        "The policy question is therefore not partnership versus sovereignty. It is whether an agreement expands Canadian capability while preserving meaningful choices about data, procurement, safety and market access. Useful reporting should identify what Canada contributes, what it receives, which obligations follow and whether domestic firms and public institutions can switch suppliers when conditions change.",
+      ],
+    },
+    {
+      heading: "A public scorecard for the next announcements",
+      paragraphs: [
+        "A simple scorecard can keep the six-pillar structure from becoming a label attached to unrelated spending. For every program, record the pillar, responsible organization, budget status, opening date, eligible users, geographic reach, success measure and next public update. Add one line for the main risk and one for the route available to people affected by the program.",
+        "This method also exposes gaps. A pillar with many announcements but no delivery measure deserves different scrutiny from a program with a small budget and clear outcomes. Because the federal release says collaboration with provinces, territories, Indigenous partners, industry and the public is necessary, the scorecard should note who participated in design and whether their feedback changed the result.",
+      ],
+      bullets: [
+        "What is funded now, and what remains an intention?",
+        "Who can access the program, and who is likely to be excluded?",
+        "What result will be reported publicly, by what date, and by whom?",
+        "What evidence would cause the program to be revised or stopped?",
+      ],
+    },
+    {
+      heading: "The distribution test: who can use what gets built?",
+      paragraphs: [
+        "The phrase AI for All sets a higher standard than aggregate growth. A program can increase national adoption while concentrating usable tools, infrastructure and expertise in a few large organizations or regions. Each implementation update should therefore separate national totals from distribution: participation by province and territory, organization size, language, sector, community and the type of support participants actually received.",
+        "Access also has several layers. A training session is not the same as time to practise with an approved tool. A compute allocation is not useful without data, engineering support and a predictable queue. A public service is not inclusive if the automated route is difficult to challenge or the human route becomes slower. Reporting should follow those differences rather than counting every contact as the same benefit.",
+        "The strongest evidence will connect resources to outcomes over time. For a small-business program, that might mean a workflow still in use, documented quality gains and staff who can operate it after external support ends. For skills, it might mean changed work and mobility rather than course enrolment alone. For public services, it should include accessibility, error, recourse and client experience alongside speed. Those measures would make the strategy's universal promise inspectable instead of rhetorical.",
+      ],
+    },
+    {
+      heading: "What the evidence supports today",
+      paragraphs: [
+        "The primary source supports a clear conclusion about government direction: AI for All links adoption to trust, opportunity and sovereignty, then organizes delivery around six named pillars. It does not yet prove that the promised benefits will be evenly distributed or that implementation will survive budget, procurement and coordination constraints.",
+        "The right response is neither dismissal nor automatic endorsement. Use the strategy as a stable set of questions for the announcements that follow. Credit measurable progress, identify missing owners or outcomes, and keep the people expected to benefit at the centre of the assessment.",
+      ],
+    },
+  ],
+  "federal-public-service-ai-strategy-2025-2027": [
+    {
+      heading: "Why this is an operating strategy, not a model list",
+      paragraphs: [
+        "The federal public-service AI strategy covers the complete lifecycle of adaptive AI used by departments, including systems built internally, bought from vendors or supplied through contractors. Its four priority areas are central capacity; policy, legislation and governance; talent and training; and engagement, transparency and value to Canadians. The strongest part of that structure is its focus on the conditions around a system rather than a preferred model brand.",
+        "That distinction matters in government. A model can change while the department remains accountable for the service, the records it creates and the effect on a person. A durable implementation plan therefore needs named decision rights, information classifications, testing, public explanation, recourse and an exit path that survive a vendor or version change.",
+      ],
+    },
+    {
+      heading: "Priority one: make shared capacity reduce repeated mistakes",
+      paragraphs: [
+        "The strategy proposes central expertise, common infrastructure and reusable support for departments deciding whether and how to adopt AI. The full text describes project guidance, data readiness, procurement help, assessments, knowledge sharing and monitoring. Done well, this can prevent many teams from solving the same governance problem separately while making approved tools easier to use safely.",
+        "Centralization also creates a risk: a template can become a substitute for understanding the local service. The central team should provide methods and challenge assumptions, while the department that owns the program remains responsible for its users, data and outcomes. Reuse is valuable when evidence travels with the component, including its tested conditions and known failure modes.",
+      ],
+      bullets: [
+        "Publish reusable evaluation methods and decision records, not only approved-product lists.",
+        "Record which controls are central and which remain the department's responsibility.",
+        "Measure whether shared services reduce delivery time without weakening review quality.",
+      ],
+    },
+    {
+      heading: "Priority two: governance must change what teams do",
+      paragraphs: [
+        "The strategy calls for common governance and risk-management frameworks across the AI lifecycle. It identifies privacy, security, bias, explainability, environmental impact and human involvement, while also naming Canadian requirements such as bilingual service and Indigenous Data Sovereignty. Those are not documentation topics alone. Each should affect design choices, test cases, procurement terms and deployment boundaries.",
+        "The most revealing governance artifact is a decision log. It should show the proposed use, risk classification, people consulted, evidence reviewed, conditions imposed, accountable owner and the result that would trigger reassessment. If a review produces no change to scope, data, monitoring or user recourse, the process may be ceremonial rather than protective.",
+      ],
+    },
+    {
+      heading: "Priority three: train for judgment, not just tool use",
+      paragraphs: [
+        "The talent priority includes general literacy, role-specific training, workforce benchmarking and recruitment. This matches the reality that an AI-enabled service needs more than data scientists. Program owners, privacy specialists, procurement officers, security teams, frontline staff and executives all make decisions that affect safety and usefulness.",
+        "Training should be tested against work. A learner should be able to identify information that cannot enter a public tool, challenge an unsupported output, document significant AI assistance and escalate an incident. For managers, the test is whether they can distinguish a low-risk drafting aid from a system that informs an administrative decision and therefore activates stronger obligations.",
+      ],
+      bullets: [
+        "Give staff protected time to practise with approved tools and representative tasks.",
+        "Use role-based scenarios involving privacy, bias, records and public communication.",
+        "Measure changed decisions and reduced errors, not course completion alone.",
+      ],
+    },
+    {
+      heading: "Priority four: value has to be visible to Canadians",
+      paragraphs: [
+        "Engagement and transparency are the bridge between internal efficiency and public legitimacy. Faster processing may be valuable, but speed does not compensate for an outcome that is harder to understand or challenge. Before deployment, a team should state what improves for the client, which humans retain authority and how a person reaches meaningful review.",
+        "The official generative-AI guide reinforces this point through its FASTER principles: fair, accountable, secure, transparent, educated and relevant. It also distinguishes routine drafting from higher-risk public or administrative uses. A department should make that risk distinction visible in its controls rather than applying the same approval to every chatbot, summary tool and decision-support system.",
+      ],
+    },
+    {
+      heading: "A departmental implementation brief",
+      paragraphs: [
+        "A useful implementation brief can fit on two pages before technical design expands. Page one defines the service problem, current baseline, affected groups, intended role of AI and reasons a non-AI option is insufficient. Page two maps data, model access, human review, testing, records, monitoring, incidents, recourse and shutdown. Every box needs an owner and evidence.",
+        "Start with a bounded use where mistakes can be caught before they affect a right, benefit or enforcement decision. Use representative English and French material, include accessibility needs and test the complete workflow under ordinary workload. The pilot should have a fixed review date and a real stop decision, not an assumption that any working prototype proceeds to production.",
+      ],
+      bullets: [
+        "Define the outcome and baseline before selecting a product.",
+        "Trace one difficult case through automation, human review and recourse.",
+        "Retest after changes to the model, prompt, retrieval source, vendor or purpose.",
+        "Publish an explanation proportionate to the effect on the public.",
+      ],
+    },
+    {
+      heading: "Human oversight needs decision rights",
+      paragraphs: [
+        "The phrase human in the loop is too vague for a public service. The implementation brief should name which person reviews the output, what evidence they can inspect, how much time they receive and whether they can change or reject the recommendation without penalty. It should also identify the official who owns the final outcome when an automated component and a human reviewer disagree.",
+        "Different uses need different oversight. A drafting assistant may require the author to verify and approve the final text. A tool that summarizes a client file may need source-linked output, a record of what the officer saw and a way to recover omitted context. A system that informs an administrative decision can trigger the Directive on Automated Decision-Making and stronger requirements for assessment, explanation, quality assurance and recourse. One generic approval control cannot cover all three.",
+        "Oversight should also be measured. Track reversals, corrections, escalations, review time and cases where staff accepted an output despite weak evidence. Interview reviewers about automation pressure and whether targets make disagreement realistic. If the human step routinely catches serious errors, that is evidence to improve or narrow the system, not proof that the current design is safe because someone eventually intervened.",
+      ],
+    },
+    {
+      heading: "The quarterly test of progress",
+      paragraphs: [
+        "The strategy says implementation will be reviewed frequently and reported through a quarterly tracker. That creates a useful accountability point. The tracker should show more than activity counts. It should connect shared capacity, updated governance, trained roles and deployed services to measurable changes in service quality, staff workload, errors, complaints and public access.",
+        "The evidence available today establishes a serious operating framework, not a completed transformation. The next judgment belongs to implementation: whether departments publish enough evidence to show that common capacity and faster adoption improve services while preserving human rights, security, privacy and meaningful public recourse.",
+      ],
+    },
+  ],
+  "canada-ai-privacy-impact-assessment-guide": [
+    {
+      heading: "Start with the information flow, not the privacy form",
+      paragraphs: [
+        "An AI privacy assessment should begin with a diagram of what actually moves through the system. Include the original record, prompt, retrieval documents, model input, output, safety filters, operational logs, human review, support access, backups and deletion. This catches a common mistake: assessing the source dataset while ignoring the new personal information created by an inference, score or summary.",
+        "Canada's federal generative-AI guide explicitly notes that an AI-generated risk level or client summary can itself be personal information. It also says privacy officials should be consulted while institutions are considering procurement, development or deployment. The design implication is simple: complete the assessment while data routes and vendor terms can still change.",
+      ],
+    },
+    {
+      heading: "Inventory four kinds of data",
+      paragraphs: [
+        "Separate supplied data, retrieved data, inferred data and operational data. Supplied data is what a person or employee enters. Retrieved data comes from connected files or databases. Inferred data is what the model creates about a person. Operational data includes prompts, outputs, identifiers, feedback, security records and support logs. Each category can have different authority, sensitivity, retention and access rules.",
+        "Do not assume that removing a name makes a record anonymous. Context, uncommon attributes and linked sources can make a person identifiable. Use realistic examples in the assessment, including difficult records and free-text fields, then document which information is prohibited, minimized, masked or allowed only in an approved environment.",
+      ],
+      bullets: [
+        "Name the legal or operational authority for each collection, use and disclosure.",
+        "Record where data is stored, copied and backed up, including vendor subprocessors.",
+        "Treat model-created summaries, classifications and risk signals as new records to assess.",
+      ],
+    },
+    {
+      heading: "Ask the vendor questions the architecture cannot answer",
+      paragraphs: [
+        "A statement that prompts are not used for training answers only one question. The assessment should also cover retention, region, encryption, administrator access, support access, subprocessors, abuse monitoring, model improvement, deletion, incident notice and export. Ask which terms apply to the exact product tier and configuration you will use.",
+        "Convert important promises into configuration evidence or contract terms. Test access controls with different roles. Submit and delete a representative record. Confirm whether logs, indexes, caches and backups follow the same deletion path. Record what changes if an optional feature, connector or model is enabled later.",
+      ],
+    },
+    {
+      heading: "Map purpose before capability expands",
+      paragraphs: [
+        "AI pilots often begin with one narrow purpose and gain features because the underlying tool can do more. Purpose limitation is the brake on that drift. Write the permitted use in concrete terms, identify prohibited secondary uses and require review before connecting another dataset, user group or automated action.",
+        "The federal guide recommends low-risk experimentation before higher-risk service-delivery uses. That progression should not be automatic. Moving from drafting internal text to summarizing a client's file or influencing eligibility changes the privacy and procedural stakes. Treat it as a new decision with a fresh assessment, not a feature toggle.",
+      ],
+    },
+    {
+      heading: "Test people’s rights as system functions",
+      paragraphs: [
+        "Access, correction, explanation and deletion should be tested end to end. Can a team find every relevant input, prompt, output and decision record for one person? Can it correct the source and prevent a stale inference from continuing to circulate? Can staff explain the system's role without exposing another person's data or relying on an unreadable vendor description?",
+        "Human review needs authority and time. A reviewer who cannot see the evidence, change the outcome or stop the workflow is not an effective control. The assessment should identify who responds to a privacy request, who investigates an incident and who decides whether the system can continue operating.",
+      ],
+      bullets: [
+        "Run a mock access request against prompts, outputs, logs, indexes and backups.",
+        "Test correction when an inference was based on accurate data but produced a misleading result.",
+        "Verify that a human can pause processing and provide a usable alternative route.",
+      ],
+    },
+    {
+      heading: "Build monitoring around the data lifecycle",
+      paragraphs: [
+        "A privacy assessment is not complete at launch. Models, connectors, terms and user behaviour change. Monitor for prohibited data in prompts, unexpected retrieval, access anomalies, retention failures and new inferences. Preserve enough evidence to investigate without turning monitoring itself into an unnecessary store of sensitive information.",
+        "Set review triggers in advance: a new model, vendor, data source, purpose, affected group, automated action or material incident. Add a scheduled review even when none of those occurs. The result should be a versioned record showing what changed, what evidence was examined and which controls were strengthened or retired.",
+      ],
+    },
+    {
+      heading: "Worked example: a retrieval assistant for client files",
+      paragraphs: [
+        "Consider an internal assistant that retrieves passages from a client's case file and drafts a summary for an employee. The stated purpose may be faster preparation, but the data map is broader than the final paragraph. It includes the query, retrieved passages, access-control decision, model input, draft, citations, edits, final record, security logs and any feedback used to improve the service.",
+        "The assessment should first ask whether every user is authorized to retrieve every connected record. Retrieval must enforce the source system's permissions before information reaches the model. The draft should point back to the passages it used so the employee can identify omissions and contradictions. Sensitive prompts and outputs need approved storage, retention and support-access rules. If the model creates a new characterization of the client, that inference must be handled as information about the person rather than discarded as temporary machine text.",
+        "Then test an ordinary file and a difficult one: outdated information, two people with similar names, conflicting records, a correction request and a document outside the employee's access. Observe the complete workflow, including what happens when retrieval fails. Approval should depend on evidence that unauthorized material stays hidden, material facts remain traceable, corrections propagate and the employee can finish the work through a usable non-AI route. The example turns broad privacy principles into functions a team can demonstrate before launch.",
+      ],
+    },
+    {
+      heading: "A decision checklist before approval",
+      paragraphs: [
+        "Approval should answer five questions with evidence: Is the purpose necessary and specific? Is each data flow authorized and minimized? Are vendor and internal controls tested? Can people exercise their rights? Is there an owner for monitoring, incidents and shutdown? An unresolved high-impact question should narrow or pause the use, not disappear into a generic risk register.",
+        "This guide is a practical reading of public privacy and federal AI guidance, not legal advice. Canadian obligations vary by sector, province and institution. Use the linked primary sources, involve the appropriate privacy and legal specialists, and document why the selected design is proportionate to the real service need.",
+      ],
+    },
+  ],
+};
+
 const heldForLater = new Set([
   "canadian-ai-copyright-creator-checklist",
   "canada-ai-job-transition-local-playbook",
@@ -2281,7 +2527,12 @@ const publishedExpansionSeeds = SITE_FEATURES.secondWaveGuides
 const seedTitles = new Map(expansionSeeds.map((seed) => [seed.slug, seed.title]));
 
 export const expansionArticles: Article[] = publishedExpansionSeeds.map((seed, index) => {
-  const published = heldForLater.has(seed.slug) ? secondWavePublicationDate() : publicationDate(index);
+  const individuallyReviewed = individuallyReviewedExpansionSlugs.has(seed.slug);
+  const published = individuallyReviewed
+    ? { date: "2026-08-30", displayDate: "August 30, 2026" }
+    : heldForLater.has(seed.slug)
+      ? secondWavePublicationDate()
+      : publicationDate(index);
   const sources = seed.sourceKeys.map((key) => sourceLibrary[key]);
   return {
     slug: seed.slug,
@@ -2290,21 +2541,23 @@ export const expansionArticles: Article[] = publishedExpansionSeeds.map((seed, i
     category: seed.category,
     date: published.date,
     displayDate: published.displayDate,
-    readTime: "12 min read",
+    readTime: individuallyReviewed ? "10 min read" : "12 min read",
     signal: formatLabels[seed.format],
     accent: accentByCategory[seed.category],
     sourceLabel: sources[0].label,
     sourceUrl: sources[0].url,
     sources,
-    internalLinks: seed.relatedSlugs?.map((slug) => ({ slug, title: seedTitles.get(slug) ?? slug })),
+    internalLinks: coreInternalLinks[seed.slug]
+      ?? seed.relatedSlugs?.map((slug) => ({ slug, title: seedTitles.get(slug) ?? slug })),
     image: `/images/articles/unique/${seed.slug}.jpg`,
     imageAlt: seed.imageAlt ?? seed.visualPrompt,
     disclaimer: seed.format === "video-recap"
       ? "This independent analysis summarizes an official product or research video and adds original context, limitations and a practical evaluation framework. It is not a transcript, endorsement or substitute for watching the source."
       : "This evidence-led explainer uses the linked primary sources and original AI New analysis. It is educational, not legal, medical, financial or procurement advice; verify current requirements with qualified professionals.",
-    evidenceStatus: "verified",
-    searchEligible: true,
-    sections: buildSections(seed),
+    evidenceStatus: individuallyReviewed ? "verified" : "editorial-review",
+    originalityStatus: individuallyReviewed ? "individually-reviewed" : "template-draft",
+    searchEligible: individuallyReviewed,
+    sections: editorialSectionOverrides[seed.slug] ?? buildSections(seed),
     video: seed.videoKey ? videoLibrary[seed.videoKey] : undefined,
   };
 });

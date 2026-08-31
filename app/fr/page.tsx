@@ -2,22 +2,21 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { articleImageStyle } from "../article-image-style";
-import { AISignalSection } from "../components/ai-signal";
 import { articles, type Article } from "../lib/articles";
+import { searchEligibleArticles } from "../lib/search-quality";
 import { organizationSchema, SITE_NAME, SITE_URL, WEBSITE_ID } from "../lib/seo";
 import { StructuredData } from "../structured-data";
 import { FrenchSiteFooter, FrenchSiteHeader } from "./french-components";
 
-const frenchDescription = "Actualités canadiennes sur l’intelligence artificielle, analyses des politiques, guides des modèles et conseils pratiques fondés sur des sources primaires.";
+const frenchDescription = "Accueil, navigation et résumés en français pour les analyses canadiennes sur l’intelligence artificielle d’AI New Canada. Les articles complets sont publiés en anglais.";
 
 export const metadata: Metadata = {
-  title: "Actualités et guides sur l’IA au Canada | AI New Canada",
+  title: "AI New Canada en français | Résumés sur l’IA au Canada",
   description: frenchDescription,
   alternates: {
     canonical: `${SITE_URL}/fr/`,
-    languages: { "en-CA": `${SITE_URL}/`, "fr-CA": `${SITE_URL}/fr/`, "x-default": `${SITE_URL}/` },
   },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
@@ -71,7 +70,7 @@ function frenchDate(article: Article) {
 }
 
 function articleHref(article: Article) {
-  return `/fr/article/${article.slug}/`;
+  return `/article/${article.slug}/`;
 }
 
 function EnglishArticleNotice() {
@@ -79,10 +78,11 @@ function EnglishArticleNotice() {
 }
 
 export default function FrenchHome() {
-  const lead = articles[0];
-  const spotlight = articles.slice(1, 5);
-  const popular = articles.slice(5, 11);
-  const latest = articles.slice(11, 19);
+  const publishedArticles = searchEligibleArticles(articles);
+  const lead = publishedArticles[0] ?? articles[0];
+  const spotlight = publishedArticles.slice(1, 5);
+  const popular = publishedArticles.slice(5, 11);
+  const latest = publishedArticles.slice(11, 19);
 
   return (
     <div lang="fr-CA">
@@ -103,7 +103,7 @@ export default function FrenchHome() {
               mainEntity: {
                 "@type": "ItemList",
                 numberOfItems: 12,
-                itemListElement: articles.slice(0, 12).map((article, index) => ({
+                itemListElement: publishedArticles.slice(0, 12).map((article, index) => ({
                   "@type": "ListItem",
                   position: index + 1,
                   url: `${SITE_URL}${articleHref(article)}`,
@@ -116,8 +116,8 @@ export default function FrenchHome() {
 
         <div className="shell editionLine">
           <span>ÉDITION D’AOÛT</span>
-          <p>Reportages canadiens indépendants pour les personnes qui conçoivent, achètent et gouvernent l’IA.</p>
-          <Link href="/fr/">Notre méthode</Link>
+          <p>Analyses canadiennes fondées sur des sources pour les personnes qui conçoivent, achètent et gouvernent l’IA.</p>
+          <Link href="/editorial-policy/">Méthode éditoriale (en anglais)</Link>
         </div>
 
         <aside className="shell frenchAvailabilityNote" aria-label="Disponibilité linguistique">
@@ -177,25 +177,25 @@ export default function FrenchHome() {
                   </li>
                 ))}
               </ol>
-              <Link className="railAction" href="/fr/#fr-latest-heading">Voir tous les articles <span aria-hidden="true">→</span></Link>
+              <Link className="railAction" href="/articles/">Voir tous les articles en anglais <span aria-hidden="true">→</span></Link>
             </aside>
           </div>
         </section>
 
         <nav className="shell topicTicker" id="fr-explore" aria-label="Parcourir la salle de nouvelles">
           <strong>EXPLORER</strong>
-          <Link href="/fr/#fr-explore">Canada et politiques</Link>
-          <Link href="/fr/#fr-explore">Modèles et lancements</Link>
-          <Link href="/fr/#fr-explore">Notes de recherche</Link>
-          <Link href="/fr/#fr-explore">Bien utiliser l’IA</Link>
-          <Link href="/fr/#fr-explore">Suivi officiel</Link>
+          <Link href="/category/canada/">Canada et politiques (anglais)</Link>
+          <Link href="/category/models/">Modèles et lancements (anglais)</Link>
+          <Link href="/category/research/">Notes de recherche (anglais)</Link>
+          <Link href="/topics/using-ai/">Bien utiliser l’IA (anglais)</Link>
+          <Link href="/canada-ai-resources/">Suivi officiel (anglais)</Link>
         </nav>
 
         <section className="shell latestSection" aria-labelledby="fr-latest-heading">
           <header className="newsroomSectionHeader latestHeader">
             <div><span className="eyebrow">FIL DE NOUVELLES</span><h2 id="fr-latest-heading">Les plus récents</h2></div>
             <p>Analyses fondées sur les faits et guides pratiques provenant de toutes les rubriques d’AI New.</p>
-            <Link href="/fr/#fr-latest-heading">Toutes les nouvelles <span aria-hidden="true">→</span></Link>
+            <Link href="/articles/">Toutes les nouvelles en anglais <span aria-hidden="true">→</span></Link>
           </header>
           <div className="latestNewsList">
             {latest.map((article) => (
@@ -213,15 +213,13 @@ export default function FrenchHome() {
           </div>
         </section>
 
-        <AISignalSection locale="fr" />
-
         <section className="learningFeature" id="fr-learning">
           <div className="shell learningFeatureInner">
             <div>
               <span className="eyebrow">LABORATOIRE D’APPRENTISSAGE AI NEW</span>
               <h2>Transformer le cycle des nouvelles en connaissances utiles.</h2>
-              <p>Choisissez un parcours ciblé, enregistrez une liste de lecture et vérifiez ce que vous avez compris. Les progrès restent sur votre appareil.</p>
-              <Link href="/fr/#fr-learning">Ouvrir le laboratoire gratuit <span aria-hidden="true">→</span></Link>
+              <p>Le laboratoire complet est offert en anglais. Choisissez un parcours ciblé, enregistrez une liste de lecture et vérifiez ce que vous avez compris. Les progrès restent sur votre appareil.</p>
+              <Link href="/learn/">Ouvrir le laboratoire en anglais <span aria-hidden="true">→</span></Link>
             </div>
             <ol>
               <li><span>01</span><strong>Choisir un parcours</strong><small>Commencez par le Canada, les modèles, les affaires, la recherche ou l’IA pratique.</small></li>
@@ -235,7 +233,7 @@ export default function FrenchHome() {
           <span className="eyebrow">LA NORME AI NEW</span>
           <h2>Sources primaires d’abord. Étiquettes claires. Corrections publiques.</h2>
           <p>Nous séparons les faits rapportés, les affirmations des entreprises et l’analyse, puis nous gardons les preuves accessibles.</p>
-          <Link href="/editorial-policy/">Lire nos normes <span aria-hidden="true">→</span></Link>
+          <Link href="/editorial-policy/">Lire nos normes en anglais <span aria-hidden="true">→</span></Link>
         </section>
       </main>
       <FrenchSiteFooter />

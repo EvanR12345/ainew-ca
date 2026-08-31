@@ -3,6 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 
 const outputDir = process.argv.includes("--pages") ? "out" : "dist/client";
+const expectedPublicArticles = 15;
 const sitemapPath = path.join(outputDir, "sitemap.xml");
 const sitemap = await readFile(sitemapPath, "utf8").catch(() => null);
 const sitemapUrls = sitemap ? [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]) : [];
@@ -28,11 +29,11 @@ for (const entry of articleDirs) {
 }
 
 assert.equal(problems.length, 0, problems.join("\n"));
-assert.equal(indexable, 101, `expected 101 evidence-audited articles to be indexable, found ${indexable}`);
-assert.equal(noindex, 110, `expected 110 articles in the review queue, found ${noindex}`);
+assert.equal(indexable, expectedPublicArticles, `expected ${expectedPublicArticles} individually reviewed articles to be public, found ${indexable}`);
+assert.equal(noindex, 0, `draft articles must not be generated as public routes, found ${noindex} noindex routes`);
 if (sitemap) {
   const sitemapArticleUrls = sitemapUrls.filter((url) => url.includes("/article/"));
-  assert.equal(sitemapArticleUrls.length, 101, `expected 101 audited article URLs in the sitemap, found ${sitemapArticleUrls.length}`);
+  assert.equal(sitemapArticleUrls.length, expectedPublicArticles, `expected ${expectedPublicArticles} reviewed article URLs in the sitemap, found ${sitemapArticleUrls.length}`);
 } else if (outputDir === "dist/client") {
   const serverBundle = await readFile(path.join("dist", "server", "index.js"), "utf8");
   assert.match(serverBundle, /const eligibleArticles = searchEligibleArticles\(articles\)/, "generated sitemap no longer uses the reviewed article set");
@@ -41,4 +42,4 @@ if (sitemap) {
   assert.match(serverBundle, /\.\.\.storyRoutes/, "generated sitemap is missing article routes");
 }
 
-console.log(JSON.stringify({ outputDir, sitemapUrls: sitemap ? sitemapUrls.length : "dynamic", indexableArticles: indexable, reviewQueueArticles: noindex }, null, 2));
+console.log(JSON.stringify({ outputDir, sitemapUrls: sitemap ? sitemapUrls.length : "dynamic", publicArticles: indexable, generatedDraftRoutes: noindex }, null, 2));

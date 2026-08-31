@@ -25,10 +25,8 @@ function destinationFor(language: Language, pathname = window.location.pathname)
   const normalized = pathname.endsWith("/") ? pathname : `${pathname}/`;
   if (language === "fr") {
     if (normalized.startsWith("/fr/")) return normalized;
-    if (normalized.startsWith("/article/")) return `/fr${normalized}`;
     return "/fr/";
   }
-  if (normalized.startsWith("/fr/article/")) return normalized.slice(3);
   if (normalized.startsWith("/fr/")) return "/";
   return normalized;
 }
@@ -48,9 +46,12 @@ export function LanguagePreference() {
     if (saved === "en" || saved === "fr") {
       const routeLanguage = window.location.pathname.startsWith("/fr/") || window.location.pathname === "/fr" ? "fr" : "en";
       setDocumentLanguage(routeLanguage);
-      const destination = destinationFor(saved);
-      const current = destinationFor(routeLanguage);
-      if (saved !== routeLanguage && destination !== current) window.location.replace(destination);
+      const editionRoot = ["/", "/fr", "/fr/"].includes(window.location.pathname);
+      if (editionRoot) {
+        const destination = destinationFor(saved);
+        const current = destinationFor(routeLanguage);
+        if (saved !== routeLanguage && destination !== current) window.location.replace(destination);
+      }
       return;
     }
 
@@ -66,13 +67,26 @@ export function LanguagePreference() {
     if (destination !== window.location.pathname) window.location.assign(destination);
   }
 
+  function dismissToEnglish() {
+    saveLanguage("en");
+    dialogRef.current?.close();
+    const destination = destinationFor("en");
+    if (destination !== window.location.pathname) window.location.assign(destination);
+  }
+
   return (
     <dialog
       ref={dialogRef}
       className="languageDialog"
       aria-labelledby="language-title"
       aria-describedby="language-description"
-      onCancel={(event) => event.preventDefault()}
+      onCancel={(event) => {
+        event.preventDefault();
+        dismissToEnglish();
+      }}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) dismissToEnglish();
+      }}
     >
       <form className="languageDialogPanel" onSubmit={continueWithChoice}>
         <div className="languageDialogBrand" aria-hidden="true">
@@ -102,7 +116,7 @@ export function LanguagePreference() {
         </fieldset>
 
         <div className="languageDialogFooter">
-          <p>Your choice stays on this device. Change it any time from the header.<br /><span>Votre choix reste sur cet appareil. Modifiez-le dans l’en-tête.</span></p>
+          <p>English is the default. Press Escape or click outside to continue in English. Change the edition any time from the header.<br /><span>L’anglais est la langue par défaut. Appuyez sur Échap ou cliquez à l’extérieur pour continuer en anglais.</span></p>
           <button type="submit">{choice === "fr" ? "Continuer en français" : "Continue in English"}<span aria-hidden="true">→</span></button>
         </div>
       </form>

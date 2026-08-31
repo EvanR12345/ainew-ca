@@ -10,7 +10,7 @@ export function FrenchSiteHeader() {
         <div className="shell briefingInner">
           <span className="liveDot" aria-hidden="true" />
           <strong>EN DIRECT / CANADA</strong>
-          <Link href="/fr/article/canada-ai-transparency-consultation-what-to-know/">
+          <Link href="/article/canada-ai-transparency-consultation-what-to-know/" lang="en-CA">
             Le Canada étudie comment l’IA devrait s’identifier
           </Link>
           <span className="briefingDate">Salle de nouvelles indépendante · Toronto</span>

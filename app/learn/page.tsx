@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AdSlot, NewsletterBand, SiteFooter, SiteHeader } from "../components";
 import { LearningLab, type LearningTrack } from "../learning-lab";
 import { articles, toArticleCardData } from "../lib/articles";
+import { searchEligibleArticles } from "../lib/search-quality";
 import { buildPageMetadata, breadcrumbSchema, SITE_URL, WEBSITE_ID } from "../lib/seo";
 import { StructuredData } from "../structured-data";
 
@@ -11,7 +12,7 @@ export const metadata: Metadata = buildPageMetadata({
   path: "/learn/",
 });
 
-const cards = articles.map(toArticleCardData);
+const cards = searchEligibleArticles(articles).map(toArticleCardData);
 
 function pick(predicate: (article: (typeof cards)[number]) => boolean, limit = 9) {
   return cards.filter(predicate).slice(0, limit);
@@ -81,7 +82,7 @@ export default function LearnPage() {
           <span className="eyebrow">AI NEW LEARNING LAB</span>
           <h1>Turn AI news into knowledge you can actually use.</h1>
           <p>Choose a track, keep a reading queue, test what you remember and build a real map of the AI topics you understand.</p>
-          <div className="learnHeroFeatures"><span>5 curated tracks</span><span>101 evidence-audited reads</span><span>8-question knowledge circuit</span><span>12 essential flashcards</span></div>
+          <div className="learnHeroFeatures"><span>5 curated tracks</span><span>{cards.length} individually reviewed reads</span><span>8-question knowledge circuit</span><span>12 essential flashcards</span></div>
         </section>
         <div className="shell"><LearningLab articles={cards} tracks={tracks} /></div>
         <div className="shell"><NewsletterBand /></div>

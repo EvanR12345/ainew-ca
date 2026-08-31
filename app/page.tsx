@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { AdSlot, ArticleCard, NewsletterBand, SiteFooter, SiteHeader } from "./components";
-import { AISignalSection } from "./components/ai-signal";
 import { articleImageStyle } from "./article-image-style";
 import { articles, type Article } from "./lib/articles";
+import { searchEligibleArticles } from "./lib/search-quality";
 import { buildPageMetadata, categoryPath, organizationSchema, SITE_URL, WEBSITE_ID, websiteSchema } from "./lib/seo";
 import { StructuredData } from "./structured-data";
 import { TasteMotion } from "./taste-motion";
@@ -13,7 +13,7 @@ export const metadata: Metadata = buildPageMetadata({
   title: "Canadian AI News, Guides & Analysis | AI New Canada",
   description: "Independent Canadian AI news, policy trackers, model explainers and practical guides built from named primary sources.",
   path: "/",
-  languages: { "en-CA": `${SITE_URL}/`, "fr-CA": `${SITE_URL}/fr/`, "x-default": `${SITE_URL}/` },
+  languages: { "en-CA": `${SITE_URL}/`, "x-default": `${SITE_URL}/` },
 });
 
 function DeskSection({
@@ -69,33 +69,34 @@ function TasteBento({ stories }: { stories: Article[] }) {
   );
 }
 
-function TasteStack({ stories }: { stories: Article[] }) {
+function CanadianDecisions({ stories }: { stories: Article[] }) {
   return (
-    <section className="tasteStackSection" aria-labelledby="canadian-decisions-heading">
-      <header className="shell tasteStackHeader">
-        <p className="tasteStackEyebrow">CANADA / DECISION DESK</p>
+    <section className="canadaDecisionsSection" aria-labelledby="canadian-decisions-heading">
+      <header className="shell canadaDecisionsHeader">
+        <span>CANADA / DECISION DESK</span>
+        <h2 id="canadian-decisions-heading">Three Canadian decisions worth understanding now.</h2>
         <p>Policy, public infrastructure and implementation, read as a connected system instead of isolated announcements.</p>
       </header>
-      <div className="shell tasteStack">
-        <header className="tasteStackPersistentHeader">
-          <h2 id="canadian-decisions-heading">Three Canadian decisions worth understanding now.</h2>
-        </header>
-        {stories.slice(0, 3).map((article) => (
-          <article className="tasteStackCard" data-stack-card key={article.slug}>
-            <Link className="tasteStackMedia" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
+      <div className="shell canadaDecisionsGrid">
+        {stories.slice(0, 3).map((article, index) => (
+          <article className={`canadaDecisionCard canadaDecisionCard-${index + 1}`} key={article.slug}>
+            <Link className="canadaDecisionMedia" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
               <Image
                 src={article.image}
                 alt={article.imageAlt}
                 width={1200}
                 height={675}
-                sizes="(max-width: 980px) 100vw, 58vw"
+                sizes={index === 0 ? "(max-width: 900px) 100vw, 62vw" : "(max-width: 900px) 100vw, 34vw"}
               />
             </Link>
-            <div className="tasteStackCopy">
-              <div><span>{article.category}</span><time dateTime={article.date}>{article.displayDate}</time></div>
+            <div className="canadaDecisionCopy">
+              <div>
+                <span>{String(index + 1).padStart(2, "0")} / {article.category}</span>
+                <time dateTime={article.date}>{article.displayDate}</time>
+              </div>
               <h3><Link href={`/article/${article.slug}/`}>{article.title}</Link></h3>
               <p>{article.dek}</p>
-              <Link className="tasteTextLink" href={`/article/${article.slug}/`}>Read the evidence <span aria-hidden="true">↗</span></Link>
+              <Link className="canadaDecisionLink" href={`/article/${article.slug}/`}>Read the evidence <span aria-hidden="true">&rarr;</span></Link>
             </div>
           </article>
         ))}
@@ -141,12 +142,13 @@ function TasteAccordion({ stories }: { stories: Article[] }) {
 }
 
 export default function Home() {
-  const lead = articles[0];
-  const essential = articles.slice(1, 4);
-  const latest = articles.slice(11, 19);
-  const canada = articles.filter((article) => article.category === "Canada").slice(1, 5);
-  const models = articles.filter((article) => ["Models", "Research"].includes(article.category)).slice(0, 4);
-  const work = articles.filter((article) => ["Products", "Business"].includes(article.category)).slice(0, 4);
+  const publishedArticles = searchEligibleArticles(articles);
+  const lead = publishedArticles[0] ?? articles[0];
+  const essential = publishedArticles.slice(1, 4);
+  const latest = publishedArticles.slice(11, 19);
+  const canada = publishedArticles.filter((article) => article.category === "Canada").slice(1, 4);
+  const models = publishedArticles.filter((article) => ["Models", "Research"].includes(article.category)).slice(0, 4);
+  const work = publishedArticles.filter((article) => ["Products", "Business"].includes(article.category)).slice(0, 4);
 
   return (
     <div>
@@ -167,7 +169,7 @@ export default function Home() {
               mainEntity: {
                 "@type": "ItemList",
                 numberOfItems: 12,
-                itemListElement: articles.slice(0, 12).map((article, index) => ({
+                itemListElement: publishedArticles.slice(0, 12).map((article, index) => ({
                   "@type": "ListItem",
                   position: index + 1,
                   url: `${SITE_URL}/article/${article.slug}/`,
@@ -256,9 +258,7 @@ export default function Home() {
 
         <div className="shell sectionAdWrap"><AdSlot label="Homepage mid-page" /></div>
 
-        <TasteStack stories={canada} />
-
-        <AISignalSection locale="en" />
+        <CanadianDecisions stories={canada} />
 
         <section className="learningFeature">
           <div className="shell learningFeatureInner">

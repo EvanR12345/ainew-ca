@@ -44,23 +44,6 @@ export function TasteMotion() {
       },
     );
 
-    gsap.utils.toArray<HTMLElement>("[data-stack-card]").forEach((card, index, cards) => {
-      gsap.fromTo(
-        card,
-        { scale: 0.9, y: 90 },
-        {
-          scale: 1 - (cards.length - index - 1) * 0.025,
-          y: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 92%",
-            end: "top 18%",
-            scrub: 0.75,
-          },
-        },
-      );
-    });
   });
 
   return null;

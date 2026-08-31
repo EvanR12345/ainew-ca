@@ -1,5 +1,6 @@
 import type { Article } from "./articles";
 import { articles } from "./articles";
+import { isSearchEligibleArticle } from "./search-quality";
 
 export type TopicHub = {
   slug: "canadian-ai-policy" | "using-ai" | "ai-models";
@@ -30,18 +31,10 @@ export const topicHubs: TopicHub[] = [
       { title: "Watch implementation", body: "The meaningful signals are published assessments, contract terms, incident reports and enforcement—not broad statements of principle." },
     ],
     articleSlugs: [
+      "canada-ai-transparency-consultation-what-to-know",
       "canada-ai-for-all-strategy-field-guide",
-      "canada-sovereign-ai-compute-capacity-guide",
       "federal-public-service-ai-strategy-2025-2027",
-      "algorithmic-impact-assessment-canada-walkthrough",
-      "canada-generative-ai-guide-practical-rules",
-      "canada-ai-transparency-consultation-reader-guide",
-      "ircc-ai-strategy-human-judgment",
       "canada-ai-privacy-impact-assessment-guide",
-      "canadian-ai-safety-capacity-explained",
-      "canadian-small-business-ai-adoption-playbook",
-      "deepfake-resilience-canadian-elections",
-      "canada-ai-public-dashboard-scorecard",
     ],
   },
   {
@@ -70,9 +63,8 @@ export const topicHubs: TopicHub[] = [
       "advanced-human-in-the-loop-ai-agent-workflow",
       "advanced-retrieval-ai-own-documents-citations",
       "advanced-ai-evaluation-red-team-monitor-production",
-      "chatgpt-workflows-guide",
-      "ai-meeting-assistants-consent",
-      "ai-image-generation-workflows",
+      "how-beginners-use-ai-investment-research",
+      "beginner-ai-investment-scam-check",
     ],
   },
   {
@@ -92,18 +84,9 @@ export const topicHubs: TopicHub[] = [
       { title: "Measure change over time", body: "Keep a stable evaluation set so model, prompt and data updates can be compared against the same acceptance criteria." },
     ],
     articleSlugs: [
-      "gpt-5-6-explained-what-changed",
-      "anthropic-claude-sonnet-5-launch",
-      "multimodal-models-explained",
-      "reasoning-models-practical-guide",
-      "small-language-models-enterprise",
-      "open-weight-models-business-case",
-      "long-context-windows-reality-check",
-      "model-routing-ai-stacks",
-      "quantization-ai-models-explained",
-      "fine-tuning-vs-prompting-vs-rag",
-      "retrieval-augmented-generation-rag-guide",
-      "enterprise-ai-evaluation-suite",
+      "intermediate-compare-ai-answers-evaluation-scorecard",
+      "advanced-ai-evaluation-red-team-monitor-production",
+      "advanced-retrieval-ai-own-documents-citations",
     ],
   },
 ];
@@ -114,7 +97,9 @@ export function getTopicHub(slug: string) {
 
 export function getTopicArticles(hub: TopicHub) {
   const selected = new Map(articles.map((article) => [article.slug, article]));
-  return hub.articleSlugs.map((slug) => selected.get(slug)).filter((article): article is Article => Boolean(article));
+  return hub.articleSlugs
+    .map((slug) => selected.get(slug))
+    .filter((article): article is Article => article !== undefined && isSearchEligibleArticle(article));
 }
 
 export function topicForArticle(article: Article) {

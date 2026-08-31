@@ -10,12 +10,12 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function TermsPage() {
   return (
-    <InfoPage eyebrow="LEGAL" title="Terms of use" intro="These launch-edition terms describe the basic rules for using AI New Canada. Last updated August 10, 2026.">
+    <InfoPage eyebrow="LEGAL" title="Terms of use" intro="These terms describe the basic rules for using AI New Canada. Last updated August 30, 2026.">
       <section><h2>Informational use</h2><p>AI New provides news and general analysis. It is not legal, financial, medical or investment advice. Technology changes quickly; verify important decisions with current primary sources and qualified professionals.</p></section>
       <section><h2>Intellectual property</h2><p>AI New’s original writing, branding and design are protected by applicable law. You may link to our pages and quote short excerpts with attribution. Republishing complete articles or systematic scraping requires permission.</p></section>
       <section><h2>Third-party links</h2><p>Links to primary sources and other sites are provided for context. AI New does not control third-party content, availability or privacy practices.</p></section>
       <section><h2>Availability and changes</h2><p>We may update, correct, suspend or remove content and features. We provide the site as available and do not guarantee uninterrupted access.</p></section>
-      <section><h2>Commercial disclosures</h2><p>Third-party advertising is kept separate from article copy. Sponsorships and affiliate links will be clearly identified if introduced. Editorial coverage is not sold, and additional commercial terms may appear next to a specific promotion or service.</p></section>
+      <section><h2>Commercial disclosures</h2><p>The site does not currently display advertising. If advertising is restored, Google AdSense is the only configured provider and ads remain separate from article copy. Any sponsorship or affiliate relationship must be identified beside the relevant material. Editorial coverage is not sold.</p></section>
     </InfoPage>
   );
 }

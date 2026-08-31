@@ -4,6 +4,7 @@ import { SiteFooter, SiteHeader } from "../components";
 import { SearchClient } from "./search-client";
 import { buildPageMetadata } from "../lib/seo";
 import { articles, toArticleCardData } from "../lib/articles";
+import { searchEligibleArticles } from "../lib/search-quality";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Search AI News & Guides | AI New Canada",
@@ -13,7 +14,9 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function SearchPage() {
-  const articleCards = articles.map(toArticleCardData);
+  const articleCards = [...searchEligibleArticles(articles)]
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .map(toArticleCardData);
 
   return (
     <div>

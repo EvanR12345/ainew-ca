@@ -50,6 +50,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en-CA" data-language="en" suppressHydrationWarning>
       <head>
+        <meta name="google-adsense-account" content="ca-pub-4610762209559364" />
         {SITE_FEATURES.ads && (
           <script
             async
@@ -58,8 +59,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           />
         )}
         <link rel="alternate" type="application/rss+xml" title={`${SITE_NAME} RSS feed`} href="/feed.xml" />
-        {SITE_FEATURES.ads && <link rel="preconnect" href="https://armsbroodelusive.com" />}
-        {SITE_FEATURES.ads && <link rel="dns-prefetch" href="//armsbroodelusive.com" />}
       </head>
       <body><ScrollToTop /><LanguagePreference />{children}</body>
     </html>
