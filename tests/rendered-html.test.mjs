@@ -269,6 +269,7 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
 
   const homeHtml = await homeResponse.text();
   const articleHtml = await articleResponse.text();
+  const authorHtml = await authorResponse.text();
   const editorialHtml = await editorialResponse.text();
   const frenchHtml = await frenchResponse.text();
   const feedXml = await feedResponse.text();
@@ -281,6 +282,11 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.match(articleHtml, /rel="canonical" href="https:\/\/ainew\.ca\/article\/canada-ai-transparency-consultation-what-to-know\/?"/);
   assert.match(articleHtml, /"@type":"NewsArticle"/);
   assert.match(articleHtml, /"@type":"BreadcrumbList"/);
+  assert.match(articleHtml, /"datePublished":"2026-08-10T12:00:00Z"/);
+  assert.match(articleHtml, /"dateModified":"2026-08-30T21:58:27-04:00"/);
+  assert.match(authorHtml, /"@type":"ProfilePage"/);
+  assert.match(authorHtml, /"dateCreated":"2026-08-11T04:06:24-04:00"/);
+  assert.match(authorHtml, /"dateModified":"2026-08-30T21:58:27-04:00"/);
   assert.match(articleHtml, /Editorial note:/);
   assert.match(editorialHtml, /Publication and originality review/);
   assert.match(editorialHtml, /Template-built drafts, thin briefs, unfinished experiments and near-duplicate query variations remain unpublished/);

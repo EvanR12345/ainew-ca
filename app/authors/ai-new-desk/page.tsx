@@ -23,8 +23,8 @@ export default function AiNewDeskPage() {
           "@type": "ProfilePage",
           "@id": `${SITE_URL}/authors/ai-new-desk/#page`,
           url: `${SITE_URL}/authors/ai-new-desk/`,
-          dateCreated: "2026-08-10",
-          dateModified: "2026-08-30",
+          dateCreated: "2026-08-11T04:06:24-04:00",
+          dateModified: "2026-08-30T21:58:27-04:00",
           mainEntity: {
             "@type": "Organization",
             "@id": AUTHOR_ID,

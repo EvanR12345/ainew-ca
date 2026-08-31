@@ -9,7 +9,7 @@ import { SaveArticleButton } from "../../learning-actions";
 import { articles, getAdjacentArticles, getArticle, getRelatedArticles, toArticleCardData } from "../../lib/articles";
 import { absoluteUrl, AUTHOR_ID, breadcrumbSchema, categoryPath, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../lib/seo";
 import { topicForArticle } from "../../lib/topic-hubs";
-import { articleModifiedDate, isSearchEligibleArticle, searchEligibleArticles, SEARCH_REVIEW_DATE } from "../../lib/search-quality";
+import { articleModifiedDateTime, articlePublishedDateTime, isSearchEligibleArticle, searchEligibleArticles, SEARCH_REVIEW_DATETIME } from "../../lib/search-quality";
 import { ArticleReadTracker, ReadingJourney, RelatedRecommendations } from "../../reading-history";
 import { StructuredData } from "../../structured-data";
 import { ArticleTools } from "../../article-tools";
@@ -36,7 +36,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!article || !isSearchEligibleArticle(article)) return { title: "Story not found | AI New Canada", robots: { index: false, follow: true } };
   const url = absoluteUrl(`/article/${article.slug}/`);
   const image = absoluteUrl(article.image);
-  const modifiedTime = articleModifiedDate(article);
+  const publishedTime = articlePublishedDateTime(article);
+  const modifiedTime = articleModifiedDateTime(article);
   const index = isSearchEligibleArticle(article);
   return {
     title: `${searchTitle(article.title)} | AI New Canada`,
@@ -50,7 +51,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       type: "article",
       siteName: SITE_NAME,
       url,
-      publishedTime: article.date,
+      publishedTime,
       modifiedTime,
       section: article.category,
       authors: [`${SITE_URL}/authors/ai-new-desk/`],
@@ -78,7 +79,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const adjacent = getAdjacentArticles(article, publicArticles);
   const sectionLinks = article.sections.map((section) => ({ id: sectionId(section.heading), heading: section.heading }));
   const topicHub = topicForArticle(article);
-  const modifiedTime = articleModifiedDate(article);
+  const publishedTime = articlePublishedDateTime(article);
+  const modifiedTime = articleModifiedDateTime(article);
   const indexEligible = isSearchEligibleArticle(article);
 
   return (
@@ -101,7 +103,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               url: absoluteUrl(`/article/${article.slug}/`),
               headline: article.title,
               description: article.dek,
-              datePublished: article.date,
+              datePublished: publishedTime,
               dateModified: modifiedTime,
               image: {
                 "@type": "ImageObject",
@@ -256,7 +258,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
               <AdSlot format="leaderboard" label="Article end" />
 
-              <div className="articleUpdate"><strong>Corrections & updates</strong><p>{indexEligible && modifiedTime === SEARCH_REVIEW_DATE ? "Sources and external URLs reviewed on August 13, 2026. " : ""}See something we should fix or clarify? <Link href="/corrections-policy/">Read the corrections policy</Link> or <Link href="/contact">tell the newsroom</Link>. Material changes are noted here.</p></div>
+              <div className="articleUpdate"><strong>Corrections & updates</strong><p>{indexEligible && modifiedTime === SEARCH_REVIEW_DATETIME ? "Sources and external URLs reviewed on August 30, 2026. " : ""}See something we should fix or clarify? <Link href="/corrections-policy/">Read the corrections policy</Link> or <Link href="/contact">tell the newsroom</Link>. Material changes are noted here.</p></div>
             </div>
             <aside className="articleAdRail">
               <AdSlot format="rectangle" />
