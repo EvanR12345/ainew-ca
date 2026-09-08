@@ -33,8 +33,13 @@ function readHistory(): ReadingHistory {
 }
 
 function saveHistory(history: ReadingHistory) {
-  window.localStorage.setItem(READING_HISTORY_KEY, JSON.stringify(history));
+  try {
+    window.localStorage.setItem(READING_HISTORY_KEY, JSON.stringify(history));
+  } catch {
+    return false;
+  }
   window.dispatchEvent(new CustomEvent(READING_HISTORY_EVENT));
+  return true;
 }
 
 function localDateKey(date = new Date()) {
@@ -46,8 +51,12 @@ function localDateKey(date = new Date()) {
 
 function recordVisit(slug: string, category: ArticleCardData["category"]) {
   const visitKey = `ainew-reading-visit:${slug}`;
-  if (window.sessionStorage.getItem(visitKey)) return;
-  window.sessionStorage.setItem(visitKey, "1");
+  try {
+    if (window.sessionStorage.getItem(visitKey)) return;
+    window.sessionStorage.setItem(visitKey, "1");
+  } catch {
+    return;
+  }
   const history = readHistory();
   const current = history[slug] ?? { seconds: 0, lastVisited: "", completed: false };
   history[slug] = {
@@ -71,11 +80,33 @@ function addReadingTime(slug: string, category: ArticleCardData["category"], sec
     seconds: total,
     category,
     lastVisited: new Date().toISOString(),
-    completed: total >= READ_THRESHOLD_SECONDS && maxScrollDepth >= 70,
+    completed: current.completed || (total >= READ_THRESHOLD_SECONDS && maxScrollDepth >= 70),
     maxScrollDepth,
     daily: { ...(current.daily ?? {}), [today]: (current.daily?.[today] ?? 0) + seconds },
   };
   saveHistory(history);
+}
+
+export function MarkArticleRead({ slug, category }: { slug: string; category: ArticleCardData["category"] }) {
+  const [completed, setCompleted] = useState(false);
+  const [message, setMessage] = useState("");
+  useEffect(() => {
+    const refresh = () => setCompleted(Boolean(readHistory()[slug]?.completed));
+    refresh();
+    window.addEventListener(READING_HISTORY_EVENT, refresh);
+    window.addEventListener("storage", refresh);
+    return () => {
+      window.removeEventListener(READING_HISTORY_EVENT, refresh);
+      window.removeEventListener("storage", refresh);
+    };
+  }, [slug]);
+  function markRead() {
+    const history = readHistory();
+    history[slug] = { ...history[slug], seconds: history[slug]?.seconds ?? 0, category, lastVisited: new Date().toISOString(), completed: true };
+    const saved = saveHistory(history);
+    setMessage(saved ? "Marked finished on this device. It will be left out of related recommendations." : "Your browser blocked saving. You can still read every article.");
+  }
+  return <div className="articleCompletion"><button type="button" className="briefButton" onClick={markRead} disabled={completed}>{completed ? "Marked as read" : "Mark as read"}</button><p role="status">{message || "Finished reading? Save that here without waiting for a timer."}</p></div>;
 }
 
 export function ArticleReadTracker({ slug, category }: { slug: string; category: ArticleCardData["category"] }) {

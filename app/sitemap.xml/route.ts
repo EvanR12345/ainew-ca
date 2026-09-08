@@ -22,8 +22,8 @@ function escapeXml(value: string) {
 
 export function sitemapEntries(): SitemapEntry[] {
   const routeDates: Record<string, string> = {
-    "/": SEARCH_REVIEW_DATE,
-    "/articles/": SEARCH_REVIEW_DATE,
+    "/": "2026-09-08",
+    "/articles/": "2026-09-08",
     "/learn/": "2026-08-11",
     "/topics/": SEARCH_REVIEW_DATE,
     "/topics/canadian-ai-policy/": SEARCH_REVIEW_DATE,
@@ -31,12 +31,12 @@ export function sitemapEntries(): SitemapEntry[] {
     "/topics/ai-models/": SEARCH_REVIEW_DATE,
     "/ai-glossary/": "2026-08-11",
     "/canada-ai-resources/": SEARCH_REVIEW_DATE,
-    "/authors/ai-new-desk/": SEARCH_REVIEW_DATE,
-    "/about/": "2026-08-11",
-    "/editorial-policy/": SEARCH_REVIEW_DATE,
+    "/authors/ai-new-desk/": "2026-09-08",
+    "/about/": "2026-09-08",
+    "/editorial-policy/": "2026-09-08",
     "/corrections-policy/": "2026-08-11",
-    "/contact/": "2026-08-10",
-    "/privacy/": "2026-08-11",
+    "/contact/": "2026-09-08",
+    "/privacy/": "2026-09-08",
     "/terms/": "2026-08-10",
   };
   const staticRoutes = Object.entries(routeDates).map(([route, lastModified]) => ({

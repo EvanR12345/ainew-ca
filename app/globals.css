@@ -1780,3 +1780,19 @@ details.navMore[open] > .megaMenu { display: grid; }
   .languageChoice { grid-template-columns: 34px minmax(0, 1fr); }
   .languageChoice em { display: none; }
 }
+/* Worked examples belong to the article flow and remain readable on phones. */
+.articleExample { margin: 1.75rem 0; max-width: 100%; }
+.articleExample figcaption { font: 600 0.9375rem/1.5 var(--font-outfit, sans-serif); margin-bottom: .65rem; }
+.articleExample pre { white-space: pre-wrap; overflow-wrap: anywhere; background: #f2f4f6; color: #18212b; border-left: 3px solid #37556d; padding: 1.1rem; font-size: .9375rem; line-height: 1.65; }
+.articleExample code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+.articleTableWrap { overflow-x: auto; max-width: 100%; margin: 1.75rem 0; }
+.articleTableWrap:focus-visible { outline: 2px solid #37556d; outline-offset: 3px; }
+.articleTable { width: 100%; border-collapse: collapse; font-size: 1rem; line-height: 1.55; text-align: left; }
+.articleTable caption { text-align: left; font-weight: 600; margin-bottom: .75rem; }
+.articleTable th, .articleTable td { border-bottom: 1px solid #d8dfe5; padding: .8rem; vertical-align: top; overflow-wrap: anywhere; }
+.articleTable thead th { background: #edf1f4; color: #18212b; }
+.articleTable tbody th { font-weight: 500; }
+.articleCompletion { margin: 2rem 0; padding: 1.25rem 0; border-block: 1px solid var(--border); }
+.articleCompletion p { margin: .7rem 0 0; font-size: .9375rem; }
+.articleCompletion button:disabled { opacity: .65; cursor: default; }
+@media (max-width: 600px) { .articleTable { font-size: .9375rem; } .articleTable th, .articleTable td { padding: .6rem .4rem; } .articleExample pre { padding: .9rem; } }

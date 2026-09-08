@@ -39,7 +39,7 @@ for (const match of seedText[1].matchAll(/^  \{\r?\n([\s\S]*?)(?=^  \},?\r?$)/gm
   if (slug && title && !heldSlugs.has(slug)) guides.push({ slug, title, sourceKeys });
 }
 
-if (guides.length !== 100) throw new Error(`Expected 100 published guides, found ${guides.length}.`);
+if (guides.length !== 100) throw new Error(`Expected 100 prepared guides, found ${guides.length}.`);
 
 const usedKeys = [...new Set(guides.flatMap((guide) => guide.sourceKeys))];
 const missingKeys = usedKeys.filter((key) => !sources.has(key));

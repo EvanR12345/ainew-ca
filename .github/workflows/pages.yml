@@ -30,8 +30,18 @@ jobs:
         uses: actions/configure-pages@v6
       - name: Install dependencies
         run: npm ci
+      - name: Verify rendered publication and draft exclusions
+        run: npm test
+      - name: Audit publication quality
+        run: |
+          npm run audit:originality
+          npm run audit:legacy
+          npm run audit:seo
+          npx eslint app scripts tests
       - name: Build static site
         run: npm run build:pages
+      - name: Check static search eligibility
+        run: node scripts/audit-search-quality.mjs --pages
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:

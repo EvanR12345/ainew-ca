@@ -10,7 +10,7 @@ import { articles, getAdjacentArticles, getArticle, getRelatedArticles, toArticl
 import { absoluteUrl, AUTHOR_ID, breadcrumbSchema, categoryPath, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../lib/seo";
 import { topicForArticle } from "../../lib/topic-hubs";
 import { articleModifiedDateTime, articlePublishedDateTime, isSearchEligibleArticle, searchEligibleArticles, SEARCH_REVIEW_DATETIME } from "../../lib/search-quality";
-import { ArticleReadTracker, ReadingJourney, RelatedRecommendations } from "../../reading-history";
+import { ArticleReadTracker, MarkArticleRead, ReadingJourney, RelatedRecommendations } from "../../reading-history";
 import { StructuredData } from "../../structured-data";
 import { ArticleTools } from "../../article-tools";
 
@@ -66,7 +66,7 @@ function sectionId(heading: string) {
 }
 
 function wordCount(article: NonNullable<ReturnType<typeof getArticle>>) {
-  const text = article.sections.flatMap((section) => [...section.paragraphs, ...(section.bullets ?? [])]).join(" ");
+  const text = article.sections.flatMap((section) => [...section.paragraphs, ...(section.bullets ?? []), section.example?.text ?? "", ...(section.table?.rows.flat() ?? [])]).join(" ");
   return text.trim().split(/\s+/).filter(Boolean).length;
 }
 
@@ -77,6 +77,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const sourceList = article.sources?.length ? article.sources : [{ label: article.sourceLabel, url: article.sourceUrl }];
   const related = getRelatedArticles(article, 24, publicArticles).map(toArticleCardData);
   const adjacent = getAdjacentArticles(article, publicArticles);
+  const internalLinks = article.internalLinks?.filter((link) => publicArticles.some((candidate) => candidate.slug === link.slug));
   const sectionLinks = article.sections.map((section) => ({ id: sectionId(section.heading), heading: section.heading }));
   const topicHub = topicForArticle(article);
   const publishedTime = articlePublishedDateTime(article);
@@ -150,6 +151,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <div className="authorMark">AN</div>
               <div><strong><Link href="/authors/ai-new-desk/" rel="author">AI New Desk</Link></strong><span>AI-assisted research & analysis</span></div>
               <time dateTime={article.date}>{article.displayDate}</time>
+              {article.modifiedAt && <span>Updated <time dateTime={article.modifiedAt}>{new Date(article.modifiedAt).toLocaleDateString("en-CA", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })}</time></span>}
               <span>{article.readTime}</span>
             </div>
             <SaveArticleButton article={article} />
@@ -159,7 +161,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <Image src={article.image} alt={article.imageAlt} width={1200} height={675} priority />
             <span>{article.category.toUpperCase()} / AI NEW</span>
           </div>
-          <p className="articleImageCaption articleImageCaptionDesktop">{article.imageAlt}</p>
+          <p className="articleImageCaption articleImageCaptionDesktop">Illustrative image. {article.imageAlt}</p>
 
           <div className="articleLayout">
             <ArticleTools />
@@ -173,6 +175,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     <h2>{section.heading}</h2>
                     {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                     {section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
+                    {section.example && <figure className="articleExample"><figcaption>{section.example.label}</figcaption><pre><code>{section.example.text}</code></pre></figure>}
+                    {section.table && <div className="articleTableWrap" role="region" aria-label={section.table.caption} tabIndex={0}><table className="articleTable"><caption>{section.table.caption}</caption><thead><tr>{section.table.columns.map((column) => <th scope="col" key={column}>{column}</th>)}</tr></thead><tbody>{section.table.rows.map((row, rowIndex) => <tr key={rowIndex}>{row.map((cell, cellIndex) => cellIndex === 0 ? <th scope="row" key={cellIndex}>{cell}</th> : <td key={cellIndex}>{cell}</td>)}</tr>)}</tbody></table></div>}
                     {index === 0 && <AdSlot format="in-feed" label="Article opening" />}
                     {index === 3 && <AdSlot format="leaderboard" label="Article mid-story" />}
                     {index === 5 && <NativeAd placement={`article-${article.slug}-native`} />}
@@ -200,7 +204,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                           <Image src={article.image} alt={article.imageAlt} width={1200} height={675} />
                           <span>{article.category.toUpperCase()} / AI NEW</span>
                         </div>
-                        <p className="articleImageCaption">{article.imageAlt}</p>
+                        <p className="articleImageCaption">Illustrative image. {article.imageAlt}</p>
                       </div>
                       {!indexEligible && (
                         <aside className="searchReviewNote">
@@ -225,12 +229,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <Link href={`/topics/${topicHub.slug}/`}>Open the curated guide &rarr;</Link>
               </aside>
 
-              {article.internalLinks?.length ? (
+              {internalLinks?.length ? (
                 <nav className="articleCollectionLinks" aria-label="Related evidence-led guides">
-                  <h2>Three guides that deepen this topic</h2>
+                  <h2>Related guides</h2>
                   <p>Continue through verified reporting and practical explainers elsewhere in the AI New collection.</p>
                   <ul>
-                    {article.internalLinks.map((relatedArticle) => (
+                    {internalLinks.map((relatedArticle) => (
                       <li key={relatedArticle.slug}><Link href={`/article/${relatedArticle.slug}/`}>{relatedArticle.title} &rarr;</Link></li>
                     ))}
                   </ul>
@@ -251,6 +255,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 </ul>
               </div>
 
+              <MarkArticleRead slug={article.slug} category={article.category} />
+
               <nav className="storyStepper" aria-label="Previous and next stories">
                 <Link href={`/article/${adjacent.previous.slug}`}><span>← Previous story</span><strong>{adjacent.previous.title}</strong></Link>
                 <Link href={`/article/${adjacent.next.slug}`}><span>Next story →</span><strong>{adjacent.next.title}</strong></Link>
@@ -258,7 +264,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
               <AdSlot format="leaderboard" label="Article end" />
 
-              <div className="articleUpdate"><strong>Corrections & updates</strong><p>{indexEligible && modifiedTime === SEARCH_REVIEW_DATETIME ? "Sources and external URLs reviewed on August 30, 2026. " : ""}See something we should fix or clarify? <Link href="/corrections-policy/">Read the corrections policy</Link> or <Link href="/contact">tell the newsroom</Link>. Material changes are noted here.</p></div>
+              <div className="articleUpdate"><strong>Corrections & updates</strong>{article.updateNote && <p>{article.updateNote}</p>}<p>{indexEligible && modifiedTime === SEARCH_REVIEW_DATETIME ? "Sources and external URLs reviewed on August 30, 2026. " : ""}See something we should fix or clarify? <Link href="/corrections-policy/">Read the corrections policy</Link> or <Link href="/contact">tell the newsroom</Link>. Material changes are noted here.</p></div>
             </div>
             <aside className="articleAdRail">
               <AdSlot format="rectangle" />
@@ -268,7 +274,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </article>
 
         <section className="shell relatedSection">
-          <div className="sectionHeading"><div><span className="eyebrow">YOUR AI LEARNING PATH</span><h2>10 useful next steps, ranked for you.</h2></div></div>
+          <div className="sectionHeading"><div><span className="eyebrow">YOUR AI LEARNING PATH</span><h2>More to explore, chosen for you.</h2></div></div>
           <p className="relatedNote">Ranked on this device from the topics you actually read. Finished stories are left out, and nothing is sent to AI New Canada.</p>
           <RelatedRecommendations candidates={related} currentCategory={article.category} />
         </section>

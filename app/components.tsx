@@ -13,11 +13,11 @@ export function SiteHeader() {
       <div className="briefingBar">
         <div className="shell briefingInner">
           <span className="liveDot" aria-hidden="true" />
-          <strong>NOW / CANADA</strong>
+          <strong>CANADA / POLICY</strong>
           <Link href="/article/canada-ai-transparency-consultation-what-to-know/">
-            Canada is asking how AI should identify itself
+            Understanding Canada’s AI transparency consultation
           </Link>
-          <span className="briefingDate">Independent newsroom · Toronto</span>
+          <span className="briefingDate">Independent Canadian publication</span>
         </div>
       </div>
       <header className="siteHeader">
@@ -135,7 +135,7 @@ export function SiteFooter() {
           <Link className="brand brandFooter" href="/">
             <span className="brandBlock">AI</span><span className="brandWord">NEW</span><span className="brandCa">.CA</span>
           </Link>
-          <p>Independent Canadian reporting and plain-language analysis for people building, buying and living with AI.</p>
+          <p>Canadian AI explainers and plain-language analysis for people building, buying and living with AI.</p>
           <Link className="footerBriefLink" href="/articles/">Read the latest briefing →</Link>
         </div>
         <div>
@@ -195,7 +195,7 @@ export function NewsletterBand() {
     <section className="newsletterBand" id="newsletter">
       <div>
         <span className="eyebrow lightEyebrow">THE AI NEW LEARNING LAB</span>
-        <h2>Turn today’s AI story into knowledge you can use.</h2>
+        <h2>Put what you read into practice.</h2>
         <p>Follow guided tracks, save a focused reading path and test what you understood. Progress stays in this browser.</p>
       </div>
       <Newsletter />

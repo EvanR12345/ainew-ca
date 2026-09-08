@@ -55,6 +55,10 @@ export function LanguagePreference() {
       return;
     }
 
+    // Direct arrivals at articles and information pages should start reading
+    // immediately. Keep the edition choice on the English homepage only.
+    setDocumentLanguage(window.location.pathname.startsWith("/fr") ? "fr" : "en");
+    if (window.location.pathname !== "/") return;
     const frame = window.requestAnimationFrame(() => dialogRef.current?.showModal());
     return () => window.cancelAnimationFrame(frame);
   }, []);

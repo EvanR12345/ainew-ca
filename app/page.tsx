@@ -4,7 +4,7 @@ import Link from "next/link";
 import { AdSlot, ArticleCard, NewsletterBand, SiteFooter, SiteHeader } from "./components";
 import { articleImageStyle } from "./article-image-style";
 import { articles, type Article } from "./lib/articles";
-import { searchEligibleArticles } from "./lib/search-quality";
+import { articleModifiedDate, searchEligibleArticles } from "./lib/search-quality";
 import { buildPageMetadata, categoryPath, organizationSchema, SITE_URL, WEBSITE_ID, websiteSchema } from "./lib/seo";
 import { StructuredData } from "./structured-data";
 import { TasteMotion } from "./taste-motion";
@@ -143,9 +143,9 @@ function TasteAccordion({ stories }: { stories: Article[] }) {
 
 export default function Home() {
   const publishedArticles = searchEligibleArticles(articles);
-  const lead = publishedArticles[0] ?? articles[0];
-  const essential = publishedArticles.slice(1, 4);
-  const latest = publishedArticles.slice(11, 19);
+  const lead = publishedArticles[0];
+  const essential = publishedArticles.filter((article) => article.signal === "Beginner how-to").slice(0, 3);
+  const latest = [...publishedArticles].sort((a, b) => articleModifiedDate(b).localeCompare(articleModifiedDate(a))).slice(0, 4);
   const canada = publishedArticles.filter((article) => article.category === "Canada").slice(1, 4);
   const models = publishedArticles.filter((article) => ["Models", "Research"].includes(article.category)).slice(0, 4);
   const work = publishedArticles.filter((article) => ["Products", "Business"].includes(article.category)).slice(0, 4);
@@ -168,7 +168,7 @@ export default function Home() {
               isPartOf: { "@id": WEBSITE_ID },
               mainEntity: {
                 "@type": "ItemList",
-                numberOfItems: 12,
+                numberOfItems: Math.min(12, publishedArticles.length),
                 itemListElement: publishedArticles.slice(0, 12).map((article, index) => ({
                   "@type": "ListItem",
                   position: index + 1,
@@ -182,9 +182,9 @@ export default function Home() {
         <div className="shell topAdWrap"><AdSlot eager /></div>
 
         <div className="shell editionLine">
-          <span>August 2026</span>
-          <p>Independent Canadian reporting for people building, buying and governing AI.</p>
-          <Link href="/about/">How we report</Link>
+          <span>CANADIAN EDITION</span>
+          <p>Canadian AI policy explained, with practical guides for everyday use.</p>
+          <Link href="/about/">About the publication</Link>
         </div>
 
         <section className="shell tasteHero" aria-labelledby="taste-hero-title">
@@ -196,7 +196,7 @@ export default function Home() {
             </h1>
             <p>News, policy and practical guides that begin with evidence and end with a decision you can make.</p>
             <div className="tasteHeroActions">
-              <Link href={`/article/${lead.slug}/`}>Read today&apos;s briefing <span aria-hidden="true">↗</span></Link>
+              <Link href={`/article/${lead.slug}/`}>Read the featured analysis <span aria-hidden="true">↗</span></Link>
               <Link href="/learn/">Build a learning path</Link>
             </div>
           </div>
@@ -230,13 +230,13 @@ export default function Home() {
 
         <section className="shell tasteThesis" aria-label="AI New editorial thesis">
           <p>{"A useful AI publication does more than repeat the announcement. It shows the evidence, names the uncertainty and helps you decide what to do next.".split(" ").map((word, index) => <span data-reveal-word key={`${word}-${index}`}>{word}</span>)}</p>
-          <Link href="/editorial-policy/">How our reporting works <span aria-hidden="true">↗</span></Link>
+          <Link href="/editorial-policy/">How we check our work <span aria-hidden="true">↗</span></Link>
         </section>
 
         <section className="shell latestSection" aria-labelledby="latest-heading">
           <header className="newsroomSectionHeader latestHeader">
-            <div><h2 id="latest-heading">Latest intelligence</h2></div>
-            <p>New reporting, evidence-led explainers and practical field guides from every AI New desk.</p>
+            <div><h2 id="latest-heading">Latest & updated</h2></div>
+            <p>Recently published or substantively updated guides, with original publication dates shown.</p>
             <Link href="/articles/">All latest <span aria-hidden="true">&rarr;</span></Link>
           </header>
           <div className="latestNewsList">

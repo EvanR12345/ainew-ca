@@ -34,6 +34,7 @@ function announceLearningUpdate() {
 
 export function SaveArticleButton({ article }: { article: Pick<ArticleCardData, "slug" | "title"> }) {
   const [saved, setSaved] = useState(false);
+  const [storageBlocked, setStorageBlocked] = useState(false);
 
   useEffect(() => {
     const refresh = () => setSaved(readSaved().includes(article.slug));
@@ -50,13 +51,19 @@ export function SaveArticleButton({ article }: { article: Pick<ArticleCardData, 
     const savedArticles = new Set(readSaved());
     if (savedArticles.has(article.slug)) savedArticles.delete(article.slug);
     else savedArticles.add(article.slug);
-    window.localStorage.setItem(SAVED_ARTICLES_KEY, JSON.stringify([...savedArticles]));
+    try {
+      window.localStorage.setItem(SAVED_ARTICLES_KEY, JSON.stringify([...savedArticles]));
+      setStorageBlocked(false);
+    } catch {
+      setStorageBlocked(true);
+      return;
+    }
     announceLearningUpdate();
   };
 
   return (
     <button className="saveArticleButton" type="button" onClick={toggle} aria-pressed={saved} aria-label={`${saved ? "Remove" : "Save"} ${article.title}`}>
-      <span aria-hidden="true">{saved ? "✓" : "+"}</span>{saved ? "Saved" : "Save for later"}
+      <span aria-hidden="true">{saved ? "✓" : "+"}</span>{storageBlocked ? "Saving blocked by browser" : saved ? "Saved" : "Save for later"}
     </button>
   );
 }
@@ -80,8 +87,12 @@ export function ArticleKnowledgeCheck({ articleSlug, question, options, correctI
       correct: current.correct + Number(index === correctIndex),
       lastAnswered: new Date().toISOString(),
     };
-    window.localStorage.setItem(QUIZ_PROGRESS_KEY, JSON.stringify(progress));
-    announceLearningUpdate();
+    try {
+      window.localStorage.setItem(QUIZ_PROGRESS_KEY, JSON.stringify(progress));
+      announceLearningUpdate();
+    } catch {
+      // Feedback for this attempt remains usable without persistence.
+    }
   };
 
   const isCorrect = selected === correctIndex;

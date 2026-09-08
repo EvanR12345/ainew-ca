@@ -24,7 +24,7 @@ export default function AiNewDeskPage() {
           "@id": `${SITE_URL}/authors/ai-new-desk/#page`,
           url: `${SITE_URL}/authors/ai-new-desk/`,
           dateCreated: "2026-08-11T04:06:24-04:00",
-          dateModified: "2026-08-30T21:58:27-04:00",
+          dateModified: "2026-09-08T18:00:00Z",
           mainEntity: {
             "@type": "Organization",
             "@id": AUTHOR_ID,
@@ -44,7 +44,7 @@ export default function AiNewDeskPage() {
         <div className="authorDetails">
           <section><h2>What the desk covers</h2><p>Canadian AI policy, model releases, evaluation, products, research and practical workflows. Coverage is written for readers who want to understand what changed, what evidence supports it and what to do next.</p></section>
           <section><h2>How the work is made</h2><p>AI tools may assist with research organization, outlining and drafting. Every public article completes an individual editorial and originality review, uses multiple named sources, records source notes and displays the original links beside the article. Template-built drafts and pages that have not completed that review remain unpublished.</p></section>
-          <section><h2>Accountability</h2><p>Material factual corrections are noted publicly. Advertising is disabled during the publication-quality review and does not approve editorial coverage. Read the <Link href="/editorial-policy/">editorial policy</Link>, <Link href="/corrections-policy/">corrections policy</Link> or <Link href="/contact/">contact the newsroom</Link>.</p></section>
+          <section><h2>Accountability</h2><p>Material factual corrections are noted publicly. Advertising is disabled during the publication-quality review. Advertisers do not approve editorial coverage. Read the <Link href="/editorial-policy/">editorial policy</Link>, <Link href="/corrections-policy/">corrections policy</Link> or <Link href="/contact/">contact the newsroom</Link>.</p></section>
         </div>
         <section className="authorWork">
           <div className="sectionHeading"><div><span className="eyebrow">RECENT WORK</span><h2>Published by AI New Desk.</h2></div><Link href="/articles/">View all stories →</Link></div>
