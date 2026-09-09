@@ -19,6 +19,9 @@ for (const article of records) {
   assert.equal(article.originalityStatus, "individually-reviewed");
   assert.equal(article.evidenceStatus, "verified");
   assert.equal(article.searchEligible, true);
+  for (const link of article.internalLinks ?? []) {
+    assert.ok(records.some(candidate => candidate.slug === link.slug), `Unpublished internal link: ${link.slug}`);
+  }
 }
 for (const slug of reviewedSlugs) assert.ok(records.some(article => article.slug === slug));
 assert.doesNotMatch(articleSource, /generatedArticles|expansionSeeds|buildSections/);

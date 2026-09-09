@@ -155,10 +155,6 @@ export const articles: Article[] = [
         "title": "Canada's AI for All strategy: a field guide to the six pillars"
       },
       {
-        "slug": "canada-ai-public-dashboard-scorecard",
-        "title": "A public scorecard for Canada's AI strategy"
-      },
-      {
         "slug": "canada-ai-privacy-impact-assessment-guide",
         "title": "Privacy impact assessments for AI: a Canadian working guide"
       }
@@ -358,10 +354,6 @@ export const articles: Article[] = [
       {
         "slug": "canada-ai-privacy-impact-assessment-guide",
         "title": "Privacy Impact Assessments for AI: A Canadian Working Guide"
-      },
-      {
-        "slug": "how-to-use-ai-agents-safely",
-        "title": "How to Use an AI Agent Without Handing It the Keys"
       }
     ],
     "image": "/images/articles/unique/federal-public-service-ai-strategy-2025-2027.jpg",
@@ -516,10 +508,6 @@ export const articles: Article[] = [
       {
         "slug": "canada-ai-for-all-strategy-field-guide",
         "title": "Canada's AI for All Strategy: A Field Guide to the Six Pillars"
-      },
-      {
-        "slug": "how-to-use-ai-with-sensitive-files",
-        "title": "How to Use AI With Sensitive Files Without Losing Control"
       }
     ],
     "image": "/images/articles/unique/canada-ai-privacy-impact-assessment-guide.jpg",
