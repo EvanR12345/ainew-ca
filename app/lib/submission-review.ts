@@ -84,10 +84,17 @@ const titles: Record<string, string> = {
   "advanced-ai-evaluation-red-team-monitor-production": "Planning AI release evaluations: critical failures, red teams and monitoring",
 };
 
+const imageDescriptions: Record<string, string> = {
+  "canada-ai-for-all-strategy-field-guide": "Illustration of a group discussing six colour-coded policy columns beside a window.",
+  "federal-public-service-ai-strategy-2025-2027": "Illustration of a team examining a digital map of Canada in an office overlooking Parliament.",
+  "canada-ai-privacy-impact-assessment-guide": "Illustration of illuminated data paths passing through shield-shaped privacy checkpoints on a tabletop.",
+};
+
 export function applySubmissionReview(article: Article): Article {
   const addition = additions[article.slug];
   const title = titles[article.slug];
-  if (!addition && !title) return article;
+  const internalLinks = article.internalLinks?.map((link) => titles[link.slug] ? { ...link, title: titles[link.slug] } : link);
+  if (!addition && !title) return { ...article, internalLinks };
   let sections = article.sections;
   if (addition) {
     const replace = new Set(["A public scorecard for the next announcements", "A departmental implementation brief", "Worked example: a retrieval assistant for client files", "Questions organizations can answer now", "The beginner's bottom line"]);
@@ -101,7 +108,8 @@ export function applySubmissionReview(article: Article): Article {
     ? [{ label: "AI for All: full national strategy", url: strategyUrl, note: "Primary text checked September 9, 2026. The commitments table uses its headline goals and key actions; delivery has not been established by this document review." }, ...(article.sources ?? []).filter((source) => !source.url.includes("gc-ai-strategy"))]
     : article.sources;
   return {
-    ...article, sections, sources,
+    ...article, sections, sources, internalLinks,
+    imageAlt: imageDescriptions[article.slug] ?? article.imageAlt,
     sourceLabel: article.slug === "canada-ai-for-all-strategy-field-guide" ? "AI for All: full national strategy" : article.sourceLabel,
     sourceUrl: article.slug === "canada-ai-for-all-strategy-field-guide" ? strategyUrl : article.sourceUrl,
     title: title ?? article.title,

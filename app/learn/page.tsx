@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import quizQuestions from "../lib/learning-questions.json";
-import { AdSlot, NewsletterBand, SiteFooter, SiteHeader } from "../components";
+import { AdSlot, SiteFooter, SiteHeader } from "../components";
 import { LearningLab, type LearningTrack } from "../learning-lab";
 import { articles, toArticleCardData } from "../lib/articles";
 import { searchEligibleArticles } from "../lib/search-quality";
@@ -91,7 +91,6 @@ export default function LearnPage() {
           <div className="learnHeroFeatures"><span>5 curated tracks</span><span>{cards.length} individually reviewed reads</span><span>8-question knowledge circuit</span><span>12 essential flashcards</span></div>
         </section>
         <div className="shell"><LearningLab articles={cards} tracks={tracks} /></div>
-        <div className="shell"><NewsletterBand /></div>
       </main>
       <SiteFooter />
     </div>
