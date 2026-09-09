@@ -8,12 +8,12 @@ export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const AUTHOR_ID = `${SITE_URL}/authors/ai-new-desk/#profile`;
 
 export const categoryDescriptions: Record<string, string> = {
-  Canada: "Canadian artificial intelligence policy, companies, research institutions, infrastructure and public-sector decisions.",
-  Models: "Clear analysis of AI model releases, capabilities, evaluations, benchmarks and the evidence behind performance claims.",
-  Products: "Practical coverage of AI products, assistants, agents and tools, including what changed and who they are useful for.",
-  Business: "AI business strategy, investment, economics, adoption and workplace change explained without promotional hype.",
-  Research: "Artificial intelligence research, scientific discovery, safety evaluation and emerging technical methods.",
-  Policy: "AI regulation, governance, privacy, copyright, procurement and accountability in Canada and around the world.",
+  Canada: "Canadian AI strategy, public-service policy and privacy explained through primary documents and worked examples.",
+  Models: "Practical methods for comparing AI answers and planning evaluations, with limits and failure cases.",
+  Products: "Guides to everyday AI tasks, useful prompts and permissions for human-reviewed agents.",
+  Business: "AI spreadsheet exercises, educational investment-research methods and fraud-verification checks.",
+  Research: "Methods for source-backed research and document retrieval, with examples of citation and version errors.",
+  Policy: "Practical guidance on handling files, email and private information when using AI.",
 };
 
 export function absoluteUrl(path = "/") {

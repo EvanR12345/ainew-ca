@@ -1,5 +1,7 @@
 # AI New Canada: fundamental AdSense readiness review
 
+Follow-up: [implementation after this assessment](submission-remediation-2026-09-09.md) addresses several findings below. This document preserves the earlier assessment; consult the follow-up for current changes.
+
 Assessment completed September 9, 2026. This is an editorial and technical assessment, not Google's determination or a promise of approval.
 
 ## Decision

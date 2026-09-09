@@ -49,7 +49,7 @@ function TasteBento({ stories }: { stories: Article[] }) {
       {stories.map((article, index) => (
         <article className={`tasteBentoCard tasteBentoCard-${index + 1}`} key={article.slug}>
           <Link className="tasteBentoImage" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
-            <Image
+            <Image unoptimized
               src={article.image}
               alt={article.imageAlt}
               width={1200}
@@ -81,7 +81,7 @@ function CanadianDecisions({ stories }: { stories: Article[] }) {
         {stories.slice(0, 3).map((article, index) => (
           <article className={`canadaDecisionCard canadaDecisionCard-${index + 1}`} key={article.slug}>
             <Link className="canadaDecisionMedia" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
-              <Image
+              <Image unoptimized
                 src={article.image}
                 alt={article.imageAlt}
                 width={1200}
@@ -115,14 +115,14 @@ function TasteAccordion({ stories }: { stories: Article[] }) {
   return (
     <section className="shell tasteAccordionSection">
       <header>
-        <h2>Follow the model stack without following the hype.</h2>
+        <h2>Understand AI answers and their evidence.</h2>
         <Link href={categoryPath("Models")}>Browse models and research <span aria-hidden="true">↗</span></Link>
       </header>
       <div className="tasteAccordion">
         {stories.slice(0, 3).map((article) => (
           <article key={article.slug}>
             <Link className="tasteAccordionMedia" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
-              <Image
+              <Image unoptimized
                 src={modelStackImages[article.slug] ?? article.image}
                 alt={article.imageAlt}
                 width={1122}
@@ -202,7 +202,7 @@ export default function Home() {
           </div>
           <article className="tasteHeroStory">
             <Link className="tasteHeroMedia" href={`/article/${lead.slug}/`} style={articleImageStyle(lead.slug)}>
-              <Image src={lead.image} alt={lead.imageAlt} width={1200} height={675} priority />
+              <Image unoptimized src={lead.image} alt={lead.imageAlt} width={1200} height={675} priority />
             </Link>
             <div className="tasteHeroStoryCopy">
               <div><Link href={categoryPath(lead.category)}>{lead.category}</Link><time dateTime={lead.date}>{lead.displayDate}</time></div>
@@ -219,10 +219,10 @@ export default function Home() {
             {[false, true].map((duplicate) => (
               <div className="tasteMarqueeSet" aria-hidden={duplicate || undefined} key={String(duplicate)}>
                 <Link href={categoryPath("Canada")}>Canada and policy</Link><span>•</span>
-                <Link href={categoryPath("Models")}>Models and releases</Link><span>•</span>
+                <Link href={categoryPath("Models")}>Model evaluation</Link><span>•</span>
                 <Link href={categoryPath("Research")}>Research briefs</Link><span>•</span>
                 <Link href="/topics/using-ai/">Use AI well</Link><span>•</span>
-                <Link href="/canada-ai-resources/">Official tracker</Link><span>•</span>
+                <Link href="/canada-ai-resources/">Canadian AI resources</Link><span>•</span>
               </div>
             ))}
           </div>

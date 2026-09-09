@@ -1,4 +1,5 @@
 import { expansionArticles, sourceLibrary } from "./expansion-articles";
+import { applySubmissionReview } from "./submission-review";
 import { practicalGuideReviews } from "./practical-guide-reviews";
 import { searchEligibleArticles } from "./search-quality";
 export { categories } from "./article-categories";
@@ -668,7 +669,7 @@ function accurateReadTime(article: Article) {
   return `${Math.max(3, Math.ceil(words / 200))} min read`;
 }
 
-export const articles: Article[] = auditedArticleDrafts.map((article) => ({
+export const articles: Article[] = auditedArticleDrafts.map(applySubmissionReview).map((article) => ({
   ...article,
   readTime: accurateReadTime(article),
   image: `/images/articles/unique/${article.slug}.jpg`,

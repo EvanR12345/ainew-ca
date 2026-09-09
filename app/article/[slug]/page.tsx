@@ -158,7 +158,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </header>
 
           <div className="articleHero articleHeroDesktop" style={articleImageStyle(article.slug)}>
-            <Image src={article.image} alt={article.imageAlt} width={1200} height={675} priority />
+            <Image unoptimized src={article.image} alt={article.imageAlt} width={1200} height={675} priority />
             <span>{article.category.toUpperCase()} / AI NEW</span>
           </div>
           <p className="articleImageCaption articleImageCaptionDesktop">Illustrative image. {article.imageAlt}</p>
@@ -201,7 +201,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     <>
                       <div className="articleMobileHero">
                         <div className="articleHero" style={articleImageStyle(article.slug)}>
-                          <Image src={article.image} alt={article.imageAlt} width={1200} height={675} />
+                          <Image unoptimized src={article.image} alt={article.imageAlt} width={1200} height={675} />
                           <span>{article.category.toUpperCase()} / AI NEW</span>
                         </div>
                         <p className="articleImageCaption">Illustrative image. {article.imageAlt}</p>

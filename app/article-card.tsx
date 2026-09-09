@@ -8,7 +8,7 @@ export function ArticleCard({ article, size = "standard" }: { article: ArticleCa
   return (
     <article className={`storyCard storyCard-${size} storyCard-photo-clean`}>
       <Link className="storyVisual" href={`/article/${article.slug}/`} aria-label={article.title} style={articleImageStyle(article.slug)}>
-        <Image
+        <Image unoptimized
           src={article.image}
           alt={article.imageAlt}
           width={1200}

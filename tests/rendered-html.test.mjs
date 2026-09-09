@@ -94,7 +94,7 @@ test("ships a lightweight, accessible editorial browsing shell", async () => {
   assert.equal(thumbnails.filter((file) => file.endsWith(".webp")).length, 221);
   assert.match(cardSource, /src=\{article\.image\}/);
   assert.match(cardSource, /sizes="\(max-width: 760px\) 100vw/);
-  assert.doesNotMatch(cardSource, /unoptimized/);
+  assert.match(cardSource, /unoptimized/);
   assert.match(homeSource, /className="tasteBentoImage"[\s\S]*?src=\{article\.image\}/);
   assert.match(homeSource, /className="canadaDecisionMedia"[\s\S]*?src=\{article\.image\}/);
   assert.match(homeSource, /className="shell canadaDecisionsGrid"/);
@@ -228,7 +228,7 @@ test("publishes a smaller individually reviewed core and withholds template draf
 
   for (const wordCount of wordCounts) assert.ok(wordCount >= 1_000, `expected a substantive reviewed guide, found ${wordCount} words`);
   assert.match(strategyHtml, /Pillars one and two: trust must become usable protection/);
-  assert.match(strategyHtml, /A public scorecard for the next announcements/);
+  assert.match(strategyHtml, /A completed reading of six measurable commitments/);
   assert.match(serviceHtml, /Priority one: make shared capacity reduce repeated mistakes/);
   assert.match(serviceHtml, /The quarterly test of progress/);
   assert.match(privacyHtml, /Inventory four kinds of data/);
@@ -283,10 +283,10 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.match(articleHtml, /"@type":"NewsArticle"/);
   assert.match(articleHtml, /"@type":"BreadcrumbList"/);
   assert.match(articleHtml, /"datePublished":"2026-08-10T12:00:00Z"/);
-  assert.match(articleHtml, /"dateModified":"2026-09-08T18:00:00Z"/);
+  assert.match(articleHtml, /"dateModified":"2026-09-09T05:18:04Z"/);
   assert.match(authorHtml, /"@type":"ProfilePage"/);
   assert.match(authorHtml, /"dateCreated":"2026-08-11T04:06:24-04:00"/);
-  assert.match(authorHtml, /"dateModified":"2026-09-08T18:00:00Z"/);
+  assert.match(authorHtml, /"dateModified":"2026-09-09T05:18:04Z"/);
   assert.match(articleHtml, /Editorial note:/);
   assert.match(editorialHtml, /Publication and originality review/);
   assert.match(editorialHtml, /Template-built drafts, thin briefs, unfinished experiments and near-duplicate query variations remain unpublished/);
