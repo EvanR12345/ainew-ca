@@ -36,31 +36,11 @@ export function LanguagePreference() {
   const [choice, setChoice] = useState<Language>("en");
 
   useEffect(() => {
-    let saved: string | null = null;
-    try {
-      saved = window.localStorage.getItem(LANGUAGE_PREFERENCE_KEY);
-    } catch {
-      // A blocked storage API should not block access to the site.
-    }
-
-    if (saved === "en" || saved === "fr") {
-      const routeLanguage = window.location.pathname.startsWith("/fr/") || window.location.pathname === "/fr" ? "fr" : "en";
-      setDocumentLanguage(routeLanguage);
-      const editionRoot = ["/", "/fr", "/fr/"].includes(window.location.pathname);
-      if (editionRoot) {
-        const destination = destinationFor(saved);
-        const current = destinationFor(routeLanguage);
-        if (saved !== routeLanguage && destination !== current) window.location.replace(destination);
-      }
-      return;
-    }
-
-    // Direct arrivals at articles and information pages should start reading
-    // immediately. Keep the edition choice on the English homepage only.
+    // The URL determines the edition. Never interrupt or redirect an arrival.
     setDocumentLanguage(window.location.pathname.startsWith("/fr") ? "fr" : "en");
-    if (window.location.pathname !== "/") return;
-    const frame = window.requestAnimationFrame(() => dialogRef.current?.showModal());
-    return () => window.cancelAnimationFrame(frame);
+    const openEditionChoice = () => dialogRef.current?.showModal();
+    window.addEventListener("ainew-choose-edition", openEditionChoice);
+    return () => window.removeEventListener("ainew-choose-edition", openEditionChoice);
   }, []);
 
   function continueWithChoice(event: FormEvent<HTMLFormElement>) {
@@ -130,6 +110,10 @@ export function LanguagePreference() {
 
 export function LanguageSwitch({ locale = "en" }: { locale?: Language }) {
   function choose(language: Language) {
+    if (language === "fr" && locale === "en") {
+      window.dispatchEvent(new Event("ainew-choose-edition"));
+      return;
+    }
     saveLanguage(language);
     if (language === locale) return;
     window.location.assign(destinationFor(language));

@@ -47,7 +47,7 @@ export default async function TopicPage({ params }: { params: Promise<{ topic: s
               description: hub.description,
               isPartOf: { "@id": WEBSITE_ID },
               inLanguage: "en-CA",
-              dateModified: "2026-08-11",
+              dateModified: "2026-09-09",
               mainEntity: {
                 "@type": "ItemList",
                 numberOfItems: selectedArticles.length,

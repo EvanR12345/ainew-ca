@@ -43,3 +43,46 @@ if (sitemap) {
 }
 
 console.log(JSON.stringify({ outputDir, sitemapUrls: sitemap ? sitemapUrls.length : "dynamic", publicArticles: indexable, generatedDraftRoutes: noindex }, null, 2));
+
+// Audit every sitemap page, not only articles, in the deployed static export.
+if (sitemap) {
+  const titles = new Map();
+  const descriptions = new Map();
+  let checkedLinks = 0;
+  for (const url of sitemapUrls) {
+    const pathname = new URL(url).pathname;
+    const file = path.join(outputDir, pathname, "index.html");
+    const html = await readFile(file, "utf8");
+    const title = html.match(/<title>([\s\S]*?)<\/title>/)?.[1];
+    const description = html.match(/<meta name="description" content="([^"]+)"/)?.[1];
+    assert.ok(title && description, `${url}: missing title or description`);
+    assert.ok(!titles.has(title), `${url}: duplicate title with ${titles.get(title)}`);
+    assert.ok(!descriptions.has(description), `${url}: duplicate description with ${descriptions.get(description)}`);
+    assert.ok(!title.includes("…"), `${url}: mechanically truncated title`);
+    titles.set(title, url);
+    descriptions.set(description, url);
+    assert.equal([...html.matchAll(/<h1(?:\s|>)/g)].length, 1, `${url}: expected one main heading`);
+    const canonicals = [...html.matchAll(/<link rel="canonical" href="([^"]+)"/g)];
+    assert.equal(canonicals.length, 1, `${url}: expected one canonical`);
+    assert.equal(canonicals[0][1], url, `${url}: canonical differs from sitemap`);
+    assert.ok(!/<meta name="(?:robots|googlebot)" content="[^"]*noindex/.test(html), `${url}: noindex in sitemap`);
+    if (pathname.startsWith("/article/")) {
+      assert.match(html, /max-image-preview:large/, `${url}: missing large-image preview permission`);
+    }
+    for (const match of html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)) {
+      const href = match[1].replaceAll("&amp;", "&");
+      if (/^(?:mailto:|tel:|javascript:)/.test(href)) continue;
+      const target = new URL(href, url);
+      if (target.origin !== "https://ainew.ca") continue;
+      const targetFile = path.join(outputDir, decodeURIComponent(target.pathname), target.pathname.endsWith("/") ? "index.html" : "");
+      const targetHtml = await readFile(targetFile, "utf8").catch(() => null);
+      assert.ok(targetHtml !== null, `${url}: broken internal link ${href}`);
+      if (target.hash && targetFile.endsWith(".html")) {
+        const id = decodeURIComponent(target.hash.slice(1));
+        assert.ok(targetHtml.includes(`id="${id}"`), `${url}: missing fragment ${href}`);
+      }
+      checkedLinks++;
+    }
+  }
+  console.log(JSON.stringify({ uniqueTitles: titles.size, uniqueDescriptions: descriptions.size, checkedInternalLinks: checkedLinks }));
+}

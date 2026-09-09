@@ -11,7 +11,7 @@ import { TasteMotion } from "./taste-motion";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Canadian AI News, Guides & Analysis | AI New Canada",
-  description: "Independent Canadian AI news, policy trackers, model explainers and practical guides built from named primary sources.",
+  description: "Canadian AI policy explained, plus practical guides to prompts, research, spreadsheets and safer AI use. Read the evidence and work through examples.",
   path: "/",
   languages: { "en-CA": `${SITE_URL}/`, "x-default": `${SITE_URL}/` },
 });

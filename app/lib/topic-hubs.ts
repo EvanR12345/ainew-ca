@@ -18,7 +18,7 @@ export const topicHubs: TopicHub[] = [
     slug: "canadian-ai-policy",
     title: "Canadian AI policy: the practical guide",
     eyebrow: "CANADA / POLICY",
-    description: "A plain-language guide to Canadian AI policy, privacy, procurement, compute, safety and the institutions shaping the rules.",
+    description: "Read Canada’s AI transparency consultation, national strategy, public-service plan and privacy assessment guidance, with worked examples.",
     introduction: "Canadian AI policy is not one law or one regulator. It is a moving system of privacy duties, public-sector rules, investment programs, standards and sector-specific decisions. This hub helps readers follow the durable questions instead of chasing every announcement.",
     questions: [
       "Who is accountable when an automated system affects a person?",
@@ -69,10 +69,10 @@ export const topicHubs: TopicHub[] = [
   },
   {
     slug: "ai-models",
-    title: "AI models explained: capabilities, cost and evaluation",
+    title: "AI model evaluation: compare answers and check evidence",
     eyebrow: "MODELS / EVALUATION",
-    description: "Understand AI model releases, reasoning, context windows, retrieval, fine-tuning, quantization, tool use and evaluation.",
-    introduction: "Model announcements compress many trade-offs into one launch score. A useful comparison separates capability, reliability, speed, cost, control and fit for the actual workload. This hub explains the architecture and evaluation ideas readers need to judge releases with more confidence.",
+    description: "Compare AI answers with a scorecard, plan release evaluations and check citations, document versions and access controls in retrieval systems.",
+    introduction: "Model announcements compress many trade-offs into one launch score. A useful comparison separates capability, reliability, speed, cost, control and fit for the actual workload. Start with the answer-comparison scorecard, then work through release checks and document-retrieval failure cases.",
     questions: [
       "Which representative tasks does the model complete without rescue?",
       "What does an accepted outcome cost after retries and review?",

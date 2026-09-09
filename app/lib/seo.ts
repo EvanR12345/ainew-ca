@@ -26,6 +26,20 @@ export function categoryPath(category: string) {
   return `/category/${category.toLowerCase()}/`;
 }
 
+export function searchRobots(index = true): Metadata["robots"] {
+  return {
+    index,
+    follow: true,
+    googleBot: {
+      index,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  };
+}
+
 export function buildPageMetadata({
   title,
   description,
@@ -47,7 +61,7 @@ export function buildPageMetadata({
       canonical: url,
       languages: languages ?? { "en-CA": url, "x-default": url },
     },
-    robots: { index, follow: true },
+    robots: searchRobots(index),
     openGraph: {
       type: "website",
       siteName: SITE_NAME,

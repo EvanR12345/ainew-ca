@@ -22,7 +22,7 @@ export function ArticleCard({ article, size = "standard" }: { article: ArticleCa
         <h3><Link href={`/article/${article.slug}/`}>{article.title}</Link></h3>
         {size !== "compact" && <p>{article.dek}</p>}
         <div className="storyByline"><span>AI New Desk</span><span>{article.readTime}</span><span>{article.signal}</span></div>
-        <SaveArticleButton article={article} />
+        <SaveArticleButton article={{ slug: article.slug, title: article.title }} />
       </div>
     </article>
   );

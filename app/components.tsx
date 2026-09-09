@@ -154,7 +154,7 @@ export function SiteFooter() {
           <Link href="/topics/">Topic guides</Link>
           <Link href="/topics/using-ai/">How to use AI</Link>
           <Link href="/ai-glossary/">AI glossary</Link>
-          <Link href="/canada-ai-resources/">Canada AI tracker</Link>
+          <Link href="/canada-ai-resources/">Canadian AI resources</Link>
           <Link href="/search/">Search</Link>
         </div>
         <div>

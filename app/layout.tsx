@@ -12,7 +12,6 @@ export const metadata: Metadata = {
     applicationName: SITE_NAME,
     title: { default: "AI New Canada — Canadian AI News & Practical Guides", template: "%s" },
     description: SITE_DESCRIPTION,
-    keywords: ["AI news", "artificial intelligence", "Canada AI", "AI models", "AI policy", "AI New Canada"],
     authors: [{ name: "AI New Desk", url: `${SITE_URL}/authors/ai-new-desk/` }],
     creator: "AI New Desk",
     publisher: SITE_NAME,

@@ -142,6 +142,8 @@ test("offers a remembered English-first language choice and a substantive French
   assert.match(preferenceSource, /localStorage\.setItem/);
   assert.match(preferenceSource, /useState<Language>\("en"\)/);
   assert.match(preferenceSource, /showModal\(\)/);
+  assert.match(preferenceSource, /ainew-choose-edition/);
+  assert.doesNotMatch(preferenceSource, /requestAnimationFrame|location\.replace/);
   assert.match(preferenceSource, /dismissToEnglish/);
   assert.match(preferenceSource, /onCancel=\{\(event\) =>/);
   assert.match(preferenceSource, /aria-pressed/);

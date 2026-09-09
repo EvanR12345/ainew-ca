@@ -7,7 +7,7 @@ import { articleImageStyle } from "../../article-image-style";
 import { AdSlot, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
 import { SaveArticleButton } from "../../learning-actions";
 import { articles, getAdjacentArticles, getArticle, getRelatedArticles, toArticleCardData } from "../../lib/articles";
-import { absoluteUrl, AUTHOR_ID, breadcrumbSchema, categoryPath, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../lib/seo";
+import { absoluteUrl, searchRobots, AUTHOR_ID, breadcrumbSchema, categoryPath, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../lib/seo";
 import { topicForArticle } from "../../lib/topic-hubs";
 import { articleModifiedDateTime, articlePublishedDateTime, isSearchEligibleArticle, searchEligibleArticles, SEARCH_REVIEW_DATETIME } from "../../lib/search-quality";
 import { ArticleReadTracker, MarkArticleRead, ReadingJourney, RelatedRecommendations } from "../../reading-history";
@@ -22,14 +22,6 @@ export function generateStaticParams() {
   return publicArticles.map((article) => ({ slug: article.slug }));
 }
 
-function searchTitle(title: string) {
-  const first = title.match(/^.*?[.!?](?:\s|$)/)?.[0]?.replace(/[.!?]$/, "").trim();
-  const candidate = first && first.length >= 32 ? first : title;
-  if (candidate.length <= 62) return candidate;
-  const clipped = candidate.slice(0, 59).replace(/\s+\S*$/, "");
-  return `${clipped}…`;
-}
-
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticle(slug);
@@ -40,10 +32,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const modifiedTime = articleModifiedDateTime(article);
   const index = isSearchEligibleArticle(article);
   return {
-    title: `${searchTitle(article.title)} | AI New Canada`,
+    title: `${article.seoTitle ?? article.title} | AI New Canada`,
     description: article.dek,
     alternates: { canonical: url, languages: { "en-CA": url, "x-default": url } },
-    robots: { index, follow: true },
+    robots: searchRobots(index),
     authors: [{ name: "AI New Desk", url: `${SITE_URL}/authors/ai-new-desk/` }],
     openGraph: {
       title: article.title,
@@ -154,7 +146,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               {article.modifiedAt && <span>Updated <time dateTime={article.modifiedAt}>{new Date(article.modifiedAt).toLocaleDateString("en-CA", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })}</time></span>}
               <span>{article.readTime}</span>
             </div>
-            <SaveArticleButton article={article} />
+            <SaveArticleButton article={{ slug: article.slug, title: article.title }} />
           </header>
 
           <div className="articleHero articleHeroDesktop" style={articleImageStyle(article.slug)}>

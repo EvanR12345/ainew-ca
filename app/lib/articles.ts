@@ -24,6 +24,7 @@ export type ArticleSource = {
 export type Article = {
   slug: string;
   title: string;
+  seoTitle?: string;
   dek: string;
   category: "Canada" | "Models" | "Products" | "Business" | "Research" | "Policy";
   date: string;
@@ -65,7 +66,7 @@ export const articles: Article[] = [
     "sourceLabel": "Canada's AI transparency consultation",
     "sourceUrl": "https://www.canada.ca/en/innovation-science-economic-development/news/2026/07/government-of-canada-launches-public-consultation-on-ai-transparency.html",
     "image": "/images/articles/unique/canada-ai-transparency-consultation-what-to-know.jpg",
-    "imageAlt": "Policy specialists reviewing an AI impact assessment",
+    "imageAlt": "Illustration of a transparent AI head sculpture beside a window overlooking Parliament.",
     "evidenceStatus": "verified",
     "searchEligible": true,
     "sections": [
@@ -160,7 +161,8 @@ export const articles: Article[] = [
       }
     ],
     "disclaimer": "This article reports what the Government of Canada put forward for consultation and distinguishes those questions from final law or regulation. The linked government records are the controlling sources.",
-    "originalityStatus": "individually-reviewed"
+    "originalityStatus": "individually-reviewed",
+    "seoTitle": "Canada’s AI transparency consultation explained"
   },
   {
     "slug": "canada-ai-for-all-strategy-field-guide",
@@ -318,7 +320,8 @@ export const articles: Article[] = [
       }
     ],
     "modifiedAt": "2026-09-09T05:18:04Z",
-    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing."
+    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing.",
+    "seoTitle": "Canada’s AI for All Strategy: six pillars explained"
   },
   {
     "slug": "federal-public-service-ai-strategy-2025-2027",
@@ -472,7 +475,8 @@ export const articles: Article[] = [
       }
     ],
     "modifiedAt": "2026-09-09T05:18:04Z",
-    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing."
+    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing.",
+    "seoTitle": "Canada’s public-service AI strategy, 2025–2027"
   },
   {
     "slug": "canada-ai-privacy-impact-assessment-guide",
@@ -625,7 +629,8 @@ export const articles: Article[] = [
       }
     ],
     "modifiedAt": "2026-09-09T05:18:04Z",
-    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing."
+    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing.",
+    "seoTitle": "AI privacy impact assessments: a Canadian guide"
   },
   {
     "slug": "beginner-how-to-use-ai-everyday-work",
@@ -736,7 +741,8 @@ export const articles: Article[] = [
           "For the next attempt, use another invented meeting with two people proposing different dates. Keep the same acceptance rule. Once the process is dependable enough for your purpose, check your organization's tool and data policies before using actual work notes. Do not give a beginner exercise permission to send emails, create calendar events or assign tasks automatically."
         ]
       }
-    ]
+    ],
+    "seoTitle": "How to use AI at work: a beginner’s first task"
   },
   {
     "slug": "beginner-ai-prompts-without-magic-words",
@@ -839,7 +845,8 @@ export const articles: Article[] = [
           "For open-ended research, the missing ingredient may be evidence rather than phrasing. Ask what information is needed, gather that information, then write. For calculations, verify with a calculator or spreadsheet. A more elaborate prompt is not always the next useful step."
         ]
       }
-    ]
+    ],
+    "seoTitle": "How to write useful AI prompts, with examples"
   },
   {
     "slug": "beginner-use-ai-safely-files-email-private-data",
@@ -944,7 +951,8 @@ export const articles: Article[] = [
           "Use the service's documented deletion and access controls where appropriate, but do not assume deleting the visible conversation proves every retained copy is gone. If a password or token was exposed, ask the responsible account owner or security team to revoke or rotate it. Preserve the facts needed for an investigation without copying the sensitive material into more tools."
         ]
       }
-    ]
+    ],
+    "seoTitle": "Using AI safely with files, email and private data"
   },
   {
     "slug": "intermediate-repeatable-ai-research-writing-workflow",
@@ -1047,7 +1055,8 @@ export const articles: Article[] = [
           "Measure the workflow by corrections needed, source coverage and reviewer time, not draft length. Include a deliberately incomplete source pack in your internal tests. A responsible draft should expose the missing evidence instead of smoothing the gap. The ledger design is our editorial method; it is not a certification issued by the linked organizations."
         ]
       }
-    ]
+    ],
+    "seoTitle": "An AI research and writing workflow you can verify"
   },
   {
     "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
@@ -1150,7 +1159,8 @@ export const articles: Article[] = [
           "Keep separate fields for critical failures, acceptance rate and reviewer effort. Re-run the comparison after a material change to prompts, sources, tools or model version. OpenAI's evaluation documentation supports structured testing; it does not establish that our suggested rubric predicts quality in your setting."
         ]
       }
-    ]
+    ],
+    "seoTitle": "How to compare AI answers: an evaluation scorecard"
   },
   {
     "slug": "intermediate-use-ai-spreadsheets-structured-data",
@@ -1275,7 +1285,8 @@ export const articles: Article[] = [
           "This exercise establishes only a simple conditional sum. It does not validate a payroll, tax return or financial statement. For higher-stakes work, expand the tests around the actual rules and have a qualified reviewer check the complete process."
         ]
       }
-    ]
+    ],
+    "seoTitle": "Using AI with spreadsheets: formulas and data checks"
   },
   {
     "slug": "advanced-human-in-the-loop-ai-agent-workflow",
@@ -1378,7 +1389,8 @@ export const articles: Article[] = [
           "Expand authority only for a specific action with evidence from representative tests, a named owner and a recovery path. Our support example is a design exercise, not a claim that these controls alone make an agent secure. OWASP's excessive-agency guidance explains why functionality, permissions and autonomy each need limits."
         ]
       }
-    ]
+    ],
+    "seoTitle": "AI agent design: permissions and human approval"
   },
   {
     "slug": "advanced-retrieval-ai-own-documents-citations",
@@ -1478,7 +1490,8 @@ export const articles: Article[] = [
           "Track unsupported material claims, missing expected passages, stale-version answers and access failures as separate measures. Repeat tests when documents, chunking, ranking, prompts or models change. The worked values here are fictional; this is a document-control method, not travel-expense advice or a benchmark result for any vendor."
         ]
       }
-    ]
+    ],
+    "seoTitle": "AI document retrieval: citations and access controls"
   },
   {
     "slug": "advanced-ai-evaluation-red-team-monitor-production",
@@ -1583,7 +1596,8 @@ export const articles: Article[] = [
           "The aim is a release record another operator can follow: what ran, what failed, who decided, and how to stop it. No finite test set proves an AI system safe for every future input."
         ]
       }
-    ]
+    ],
+    "seoTitle": "Planning AI evaluations, red teams and monitoring"
   },
   {
     "slug": "how-beginners-use-ai-investment-research",
@@ -1599,7 +1613,7 @@ export const articles: Article[] = [
     "sourceUrl": "https://www.ciro.ca/newsroom/publications/guidance-order-execution-only-account-services-and-activities",
     "sources": [
       {
-        "label": "CIRO: Guidance on order execution only account services",
+        "label": "Canadian Investment Regulatory Organization (CIRO): Guidance on order execution only account services",
         "url": "https://www.ciro.ca/newsroom/publications/guidance-order-execution-only-account-services-and-activities"
       },
       {
@@ -1687,7 +1701,8 @@ export const articles: Article[] = [
       }
     ],
     "modifiedAt": "2026-09-09T05:18:04Z",
-    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing."
+    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing.",
+    "seoTitle": "AI investment research: a beginner’s verification guide"
   },
   {
     "slug": "beginner-ai-investment-scam-check",
@@ -1703,11 +1718,11 @@ export const articles: Article[] = [
     "sourceUrl": "https://www.ciro.ca/office-investor/avoiding-fraud-and-protecting-your-investments/artificial-intelligence-ai-and-investment-fraud",
     "sources": [
       {
-        "label": "CIRO: Artificial intelligence and investment fraud",
+        "label": "Canadian Investment Regulatory Organization (CIRO): Artificial intelligence and investment fraud",
         "url": "https://www.ciro.ca/office-investor/avoiding-fraud-and-protecting-your-investments/artificial-intelligence-ai-and-investment-fraud"
       },
       {
-        "label": "CIRO: Investor alerts",
+        "label": "Canadian Investment Regulatory Organization (CIRO): Investor alerts",
         "url": "https://www.ciro.ca/office-investor/investor-alerts"
       },
       {
@@ -1781,7 +1796,8 @@ export const articles: Article[] = [
       }
     ],
     "modifiedAt": "2026-09-09T05:18:04Z",
-    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing."
+    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing.",
+    "seoTitle": "How to check an AI investment pitch for scam signs"
   }
 ];
 
