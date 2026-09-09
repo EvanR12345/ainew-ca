@@ -1,5 +1,7 @@
 # First-wave external source audit
 
+> Historical record, superseded September 9, 2026. The figures below describe an August link check, not the current public collection or a certification of originality, claim accuracy or human editorial review. Most of that collection is now intentionally unpublished. Use the current publication gate and public-source audit; do not restore articles based on this report.
+
 Audit date: 2026-08-13
 
 ## Scope and result

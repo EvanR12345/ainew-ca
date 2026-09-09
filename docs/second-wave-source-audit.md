@@ -1,10 +1,12 @@
 # Second-wave guide audit
 
+> Historical planning record, superseded September 9, 2026. These ten guides remain drafts. The source notes below do not establish current claim accuracy, originality or completed human editorial review. They are not publication approval.
+
 Verified: 2026-08-13
 
 Status: prepared, not public. `SITE_FEATURES.secondWaveGuides` remains `false`, so these guides stay out of routes, feeds and the sitemap until an intentional release build.
 
-## Editorial verification
+## Historical source notes
 
 | Guide | Primary evidence checked | Editorial boundary |
 | --- | --- | --- |
@@ -21,12 +23,16 @@ Status: prepared, not public. `SITE_FEATURES.secondWaveGuides` remains `false`, 
 
 ## Collection-link plan
 
-Each guide has three hand-picked links into the published 100-guide collection. The links cover the nearest practical framework, a risk or evaluation companion, and one adjacent deep dive. They are stored as editorial relationships rather than generated at request time, so they remain stable and reviewable.
+The original plan assigned three links per guide into what was then described as a published 100-guide collection. Most of those articles are now intentionally unpublished; every proposed link must be checked against the current public eligibility gate. The links cover the nearest practical framework, a risk or evaluation companion, and one adjacent deep dive. They are stored as editorial relationships rather than generated at request time, so they remain stable and reviewable.
 
-## Release checklist
+## Current release requirements
 
-1. Confirm the intended batch date in `secondWavePublicationDate`.
-2. Set `secondWaveGuides` to `true` in `app/lib/site-features.ts`.
-3. Run `npm test` and `npm run build`.
-4. Review the ten guide URLs in the production build, then deploy.
-5. Submit the updated sitemap only after the public pages return HTTP 200.
+1. Leave `SITE_FEATURES.secondWaveGuides` false while any guide is unfinished. Enabling the switch is not an editorial review.
+2. Review each candidate separately: verify current primary sources and the exact claims they support, replace weak citations, remove template prose, and add a useful original contribution appropriate to the subject.
+3. Record what was actually checked. Do not describe an automated URL response or an AI rewrite as a human editorial review or a tested product result.
+4. Check all internal links against publicly eligible articles. Review title-specific imagery and rendered desktop and mobile pages.
+5. Set `evidenceStatus`, `originalityStatus` and `searchEligible` only when their requirements have actually been met. Preserve `app/lib/search-quality.ts`; never bypass it to release a batch.
+6. Run the production builds, rendered tests, source, originality, search-quality and legacy audits. Resolve failures or explicitly record access limitations; do not count a blocked source as verified by HTTP status alone.
+7. Review the exact proposed source commit before any authorized deployment. Recheck public routes, sitemap and exclusion of remaining drafts after deployment.
+
+See [the September 2026 review](adsense-fundamental-review-2026-09-09.md) for the distinction between technical eligibility and editorial value.

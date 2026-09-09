@@ -24,7 +24,7 @@ export function sitemapEntries(): SitemapEntry[] {
   const routeDates: Record<string, string> = {
     "/": "2026-09-08",
     "/articles/": "2026-09-08",
-    "/learn/": "2026-08-11",
+    "/learn/": "2026-09-09",
     "/topics/": SEARCH_REVIEW_DATE,
     "/topics/canadian-ai-policy/": SEARCH_REVIEW_DATE,
     "/topics/using-ai/": SEARCH_REVIEW_DATE,
@@ -36,7 +36,7 @@ export function sitemapEntries(): SitemapEntry[] {
     "/editorial-policy/": "2026-09-08",
     "/corrections-policy/": "2026-08-11",
     "/contact/": "2026-09-08",
-    "/privacy/": "2026-09-08",
+    "/privacy/": "2026-09-09",
     "/terms/": "2026-08-10",
   };
   const staticRoutes = Object.entries(routeDates).map(([route, lastModified]) => ({

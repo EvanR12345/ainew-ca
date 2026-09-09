@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import quizQuestions from "./lib/learning-questions.json";
 import { useEffect, useMemo, useState } from "react";
 import { ArticleCard } from "./article-card";
 import { LEARNING_EVENT, QUIZ_PROGRESS_KEY, SAVED_ARTICLES_KEY } from "./learning-actions";
@@ -31,16 +32,6 @@ type LabTab = "paths" | "quiz" | "flashcards" | "saved";
 const DAILY_GOAL_KEY = "ainew-daily-goal-v1";
 const MASTERED_CARDS_KEY = "ainew-mastered-cards-v1";
 
-const quizQuestions = [
-  { id: "evidence", question: "What is the strongest way to judge an AI tool for real work?", options: ["Use the vendor’s best demo", "Test it on your own tasks with a baseline", "Choose the model with the longest name"], correct: 1, explanation: "A local test against the current workflow reveals quality, time, review effort and failure patterns that a polished demo cannot.", slug: "intermediate-compare-ai-answers-evaluation-scorecard" },
-  { id: "privacy", question: "What should happen before private files enter an AI workflow?", options: ["Check permissions, retention and necessity", "Rename every file", "Paste everything and delete the chat later"], correct: 0, explanation: "Access, retention, sensitivity and purpose should be clear before data is shared with any model or connected tool.", slug: "beginner-use-ai-safely-files-email-private-data" },
-  { id: "rag", question: "What makes retrieval-augmented generation useful?", options: ["It always trains a new model", "It retrieves relevant evidence before generation", "It removes the need for citations"], correct: 1, explanation: "RAG selects relevant source material at answer time so the output can be grounded and checked.", slug: "retrieval-augmented-generation-guide" },
-  { id: "agents", question: "Where should high-impact AI agents keep a human involved?", options: ["Only after an incident", "At meaningful approval and override points", "Nowhere once the prototype works"], correct: 1, explanation: "Human review matters where actions affect money, rights, safety, sensitive data or irreversible systems.", slug: "advanced-human-in-the-loop-ai-agent-workflow" },
-  { id: "prompts", question: "What improves a prompt more reliably than a magic phrase?", options: ["More exclamation marks", "Clear context, task, constraints and examples", "Asking the model to be perfect"], correct: 1, explanation: "Useful prompts explain the job, relevant context, constraints, output shape and how the answer will be checked.", slug: "beginner-ai-prompts-without-magic-words" },
-  { id: "benchmarks", question: "Why can a benchmark leader still disappoint in production?", options: ["Benchmarks test fixed conditions, not every real workflow", "Benchmarks never use numbers", "Production models cannot read text"], correct: 0, explanation: "Real deployments add changing data, tools, permissions, latency, cost and ambiguous user behaviour.", slug: "ai-benchmarks-reality-gap" },
-  { id: "hallucination", question: "What is the safest response to a fluent factual answer?", options: ["Trust the tone", "Verify important claims against sources", "Ask it to sound more certain"], correct: 1, explanation: "Confidence and fluency are not evidence. Important factual claims should remain traceable to reliable sources.", slug: "intermediate-repeatable-ai-research-writing-workflow" },
-  { id: "procurement", question: "What should an AI procurement contract preserve?", options: ["A permanent dependency on one model", "Data, evaluation records and the ability to switch", "Only the launch price"], correct: 1, explanation: "Organizations need access to their records, tests and workflow logic so they can audit results and change providers.", slug: "ontario-public-sector-ai-procurement" },
-];
 
 const flashcards = [
   { id: "llm", term: "Large language model", definition: "A model trained to predict and generate language from patterns in large datasets; it does not automatically know whether a claim is true." },
@@ -88,6 +79,7 @@ function readingStreak(history: ReadingHistory) {
 }
 
 export function LearningLab({ articles, tracks }: { articles: ArticleCardData[]; tracks: LearningTrack[] }) {
+  const [storageNotice, setStorageNotice] = useState("");
   const [tab, setTab] = useState<LabTab>("paths");
   const [activeTrackId, setActiveTrackId] = useState(tracks[0]?.id ?? "");
   const [history, setHistory] = useState<ReadingHistory>({});
@@ -106,7 +98,7 @@ export function LearningLab({ articles, tracks }: { articles: ArticleCardData[];
       setSavedSlugs(readJson<string[]>(SAVED_ARTICLES_KEY, []));
       setQuizProgress(readJson<QuizProgress>(QUIZ_PROGRESS_KEY, {}));
       setMastered(readJson<string[]>(MASTERED_CARDS_KEY, []));
-      const savedGoal = Number(window.localStorage.getItem(DAILY_GOAL_KEY));
+      const savedGoal = readJson<number>(DAILY_GOAL_KEY, 30);
       if ([15, 30, 60].includes(savedGoal)) setGoal(savedGoal);
     };
     refresh();
@@ -139,23 +131,33 @@ export function LearningLab({ articles, tracks }: { articles: ArticleCardData[];
     .filter((article) => (history[article.slug]?.seconds ?? 0) > 20 && !history[article.slug]?.completed)
     .sort((a, b) => (history[b.slug]?.lastVisited ?? "").localeCompare(history[a.slug]?.lastVisited ?? ""))
     .slice(0, 4);
-  const surpriseArticle = articles.find((article) => !history[article.slug]?.completed) ?? articles[0];
+  const surpriseArticle = articles.find((article) => !history[article.slug]?.completed);
   const currentQuiz = quizQuestions[quizIndex % quizQuestions.length];
   const currentCard = flashcards[cardIndex % flashcards.length];
 
+  function saveLocal(key: string, value: string) {
+    try {
+      window.localStorage.setItem(key, value);
+      setStorageNotice("");
+      window.dispatchEvent(new CustomEvent(LEARNING_EVENT));
+    } catch {
+      setStorageNotice("Your browser blocked saving. Changes work for this visit but may not be remembered.");
+    }
+  }
+
   const changeGoal = (minutes: number) => {
     setGoal(minutes);
-    window.localStorage.setItem(DAILY_GOAL_KEY, String(minutes));
+    saveLocal(DAILY_GOAL_KEY, String(minutes));
   };
 
   const answerQuiz = (index: number) => {
     if (quizAnswer !== null) return;
     setQuizAnswer(index);
-    const progress = readJson<QuizProgress>(QUIZ_PROGRESS_KEY, {});
+    const progress = { ...quizProgress };
     const key = `lab-${currentQuiz.id}`;
     const current = progress[key] ?? { attempts: 0, correct: 0, lastAnswered: "" };
     progress[key] = { attempts: current.attempts + 1, correct: current.correct + Number(index === currentQuiz.correct), lastAnswered: new Date().toISOString() };
-    window.localStorage.setItem(QUIZ_PROGRESS_KEY, JSON.stringify(progress));
+    saveLocal(QUIZ_PROGRESS_KEY, JSON.stringify(progress));
     setQuizProgress(progress);
   };
 
@@ -167,13 +169,15 @@ export function LearningLab({ articles, tracks }: { articles: ArticleCardData[];
   const markMastered = () => {
     const next = [...new Set([...mastered, currentCard.id])];
     setMastered(next);
-    window.localStorage.setItem(MASTERED_CARDS_KEY, JSON.stringify(next));
+    saveLocal(MASTERED_CARDS_KEY, JSON.stringify(next));
     setRevealed(false);
     setCardIndex((index) => (index + 1) % flashcards.length);
   };
 
   return (
     <div className="learningLab">
+      <p className="relatedNote">Reading time estimates activity, not understanding. Quiz answers are practice; flashcard familiarity is self-reported.</p>
+      {storageNotice && <p role="status">{storageNotice}</p>}
       <section className="learningDashboard" aria-label="Your learning dashboard">
         <div className="goalPanel">
           <span className="eyebrow">TODAY’S FOCUS</span>
@@ -183,9 +187,9 @@ export function LearningLab({ articles, tracks }: { articles: ArticleCardData[];
             {[15, 30, 60].map((minutes) => <button type="button" className={goal === minutes ? "active" : ""} key={minutes} onClick={() => changeGoal(minutes)}>{minutes} min</button>)}
           </div>
         </div>
-        <div className="learningMetric"><strong>{stats.totalMinutes}</strong><span>focused minutes</span></div>
-        <div className="learningMetric"><strong>{stats.completed}</strong><span>deep reads completed</span></div>
-        <div className="learningMetric"><strong>{stats.streak}</strong><span>day learning streak</span></div>
+        <div className="learningMetric"><strong>{stats.totalMinutes}</strong><span>estimated active minutes</span></div>
+        <div className="learningMetric"><strong>{stats.completed}</strong><span>articles marked finished</span></div>
+        <div className="learningMetric"><strong>{stats.streak}</strong><span>day reading streak</span></div>
         <div className="learningMetric"><strong>{stats.quizCorrect}/{stats.quizAttempts}</strong><span>knowledge checks</span></div>
       </section>
 
@@ -199,7 +203,7 @@ export function LearningLab({ articles, tracks }: { articles: ArticleCardData[];
       <nav className="labTabs" aria-label="Learning Lab sections">
         {(["paths", "quiz", "flashcards", "saved"] as LabTab[]).map((item) => (
           <button type="button" key={item} className={tab === item ? "active" : ""} onClick={() => setTab(item)}>
-            {item === "paths" ? "Learning paths" : item === "quiz" ? "Knowledge quiz" : item === "flashcards" ? "AI flashcards" : `Saved (${savedSlugs.length})`}
+            {item === "paths" ? "Learning paths" : item === "quiz" ? "Knowledge quiz" : item === "flashcards" ? "AI flashcards" : `Saved (${savedArticles.length})`}
           </button>
         ))}
       </nav>
@@ -212,7 +216,7 @@ export function LearningLab({ articles, tracks }: { articles: ArticleCardData[];
               return <button type="button" key={track.id} className={track.id === activeTrack.id ? "active" : ""} onClick={() => setActiveTrackId(track.id)}><span>{track.level}</span><strong>{track.title}</strong><small>{completed}/{track.articles.length} completed</small></button>;
             })}
           </div>
-          <header className="trackHeader"><div><span className="eyebrow">CURATED TRACK</span><h2>{activeTrack.title}</h2><p>{activeTrack.description}</p></div>{surpriseArticle && <Link href={`/article/${surpriseArticle.slug}`}>Surprise me with something useful →</Link>}</header>
+          <header className="trackHeader"><div><span className="eyebrow">CURATED TRACK</span><h2>{activeTrack.title}</h2><p>{activeTrack.description}</p></div>{surpriseArticle && <Link href={`/article/${surpriseArticle.slug}`}>Read an unfinished article →</Link>}</header>
           <div className="labArticleGrid">{activeTrack.articles.map((article) => <ArticleCard key={article.slug} article={article} />)}</div>
         </section>
       )}
@@ -222,13 +226,13 @@ export function LearningLab({ articles, tracks }: { articles: ArticleCardData[];
           <div className="quizCounter"><span>QUESTION {(quizIndex % quizQuestions.length) + 1} OF {quizQuestions.length}</span><strong>{stats.quizCorrect} correct so far</strong></div>
           <h2>{currentQuiz.question}</h2>
           <div className="labQuizOptions">{currentQuiz.options.map((option, index) => <button type="button" key={option} disabled={quizAnswer !== null} onClick={() => answerQuiz(index)} className={quizAnswer === null ? "" : index === currentQuiz.correct ? "correct" : index === quizAnswer ? "incorrect" : ""}><strong>{String.fromCharCode(65 + index)}</strong>{option}</button>)}</div>
-          {quizAnswer !== null && <div className="labQuizResult" role="status"><strong>{quizAnswer === currentQuiz.correct ? "Correct—keep the signal." : "Good attempt—tighten the model."}</strong><p>{currentQuiz.explanation}</p><div><Link href={`/article/${currentQuiz.slug}`}>Read the related lesson →</Link><button type="button" onClick={nextQuiz}>Next question →</button></div></div>}
+          {quizAnswer !== null && <div className="labQuizResult" role="status"><strong>{quizAnswer === currentQuiz.correct ? "Correct." : "Not quite. Here is why."}</strong><p>{currentQuiz.explanation}</p><div><Link href={`/article/${currentQuiz.slug}`}>Read the related lesson →</Link><button type="button" onClick={nextQuiz}>Next question →</button></div></div>}
         </section>
       )}
 
       {tab === "flashcards" && (
         <section className="labPanel flashcardPanel">
-          <div className="flashcardStatus"><span>{mastered.length} of {flashcards.length} mastered</span><button type="button" onClick={() => { setCardIndex((index) => (index + 1) % flashcards.length); setRevealed(false); }}>Shuffle next →</button></div>
+          <div className="flashcardStatus"><span>{mastered.length} of {flashcards.length} marked familiar</span><button type="button" onClick={() => { setCardIndex((index) => (index + 1) % flashcards.length); setRevealed(false); }}>Next card →</button></div>
           <button type="button" className={`flashcard${revealed ? " revealed" : ""}`} onClick={() => setRevealed((value) => !value)} aria-pressed={revealed}>
             <span>{revealed ? "DEFINITION" : "AI TERM"}</span>
             <strong>{revealed ? currentCard.definition : currentCard.term}</strong>
@@ -240,7 +244,7 @@ export function LearningLab({ articles, tracks }: { articles: ArticleCardData[];
 
       {tab === "saved" && (
         <section className="labPanel">
-          <header className="savedHeader"><div><span className="eyebrow">YOUR READING QUEUE</span><h2>{savedArticles.length ? `${savedArticles.length} stories waiting for you.` : "Build a queue worth returning to."}</h2></div>{surpriseArticle && <Link href={`/article/${surpriseArticle.slug}`}>Start an unread story →</Link>}</header>
+          <header className="savedHeader"><div><span className="eyebrow">YOUR READING QUEUE</span><h2>{savedArticles.length ? `${savedArticles.length} stories waiting for you.` : "Build a queue worth returning to."}</h2></div>{surpriseArticle && <Link href={`/article/${surpriseArticle.slug}`}>Read an unfinished article →</Link>}</header>
           {savedArticles.length ? <div className="labArticleGrid">{savedArticles.map((article) => <ArticleCard key={article.slug} article={article} />)}</div> : <p className="savedEmpty">Use “Save for later” on any article card. Your queue stays on this device and appears here instantly.</p>}
         </section>
       )}

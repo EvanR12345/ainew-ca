@@ -1,0 +1,98 @@
+[
+  {
+    "id": "evidence",
+    "question": "Tool A finishes a task faster but needs more correction. How should you compare it with your current workflow?",
+    "options": [
+      "Compare the time to the first draft only",
+      "Compare total time per accepted result, including review",
+      "Compare the length of each answer"
+    ],
+    "correct": 1,
+    "explanation": "Count preparation, generation, checking and repair. Divide total effort by accepted results; a faster draft can still make the full task slower.",
+    "slug": "intermediate-compare-ai-answers-evaluation-scorecard"
+  },
+  {
+    "id": "privacy",
+    "question": "You need help wording an email about a delayed order. What is the best starting input?",
+    "options": [
+      "A fictional description without customer identifiers",
+      "The entire customer email thread for context",
+      "The real email with only the customer name replaced"
+    ],
+    "correct": 0,
+    "explanation": "A writing exercise usually needs the problem and intended tone. Removing a name alone may leave identifying details; a fictional example avoids sharing the real record.",
+    "slug": "beginner-use-ai-safely-files-email-private-data"
+  },
+  {
+    "id": "rag",
+    "question": "A retrieved travel policy says $40, but a newer approved version says $45. What should you check first?",
+    "options": [
+      "Whether the answer sounds confident",
+      "Whether both values can be averaged",
+      "Which policy version applies to the expense date"
+    ],
+    "correct": 2,
+    "explanation": "A quotation can be accurate but come from a superseded document. Check effective dates, document authority and the relevant passage before accepting the answer.",
+    "slug": "advanced-retrieval-ai-own-documents-citations"
+  },
+  {
+    "id": "agents",
+    "question": "A support agent requests approval to send an email. What should the approval show?",
+    "options": [
+      "Only a summary of the intended outcome",
+      "The exact recipient, message and attachments",
+      "Only the name of the model producing it"
+    ],
+    "correct": 1,
+    "explanation": "Approve the specific action and payload. If those details change after approval, ask for approval again; a general goal is not permission for every action.",
+    "slug": "advanced-human-in-the-loop-ai-agent-workflow"
+  },
+  {
+    "id": "prompts",
+    "question": "Your workshop notes do not specify a room. What instruction best preserves that uncertainty?",
+    "options": [
+      "Say the room will be confirmed later",
+      "Choose a likely room from past events",
+      "Leave out all logistical information"
+    ],
+    "correct": 0,
+    "explanation": "Keep the known date and time while stating that the room is unconfirmed. A clearer brief protects the facts without discarding useful information.",
+    "slug": "beginner-ai-prompts-without-magic-words"
+  },
+  {
+    "id": "benchmarks",
+    "question": "An updated system passes 99 tests but exposes a restricted record in one. What is the sound release decision?",
+    "options": [
+      "Release because the average score is high",
+      "Increase the passing threshold next time",
+      "Block release until the access-control failure is fixed"
+    ],
+    "correct": 2,
+    "explanation": "A serious unauthorized disclosure is a release-blocking failure. Average scores can conceal critical problems and do not replace explicit failure criteria.",
+    "slug": "advanced-ai-evaluation-red-team-monitor-production"
+  },
+  {
+    "id": "hallucination",
+    "question": "A source announces a public consultation. Your draft says the proposal is now law. What should you do?",
+    "options": [
+      "Keep the claim if another chatbot agrees",
+      "Describe it as a consultation unless enactment is verified",
+      "Add a disclaimer but keep the claim unchanged"
+    ],
+    "correct": 1,
+    "explanation": "The source must support the status of the claim. A proposal, announcement and enacted requirement are different; a disclaimer cannot repair an unsupported statement.",
+    "slug": "intermediate-repeatable-ai-research-writing-workflow"
+  },
+  {
+    "id": "spreadsheet",
+    "question": "Paid Ontario rows contain $120 and $50; a pending Ontario row contains $80. What should the paid-only total be?",
+    "options": [
+      "$170",
+      "$250",
+      "$200"
+    ],
+    "correct": 0,
+    "explanation": "Include only rows meeting both conditions: Ontario and Paid. The pending $80 is excluded. The spreadsheet guide provides the source rows and a SUMIFS formula to check.",
+    "slug": "intermediate-use-ai-spreadsheets-structured-data"
+  }
+]

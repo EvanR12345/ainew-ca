@@ -203,7 +203,7 @@ test("turns the publication into a device-local Learning Lab", async () => {
   assert.match(actionSource, /SAVED_ARTICLES_KEY/);
   assert.match(actionSource, /ArticleKnowledgeCheck/);
   assert.match(cardSource, /SaveArticleButton/);
-  assert.match(privacySource, /Daily goals, saved stories, quiz results and mastered flashcards/i);
+  assert.match(privacySource, /Daily goals, saved stories, quiz results and self-reported flashcard familiarity/i);
   assert.match(sitemapSource, /"\/learn\/"/);
 });
 
@@ -351,4 +351,14 @@ test("removes AI Signal and the scroll stack completely while preserving a clear
   assert.match(globalStyles, /grid-template-columns: minmax\(0, 1\.28fr\) minmax\(330px, \.72fr\)/);
   assert.doesNotMatch(`${packageSource}${lockSource}`, /"three"|@types\/three|node_modules\/three/);
   await assert.rejects(readFile(new URL("../app/ai-signal/page.tsx", import.meta.url)), { code: "ENOENT" });
+});
+
+test("every quiz follow-up opens a public lesson, including links revealed after answering", async () => {
+  const questions = JSON.parse(await readFile(new URL("../app/lib/learning-questions.json", import.meta.url), "utf8"));
+  assert.equal(questions.length, 8);
+  for (const question of questions) {
+    assert.ok(question.options[question.correct], `Invalid answer: ${question.id}`);
+    const response = await render(`/article/${question.slug}/`);
+    assert.equal(response.status, 200, `Quiz points to an unpublished lesson: ${question.slug}`);
+  }
 });
