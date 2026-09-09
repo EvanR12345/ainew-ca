@@ -7,10 +7,8 @@
  * false. If advertising is restored, Google AdSense is the only configured
  * provider.
  *
- * Prepared article drafts remain unpublished until they complete an
- * individual evidence and originality review.
+ * New articles require an individual evidence and originality review.
  */
 export const SITE_FEATURES = {
   ads: false,
-  secondWaveGuides: false,
 } as const;

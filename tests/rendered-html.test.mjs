@@ -64,14 +64,14 @@ test("keeps every article photo in full colour on desktop and mobile", async () 
   assert.doesNotMatch(cardSource, /localStorage|IntersectionObserver|dataLayer|gtag|CARD_EXPERIMENT_KEY/);
   assert.doesNotMatch(cardSource, /crypto\.getRandomValues/);
   assert.match(privacySource, /No other advertising provider is configured/i);
-  assert.match(articleSource, /beginnerInvestmentArticles/);
-  assert.match(articleSource, /howToArticles/);
+  assert.match(articleSource, /how-beginners-use-ai-investment-research/);
+  assert.doesNotMatch(articleSource, /generatedArticles|expansionSeeds/);
   assert.match(articleSource, /beginner-how-to-use-ai-everyday-work/);
   assert.match(articleSource, /intermediate-repeatable-ai-research-writing-workflow/);
   assert.match(articleSource, /advanced-human-in-the-loop-ai-agent-workflow/);
   assert.equal(imageFiles.filter((file) => file.endsWith(".jpg")).length, 7);
   assert.equal(libraryFiles.filter((file) => file.endsWith(".jpg")).length, 6);
-  assert.equal(uniqueFiles.filter((file) => file.endsWith(".jpg")).length, 221);
+  assert.equal(uniqueFiles.filter((file) => file.endsWith(".jpg")).length, 15);
   assert.doesNotMatch(imageStyleSource, /--image-tint/);
   assert.doesNotMatch(imageStyleSource, /--image-saturation|--image-contrast/);
   assert.doesNotMatch(globalStyles, /rgba\(240,68,47,\.42\)/);
@@ -91,7 +91,7 @@ test("ships a lightweight, accessible editorial browsing shell", async () => {
     readdir(new URL("../public/images/articles/thumbs/", import.meta.url)),
   ]);
 
-  assert.equal(thumbnails.filter((file) => file.endsWith(".webp")).length, 221);
+  assert.equal(thumbnails.filter((file) => file.endsWith(".webp")).length, 15);
   assert.match(cardSource, /src=\{article\.image\}/);
   assert.match(cardSource, /sizes="\(max-width: 760px\) 100vw/);
   assert.match(cardSource, /unoptimized/);
@@ -213,7 +213,7 @@ test("publishes a smaller individually reviewed core and withholds template draf
     render("/article/federal-public-service-ai-strategy-2025-2027/"),
     render("/article/canada-ai-privacy-impact-assessment-guide/"),
     render("/article/claude-code-demo-video-debrief/"),
-    readFile(new URL("../app/lib/expansion-articles.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/lib/articles.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/lib/search-quality.ts", import.meta.url), "utf8"),
   ]);
 
@@ -239,11 +239,11 @@ test("publishes a smaller individually reviewed core and withholds template draf
     assert.match(html, /AI-assisted research &amp; analysis/);
   }
 
-  assert.match(expansionSource, /const individuallyReviewedExpansionSlugs = new Set/);
-  assert.match(expansionSource, /const editorialSectionOverrides/);
-  assert.match(expansionSource, /originalityStatus: individuallyReviewed \? "individually-reviewed" : "template-draft"/);
-  assert.match(expansionSource, /searchEligible: individuallyReviewed/);
+  const records = JSON.parse(expansionSource.match(/export const articles: Article\[\] = ([\s\S]*?);\n\nexport function/)[1]);
+  assert.equal(records.length, 15);
+  assert.ok(records.every(article => article.originalityStatus === "individually-reviewed" && article.evidenceStatus === "verified" && article.searchEligible === true));
   assert.match(searchQualitySource, /article\.originalityStatus === "individually-reviewed"/);
+
 });
 
 test("publishes crawlable trust pages and limits every discovery surface to the reviewed core", async () => {

@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 
-const [expansionSource, qualitySource, routeSource] = await Promise.all([
-  readFile("app/lib/expansion-articles.ts", "utf8"),
+const [articleSource, qualitySource, routeSource] = await Promise.all([
+  readFile("app/lib/articles.ts", "utf8"),
   readFile("app/lib/search-quality.ts", "utf8"),
   readFile("app/article/[slug]/page.tsx", "utf8"),
 ]);
@@ -13,13 +13,15 @@ const reviewedSlugs = [
   "canada-ai-privacy-impact-assessment-guide",
 ];
 
-assert.match(expansionSource, /const individuallyReviewedExpansionSlugs = new Set/);
-for (const slug of reviewedSlugs) {
-  assert.match(expansionSource, new RegExp(`individuallyReviewedExpansionSlugs[\\s\\S]*?"${slug}"`));
-  assert.match(expansionSource, new RegExp(`editorialSectionOverrides[\\s\\S]*?"${slug}"`));
+const records = JSON.parse(articleSource.match(/export const articles: Article\[\] = ([\s\S]*?);\n\nexport function/)[1]);
+assert.equal(records.length, 15);
+for (const article of records) {
+  assert.equal(article.originalityStatus, "individually-reviewed");
+  assert.equal(article.evidenceStatus, "verified");
+  assert.equal(article.searchEligible, true);
 }
-assert.match(expansionSource, /originalityStatus: individuallyReviewed \? "individually-reviewed" : "template-draft"/);
-assert.match(expansionSource, /searchEligible: individuallyReviewed/);
+for (const slug of reviewedSlugs) assert.ok(records.some(article => article.slug === slug));
+assert.doesNotMatch(articleSource, /generatedArticles|expansionSeeds|buildSections/);
 assert.match(qualitySource, /article\.originalityStatus === "individually-reviewed"/);
 assert.match(routeSource, /export const dynamicParams = false/);
 assert.match(routeSource, /publicArticles\.map/);
