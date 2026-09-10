@@ -1609,12 +1609,12 @@ export const articles: Article[] = [
     "readTime": "5 min read",
     "signal": "Beginner guide",
     "accent": "green",
-    "sourceLabel": "Canadian Investment Regulatory Organization",
-    "sourceUrl": "https://www.ciro.ca/newsroom/publications/guidance-order-execution-only-account-services-and-activities",
+    "sourceLabel": "Ontario Securities Commission Investor Office",
+    "sourceUrl": "https://www.getsmarteraboutmoney.ca/learning-path/diy-investing/",
     "sources": [
       {
-        "label": "Canadian Investment Regulatory Organization (CIRO): Guidance on order execution only account services",
-        "url": "https://www.ciro.ca/newsroom/publications/guidance-order-execution-only-account-services-and-activities"
+        "label": "Ontario Securities Commission Investor Office: DIY investing",
+        "url": "https://www.getsmarteraboutmoney.ca/learning-path/diy-investing/"
       },
       {
         "label": "NIST Generative AI Profile",
@@ -1636,7 +1636,7 @@ export const articles: Article[] = [
         "heading": "The useful role: research assistant, not adviser",
         "paragraphs": [
           "A chatbot can turn an unfamiliar filing into a reading plan, define financial terms, compare two fee schedules and suggest questions that deserve verification. Those are research tasks. Asking the same system what you should buy is a different and much riskier request because the model does not know your complete finances, may be working from stale information and can present an invented fact with great confidence.",
-          "CIRO's guidance for do-it-yourself investing draws a similar line between factual decision support and a specific recommendation. The beginner-friendly rule is simple: use AI to widen the checklist and reduce clerical work, while keeping product selection and the final decision outside the chatbot."
+          "The Ontario Securities Commission's investor-education materials define DIY investing as building and managing your own portfolio. The beginner-friendly rule here is to use AI to widen the checklist and reduce clerical work, while keeping product selection and the final decision with the investor or a qualified adviser."
         ]
       },
       {
@@ -1676,7 +1676,7 @@ export const articles: Article[] = [
       {
         "heading": "Check the tool for hidden nudges",
         "paragraphs": [
-          "An investing interface may rank products, highlight activity or make frequent trading feel normal. CIRO warns that decision-support tools should use clear criteria, explain conflicts and avoid steering clients toward products that benefit the platform. A chatbot should be held to the same practical standard even when the interface feels neutral.",
+          "An investing interface may rank products, highlight activity or make frequent trading feel normal. Treat every ranking as a design choice: ask which criteria produced it, what was excluded and whether the platform benefits from the products it promotes. A chatbot should be held to the same practical standard even when the interface feels neutral.",
           "Ask what data, date and product universe shaped the output. Treat sponsored content, affiliate links and proprietary products as conflicts that need disclosure. If a tool cannot explain why one option appears above another, do not treat the ranking as independent research."
         ]
       },
@@ -1700,8 +1700,8 @@ export const articles: Article[] = [
         }
       }
     ],
-    "modifiedAt": "2026-09-09T05:18:04Z",
-    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing.",
+    "modifiedAt": "2026-09-10T08:31:43Z",
+    "updateNote": "Replaced an inaccessible regulator link with Ontario Securities Commission investor education and clarified the distinction between AI-assisted research and investment decisions.",
     "seoTitle": "AI investment research: a beginner’s verification guide"
   },
   {
@@ -1714,16 +1714,20 @@ export const articles: Article[] = [
     "readTime": "4 min read",
     "signal": "Fraud defence",
     "accent": "red",
-    "sourceLabel": "Canadian Investment Regulatory Organization",
-    "sourceUrl": "https://www.ciro.ca/office-investor/avoiding-fraud-and-protecting-your-investments/artificial-intelligence-ai-and-investment-fraud",
+    "sourceLabel": "Ontario Securities Commission Investor Office",
+    "sourceUrl": "https://www.getsmarteraboutmoney.ca/learning-path/research-reports/ai-enhanced-scams-risks-and-safeguards/",
     "sources": [
       {
-        "label": "Canadian Investment Regulatory Organization (CIRO): Artificial intelligence and investment fraud",
-        "url": "https://www.ciro.ca/office-investor/avoiding-fraud-and-protecting-your-investments/artificial-intelligence-ai-and-investment-fraud"
+        "label": "Ontario Securities Commission Investor Office: AI-enhanced scams",
+        "url": "https://www.getsmarteraboutmoney.ca/learning-path/research-reports/ai-enhanced-scams-risks-and-safeguards/"
       },
       {
-        "label": "Canadian Investment Regulatory Organization (CIRO): Investor alerts",
-        "url": "https://www.ciro.ca/office-investor/investor-alerts"
+        "label": "Ontario Securities Commission Investor Office: Investor alerts",
+        "url": "https://www.getsmarteraboutmoney.ca/investor-alerts/"
+      },
+      {
+        "label": "Ontario Securities Commission Investor Office: Checking registration",
+        "url": "https://www.getsmarteraboutmoney.ca/learning-path/checking-registration/"
       },
       {
         "label": "Canadian Anti-Fraud Centre: Fraud trends in the first half of 2026",
@@ -1740,7 +1744,7 @@ export const articles: Article[] = [
       {
         "heading": "Do not make detection your first line of defence",
         "paragraphs": [
-          "A convincing face, voice or news clip is no longer strong evidence that a person said something. CIRO warns that AI can support deepfake impersonation, more persuasive phishing, account takeovers and highly personalized fraud. Trying to identify every visual glitch puts the burden on a test that gets harder as the tools improve.",
+          "A convincing face, voice or news clip is no longer strong evidence that a person said something. Ontario Securities Commission research warns that generative AI can increase the reach, efficiency and persuasiveness of investment scams through deepfakes, personalized targeting and automated messaging. Trying to identify every visual glitch puts the burden on a test that gets harder as the tools improve.",
           "A safer routine verifies the offer through a separate, trusted channel. The question is not whether the video looks fake; it is whether the person, firm, registration and investment can be independently confirmed."
         ]
       },
@@ -1754,7 +1758,7 @@ export const articles: Article[] = [
       {
         "heading": "Step two: verify the person and firm",
         "paragraphs": [
-          "Look up the firm and individual using CIRO's dealer and adviser tools and the Canadian Securities Administrators' National Registration Search. Type the official address yourself. Do not use a search advertisement or a link supplied by the person asking for money.",
+          "Look up the firm and individual through an official securities-regulator registration search, such as the Canadian Securities Administrators' National Registration Search. Start from a regulator's website and type the address yourself. Do not use a search advertisement or a link supplied by the person asking for money.",
           "Then call the registered firm's published number and ask for the individual. A copied logo, professional profile or registration number can be part of an impersonation; independent contact is the check that matters."
         ]
       },
@@ -1795,8 +1799,8 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-09T05:18:04Z",
-    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing.",
+    "modifiedAt": "2026-09-10T08:31:43Z",
+    "updateNote": "Replaced inaccessible regulator links with Ontario Securities Commission research, registration guidance and the current investor-alert directory.",
     "seoTitle": "How to check an AI investment pitch for scam signs"
   }
 ];

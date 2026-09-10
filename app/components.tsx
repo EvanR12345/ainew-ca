@@ -81,7 +81,7 @@ export function SiteHeader() {
                 <section>
                   <span>Reference</span>
                   <Link href="/ai-glossary/"><strong>AI glossary</strong><small>Plain-language definitions</small></Link>
-                  <Link href="/canada-ai-resources/"><strong>Canada tracker</strong><small>Official programs and institutions</small></Link>
+                  <Link href="/canada-ai-resources/"><strong>Canadian AI resources</strong><small>Official programs and institutions</small></Link>
                 </section>
               </div>
             </details>
@@ -114,7 +114,7 @@ export function SiteHeader() {
               </section>
               <section>
                 <span>AI New</span>
-                <Link href="/canada-ai-resources/">Canada tracker</Link>
+                <Link href="/canada-ai-resources/">Canadian AI resources</Link>
                 <Link href="/search/">Search</Link>
                 <Link href="/about/">About</Link>
                 <Link href="/contact/">Contact</Link>

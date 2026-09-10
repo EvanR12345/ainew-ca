@@ -6,7 +6,6 @@ export const dynamic = "force-static";
 
 const featuredSlugs = [
   "canada-ai-transparency-consultation-what-to-know",
-  "canada-sovereign-ai-compute-explained",
   "beginner-how-to-use-ai-everyday-work",
   "beginner-ai-prompts-without-magic-words",
   "beginner-use-ai-safely-files-email-private-data",
@@ -16,7 +15,6 @@ const featuredSlugs = [
   "advanced-human-in-the-loop-ai-agent-workflow",
   "advanced-retrieval-ai-own-documents-citations",
   "advanced-ai-evaluation-red-team-monitor-production",
-  "ai-search-answer-engines",
 ];
 
 export function GET() {

@@ -7,7 +7,6 @@ import { articles, type Article } from "./lib/articles";
 import { articleModifiedDate, searchEligibleArticles } from "./lib/search-quality";
 import { buildPageMetadata, categoryPath, organizationSchema, SITE_URL, WEBSITE_ID, websiteSchema } from "./lib/seo";
 import { StructuredData } from "./structured-data";
-import { TasteMotion } from "./taste-motion";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Canadian AI News, Guides & Analysis | AI New Canada",
@@ -48,18 +47,18 @@ function TasteBento({ stories }: { stories: Article[] }) {
     <section className="shell tasteBento" aria-label="Essential AI briefings">
       {stories.map((article, index) => (
         <article className={`tasteBentoCard tasteBentoCard-${index + 1}`} key={article.slug}>
-          <Link className="tasteBentoImage" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
+          <div className="tasteBentoImage" style={articleImageStyle(article.slug)}>
             <Image unoptimized
-              src={article.image}
+              src={`/images/articles/thumbs/${article.slug}.webp`}
               alt={article.imageAlt}
-              width={1200}
-              height={675}
+              width={800}
+              height={450}
               sizes="(max-width: 980px) 100vw, 58vw"
             />
-          </Link>
+          </div>
           <div className="tasteBentoShade" aria-hidden="true" />
           <div className="tasteBentoCopy">
-            <div><Link href={categoryPath(article.category)}>{article.category}</Link><time dateTime={article.date}>{article.displayDate}</time></div>
+            <div><span>{article.category}</span><time dateTime={article.date}>{article.displayDate}</time></div>
             <h2><Link href={`/article/${article.slug}/`}>{article.title}</Link></h2>
             {index === 0 && <p>{article.dek}</p>}
           </div>
@@ -82,10 +81,10 @@ function CanadianDecisions({ stories }: { stories: Article[] }) {
           <article className={`canadaDecisionCard canadaDecisionCard-${index + 1}`} key={article.slug}>
             <Link className="canadaDecisionMedia" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
               <Image unoptimized
-                src={article.image}
+                src={`/images/articles/thumbs/${article.slug}.webp`}
                 alt={article.imageAlt}
-                width={1200}
-                height={675}
+                width={800}
+                height={450}
                 sizes={index === 0 ? "(max-width: 900px) 100vw, 62vw" : "(max-width: 900px) 100vw, 34vw"}
               />
             </Link>
@@ -105,12 +104,6 @@ function CanadianDecisions({ stories }: { stories: Article[] }) {
   );
 }
 
-const modelStackImages: Record<string, string> = {
-  "ai-benchmark-scores-reading-guide": "/images/features/model-stack/benchmark-score-lab.jpg",
-  "context-windows-ai-models-explained": "/images/features/model-stack/context-window-archive.jpg",
-  "reasoning-models-test-time-compute": "/images/features/model-stack/reasoning-compute-machine.jpg",
-};
-
 function TasteAccordion({ stories }: { stories: Article[] }) {
   return (
     <section className="shell tasteAccordionSection">
@@ -123,10 +116,10 @@ function TasteAccordion({ stories }: { stories: Article[] }) {
           <article key={article.slug}>
             <Link className="tasteAccordionMedia" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
               <Image unoptimized
-                src={modelStackImages[article.slug] ?? article.image}
+                src={`/images/articles/thumbs/${article.slug}.webp`}
                 alt={article.imageAlt}
-                width={1122}
-                height={1402}
+                width={800}
+                height={450}
                 sizes="(max-width: 760px) 100vw, 50vw"
               />
             </Link>
@@ -154,7 +147,6 @@ export default function Home() {
     <div>
       <SiteHeader />
       <main id="content">
-        <TasteMotion />
         <StructuredData data={{
           "@context": "https://schema.org",
           "@graph": [
@@ -216,15 +208,20 @@ export default function Home() {
 
         <nav className="tasteMarquee" aria-label="Browse the newsroom">
           <div className="tasteMarqueeTrack">
-            {[false, true].map((duplicate) => (
-              <div className="tasteMarqueeSet" aria-hidden={duplicate || undefined} key={String(duplicate)}>
-                <Link href={categoryPath("Canada")}>Canada and policy</Link><span>•</span>
-                <Link href={categoryPath("Models")}>Model evaluation</Link><span>•</span>
-                <Link href={categoryPath("Research")}>Research briefs</Link><span>•</span>
-                <Link href="/topics/using-ai/">Use AI well</Link><span>•</span>
-                <Link href="/canada-ai-resources/">Canadian AI resources</Link><span>•</span>
-              </div>
-            ))}
+            <div className="tasteMarqueeSet">
+              <Link href={categoryPath("Canada")}>Canada and policy</Link><span>•</span>
+              <Link href={categoryPath("Models")}>Model evaluation</Link><span>•</span>
+              <Link href={categoryPath("Research")}>Research briefs</Link><span>•</span>
+              <Link href="/topics/using-ai/">Use AI well</Link><span>•</span>
+              <Link href="/canada-ai-resources/">Canadian AI resources</Link><span>•</span>
+            </div>
+            <div className="tasteMarqueeSet" aria-hidden="true">
+              <span className="tasteMarqueeLabel">Canada and policy</span><span>•</span>
+              <span className="tasteMarqueeLabel">Model evaluation</span><span>•</span>
+              <span className="tasteMarqueeLabel">Research briefs</span><span>•</span>
+              <span className="tasteMarqueeLabel">Use AI well</span><span>•</span>
+              <span className="tasteMarqueeLabel">Canadian AI resources</span><span>•</span>
+            </div>
           </div>
         </nav>
 

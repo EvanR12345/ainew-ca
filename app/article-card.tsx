@@ -9,10 +9,10 @@ export function ArticleCard({ article, size = "standard" }: { article: ArticleCa
     <article className={`storyCard storyCard-${size} storyCard-photo-clean`}>
       <Link className="storyVisual" href={`/article/${article.slug}/`} aria-label={article.title} style={articleImageStyle(article.slug)}>
         <Image unoptimized
-          src={article.image}
+          src={`/images/articles/thumbs/${article.slug}.webp`}
           alt={article.imageAlt}
-          width={1200}
-          height={675}
+          width={800}
+          height={450}
           sizes="(max-width: 760px) 100vw, (max-width: 1180px) 50vw, 33vw"
           loading="lazy"
         />

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const SITE_URL = "https://ainew.ca";
 export const SITE_NAME = "AI New Canada";
-export const SITE_DESCRIPTION = "Independent Canadian AI news, practical guides and evidence-first analysis of models, policy, products, business and research.";
+export const SITE_DESCRIPTION = "Independent Canadian AI policy explainers and practical, evidence-first guides to safer AI use, research, evaluation and work.";
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const AUTHOR_ID = `${SITE_URL}/authors/ai-new-desk/#profile`;
