@@ -22,8 +22,8 @@ function escapeXml(value: string) {
 
 export function sitemapEntries(): SitemapEntry[] {
   const routeDates: Record<string, string> = {
-    "/": "2026-09-09",
-    "/articles/": "2026-09-08",
+    "/": "2026-09-10",
+    "/articles/": "2026-09-10",
     "/learn/": "2026-09-09",
     "/topics/": "2026-09-09",
     "/topics/canadian-ai-policy/": "2026-09-09",

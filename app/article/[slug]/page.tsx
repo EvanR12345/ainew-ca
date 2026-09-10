@@ -7,6 +7,7 @@ import { articleImageStyle } from "../../article-image-style";
 import { AdSlot, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
 import { SaveArticleButton } from "../../learning-actions";
 import { articles, getAdjacentArticles, getArticle, getRelatedArticles, toArticleCardData } from "../../lib/articles";
+import { getArticleBriefing } from "../../lib/article-briefings";
 import { absoluteUrl, searchRobots, AUTHOR_ID, breadcrumbSchema, categoryPath, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../lib/seo";
 import { topicForArticle } from "../../lib/topic-hubs";
 import { articleModifiedDateTime, articlePublishedDateTime, isSearchEligibleArticle, searchEligibleArticles, SEARCH_REVIEW_DATETIME } from "../../lib/search-quality";
@@ -67,6 +68,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const article = getArticle(slug);
   if (!article || !isSearchEligibleArticle(article)) notFound();
   const sourceList = article.sources?.length ? article.sources : [{ label: article.sourceLabel, url: article.sourceUrl }];
+  const briefing = getArticleBriefing(article.slug);
   const related = getRelatedArticles(article, 24, publicArticles).map(toArticleCardData);
   const adjacent = getAdjacentArticles(article, publicArticles);
   const internalLinks = article.internalLinks?.filter((link) => publicArticles.some((candidate) => candidate.slug === link.slug));
@@ -117,7 +119,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 },
               },
               isPartOf: { "@id": WEBSITE_ID },
-              author: { "@id": AUTHOR_ID },
+              author: {
+                "@type": "Organization",
+                "@id": AUTHOR_ID,
+                name: "AI New Desk",
+                url: `${SITE_URL}/authors/ai-new-desk/`,
+              },
               publisher: { "@id": ORGANIZATION_ID },
               citation: sourceList.map((source) => source.url),
               about: [
@@ -146,18 +153,42 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               {article.modifiedAt && <span>Updated <time dateTime={article.modifiedAt}>{new Date(article.modifiedAt).toLocaleDateString("en-CA", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })}</time></span>}
               <span>{article.readTime}</span>
             </div>
+            <div className="articleTrustLine" aria-label="Article review details">
+              <span>Individually reviewed</span>
+              <a href="#sources">{sourceList.length} named {sourceList.length === 1 ? "source" : "sources"}</a>
+              <Link href="/editorial-policy/">Method published</Link>
+            </div>
             <SaveArticleButton article={{ slug: article.slug, title: article.title }} />
           </header>
 
-          <div className="articleHero articleHeroDesktop" style={articleImageStyle(article.slug)}>
+          <div className="articleHero" style={articleImageStyle(article.slug)}>
             <Image unoptimized src={article.image} alt={article.imageAlt} width={1200} height={675} priority />
             <span>{article.category.toUpperCase()} / AI NEW</span>
           </div>
-          <p className="articleImageCaption articleImageCaptionDesktop">Illustrative image. {article.imageAlt}</p>
+          <p className="articleImageCaption">Illustrative image. {article.imageAlt}</p>
 
           <div className="articleLayout">
             <ArticleTools />
             <div className="articleBody">
+              <section className="articleAnswerSummary" aria-labelledby="article-briefing-heading">
+                <span className="eyebrow">READER BRIEFING</span>
+                <h2 id="article-briefing-heading">The useful answer first</h2>
+                <p>{briefing.bottomLine}</p>
+                <dl className="articleBriefingGrid">
+                  <div><dt>Use this for</dt><dd>{briefing.useThisFor}</dd></div>
+                  <div><dt>Do not assume</dt><dd>{briefing.boundary}</dd></div>
+                </dl>
+                <div className="articleBriefingEvidence">
+                  <span>Evidence trail: {sourceList.length} named {sourceList.length === 1 ? "source" : "sources"}</span>
+                  <a href="#sources">Review the sources and notes &darr;</a>
+                </div>
+              </section>
+
+              <details className="articleToc">
+                <summary><span>In this article</span><strong>{article.sections.length} sections</strong></summary>
+                <nav aria-label="In this article"><ol>{article.sections.map((item) => <li key={item.heading}><a href={`#${sectionId(item.heading)}`}>{item.heading}</a></li>)}</ol></nav>
+              </details>
+
               <p className="disclosure"><strong>Editorial note:</strong> {article.disclaimer ?? "This explainer starts with the linked primary source and adds original AI New analysis. Product claims should be tested against your own requirements."}</p>
 
 
@@ -189,27 +220,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     )}
                   </section>
 
-                  {index === 0 && (
-                    <>
-                      <div className="articleMobileHero">
-                        <div className="articleHero" style={articleImageStyle(article.slug)}>
-                          <Image unoptimized src={article.image} alt={article.imageAlt} width={1200} height={675} />
-                          <span>{article.category.toUpperCase()} / AI NEW</span>
-                        </div>
-                        <p className="articleImageCaption">Illustrative image. {article.imageAlt}</p>
-                      </div>
-                      {!indexEligible && (
-                        <aside className="searchReviewNote">
-                          <strong>Editorial review status</strong>
-                          <p>This short analysis remains outside search promotion until its claims have completed a claim-level source review.</p>
-                          <Link href="/editorial-policy/">How the search-quality review works &rarr;</Link>
-                        </aside>
-                      )}
-                      <details className="articleToc">
-                        <summary><span>In this article</span><strong>{article.sections.length} sections</strong></summary>
-                        <nav aria-label="In this article"><ol>{article.sections.map((item) => <li key={item.heading}><a href={`#${sectionId(item.heading)}`}>{item.heading}</a></li>)}</ol></nav>
-                      </details>
-                    </>
+                  {index === 0 && !indexEligible && (
+                    <aside className="searchReviewNote">
+                      <strong>Editorial review status</strong>
+                      <p>This short analysis remains outside search promotion until its claims have completed a claim-level source review.</p>
+                      <Link href="/editorial-policy/">How the search-quality review works &rarr;</Link>
+                    </aside>
                   )}
 
                 </Fragment>
@@ -233,7 +249,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 </nav>
               ) : null}
 
-              <div className="sourceCard">
+              <div className="sourceCard" id="sources">
                 <span className="eyebrow">{indexEligible ? "EVIDENCE & FURTHER READING" : "BACKGROUND & REVIEW STATUS"}</span>
                 <h3>{indexEligible ? "Continue with the original sources" : "Start with the available background"}</h3>
                 <p>{indexEligible ? "These claim-relevant primary and first-party references support the reporting above. Open them for technical detail, current requirements and subsequent updates." : "This link provides context but has not yet completed a claim-level evidence review. The page remains outside search promotion until that work is complete."}</p>
@@ -260,6 +276,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </div>
             <aside className="articleAdRail">
               <AdSlot format="rectangle" />
+              <div className="articleEvidenceRail">
+                <span className="eyebrow">EVIDENCE TRAIL</span>
+                <strong>{sourceList.length} named {sourceList.length === 1 ? "source" : "sources"}</strong>
+                <p>Source notes explain what each reference supports and where the article draws a boundary.</p>
+                <a href="#sources">Open the source list &darr;</a>
+              </div>
               <div className="stickyBrief"><span className="eyebrow">AI LEARNING LAB</span><h3>Turn this story into a practical learning path.</h3><Link href="/learn/">Start learning free →</Link></div>
             </aside>
           </div>

@@ -131,8 +131,8 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-09T05:18:04Z",
-    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing.",
+    "modifiedAt": "2026-09-10T18:54:09Z",
+    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
     "sources": [
       {
         "label": "Canada's AI transparency consultation",
@@ -319,8 +319,8 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-09T05:18:04Z",
-    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing.",
+    "modifiedAt": "2026-09-10T18:54:09Z",
+    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
     "seoTitle": "Canada’s AI for All Strategy: six pillars explained"
   },
   {
@@ -474,8 +474,8 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-09T05:18:04Z",
-    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing.",
+    "modifiedAt": "2026-09-10T18:54:09Z",
+    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
     "seoTitle": "Canada’s public-service AI strategy, 2025–2027"
   },
   {
@@ -628,8 +628,8 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-09T05:18:04Z",
-    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing.",
+    "modifiedAt": "2026-09-10T18:54:09Z",
+    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
     "seoTitle": "AI privacy impact assessments: a Canadian guide"
   },
   {
@@ -650,8 +650,8 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "This practical guide combines named primary guidance with AI New Canada analysis. It is educational and should be adapted to your organization, data rules and risk level.",
     "imageAlt": "Illustration of task icons arranged beside a checklist on a desk.",
-    "modifiedAt": "2026-09-08T18:00:00Z",
-    "updateNote": "Rewritten with a timed meeting-notes exercise, an expected answer and a check for invented commitments.",
+    "modifiedAt": "2026-09-10T18:54:09Z",
+    "updateNote": "Rewritten with a timed meeting-notes exercise, an expected answer and a check for invented commitments. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
     "sources": [
       {
         "label": "Treasury Board: Guide on the use of generative AI",
@@ -762,8 +762,8 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "This practical guide combines named primary guidance with AI New Canada analysis. It is educational and should be adapted to your organization, data rules and risk level.",
     "imageAlt": "Illustration of wooden blocks with a speech bubble, arrow and light bulb beside a keyboard.",
-    "modifiedAt": "2026-09-08T18:00:00Z",
-    "updateNote": "Replaced the shared outline with a before-and-after prompt, a constraint check and a troubleshooting table.",
+    "modifiedAt": "2026-09-10T18:54:09Z",
+    "updateNote": "Replaced the shared outline with a before-and-after prompt, a constraint check and a troubleshooting table. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
     "sources": [
       {
         "label": "Treasury Board: Guide on the use of generative AI",
@@ -866,8 +866,8 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "This practical guide combines named primary guidance with AI New Canada analysis. It is educational and should be adapted to your organization, data rules and risk level.",
     "imageAlt": "Illustration of a closed document folder beside a laptop and paperwork.",
-    "modifiedAt": "2026-09-08T18:00:00Z",
-    "updateNote": "Rewritten around a fictional email, data-minimization choices and specific upload and connector checks.",
+    "modifiedAt": "2026-09-10T18:54:09Z",
+    "updateNote": "Rewritten around a fictional email, data-minimization choices and specific upload and connector checks. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
     "sources": [
       {
         "label": "Canadian privacy authorities: Principles for generative AI",
@@ -972,8 +972,8 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "This practical guide combines named primary guidance with AI New Canada analysis. It is educational and should be adapted to your organization, data rules and risk level.",
     "imageAlt": "Illustration of source documents connected on a research board above an open notebook.",
-    "modifiedAt": "2026-09-08T18:00:00Z",
-    "updateNote": "Added an evidence-ledger example and a workflow for resolving conflicting sources before drafting.",
+    "modifiedAt": "2026-09-10T18:54:09Z",
+    "updateNote": "Added an evidence-ledger example and a workflow for resolving conflicting sources before drafting. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
     "sources": [
       {
         "label": "Treasury Board: Guide on the use of generative AI",
@@ -1076,8 +1076,8 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "This practical guide combines named primary guidance with AI New Canada analysis. It is educational and should be adapted to your organization, data rules and risk level.",
     "imageAlt": "Illustration of a comparison checklist between two computer displays.",
-    "modifiedAt": "2026-09-08T18:00:00Z",
-    "updateNote": "Added a reproducible 20-point rubric, a worked comparison and non-negotiable failure conditions.",
+    "modifiedAt": "2026-09-10T18:54:09Z",
+    "updateNote": "Added a reproducible 20-point rubric, a worked comparison and non-negotiable failure conditions. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
     "sources": [
       {
         "label": "OpenAI: Working with evals",
@@ -1180,8 +1180,8 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "This practical guide combines named primary guidance with AI New Canada analysis. It is educational and should be adapted to your organization, data rules and risk level.",
     "imageAlt": "Illustration of spreadsheet figures, a magnifying glass and a calculator.",
-    "modifiedAt": "2026-09-08T18:00:00Z",
-    "updateNote": "Replaced generic advice with a fictional invoice dataset, an exact SUMIFS formula and boundary-case checks.",
+    "modifiedAt": "2026-09-10T18:54:09Z",
+    "updateNote": "Replaced generic advice with a fictional invoice dataset, an exact SUMIFS formula and boundary-case checks. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
     "sources": [
       {
         "label": "Microsoft: SUMIFS function",
@@ -1306,8 +1306,8 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "This practical guide combines named primary guidance with AI New Canada analysis. It is educational and should be adapted to your organization, data rules and risk level.",
     "imageAlt": "Illustration of a hand operating a control beside a robotic arm.",
-    "modifiedAt": "2026-09-09T05:18:04Z",
-    "updateNote": "Narrowed the title to reflect a system-design guide, not a tested implementation tutorial.",
+    "modifiedAt": "2026-09-10T18:54:09Z",
+    "updateNote": "Narrowed the title to reflect a system-design guide, not a tested implementation tutorial. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
     "sources": [
       {
         "label": "Anthropic: Building effective agents",
@@ -1410,8 +1410,8 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "This practical guide combines named primary guidance with AI New Canada analysis. It is educational and should be adapted to your organization, data rules and risk level.",
     "imageAlt": "Illustration of indexed documents in a filing drawer with a search symbol.",
-    "modifiedAt": "2026-09-09T05:18:04Z",
-    "updateNote": "Narrowed the title to reflect a system-design guide, not a tested implementation tutorial.",
+    "modifiedAt": "2026-09-10T18:54:09Z",
+    "updateNote": "Narrowed the title to reflect a system-design guide, not a tested implementation tutorial. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
     "sources": [
       {
         "label": "Cohere: Retrieval Augmented Generation",
@@ -1511,8 +1511,8 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "This practical guide combines named primary guidance with AI New Canada analysis. It is educational and should be adapted to your organization, data rules and risk level.",
     "imageAlt": "Illustration of test icons, checklists and monitoring screens for evaluating AI.",
-    "modifiedAt": "2026-09-09T05:18:04Z",
-    "updateNote": "Narrowed the title to reflect a system-design guide, not a tested implementation tutorial.",
+    "modifiedAt": "2026-09-10T18:54:09Z",
+    "updateNote": "Narrowed the title to reflect a system-design guide, not a tested implementation tutorial. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
     "sources": [
       {
         "label": "NIST: Adversarial Machine Learning taxonomy",
@@ -1700,8 +1700,8 @@ export const articles: Article[] = [
         }
       }
     ],
-    "modifiedAt": "2026-09-10T08:31:43Z",
-    "updateNote": "Replaced an inaccessible regulator link with Ontario Securities Commission investor education and clarified the distinction between AI-assisted research and investment decisions.",
+    "modifiedAt": "2026-09-10T18:54:09Z",
+    "updateNote": "Replaced an inaccessible regulator link with Ontario Securities Commission investor education and clarified the distinction between AI-assisted research and investment decisions. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
     "seoTitle": "AI investment research: a beginner’s verification guide"
   },
   {
@@ -1799,8 +1799,8 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-10T08:31:43Z",
-    "updateNote": "Replaced inaccessible regulator links with Ontario Securities Commission research, registration guidance and the current investor-alert directory.",
+    "modifiedAt": "2026-09-10T18:54:09Z",
+    "updateNote": "Replaced inaccessible regulator links with Ontario Securities Commission research, registration guidance and the current investor-alert directory. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
     "seoTitle": "How to check an AI investment pitch for scam signs"
   }
 ];

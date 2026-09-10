@@ -19,11 +19,13 @@ function DeskSection({
   title,
   description,
   href,
+  action,
   stories,
 }: {
   title: string;
   description: string;
   href: string;
+  action: string;
   stories: Article[];
 }) {
   return (
@@ -33,7 +35,7 @@ function DeskSection({
           <h2>{title}</h2>
         </div>
         <p>{description}</p>
-        <Link href={href}>View the desk <span aria-hidden="true">&rarr;</span></Link>
+        <Link href={href}>{action} <span aria-hidden="true">&rarr;</span></Link>
       </header>
       <div className="newsroomCardGrid">
         {stories.map((article) => <ArticleCard key={article.slug} article={article} />)}
@@ -95,7 +97,9 @@ function CanadianDecisions({ stories }: { stories: Article[] }) {
               </div>
               <h3><Link href={`/article/${article.slug}/`}>{article.title}</Link></h3>
               <p>{article.dek}</p>
-              <Link className="canadaDecisionLink" href={`/article/${article.slug}/`}>Read the evidence <span aria-hidden="true">&rarr;</span></Link>
+              <Link className="canadaDecisionLink" href={`/article/${article.slug}/`}>
+                Read the evidence<span className="visuallyHidden"> for {article.title}</span> <span aria-hidden="true">&rarr;</span>
+              </Link>
             </div>
           </article>
         ))}
@@ -130,6 +134,88 @@ function TasteAccordion({ stories }: { stories: Article[] }) {
           </article>
         ))}
       </div>
+    </section>
+  );
+}
+
+function ReaderRoutes() {
+  const routes = [
+    {
+      number: "01",
+      label: "Understand Canada",
+      title: "Follow policy from announcement to implementation.",
+      description: "Read what government documents actually say, what remains undecided and which delivery signals matter next.",
+      href: "/topics/canadian-ai-policy/",
+      action: "Open the Canada policy path",
+    },
+    {
+      number: "02",
+      label: "Use AI well",
+      title: "Build a useful workflow without losing control.",
+      description: "Start with small tasks, protect private information and keep a human check between an answer and an action.",
+      href: "/topics/using-ai/",
+      action: "Open the practical AI path",
+    },
+    {
+      number: "03",
+      label: "Test the answer",
+      title: "Evaluate claims with evidence instead of confidence.",
+      description: "Compare answers consistently, inspect citations and design tests around the failures that would actually matter.",
+      href: "/topics/ai-models/",
+      action: "Open the evaluation path",
+    },
+  ];
+
+  return (
+    <section className="shell readerRoutes" aria-labelledby="reader-routes-heading">
+      <header>
+        <span>START WITH YOUR QUESTION</span>
+        <h2 id="reader-routes-heading">Choose a route, not another endless feed.</h2>
+        <p>Each path connects reviewed articles in an order that helps you understand, apply and verify the material.</p>
+      </header>
+      <div>
+        {routes.map((route) => (
+          <article key={route.number}>
+            <div><span>{route.number}</span><small>{route.label}</small></div>
+            <h3>{route.title}</h3>
+            <p>{route.description}</p>
+            <Link href={route.href}>{route.action} <span aria-hidden="true">&rarr;</span></Link>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function PublicationLedger({ publishedArticles }: { publishedArticles: Article[] }) {
+  const sourceUrls = new Set(publishedArticles.flatMap((article) => article.sources?.map((source) => source.url) ?? [article.sourceUrl]));
+  const latestReview = [...publishedArticles]
+    .map((article) => articleModifiedDate(article))
+    .sort((a, b) => b.localeCompare(a))[0];
+  const latestReviewLabel = new Date(`${latestReview}T12:00:00Z`).toLocaleDateString("en-CA", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+
+  return (
+    <section className="publicationLedger" aria-labelledby="publication-ledger-heading">
+      <div className="shell publicationLedgerInner">
+        <div className="publicationLedgerIntro">
+          <span>OPEN NEWSROOM</span>
+          <h2 id="publication-ledger-heading">A smaller publication, with the work visible.</h2>
+          <p>Only individually reviewed articles enter the public collection. Every one names its evidence, its practical use and the limit readers should keep in mind.</p>
+          <Link href="/editorial-policy/">Read the full publication standard <span aria-hidden="true">&rarr;</span></Link>
+        </div>
+        <dl>
+          <div><dt>{publishedArticles.length}</dt><dd>public, individually reviewed articles</dd></div>
+          <div><dt>{sourceUrls.size}</dt><dd>distinct named source links</dd></div>
+          <div><dt>{new Set(publishedArticles.map((article) => article.category)).size}</dt><dd>focused editorial desks</dd></div>
+          <div><dt>{latestReviewLabel}</dt><dd>latest substantive article update</dd></div>
+        </dl>
+      </div>
+      <p className="shell publicationLedgerNote">These figures describe AI New Canada’s documented internal process; they are not an independent certification.</p>
     </section>
   );
 }
@@ -230,6 +316,10 @@ export default function Home() {
           <Link href="/editorial-policy/">How we check our work <span aria-hidden="true">↗</span></Link>
         </section>
 
+        <ReaderRoutes />
+
+        <PublicationLedger publishedArticles={publishedArticles} />
+
         <section className="shell latestSection" aria-labelledby="latest-heading">
           <header className="newsroomSectionHeader latestHeader">
             <div><h2 id="latest-heading">Latest & updated</h2></div>
@@ -278,6 +368,7 @@ export default function Home() {
           title="From product demo to repeatable workflow."
           description="Practical coverage of AI products, enterprise choices and the human controls that keep automation useful."
           href={categoryPath("Business")}
+          action="Browse practical business coverage"
           stories={work}
         />
 

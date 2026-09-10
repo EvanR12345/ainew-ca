@@ -114,7 +114,7 @@ test("ships a lightweight, accessible editorial browsing shell", async () => {
   assert.match(componentSource, /Canadian AI resources/);
   assert.doesNotMatch(componentSource, /AI Signal|ai-signal/);
   assert.match(layoutSource, /og-editorial-2026\.jpg/);
-  assert.match(globalStyles, /content-visibility: auto/);
+  assert.doesNotMatch(globalStyles, /content-visibility: auto/);
   assert.match(globalStyles, /@media \(max-width: 520px\)/);
 });
 
@@ -284,17 +284,29 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
 
   assert.match(homeHtml, /"@type":"WebSite"/);
   assert.match(homeHtml, /"@type":"NewsMediaOrganization"/);
+  assert.match(homeHtml, /Choose a route, not another endless feed/);
+  assert.match(homeHtml, /A smaller publication, with the work visible/);
+  assert.match(homeHtml, /public, individually reviewed articles/);
+  assert.match(homeHtml, /Browse practical business coverage/);
+  assert.match(homeHtml, /Read the evidence<span class="visuallyHidden"> for <!-- -->Canada/);
   assert.match(homeHtml, /google-adsense-account/);
   assert.doesNotMatch(homeHtml, /pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js|armsbroodelusive|ad-frames/);
   assert.match(articleHtml, /rel="canonical" href="https:\/\/ainew\.ca\/article\/canada-ai-transparency-consultation-what-to-know\/?"/);
   assert.match(articleHtml, /"@type":"NewsArticle"/);
+  assert.match(articleHtml, /"author":\{"@type":"Organization","@id":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/#profile","name":"AI New Desk","url":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/"\}/);
   assert.match(articleHtml, /"@type":"BreadcrumbList"/);
   assert.match(articleHtml, /"datePublished":"2026-08-10T12:00:00Z"/);
-  assert.match(articleHtml, /"dateModified":"2026-09-09T05:18:04Z"/);
+  assert.match(articleHtml, /"dateModified":"2026-09-10T18:54:09Z"/);
   assert.match(authorHtml, /"@type":"ProfilePage"/);
   assert.match(authorHtml, /"dateCreated":"2026-08-11T04:06:24-04:00"/);
   assert.match(authorHtml, /"dateModified":"2026-09-09T05:18:04Z"/);
   assert.match(articleHtml, /Editorial note:/);
+  assert.match(articleHtml, /READER BRIEFING/);
+  assert.match(articleHtml, /The useful answer first/);
+  assert.match(articleHtml, /Do not assume/);
+  assert.match(articleHtml, /Evidence trail:/);
+  assert.match(articleHtml, /href="#sources">3/);
+  assert.match(articleHtml, /named <!-- -->sources/);
   assert.match(editorialHtml, /Publication and originality review/);
   assert.match(editorialHtml, /Template-built drafts, thin briefs, unfinished experiments and near-duplicate query variations remain unpublished/);
   assert.match(frenchHtml, /name="robots" content="noindex, follow"/i);
@@ -308,6 +320,22 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.match(topicSource, /isSearchEligibleArticle/);
   assert.doesNotMatch(newsletterSource, /coming soon|fake signup|type="email"/i);
   assert.equal(adsTxt.trim(), "google.com, pub-4610762209559364, DIRECT, f08c47fec0942fa0");
+});
+
+test("gives every public article a distinct decision briefing", async () => {
+  const [articleSource, briefingSource, sampleResponse] = await Promise.all([
+    readFile(new URL("../app/lib/articles.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/lib/article-briefings.ts", import.meta.url), "utf8"),
+    render("/article/advanced-retrieval-ai-own-documents-citations/"),
+  ]);
+  const records = JSON.parse(articleSource.match(/export const articles: Article\[\] = ([\s\S]*?);\n\nexport function/)[1]);
+  const publicSlugs = records.map((article) => article.slug).sort();
+  const briefingSlugs = [...briefingSource.matchAll(/^  "([^"]+)": \{$/gm)].map((match) => match[1]).sort();
+  assert.deepEqual(briefingSlugs, publicSlugs);
+  assert.equal(sampleResponse.status, 200);
+  const sampleHtml = await sampleResponse.text();
+  assert.match(sampleHtml, /Document retrieval quality depends on versions, permissions, chunking, ranking and citation checks/);
+  assert.match(sampleHtml, /Open the source list/);
 });
 
 test("keeps all advertising off while preserving only Google's ownership verification", async () => {
