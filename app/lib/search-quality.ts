@@ -29,6 +29,20 @@ export function articleModifiedDateTime(article: Article) {
     : articlePublishedDateTime(article);
 }
 
+/** The single date shown to readers is the latest documented article date. */
+export function articleVisibleDate(article: Pick<Article, "date" | "modifiedAt">) {
+  const dateTime = article.modifiedAt ?? `${article.date}T12:00:00Z`;
+  return {
+    dateTime,
+    label: new Date(dateTime).toLocaleDateString("en-CA", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+      timeZone: "UTC",
+    }),
+  };
+}
+
 /** Search discovery is limited to articles that have passed the evidence review. */
 export function isSearchEligibleArticle(article: Article) {
   return isSourceAuditedArticle(article)

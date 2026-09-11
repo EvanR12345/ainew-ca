@@ -310,6 +310,10 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.match(articleHtml, /"@type":"BreadcrumbList"/);
   assert.match(articleHtml, /"datePublished":"2026-08-10T12:00:00Z"/);
   assert.match(articleHtml, /"dateModified":"2026-09-11T06:22:25Z"/);
+  const articleMetaHtml = articleHtml.match(/<div class="articleMeta">([\s\S]*?)<\/div><div class="articleTrustLine"/)?.[1] ?? "";
+  assert.match(articleMetaHtml, /<time dateTime="2026-09-11T06:22:25Z">September 11, 2026<\/time>/);
+  assert.equal((articleMetaHtml.match(/<time\b/g) ?? []).length, 1);
+  assert.doesNotMatch(articleMetaHtml, /Updated/i);
   assert.match(authorHtml, /"@type":"ProfilePage"/);
   assert.match(authorHtml, /"dateCreated":"2026-08-11T04:06:24-04:00"/);
   assert.match(authorHtml, /"dateModified":"2026-09-09T05:18:04Z"/);

@@ -28,7 +28,6 @@ export type Article = {
   dek: string;
   category: "Canada" | "Models" | "Products" | "Business" | "Research" | "Policy";
   date: string;
-  displayDate: string;
   modifiedAt?: string;
   updateNote?: string;
   readTime: string;
@@ -48,7 +47,7 @@ export type Article = {
   video?: ArticleVideo;
 };
 
-export type ArticleCardData = Pick<Article, "slug" | "title" | "dek" | "category" | "date" | "displayDate" | "readTime" | "signal" | "image" | "imageAlt">;
+export type ArticleCardData = Pick<Article, "slug" | "title" | "dek" | "category" | "date" | "modifiedAt" | "readTime" | "signal" | "image" | "imageAlt">;
 
 // Only the individually reviewed publication is stored here.
 // Future articles must pass the evidence and originality gate before release.
@@ -59,7 +58,6 @@ export const articles: Article[] = [
     "dek": "The federal consultation asks about synthetic-content identification, AI interaction notices, system information, serious-incident records and agent activity.",
     "category": "Canada",
     "date": "2026-08-10",
-    "displayDate": "August 10, 2026",
     "readTime": "3 min read",
     "signal": "Canada watch",
     "accent": "coral",
@@ -170,7 +168,6 @@ export const articles: Article[] = [
     "dek": "A close reading of Canada's 2026 national AI strategy, what its promises mean in practice, and the milestones citizens and businesses should watch next.",
     "category": "Canada",
     "date": "2026-08-30",
-    "displayDate": "August 30, 2026",
     "readTime": "6 min read",
     "signal": "POLICY LENS",
     "accent": "#596874",
@@ -331,7 +328,6 @@ export const articles: Article[] = [
     "dek": "The 2025-2027 plan is a practical test of whether government can adopt AI without losing accountability, institutional memory or public trust.",
     "category": "Canada",
     "date": "2026-08-30",
-    "displayDate": "August 30, 2026",
     "readTime": "6 min read",
     "signal": "POLICY LENS",
     "accent": "#596874",
@@ -489,7 +485,6 @@ export const articles: Article[] = [
     "dek": "Map personal information through prompts, retrieval, logs, vendors and human review before an AI pilot quietly becomes a production system.",
     "category": "Canada",
     "date": "2026-08-30",
-    "displayDate": "August 30, 2026",
     "readTime": "6 min read",
     "signal": "FIELD GUIDE",
     "accent": "#596874",
@@ -646,7 +641,6 @@ export const articles: Article[] = [
     "dek": "Choose one small task, give the model useful context, and check the result before you turn a chat into a habit.",
     "category": "Products",
     "date": "2026-08-10",
-    "displayDate": "August 10, 2026",
     "readTime": "3 min read",
     "signal": "Beginner how-to",
     "accent": "amber",
@@ -763,7 +757,6 @@ export const articles: Article[] = [
     "dek": "Good prompts describe the job, context, limits and output. The method is simpler—and more reliable—than collecting secret phrases.",
     "category": "Products",
     "date": "2026-08-10",
-    "displayDate": "August 10, 2026",
     "readTime": "3 min read",
     "signal": "Beginner how-to",
     "accent": "red",
@@ -871,7 +864,6 @@ export const articles: Article[] = [
     "dek": "A practical data checklist helps you get useful assistance without pasting sensitive material into the wrong tool.",
     "category": "Policy",
     "date": "2026-08-10",
-    "displayDate": "August 10, 2026",
     "readTime": "3 min read",
     "signal": "Beginner how-to",
     "accent": "blue",
@@ -982,7 +974,6 @@ export const articles: Article[] = [
     "dek": "Separate discovery, source review, outlining, drafting and fact-checking so the model cannot quietly blur evidence with prose.",
     "category": "Research",
     "date": "2026-08-10",
-    "displayDate": "August 10, 2026",
     "readTime": "3 min read",
     "signal": "Intermediate how-to",
     "accent": "green",
@@ -1091,7 +1082,6 @@ export const articles: Article[] = [
     "dek": "A small test set and consistent scoring rubric reveal more than repeatedly asking which model is best.",
     "category": "Models",
     "date": "2026-08-10",
-    "displayDate": "August 10, 2026",
     "readTime": "3 min read",
     "signal": "Intermediate how-to",
     "accent": "yellow",
@@ -1200,7 +1190,6 @@ export const articles: Article[] = [
     "dek": "Use AI to explain, clean and check data while keeping calculations reproducible and source cells visible.",
     "category": "Business",
     "date": "2026-08-10",
-    "displayDate": "August 10, 2026",
     "readTime": "3 min read",
     "signal": "Intermediate how-to",
     "accent": "sky",
@@ -1331,7 +1320,6 @@ export const articles: Article[] = [
     "dek": "Give agents narrow tools, explicit approval gates and recoverable actions before you give them more autonomy.",
     "category": "Products",
     "date": "2026-08-10",
-    "displayDate": "August 10, 2026",
     "readTime": "3 min read",
     "signal": "System design guide",
     "accent": "lime",
@@ -1440,7 +1428,6 @@ export const articles: Article[] = [
     "dek": "Good retrieval depends on document preparation, permissions, ranking and citation checks—not simply connecting a folder to a chatbot.",
     "category": "Research",
     "date": "2026-08-10",
-    "displayDate": "August 10, 2026",
     "readTime": "3 min read",
     "signal": "System design guide",
     "accent": "magenta",
@@ -1546,7 +1533,6 @@ export const articles: Article[] = [
     "dek": "Move beyond a launch benchmark with adversarial tests, live quality samples, incident review and version-by-version comparisons.",
     "category": "Models",
     "date": "2026-08-10",
-    "displayDate": "August 10, 2026",
     "readTime": "3 min read",
     "signal": "System design guide",
     "accent": "orange",
@@ -1657,7 +1643,6 @@ export const articles: Article[] = [
     "dek": "Use a chatbot to organize questions, compare documents and challenge assumptions—not to generate a stock pick or replace regulated advice.",
     "category": "Business",
     "date": "2026-08-10",
-    "displayDate": "August 10, 2026",
     "readTime": "5 min read",
     "signal": "Beginner guide",
     "accent": "green",
@@ -1770,7 +1755,6 @@ export const articles: Article[] = [
     "dek": "Deepfakes and personalized messages can manufacture trust. A short verification routine is more useful than trying to spot every synthetic detail.",
     "category": "Business",
     "date": "2026-08-10",
-    "displayDate": "August 10, 2026",
     "readTime": "4 min read",
     "signal": "Fraud defence",
     "accent": "red",
@@ -1885,8 +1869,8 @@ export function getRelatedArticles(article: Article, limit = 3, candidates = sea
 }
 
 export function toArticleCardData(article: Article): ArticleCardData {
-  const { slug, title, dek, category, date, displayDate, readTime, signal, image, imageAlt } = article;
-  return { slug, title, dek, category, date, displayDate, readTime, signal, image, imageAlt };
+  const { slug, title, dek, category, date, modifiedAt, readTime, signal, image, imageAlt } = article;
+  return { slug, title, dek, category, date, modifiedAt, readTime, signal, image, imageAlt };
 }
 
 export function getAdjacentArticles(article: Article, candidates = searchEligibleArticles(articles)) {

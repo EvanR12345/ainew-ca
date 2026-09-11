@@ -4,9 +4,14 @@ import Link from "next/link";
 import { AdSlot, ArticleCard, NewsletterBand, SiteFooter, SiteHeader } from "./components";
 import { articleImageStyle } from "./article-image-style";
 import { articles, type Article } from "./lib/articles";
-import { articleModifiedDate, searchEligibleArticles } from "./lib/search-quality";
+import { articleModifiedDate, articleVisibleDate, searchEligibleArticles } from "./lib/search-quality";
 import { buildPageMetadata, categoryPath, organizationSchema, SITE_URL, WEBSITE_ID, websiteSchema } from "./lib/seo";
 import { StructuredData } from "./structured-data";
+
+function ArticleDate({ article }: { article: Pick<Article, "date" | "modifiedAt"> }) {
+  const visibleDate = articleVisibleDate(article);
+  return <time dateTime={visibleDate.dateTime}>{visibleDate.label}</time>;
+}
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Canadian AI News, Guides & Analysis | AI New Canada",
@@ -60,7 +65,7 @@ function TasteBento({ stories }: { stories: Article[] }) {
           </div>
           <div className="tasteBentoShade" aria-hidden="true" />
           <div className="tasteBentoCopy">
-            <div><span>{article.category}</span><time dateTime={article.date}>{article.displayDate}</time></div>
+            <div><span>{article.category}</span><ArticleDate article={article} /></div>
             <h2><Link href={`/article/${article.slug}/`}>{article.title}</Link></h2>
             {index === 0 && <p>{article.dek}</p>}
           </div>
@@ -93,7 +98,7 @@ function CanadianDecisions({ stories }: { stories: Article[] }) {
             <div className="canadaDecisionCopy">
               <div>
                 <span>{String(index + 1).padStart(2, "0")} / {article.category}</span>
-                <time dateTime={article.date}>{article.displayDate}</time>
+                <ArticleDate article={article} />
               </div>
               <h3><Link href={`/article/${article.slug}/`}>{article.title}</Link></h3>
               <p>{article.dek}</p>
@@ -283,7 +288,7 @@ export default function Home() {
               <Image unoptimized src={lead.image} alt={lead.imageAlt} width={1200} height={675} priority />
             </Link>
             <div className="tasteHeroStoryCopy">
-              <div><Link href={categoryPath(lead.category)}>{lead.category}</Link><time dateTime={lead.date}>{lead.displayDate}</time></div>
+              <div><Link href={categoryPath(lead.category)}>{lead.category}</Link><ArticleDate article={lead} /></div>
               <h2><Link href={`/article/${lead.slug}/`}>{lead.title}</Link></h2>
               <p>{lead.dek}</p>
             </div>
@@ -322,8 +327,8 @@ export default function Home() {
 
         <section className="shell latestSection" aria-labelledby="latest-heading">
           <header className="newsroomSectionHeader latestHeader">
-            <div><h2 id="latest-heading">Latest & updated</h2></div>
-            <p>Recently published or substantively updated guides, with original publication dates shown.</p>
+            <div><h2 id="latest-heading">Latest from the newsroom</h2></div>
+            <p>Recently published or substantively revised guides, ordered by their latest documented date.</p>
             <Link href="/articles/">All latest <span aria-hidden="true">&rarr;</span></Link>
           </header>
           <div className="latestNewsList">
@@ -333,7 +338,7 @@ export default function Home() {
                   <Image src={`/images/articles/thumbs/${article.slug}.webp`} alt={article.imageAlt} width={800} height={450} unoptimized />
                 </Link>
                 <div>
-                  <div className="latestNewsMeta"><span>{article.category}</span><time dateTime={article.date}>{article.displayDate}</time></div>
+                  <div className="latestNewsMeta"><span>{article.category}</span><ArticleDate article={article} /></div>
                   <h3><Link href={`/article/${article.slug}/`}>{article.title}</Link></h3>
                   <p>{article.dek}</p>
                 </div>

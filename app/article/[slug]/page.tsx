@@ -10,7 +10,7 @@ import { articles, getAdjacentArticles, getArticle, getRelatedArticles, toArticl
 import { getArticleBriefing } from "../../lib/article-briefings";
 import { absoluteUrl, searchRobots, AUTHOR_ID, breadcrumbSchema, categoryPath, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../lib/seo";
 import { topicForArticle } from "../../lib/topic-hubs";
-import { articleModifiedDateTime, articlePublishedDateTime, isSearchEligibleArticle, searchEligibleArticles, SEARCH_REVIEW_DATETIME } from "../../lib/search-quality";
+import { articleModifiedDateTime, articlePublishedDateTime, articleVisibleDate, isSearchEligibleArticle, searchEligibleArticles, SEARCH_REVIEW_DATETIME } from "../../lib/search-quality";
 import { ArticleReadTracker, MarkArticleRead, ReadingJourney, RelatedRecommendations } from "../../reading-history";
 import { StructuredData } from "../../structured-data";
 import { ArticleTools } from "../../article-tools";
@@ -81,6 +81,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const topicHub = topicForArticle(article);
   const publishedTime = articlePublishedDateTime(article);
   const modifiedTime = articleModifiedDateTime(article);
+  const visibleDate = articleVisibleDate(article);
   const indexEligible = isSearchEligibleArticle(article);
 
   return (
@@ -154,8 +155,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <div className="articleMeta">
               <div className="authorMark">AN</div>
               <div><strong><Link href="/authors/ai-new-desk/" rel="author">AI New Desk</Link></strong><span>AI-assisted research & analysis</span></div>
-              <time dateTime={article.date}>{article.displayDate}</time>
-              {article.modifiedAt && <span>Updated <time dateTime={article.modifiedAt}>{new Date(article.modifiedAt).toLocaleDateString("en-CA", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })}</time></span>}
+              <time dateTime={visibleDate.dateTime}>{visibleDate.label}</time>
               <span>{article.readTime}</span>
             </div>
             <div className="articleTrustLine" aria-label="Article review details">
