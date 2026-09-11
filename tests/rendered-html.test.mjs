@@ -43,7 +43,7 @@ test("renders the beginner investment guide with its photo and financial disclai
 
   assert.match(html, /Use AI for investment research without letting it choose for you/);
   assert.match(html, /how-beginners-use-ai-investment-research\.jpg/);
-  assert.match(html, /general education, not personalized investment, legal or tax advice/);
+  assert.match(html, /general education.*not a valuation, tax or legal opinion.*personalized financial advice/i);
   assert.match(html, /Ontario Securities Commission Investor Office/);
   assert.match(html, /research assistant, not adviser/i);
 });
@@ -309,17 +309,17 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.match(articleHtml, /"author":\{"@type":"Organization","@id":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/#profile","name":"AI New Desk","url":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/"\}/);
   assert.match(articleHtml, /"@type":"BreadcrumbList"/);
   assert.match(articleHtml, /"datePublished":"2026-08-10T12:00:00Z"/);
-  assert.match(articleHtml, /"dateModified":"2026-09-11T05:57:39Z"/);
+  assert.match(articleHtml, /"dateModified":"2026-09-11T06:22:25Z"/);
   assert.match(authorHtml, /"@type":"ProfilePage"/);
   assert.match(authorHtml, /"dateCreated":"2026-08-11T04:06:24-04:00"/);
   assert.match(authorHtml, /"dateModified":"2026-09-09T05:18:04Z"/);
   assert.match(articleHtml, /Editorial note:/);
-  assert.match(articleHtml, /READER BRIEFING/);
-  assert.match(articleHtml, /The useful answer first/);
-  assert.match(articleHtml, /Do not assume/);
-  assert.match(articleHtml, /What AI New adds/);
+  assert.match(articleHtml, /EDITOR’S NOTE/);
+  assert.match(articleHtml, /Five questions, and no final rule yet/);
+  assert.match(articleHtml, /Keep in mind:/);
+  assert.doesNotMatch(articleHtml, /READER BRIEFING|The useful answer first|What AI New adds/);
   assert.match(articleHtml, /proposal-versus-rule test/);
-  assert.match(articleHtml, /Evidence trail:/);
+  assert.match(articleHtml, /3<!-- --> named <!-- -->sources<!-- -->, checked below/);
   assert.match(articleHtml, /href="#sources">3/);
   assert.match(articleHtml, /named <!-- -->sources/);
   assert.match(editorialHtml, /Publication and originality review/);
@@ -349,8 +349,8 @@ test("gives every public article a distinct decision briefing", async () => {
   assert.deepEqual(briefingSlugs, publicSlugs);
   assert.equal(sampleResponse.status, 200);
   const sampleHtml = await sampleResponse.text();
-  assert.match(sampleHtml, /Document retrieval quality depends on versions, permissions, chunking, ranking and citation checks/);
-  assert.match(sampleHtml, /Open the source list/);
+  assert.match(sampleHtml, /A real citation can still support the wrong answer/);
+  assert.match(sampleHtml, /Read the source notes/);
 });
 
 test("keeps all advertising off while preserving only Google's ownership verification", async () => {

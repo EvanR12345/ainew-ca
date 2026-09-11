@@ -7,6 +7,8 @@ const entries = (await readdir(root, { withFileTypes: true })).filter((entry) =>
 const paragraphOwners = new Map();
 const sentenceOwners = new Map();
 const briefingOwners = new Map();
+const briefingHeadingOwners = new Map();
+const disclaimerOwners = new Map();
 const outlines = new Map();
 const titleOwners = new Map();
 const snippetOwners = new Map();
@@ -96,11 +98,14 @@ for (const entry of entries) {
   outlines.set(outline, { slug: entry.name, tokens: new Set(tokens(headings.join(" "))) });
 
   const briefingHtml = html.match(/<section class="articleAnswerSummary"[\s\S]*?<\/section>/)?.[0] ?? "";
-  const briefingParts = [
-    briefingHtml.match(/<p>([\s\S]*?)<\/p>/)?.[1] ?? "",
-    ...[...briefingHtml.matchAll(/<dd>([\s\S]*?)<\/dd>/g)].map((match) => match[1]),
-  ].map(plainText).filter(Boolean);
-  assert.equal(briefingParts.length, 4, `${entry.name}: reader briefing must contain a bottom line, use case, boundary and original contribution`);
+  const briefingHeading = plainText(briefingHtml.match(/<h2[^>]*>([\s\S]*?)<\/h2>/)?.[1] ?? "");
+  const previousBriefingHeading = briefingHeadingOwners.get(briefingHeading.toLowerCase());
+  assert.ok(briefingHeading && !previousBriefingHeading, `${entry.name}: missing or repeated editorial note heading from ${previousBriefingHeading}`);
+  briefingHeadingOwners.set(briefingHeading.toLowerCase(), entry.name);
+  assert.doesNotMatch(briefingHtml, /READER BRIEFING|The useful answer first|What AI New adds|<dl\b/i, `${entry.name}: old templated briefing language remains`);
+
+  const briefingParts = [...briefingHtml.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)].map((match) => plainText(match[1])).filter(Boolean);
+  assert.equal(briefingParts.length, 4, `${entry.name}: editorial note must contain four article-specific paragraphs`);
   for (const part of briefingParts) {
     const normalized = tokens(part).join(" ");
     const previous = briefingOwners.get(normalized);
@@ -108,9 +113,15 @@ for (const entry of entries) {
     briefingOwners.set(normalized, entry.name);
   }
 
+  const disclaimer = plainText(html.match(/<p class="disclosure">([\s\S]*?)<\/p>/)?.[1] ?? "").replace(/^Editorial note:\s*/i, "");
+  const normalizedDisclaimer = tokens(disclaimer).join(" ");
+  const previousDisclaimer = disclaimerOwners.get(normalizedDisclaimer);
+  assert.ok(tokens(disclaimer).length >= 20 && !previousDisclaimer, `${entry.name}: missing, thin or repeated editorial note from ${previousDisclaimer}`);
+  disclaimerOwners.set(normalizedDisclaimer, entry.name);
+
   const body = sections.map(plainText).join(" ");
   for (const cliche of editorialCliches) {
-    assert.doesNotMatch(`${titleWithoutBrand} ${snippet} ${briefingParts.join(" ")} ${body}`, cliche, `${entry.name}: formulaic editorial phrase`);
+    assert.doesNotMatch(`${titleWithoutBrand} ${snippet} ${briefingHeading} ${briefingParts.join(" ")} ${disclaimer} ${body}`, cliche, `${entry.name}: formulaic editorial phrase`);
   }
   const schemaWordCount = Number(html.match(/"wordCount":(\d+)/)?.[1] ?? 0);
   const hasWorkedElement = /class="article(?:Table|Example)"/.test(html);
@@ -172,6 +183,8 @@ for (let leftIndex = 0; leftIndex < articleSignals.length; leftIndex++) {
 
 assert.equal(entries.length, 15, "The reviewed public collection changed unexpectedly");
 assert.equal(briefingOwners.size, entries.length * 4, "Every public article needs four distinct briefing statements");
+assert.equal(briefingHeadingOwners.size, entries.length, "Every public article needs a distinct editorial note heading");
+assert.equal(disclaimerOwners.size, entries.length, "Every public article needs a distinct editorial note");
 const mostRepeatedOpener = [...sentenceOpeners].sort((left, right) => right[1] - left[1])[0] ?? ["", 0];
 assert.ok(mostRepeatedOpener[1] <= 5, `Formulaic sentence opening repeated too often: ${mostRepeatedOpener[0]} (${mostRepeatedOpener[1]})`);
 
@@ -180,6 +193,8 @@ console.log(JSON.stringify({
   articleCount: entries.length,
   distinctOutlines: outlines.size,
   distinctBriefingStatements: briefingOwners.size,
+  distinctBriefingHeadings: briefingHeadingOwners.size,
+  distinctEditorialNotes: disclaimerOwners.size,
   distinctTitleTags: titleOwners.size,
   distinctSearchSnippets: snippetOwners.size,
   checkedParagraphs: paragraphOwners.size,

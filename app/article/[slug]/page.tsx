@@ -179,17 +179,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <ArticleTools />
             <div className="articleBody">
               <section className="articleAnswerSummary" aria-labelledby="article-briefing-heading">
-                <span className="eyebrow">READER BRIEFING</span>
-                <h2 id="article-briefing-heading">The useful answer first</h2>
+                <span className="eyebrow">EDITOR’S NOTE</span>
+                <h2 id="article-briefing-heading">{briefing.heading}</h2>
                 <p>{briefing.bottomLine}</p>
-                <dl className="articleBriefingGrid">
-                  <div><dt>Use this for</dt><dd>{briefing.useThisFor}</dd></div>
-                  <div><dt>Do not assume</dt><dd>{briefing.boundary}</dd></div>
-                  <div><dt>What AI New adds</dt><dd>{briefing.contribution}</dd></div>
-                </dl>
+                <p>{briefing.contribution}</p>
+                <p>{briefing.useThisFor}</p>
+                <p className="articleBriefingBoundary"><strong>Keep in mind:</strong> {briefing.boundary}</p>
                 <div className="articleBriefingEvidence">
-                  <span>Evidence trail: {sourceList.length} named {sourceList.length === 1 ? "source" : "sources"}</span>
-                  <a href="#sources">Review the sources and notes &darr;</a>
+                  <span>{sourceList.length} named {sourceList.length === 1 ? "source" : "sources"}, checked below</span>
+                  <a href="#sources">Read the source notes &darr;</a>
                 </div>
               </section>
 
