@@ -21,6 +21,17 @@ async function render(pathname = "/") {
   );
 }
 
+test("keeps the documented article revisions on distinct consecutive days", async () => {
+  const articleSource = await readFile(new URL("../app/lib/articles.ts", import.meta.url), "utf8");
+  const revisionDates = [...articleSource.matchAll(/"modifiedAt": "(\d{4}-\d{2}-\d{2})T/g)].map((match) => match[1]);
+
+  assert.deepEqual(revisionDates, [
+    "2026-09-11", "2026-09-10", "2026-09-09", "2026-09-08", "2026-09-07",
+    "2026-09-06", "2026-09-05", "2026-09-04", "2026-09-03", "2026-09-02",
+    "2026-09-01", "2026-08-31", "2026-08-30", "2026-08-29", "2026-08-28",
+  ]);
+});
+
 test("server-renders the AI New Canada publication with editorial photography", async () => {
   const response = await render();
   assert.equal(response.status, 200);

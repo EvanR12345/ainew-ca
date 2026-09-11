@@ -318,7 +318,7 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-11T06:22:25Z",
+    "modifiedAt": "2026-09-10T06:22:25Z",
     "updateNote": "Turned the six strategy pillars into a delivery scoreboard with observable milestones. Tightened the headline and search summary so they describe that specific contribution.",
     "seoTitle": "Canada’s AI for All Strategy: six promises to track"
   },
@@ -475,7 +475,7 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-11T06:22:25Z",
+    "modifiedAt": "2026-09-09T06:22:25Z",
     "updateNote": "Converted the federal strategy into a filled project brief with acceptance conditions and stopping points. Clarified where the strategy ends and department-level evidence would begin.",
     "seoTitle": "Canada’s public-service AI strategy: a project test"
   },
@@ -631,7 +631,7 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-11T06:22:25Z",
+    "modifiedAt": "2026-09-08T06:22:25Z",
     "updateNote": "Rebuilt the guide around one prompt-to-decision data journey. The new F-104 example records risks and controls while keeping legal conclusions outside the article.",
     "seoTitle": "AI privacy assessments in Canada: map the data journey"
   },
@@ -657,7 +657,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The meeting notes and expected answer are fictional practice material. Finishing the exercise does not mean a tool is approved for confidential work, customer information or actions that affect another person.",
     "imageAlt": "Illustration of task icons arranged beside a checklist on a desk.",
-    "modifiedAt": "2026-09-11T06:22:25Z",
+    "modifiedAt": "2026-09-07T06:22:25Z",
     "updateNote": "Added a timed meeting-notes exercise, the expected action list and a check for invented owners or deadlines. The page now gives a beginner a repeatable first test instead of general encouragement.",
     "sources": [
       {
@@ -772,7 +772,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "These prompts are test cases, not formulas that guarantee a correct answer. Results vary by model and context, and any claim that matters still needs to be checked outside the chat.",
     "imageAlt": "Illustration of wooden blocks with a speech bubble, arrow and light bulb beside a keyboard.",
-    "modifiedAt": "2026-09-11T06:22:25Z",
+    "modifiedAt": "2026-09-06T06:22:25Z",
     "updateNote": "Replaced generic prompting advice with one before-and-after brief, a constraint check and a repair table that explains why each revision is made.",
     "sources": [
       {
@@ -880,7 +880,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The email in this guide is fictional. Privacy, security and records rules differ across workplaces, so confirm the approved tool and data policy before uploading a real file or connecting an account.",
     "imageAlt": "Illustration of a closed document folder beside a laptop and paperwork.",
-    "modifiedAt": "2026-09-11T06:22:25Z",
+    "modifiedAt": "2026-09-05T06:22:25Z",
     "updateNote": "Centred the guide on a fictional email and reduced it to the minimum context the task needs. Added separate checks for a single upload, file metadata and an ongoing account connection.",
     "sources": [
       {
@@ -990,7 +990,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The claim ledger is a research method, not proof that a draft is accurate. The writer remains responsible for opening the sources, resolving disagreements and removing claims the evidence cannot support.",
     "imageAlt": "Illustration of source documents connected on a research board above an open notebook.",
-    "modifiedAt": "2026-09-11T06:22:25Z",
+    "modifiedAt": "2026-09-04T06:22:25Z",
     "updateNote": "Added a worked claim ledger with conflicting sources and explicit hold, narrow or remove decisions. The workflow now preserves the evidence trail before prose makes weak claims look settled.",
     "sources": [
       {
@@ -1098,7 +1098,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The 20-point scorecard and its weights are editorial examples for the fictional task shown. A real evaluation needs test cases, reviewers and failure limits chosen for its own users and consequences.",
     "imageAlt": "Illustration of a comparison checklist between two computer displays.",
-    "modifiedAt": "2026-09-11T06:22:25Z",
+    "modifiedAt": "2026-09-03T06:22:25Z",
     "updateNote": "Added a reproducible rubric, a two-reviewer disagreement and a critical-failure cap. The worked comparison shows why fluent output does not automatically win.",
     "sources": [
       {
@@ -1206,7 +1206,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The invoice rows and totals are fictional and are provided for practice. This is not accounting, tax or financial-control advice, and a real workbook needs review against its own records and rules.",
     "imageAlt": "Illustration of spreadsheet figures, a magnifying glass and a calculator.",
-    "modifiedAt": "2026-09-11T06:22:25Z",
+    "modifiedAt": "2026-09-02T06:22:25Z",
     "updateNote": "Replaced broad spreadsheet tips with a small invoice dataset, an exact SUMIFS formula and month-end boundary checks. Every result can now be rebuilt from the visible cells.",
     "sources": [
       {
@@ -1336,7 +1336,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The support agent and authority matrix are fictional design examples. This article does not describe a tested production system or certify that the controls are sufficient for a particular security, legal or operational setting.",
     "imageAlt": "Illustration of a hand operating a control beside a robotic arm.",
-    "modifiedAt": "2026-09-11T06:22:25Z",
+    "modifiedAt": "2026-09-01T06:22:25Z",
     "updateNote": "Narrowed the page to one authority problem: which actions may be drafted, approved or prohibited. Connected each permission to evidence, logs and recovery steps.",
     "sources": [
       {
@@ -1444,7 +1444,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The policy corpus and retrieval results are fictional. They demonstrate failure patterns but do not validate a retrieval product, architecture or deployment with real documents and permissions.",
     "imageAlt": "Illustration of indexed documents in a filing drawer with a search symbol.",
-    "modifiedAt": "2026-09-11T06:22:25Z",
+    "modifiedAt": "2026-08-31T06:22:25Z",
     "updateNote": "Built a three-document version collision in which a traceable answer is still wrong. The article now follows that error through retrieval, access control and citation-fit checks.",
     "sources": [
       {
@@ -1549,7 +1549,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The release table is a planning example, not a safety certification. Passing a finite test set cannot establish performance outside its coverage or after the model, data, prompts, tools or users change.",
     "imageAlt": "Illustration of test icons, checklists and monitoring screens for evaluating AI.",
-    "modifiedAt": "2026-09-11T06:22:25Z",
+    "modifiedAt": "2026-08-30T06:22:25Z",
     "updateNote": "Added a release decision where a strong average score is blocked by one critical failure. Linked pre-release tests to live sampling, incidents and rollback triggers.",
     "sources": [
       {
@@ -1745,7 +1745,7 @@ export const articles: Article[] = [
         }
       }
     ],
-    "modifiedAt": "2026-09-11T06:22:25Z",
+    "modifiedAt": "2026-08-29T06:22:25Z",
     "updateNote": "Added a fictional filing extract with an ambiguity that can change the conclusion. The revised prompt separates sourced facts, inferences and evidence that could disprove the initial thesis.",
     "seoTitle": "AI investment research without asking what to buy"
   },
@@ -1851,7 +1851,7 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-11T06:22:25Z",
+    "modifiedAt": "2026-08-28T06:22:25Z",
     "updateNote": "Rebuilt the article as seven independent checks for urgency, identity, registration, evidence and payment. Updated the source trail to current Ontario regulator research, registration guidance and alerts.",
     "seoTitle": "An AI investment pitch sounds real: seven checks"
   }
