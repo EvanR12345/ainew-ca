@@ -7,8 +7,8 @@ const articleEntries = (await readdir(articleRoot, { withFileTypes: true })).fil
 const archive = await readFile(`${root}/articles/index.html`, "utf8");
 const archiveLinks = new Set([...archive.matchAll(/href="\/article\/([^/]+)\//g)].map((match) => match[1]));
 
-assert.equal(articleEntries.length, 15, "The reviewed public collection changed unexpectedly");
-assert.equal(archiveLinks.size, 15, "The server-rendered archive must expose every reviewed article");
+assert.equal(articleEntries.length, 16, "The reviewed public collection changed unexpectedly");
+assert.equal(archiveLinks.size, 16, "The server-rendered archive must expose every reviewed article");
 assert.doesNotMatch(archive, /Loading stories…/, "The archive must not depend on client-side rendering");
 assert.match(archive, /"@type":"ItemList"/, "The archive needs an ItemList description");
 

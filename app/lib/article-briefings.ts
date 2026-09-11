@@ -9,6 +9,15 @@ export type ArticleBriefing = {
 };
 
 const articleBriefings: Record<string, ArticleBriefing> = {
+  "canada-algorithmic-impact-assessment-worked-example": {
+    heading: "A score is the index, not the evidence",
+    bottomLine: "Canada’s federal AIA can expose the risk level of an automated administrative decision. The useful audit begins underneath that number: what changed for a real person, which evidence supports the answers and which failure would stop the system.",
+    useThisFor: "Use the five-door test to decide whether a project warrants a closer scope review, then use the fictional Northern Access file to challenge its data, workflow, human control and public recourse.",
+    boundary: "Northern Access Triage and TRACE are AI New Canada inventions. They demonstrate a reading method; they are not a federal project, an official assessment or a substitute for legal and departmental review.",
+    contribution: "We turned the official questionnaire guidance into one inspectable case, refused to invent a formal score, and added release-blocking failures that a polished risk summary could otherwise hide.",
+    searchSnippet: "Read Canada’s federal Algorithmic Impact Assessment through a fictional benefits-queue case, with a scope test, evidence ledger and audit checklist.",
+    tags: ["Algorithmic Impact Assessment", "automated decisions", "public-sector AI", "AI accountability"],
+  },
   "canada-ai-transparency-consultation-what-to-know": {
     heading: "Five questions, and no final rule yet",
     bottomLine: "Canada has opened a real debate about AI notices, synthetic-content labels and activity records. It has not settled the wording, thresholds or enforcement. That difference gets lost in a quick reading of the announcement.",

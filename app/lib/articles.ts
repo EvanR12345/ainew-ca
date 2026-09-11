@@ -53,6 +53,183 @@ export type ArticleCardData = Pick<Article, "slug" | "title" | "dek" | "category
 // Future articles must pass the evidence and originality gate before release.
 export const articles: Article[] = [
   {
+    "slug": "canada-algorithmic-impact-assessment-worked-example",
+    "title": "A federal algorithm gets a risk file before launch. Here’s how to read it.",
+    "seoTitle": "Canada’s Algorithmic Impact Assessment: a worked case",
+    "dek": "Canada’s federal AIA turns an automated decision into a public risk record. A fictional benefits queue shows what to inspect behind the score.",
+    "category": "Policy",
+    "date": "2026-09-11",
+    "modifiedAt": "2026-09-11T16:30:00Z",
+    "updateNote": "Published a new worked case on the federal Algorithmic Impact Assessment, including a five-door scope test, an evidence ledger and a public-reading checklist. Verified against current Treasury Board guidance on September 11, 2026.",
+    "readTime": "10 min read",
+    "signal": "PUBLIC-SYSTEM AUDIT",
+    "accent": "#25708a",
+    "sourceLabel": "Government of Canada: Algorithmic Impact Assessment tool",
+    "sourceUrl": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/algorithmic-impact-assessment.html",
+    "sources": [
+      {
+        "label": "Government of Canada: Algorithmic Impact Assessment tool",
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/algorithmic-impact-assessment.html",
+        "note": "The official AIA guide, checked September 11, 2026, establishes the questionnaire structure, scoring method, impact bands, timing, evidence inputs and publication process. It does not validate the fictional case in this article."
+      },
+      {
+        "label": "Government of Canada: Guide on the Scope of the Directive on Automated Decision-Making",
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-scope-directive-automated-decision-making.html",
+        "note": "The official scope guide supports the five-part scope test and the distinction between administrative decisions, partial automation, clerical checks, experiments and systems used on real clients."
+      },
+      {
+        "label": "Government of Canada: Guide to Peer Review of Automated Decision Systems",
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-peer-review-automated-decision-systems.html",
+        "note": "The official peer-review guide supports the Level II-to-IV review requirement, reviewer minimums and the kinds of technical, data, fairness, privacy and recourse evidence a review should examine."
+      },
+      {
+        "label": "Government of Canada: 2023 amendments to the Directive on Automated Decision-Making",
+        "url": "https://www.canada.ca/en/government/system/digital-government/policies-standards/policy-service-digital-announcements/amendments-directive-automated-decision-making.html",
+        "note": "The federal announcement records the 2023 changes, including publication of the AIA and peer-review findings before launch, expanded internal-service coverage and stronger measures for bias, data and explanations."
+      }
+    ],
+    "internalLinks": [
+      {
+        "slug": "federal-public-service-ai-strategy-2025-2027",
+        "title": "Inside Canada’s federal public-service AI strategy"
+      },
+      {
+        "slug": "canada-ai-privacy-impact-assessment-guide",
+        "title": "Follow personal information through an AI privacy review"
+      },
+      {
+        "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
+        "title": "Build an evaluation scorecard with failure criteria"
+      },
+      {
+        "slug": "advanced-ai-evaluation-red-team-monitor-production",
+        "title": "Design AI tests that can stop a release"
+      }
+    ],
+    "image": "/images/articles/unique/canada-algorithmic-impact-assessment-worked-example.jpg",
+    "imageAlt": "Two public-sector reviewers examine an automated-decision flowchart and evidence checklist in an Ottawa meeting room.",
+    "disclaimer": "The Northern Access Triage system and TRACE file are original fictional examples created by AI New Canada. They are not government projects, official AIA answers or legal advice. A department and its legal, privacy and policy officials must determine scope and complete the official assessment for a real system.",
+    "evidenceStatus": "verified",
+    "originalityStatus": "individually-reviewed",
+    "searchEligible": true,
+    "sections": [
+      {
+        "heading": "Start with the decision, not the model",
+        "paragraphs": [
+          "A federal Algorithmic Impact Assessment is easy to mistake for a report card on an algorithm. It is broader than that. The Government of Canada’s questionnaire asks about the project, system, algorithm, decision, possible impacts and data, then asks what consultations and safeguards are in place. The result is an impact level from I to IV. That level changes the duties attached to the project, but it does not certify that the system is fair, accurate or ready.",
+          "The useful first question is not ‘Which model did they buy?’ It is ‘Which real decision can change after this output appears?’ A tidy completeness check and a recommendation that moves a benefits file to the back of a queue may look similar on a process diagram. Their consequences are different. The federal scope guide treats systems that make or support administrative decisions as the important boundary, including partial automation where an officer still signs the final decision.",
+          "This guide works through a made-up system called Northern Access Triage. No such federal project is being reported here. The point of the fiction is to make every assumption visible: the people affected, the data used, the reviewer’s choices, the evidence a department would need and the gaps that a numerical score cannot close."
+        ]
+      },
+      {
+        "heading": "The five doors into the directive",
+        "paragraphs": [
+          "Treasury Board’s scope guide identifies five elements that must be present. The system is used by a covered department; it was developed or procured after April 1, 2020, or an older system was significantly changed; it participates in an administrative decision; it replaces or assists judgment; and it is deployed where outputs affect real clients. Passing through all five doors points toward the directive. Missing one can put the project outside this particular instrument, though privacy, security, records and other obligations may still apply.",
+          "The human-in-the-loop label does not close the third or fourth door. A ranking, summary, score or recommendation shown to an officer can influence an administrative decision before the officer signs it. By contrast, checking whether every mandatory field is filled or calculating a published formula may be clerical rather than judgment. The dividing line depends on what the system does in the actual workflow, not the sophistication of its software."
+        ],
+        "table": {
+          "caption": "AI New’s five-door reading test, derived from the federal scope guide",
+          "columns": ["Door", "Question to ask", "Evidence worth finding"],
+          "rows": [
+            ["Department", "Is a covered federal institution using the system?", "Accountable department, program owner and operating agreement"],
+            ["Timing", "Was it built or bought after April 1, 2020, or significantly modified?", "Procurement date, change log and description of altered scope"],
+            ["Decision", "Can the output affect a person’s rights, privileges or interests?", "Decision map, governing authority and client consequence"],
+            ["Judgment", "Does the output replace or shape discretion or critical thought?", "Rules, ranking logic, officer screen and operating instructions"],
+            ["Production", "Will an output touch a real client, even in a small pilot?", "Pilot protocol, data environment and record of decisions influenced"]
+          ]
+        }
+      },
+      {
+        "heading": "Case file: Northern Access Triage",
+        "paragraphs": [
+          "Imagine a federal heating-support program receiving winter applications from remote communities. Staff propose Northern Access Triage to predict which files are likely to need urgent attention and which appear to be missing documents. The system does not approve or deny a benefit. It assigns an urgency band, places files in a review queue and drafts a missing-information notice for an officer to edit.",
+          "That limited description already exposes the hard part. Queue position can change how long a household waits during cold weather. A postal code used as a remoteness signal may be a poor proxy for road access, delivery schedules or local costs. Scanned forms can be less legible when applicants have unreliable internet service. A missing standard document may reflect an accommodation need, not an incomplete claim. None of those conditions is solved by writing ‘human review required’ in the project plan.",
+          "On the five-door test, the fictional project appears likely to be in scope: a department uses a new system in production, its ranking affects the handling of a benefits application, and it assists staff judgment. That is an editorial application of the scope guide, not an official determination. The department’s legal services and responsible officials would have to decide the real case and complete the official questionnaire."
+        ],
+        "table": {
+          "caption": "The first evidence ledger for the fictional triage project",
+          "columns": ["Claim in the project pitch", "Evidence needed", "Stop condition"],
+          "rows": [
+            ["Urgent households will be seen sooner", "Compare wait times and harmful delays before and after use, by region and relevant client barriers", "Any group’s urgent files wait longer without an explained, corrected cause"],
+            ["The document flag saves officer time", "Sample false flags by document type, scan quality, language and accommodation need", "The flag causes automatic deferral or a notice that an officer cannot revise"],
+            ["Postal code captures remoteness", "Show why the proxy is relevant and test where it fails", "The team cannot explain or monitor materially different errors across communities"],
+            ["A person makes every final decision", "Observe the screen, time pressure, override rate and reasons recorded", "Officers routinely accept the ranking without enough information or authority to challenge it"],
+            ["The pilot is low risk", "Identify whether any live client’s queue position or notice changes", "A ‘pilot’ affects real applicants without the production safeguards it requires"]
+          ]
+        }
+      },
+      {
+        "heading": "Build a TRACE file before opening the questionnaire",
+        "paragraphs": [
+          "The official guidance recommends gathering information before answering the AIA. For the fictional project, AI New would organize that material as a TRACE file: Trigger, Rights and interests, Automation role, Controls, and Evidence. TRACE is our editorial device, not a Treasury Board form. Its job is to stop a team from answering a precise questionnaire with vague project language.",
+          "Trigger names the event that changes a file: here, an urgency band or missing-document flag. Rights and interests records what the event can alter, including wait time, access to a benefit, privacy and a person’s ability to respond. Automation role shows exactly where the output enters the officer’s work. Controls assigns a real owner to notice, override, fallback, monitoring and recourse. Evidence links each reassuring claim to a test, record or approved document.",
+          "A useful packet is assembled from the working system, not reconstructed the week before launch. The federal peer-review guide points to system architecture, model information, audit trails, data provenance, privacy measures, bias tests, recourse, transparency material and stakeholder feedback. For Northern Access Triage, screenshots of the officer interface and samples of the notices matter as much as an accuracy chart because they reveal what a person is actually encouraged to do."
+        ],
+        "bullets": [
+          "Trigger: urgency band, queue movement and draft notice, with a timestamp for each change.",
+          "Rights and interests: benefit access, delay, privacy, dignity, accommodation and ability to challenge an error.",
+          "Automation role: the input fields, calculated features, ranking, officer view and final recorded decision.",
+          "Controls: named owners for override, manual fallback, incident response, data correction and client recourse.",
+          "Evidence: test results, approval records, interface captures, logs, consultation findings and unresolved limits."
+        ]
+      },
+      {
+        "heading": "What the score changes—and what it does not",
+        "paragraphs": [
+          "The current AIA contains 65 risk questions and 41 mitigation questions. Risk answers can produce a raw impact score up to 169; mitigation answers can total 77. When the mitigation score reaches at least 80 per cent of the maximum available mitigation score, the tool deducts 15 per cent from the raw impact score to calculate the current score. Impact bands run from Level I at 0–25 per cent through Level IV at 76–100 per cent.",
+          "That calculation has an important limit. Controls can reduce the current score under the formula, but implementing them does not permanently relabel the project. The official guidance says an impact level changes only when a new AIA is completed with updated project information. Departments are also expected to revisit the assessment on a schedule and when functionality or scope changes.",
+          "For Northern Access Triage, we deliberately do not publish a pretend score. A formal result would require answers to the complete official questionnaire, documentary support and decisions by the responsible department. Assigning a confident number from our short scenario would teach the wrong lesson: the score is the end of a documented assessment, not a decoration that can be estimated from a product summary."
+        ],
+        "table": {
+          "caption": "How the official impact bands should change a reader’s questions",
+          "columns": ["Impact level", "Official range", "Public-reading question"],
+          "rows": [
+            ["I — little to no impact", "0% to 25%", "Does the low score match the real decision and population described?"],
+            ["II — moderate impact", "26% to 50%", "Where are the peer-review findings and the response to them?"],
+            ["III — high impact", "51% to 75%", "Which higher-impact controls, human roles and continuity plans are evidenced?"],
+            ["IV — very high impact", "76% to 100%", "Who were the multiple reviewers, what did they challenge and what changed before launch?"]
+          ]
+        }
+      },
+      {
+        "heading": "Peer review should leave fingerprints",
+        "paragraphs": [
+          "A project assessed at Level II, III or IV requires peer review. The federal guide calls for at least one expert at Levels II and III and at least two at Level IV, while recommending multiple perspectives more broadly. Reviewers examine the AIA and supporting documents for integrity, technical soundness and ethical issues. Their complete findings or a plain-language summary must be public before the system enters production.",
+          "A credible review should be visible in the project’s decisions. Perhaps the Northern Access team removes postal code after finding an unjustified proxy, adds a manual fast lane for accommodation requests, changes the officer screen so the reason and uncertainty appear before the rank, or postpones the pilot because its false-negative test misses too many urgent cases. A report that describes no contested assumption, unresolved limit or resulting change deserves a closer read.",
+          "Independence also matters. Treasury Board’s guide asks reviewers to disclose conflicts and says unmitigated conflicts should prevent or end the arrangement. A vendor’s technical note can still be useful evidence, but it is not a substitute for scrutiny by someone able to question the design, data and effect on the people subject to the decision."
+        ]
+      },
+      {
+        "heading": "The failure memo the AIA cannot write for you",
+        "paragraphs": [
+          "A completed assessment can document risks and required measures. It cannot prove that every important group appeared in the test data, that officers will resist automation bias on a busy Friday, or that a client can navigate the appeal route when a notice is confusing. Those are empirical questions. They require observed workflow, outcome monitoring, user research and a response when evidence turns bad.",
+          "Our fictional pre-launch memo would name three release-blocking failures. First, an urgent applicant is placed in a slower band because a remoteness proxy does not represent local conditions. Second, a low-quality scan is treated as missing information and the draft notice overstates what the applicant failed to provide. Third, staff overrides fall sharply as the queue grows, suggesting that human review exists on paper but not under operating pressure.",
+          "Each failure needs a denominator and an owner. ‘We monitor bias’ is not a test. ‘Every week, the service-quality lead compares harmful queue errors across regions and accommodation cases; any unexplained gap above the approved threshold pauses automated ranking’ is closer. The exact threshold must be chosen and justified by the program. Publishing the measurement method would let a reviewer distinguish an operating control from a comforting sentence."
+        ],
+        "example": {
+          "label": "One falsifiable control",
+          "text": "Before launch, replay a labelled set of urgent and non-urgent files through the proposed queue. Record missed urgent cases separately for remote regions, official-language choice, scan quality and accommodation indicators that may lawfully be examined. If any approved release threshold is breached, stop automated ranking, diagnose the cause and rerun the test after the change. This is AI New’s fictional test design, not a prescribed federal threshold."
+        }
+      },
+      {
+        "heading": "How to audit a published AIA in 20 minutes",
+        "paragraphs": [
+          "Canada publishes completed assessments through the Open Government Portal. Start by ignoring the score for five minutes. Write down the decision, the people affected, the system’s exact contribution and the worst plausible reversible and irreversible outcomes. Then compare your plain-language map with the project’s answers. A mismatch is often more informative than a high or low number.",
+          "Next, follow the claims outward. Find the evidence behind data quality, bias testing, explanations, human involvement, monitoring and recourse. For a Level II-to-IV project, locate the peer-review findings and note which recommendations were accepted, rejected or left unanswered. Check the AIA date against the system’s current scope. If the model, client population or purpose changed, ask whether the published assessment was updated.",
+          "Finally, read from the client’s side of the screen. Can a person tell automation was used? Can they understand the reason that mattered in their case, correct bad information and reach a human with authority to change the outcome? A public risk file earns trust when it makes those paths inspectable. A score by itself is only an index into the work."
+        ],
+        "bullets": [
+          "Name the administrative decision and the system’s contribution to it.",
+          "Check whether the scope answers match the live workflow, including pilots and intermediate rankings.",
+          "Separate raw risk, listed mitigations and evidence that a mitigation operates as described.",
+          "Look for dated subgroup tests, override records, incidents, explanations and recourse outcomes.",
+          "For Levels II–IV, read the peer review and the department’s response, not just the summary score.",
+          "Compare the assessment date with later changes to the model, data, users or purpose."
+        ]
+      }
+    ]
+  },
+  {
     "slug": "canada-ai-transparency-consultation-what-to-know",
     "title": "Canada’s AI transparency consultation asks five questions. None is a final rule yet.",
     "dek": "The federal consultation asks about synthetic-content identification, AI interaction notices, system information, serious-incident records and agent activity.",
@@ -129,7 +306,7 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-11T06:22:25Z",
+    "modifiedAt": "2026-09-10T06:22:25Z",
     "updateNote": "Reworked the opening around the gap between a consultation question and a legal duty. Added a bounded shop example and source notes that show exactly what each federal document establishes.",
     "sources": [
       {
@@ -318,7 +495,7 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-10T06:22:25Z",
+    "modifiedAt": "2026-09-09T06:22:25Z",
     "updateNote": "Turned the six strategy pillars into a delivery scoreboard with observable milestones. Tightened the headline and search summary so they describe that specific contribution.",
     "seoTitle": "Canada’s AI for All Strategy: six promises to track"
   },
@@ -475,7 +652,7 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-09T06:22:25Z",
+    "modifiedAt": "2026-09-08T06:22:25Z",
     "updateNote": "Converted the federal strategy into a filled project brief with acceptance conditions and stopping points. Clarified where the strategy ends and department-level evidence would begin.",
     "seoTitle": "Canada’s public-service AI strategy: a project test"
   },
@@ -631,7 +808,7 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-08T06:22:25Z",
+    "modifiedAt": "2026-09-07T06:22:25Z",
     "updateNote": "Rebuilt the guide around one prompt-to-decision data journey. The new F-104 example records risks and controls while keeping legal conclusions outside the article.",
     "seoTitle": "AI privacy assessments in Canada: map the data journey"
   },
@@ -657,7 +834,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The meeting notes and expected answer are fictional practice material. Finishing the exercise does not mean a tool is approved for confidential work, customer information or actions that affect another person.",
     "imageAlt": "Illustration of task icons arranged beside a checklist on a desk.",
-    "modifiedAt": "2026-09-07T06:22:25Z",
+    "modifiedAt": "2026-09-06T06:22:25Z",
     "updateNote": "Added a timed meeting-notes exercise, the expected action list and a check for invented owners or deadlines. The page now gives a beginner a repeatable first test instead of general encouragement.",
     "sources": [
       {
@@ -772,7 +949,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "These prompts are test cases, not formulas that guarantee a correct answer. Results vary by model and context, and any claim that matters still needs to be checked outside the chat.",
     "imageAlt": "Illustration of wooden blocks with a speech bubble, arrow and light bulb beside a keyboard.",
-    "modifiedAt": "2026-09-06T06:22:25Z",
+    "modifiedAt": "2026-09-05T06:22:25Z",
     "updateNote": "Replaced generic prompting advice with one before-and-after brief, a constraint check and a repair table that explains why each revision is made.",
     "sources": [
       {
@@ -880,7 +1057,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The email in this guide is fictional. Privacy, security and records rules differ across workplaces, so confirm the approved tool and data policy before uploading a real file or connecting an account.",
     "imageAlt": "Illustration of a closed document folder beside a laptop and paperwork.",
-    "modifiedAt": "2026-09-05T06:22:25Z",
+    "modifiedAt": "2026-09-04T06:22:25Z",
     "updateNote": "Centred the guide on a fictional email and reduced it to the minimum context the task needs. Added separate checks for a single upload, file metadata and an ongoing account connection.",
     "sources": [
       {
@@ -990,7 +1167,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The claim ledger is a research method, not proof that a draft is accurate. The writer remains responsible for opening the sources, resolving disagreements and removing claims the evidence cannot support.",
     "imageAlt": "Illustration of source documents connected on a research board above an open notebook.",
-    "modifiedAt": "2026-09-04T06:22:25Z",
+    "modifiedAt": "2026-09-03T06:22:25Z",
     "updateNote": "Added a worked claim ledger with conflicting sources and explicit hold, narrow or remove decisions. The workflow now preserves the evidence trail before prose makes weak claims look settled.",
     "sources": [
       {
@@ -1098,7 +1275,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The 20-point scorecard and its weights are editorial examples for the fictional task shown. A real evaluation needs test cases, reviewers and failure limits chosen for its own users and consequences.",
     "imageAlt": "Illustration of a comparison checklist between two computer displays.",
-    "modifiedAt": "2026-09-03T06:22:25Z",
+    "modifiedAt": "2026-09-02T06:22:25Z",
     "updateNote": "Added a reproducible rubric, a two-reviewer disagreement and a critical-failure cap. The worked comparison shows why fluent output does not automatically win.",
     "sources": [
       {
@@ -1206,7 +1383,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The invoice rows and totals are fictional and are provided for practice. This is not accounting, tax or financial-control advice, and a real workbook needs review against its own records and rules.",
     "imageAlt": "Illustration of spreadsheet figures, a magnifying glass and a calculator.",
-    "modifiedAt": "2026-09-02T06:22:25Z",
+    "modifiedAt": "2026-09-01T06:22:25Z",
     "updateNote": "Replaced broad spreadsheet tips with a small invoice dataset, an exact SUMIFS formula and month-end boundary checks. Every result can now be rebuilt from the visible cells.",
     "sources": [
       {
@@ -1336,7 +1513,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The support agent and authority matrix are fictional design examples. This article does not describe a tested production system or certify that the controls are sufficient for a particular security, legal or operational setting.",
     "imageAlt": "Illustration of a hand operating a control beside a robotic arm.",
-    "modifiedAt": "2026-09-01T06:22:25Z",
+    "modifiedAt": "2026-08-31T06:22:25Z",
     "updateNote": "Narrowed the page to one authority problem: which actions may be drafted, approved or prohibited. Connected each permission to evidence, logs and recovery steps.",
     "sources": [
       {
@@ -1444,7 +1621,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The policy corpus and retrieval results are fictional. They demonstrate failure patterns but do not validate a retrieval product, architecture or deployment with real documents and permissions.",
     "imageAlt": "Illustration of indexed documents in a filing drawer with a search symbol.",
-    "modifiedAt": "2026-08-31T06:22:25Z",
+    "modifiedAt": "2026-08-30T06:22:25Z",
     "updateNote": "Built a three-document version collision in which a traceable answer is still wrong. The article now follows that error through retrieval, access control and citation-fit checks.",
     "sources": [
       {
@@ -1549,7 +1726,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The release table is a planning example, not a safety certification. Passing a finite test set cannot establish performance outside its coverage or after the model, data, prompts, tools or users change.",
     "imageAlt": "Illustration of test icons, checklists and monitoring screens for evaluating AI.",
-    "modifiedAt": "2026-08-30T06:22:25Z",
+    "modifiedAt": "2026-08-29T06:22:25Z",
     "updateNote": "Added a release decision where a strong average score is blocked by one critical failure. Linked pre-release tests to live sampling, incidents and rollback triggers.",
     "sources": [
       {
@@ -1745,7 +1922,7 @@ export const articles: Article[] = [
         }
       }
     ],
-    "modifiedAt": "2026-08-29T06:22:25Z",
+    "modifiedAt": "2026-08-28T06:22:25Z",
     "updateNote": "Added a fictional filing extract with an ambiguity that can change the conclusion. The revised prompt separates sourced facts, inferences and evidence that could disprove the initial thesis.",
     "seoTitle": "AI investment research without asking what to buy"
   },
@@ -1851,7 +2028,7 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-08-28T06:22:25Z",
+    "modifiedAt": "2026-08-27T06:22:25Z",
     "updateNote": "Rebuilt the article as seven independent checks for urgency, identity, registration, evidence and payment. Updated the source trail to current Ontario regulator research, registration guidance and alerts.",
     "seoTitle": "An AI investment pitch sounds real: seven checks"
   }

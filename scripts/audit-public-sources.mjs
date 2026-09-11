@@ -28,7 +28,7 @@ for (const entry of entries) {
     sources.set(url, [...(sources.get(url) ?? []), entry.name]);
   }
 }
-assert.equal(articleCount, 15, "Unexpected change to the reviewed public collection");
+assert.equal(articleCount, 16, "Unexpected change to the reviewed public collection");
 if (process.argv.includes("--inventory")) {
   console.log(JSON.stringify({ articleCount, sources: Object.fromEntries(sources) }, null, 2));
   process.exit(0);

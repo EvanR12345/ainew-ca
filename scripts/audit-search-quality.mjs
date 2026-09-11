@@ -3,7 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 
 const outputDir = process.argv.includes("--pages") ? "out" : "dist/client";
-const expectedPublicArticles = 15;
+const expectedPublicArticles = 16;
 const sitemapPath = path.join(outputDir, "sitemap.xml");
 const sitemap = await readFile(sitemapPath, "utf8").catch(() => null);
 const sitemapUrls = sitemap ? [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]) : [];

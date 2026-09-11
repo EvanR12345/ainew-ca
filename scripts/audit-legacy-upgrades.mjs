@@ -14,7 +14,7 @@ const reviewedSlugs = [
 ];
 
 const records = JSON.parse(articleSource.match(/export const articles: Article\[\] = ([\s\S]*?);\n\nexport function/)[1]);
-assert.equal(records.length, 15);
+assert.equal(records.length, 16);
 for (const article of records) {
   assert.equal(article.originalityStatus, "individually-reviewed");
   assert.equal(article.evidenceStatus, "verified");
@@ -32,7 +32,7 @@ assert.match(routeSource, /if \(!article \|\| !isSearchEligibleArticle\(article\
 
 const articleEntries = await readdir("dist/client/article", { withFileTypes: true });
 const publicSlugs = articleEntries.filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort();
-assert.equal(publicSlugs.length, 15, `expected 15 public article routes, found ${publicSlugs.length}`);
+assert.equal(publicSlugs.length, 16, `expected 16 public article routes, found ${publicSlugs.length}`);
 assert.ok(!publicSlugs.includes("claude-code-demo-video-debrief"), "template draft leaked into the public build");
 for (const slug of reviewedSlugs) assert.ok(publicSlugs.includes(slug), `missing reviewed public guide: ${slug}`);
 

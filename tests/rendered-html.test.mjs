@@ -29,6 +29,7 @@ test("keeps the documented article revisions on distinct consecutive days", asyn
     "2026-09-11", "2026-09-10", "2026-09-09", "2026-09-08", "2026-09-07",
     "2026-09-06", "2026-09-05", "2026-09-04", "2026-09-03", "2026-09-02",
     "2026-09-01", "2026-08-31", "2026-08-30", "2026-08-29", "2026-08-28",
+    "2026-08-27",
   ]);
 });
 
@@ -39,12 +40,27 @@ test("server-renders the AI New Canada publication with editorial photography", 
 
   const html = await response.text();
   assert.match(html, /<title>Canadian AI News, Guides &amp; Analysis \| AI New Canada/);
-  assert.match(html, /canada-ai-transparency-consultation-what-to-know\.jpg/);
+  assert.match(html, /canada-algorithmic-impact-assessment-worked-example\.jpg/);
   assert.match(html, /storyCard-photo-clean/);
   assert.match(html, /canada-ai-for-all-strategy-field-guide/);
   assert.match(html, /federal-public-service-ai-strategy-2025-2027/);
   assert.match(html, /canada-ai-privacy-impact-assessment-guide/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|Building your site/i);
+});
+
+test("publishes the worked federal algorithmic impact assessment case", async () => {
+  const response = await render("/article/canada-algorithmic-impact-assessment-worked-example/");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+
+  assert.match(html, /Canada’s Algorithmic Impact Assessment: a worked case/);
+  assert.match(html, /Case file: Northern Access Triage/);
+  assert.match(html, /Build a TRACE file before opening the questionnaire/);
+  assert.match(html, /65 risk questions and 41 mitigation questions/);
+  assert.match(html, /Northern Access Triage and TRACE are AI New Canada inventions/);
+  assert.match(html, /canada-algorithmic-impact-assessment-worked-example\.jpg/);
+  assert.match(html, /"dateModified":"2026-09-11T16:30:00Z"/);
+  assert.match(html, /"keywords":\["Algorithmic Impact Assessment","automated decisions","public-sector AI","AI accountability"\]/);
 });
 
 test("renders the beginner investment guide with its photo and financial disclaimer", async () => {
@@ -80,7 +96,7 @@ test("keeps every article photo in full colour on desktop and mobile", async () 
   assert.match(articleSource, /intermediate-repeatable-ai-research-writing-workflow/);
   assert.match(articleSource, /advanced-human-in-the-loop-ai-agent-workflow/);
   assert.equal(imageFiles.filter((file) => file.endsWith(".jpg")).length, 0);
-  assert.equal(uniqueFiles.filter((file) => file.endsWith(".jpg")).length, 15);
+  assert.equal(uniqueFiles.filter((file) => file.endsWith(".jpg")).length, 16);
   assert.doesNotMatch(articleSource, /ciro\.ca|Canadian Investment Regulatory Organization/);
   assert.match(articleSource, /Ontario Securities Commission Investor Office: AI-enhanced scams/);
   assert.doesNotMatch(imageStyleSource, /--image-tint/);
@@ -102,7 +118,7 @@ test("ships a lightweight, accessible editorial browsing shell", async () => {
     readdir(new URL("../public/images/articles/thumbs/", import.meta.url)),
   ]);
 
-  assert.equal(thumbnails.filter((file) => file.endsWith(".webp")).length, 15);
+  assert.equal(thumbnails.filter((file) => file.endsWith(".webp")).length, 16);
   assert.match(cardSource, /src=\{`\/images\/articles\/thumbs\/\$\{article\.slug\}\.webp`\}/);
   assert.match(cardSource, /sizes="\(max-width: 760px\) 100vw/);
   assert.match(cardSource, /unoptimized/);
@@ -177,11 +193,11 @@ test("server-renders the complete reviewed archive without a loading placeholder
   const html = await response.text();
   const articleLinks = new Set([...html.matchAll(/href="\/article\/([^/]+)\//g)].map((match) => match[1]));
 
-  assert.equal(articleLinks.size, 15);
+  assert.equal(articleLinks.size, 16);
   assert.doesNotMatch(html, /Loading stories…/);
   assert.match(html, /"@type":"ItemList"/);
-  assert.match(html, /"numberOfItems":15/);
-  assert.match(html, /15(?:<!-- -->)? reviewed articles/);
+  assert.match(html, /"numberOfItems":16/);
+  assert.match(html, /16(?:<!-- -->)? reviewed articles/);
 });
 
 test("builds an honest on-device learning path and tracks five focused minutes", async () => {
@@ -226,7 +242,7 @@ test("turns the publication into a device-local Learning Lab", async () => {
   const html = await response.text();
   assert.match(html, /Turn AI news into knowledge you can actually use/);
   assert.match(html, /5 curated tracks/);
-  assert.match(html, /15(?:<!-- -->)? individually reviewed reads/);
+  assert.match(html, /16(?:<!-- -->)? individually reviewed reads/);
   assert.match(labSource, /quizQuestions/);
   assert.match(labSource, /flashcards/);
   assert.match(labSource, /DAILY_GOAL_KEY/);
@@ -271,7 +287,7 @@ test("publishes a smaller individually reviewed core and withholds template draf
   }
 
   const records = JSON.parse(expansionSource.match(/export const articles: Article\[\] = ([\s\S]*?);\n\nexport function/)[1]);
-  assert.equal(records.length, 15);
+  assert.equal(records.length, 16);
   assert.ok(records.every(article => article.originalityStatus === "individually-reviewed" && article.evidenceStatus === "verified" && article.searchEligible === true));
   assert.match(searchQualitySource, /article\.originalityStatus === "individually-reviewed"/);
 
@@ -320,9 +336,9 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.match(articleHtml, /"author":\{"@type":"Organization","@id":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/#profile","name":"AI New Desk","url":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/"\}/);
   assert.match(articleHtml, /"@type":"BreadcrumbList"/);
   assert.match(articleHtml, /"datePublished":"2026-08-10T12:00:00Z"/);
-  assert.match(articleHtml, /"dateModified":"2026-09-11T06:22:25Z"/);
+  assert.match(articleHtml, /"dateModified":"2026-09-10T06:22:25Z"/);
   const articleMetaHtml = articleHtml.match(/<div class="articleMeta">([\s\S]*?)<\/div><div class="articleTrustLine"/)?.[1] ?? "";
-  assert.match(articleMetaHtml, /<time dateTime="2026-09-11T06:22:25Z">September 11, 2026<\/time>/);
+  assert.match(articleMetaHtml, /<time dateTime="2026-09-10T06:22:25Z">September 10, 2026<\/time>/);
   assert.equal((articleMetaHtml.match(/<time\b/g) ?? []).length, 1);
   assert.doesNotMatch(articleMetaHtml, /Updated/i);
   assert.match(authorHtml, /"@type":"ProfilePage"/);

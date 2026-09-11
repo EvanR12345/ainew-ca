@@ -181,7 +181,7 @@ for (let leftIndex = 0; leftIndex < articleSignals.length; leftIndex++) {
   }
 }
 
-assert.equal(entries.length, 15, "The reviewed public collection changed unexpectedly");
+assert.equal(entries.length, 16, "The reviewed public collection changed unexpectedly");
 assert.equal(briefingOwners.size, entries.length * 4, "Every public article needs four distinct briefing statements");
 assert.equal(briefingHeadingOwners.size, entries.length, "Every public article needs a distinct editorial note heading");
 assert.equal(disclaimerOwners.size, entries.length, "Every public article needs a distinct editorial note");
