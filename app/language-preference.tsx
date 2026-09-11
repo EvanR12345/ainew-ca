@@ -34,14 +34,19 @@ function destinationFor(language: Language, pathname = window.location.pathname)
 export function LanguagePreference() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [choice, setChoice] = useState<Language>("en");
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     // The URL determines the edition. Never interrupt or redirect an arrival.
     setDocumentLanguage(window.location.pathname.startsWith("/fr") ? "fr" : "en");
-    const openEditionChoice = () => dialogRef.current?.showModal();
+    const openEditionChoice = () => setIsOpen(true);
     window.addEventListener("ainew-choose-edition", openEditionChoice);
     return () => window.removeEventListener("ainew-choose-edition", openEditionChoice);
   }, []);
+
+  useEffect(() => {
+    if (isOpen && !dialogRef.current?.open) dialogRef.current?.showModal();
+  }, [isOpen]);
 
   function continueWithChoice(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -58,12 +63,15 @@ export function LanguagePreference() {
     if (destination !== window.location.pathname) window.location.assign(destination);
   }
 
+  if (!isOpen) return null;
+
   return (
     <dialog
       ref={dialogRef}
       className="languageDialog"
       aria-labelledby="language-title"
       aria-describedby="language-description"
+      onClose={() => setIsOpen(false)}
       onCancel={(event) => {
         event.preventDefault();
         dismissToEnglish();

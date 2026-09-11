@@ -66,6 +66,7 @@ if (sitemap) {
     assert.equal(canonicals.length, 1, `${url}: expected one canonical`);
     assert.equal(canonicals[0][1], url, `${url}: canonical differs from sitemap`);
     assert.ok(!/<meta name="(?:robots|googlebot)" content="[^"]*noindex/.test(html), `${url}: noindex in sitemap`);
+    assert.doesNotMatch(html, /Loading stories…/, `${url}: indexable content depends on a client-side loading state`);
     if (pathname.startsWith("/article/")) {
       assert.match(html, /max-image-preview:large/, `${url}: missing large-image preview permission`);
     }

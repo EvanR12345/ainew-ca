@@ -135,8 +135,7 @@ test("offers a remembered English-first language choice and a substantive French
   const homeHtml = await homeResponse.text();
   const frenchHtml = await frenchResponse.text();
 
-  assert.match(homeHtml, /Choose your language/);
-  assert.match(homeHtml, /Choisissez votre langue/);
+  assert.doesNotMatch(homeHtml, /Choose your language|Choisissez votre langue/);
   assert.doesNotMatch(homeHtml, /hrefLang="fr-CA"/);
   assert.match(frenchHtml, /AI New Canada en français/);
   assert.match(frenchHtml, /Le bulletin de l’intelligence artificielle/);
@@ -147,6 +146,7 @@ test("offers a remembered English-first language choice and a substantive French
   assert.match(preferenceSource, /localStorage\.setItem/);
   assert.match(preferenceSource, /useState<Language>\("en"\)/);
   assert.match(preferenceSource, /showModal\(\)/);
+  assert.match(preferenceSource, /if \(!isOpen\) return null/);
   assert.match(preferenceSource, /ainew-choose-edition/);
   assert.doesNotMatch(preferenceSource, /requestAnimationFrame|location\.replace/);
   assert.match(preferenceSource, /dismissToEnglish/);
@@ -158,6 +158,19 @@ test("offers a remembered English-first language choice and a substantive French
   assert.match(globalStyles, /prefers-reduced-motion: reduce/);
   assert.match(packageSource, /next build && node scripts\/set-static-languages\.mjs out/);
   assert.match(localizationSource, /No French HTML responses found/);
+});
+
+test("server-renders the complete reviewed archive without a loading placeholder", async () => {
+  const response = await render("/articles/");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  const articleLinks = new Set([...html.matchAll(/href="\/article\/([^/]+)\//g)].map((match) => match[1]));
+
+  assert.equal(articleLinks.size, 15);
+  assert.doesNotMatch(html, /Loading stories…/);
+  assert.match(html, /"@type":"ItemList"/);
+  assert.match(html, /"numberOfItems":15/);
+  assert.match(html, /15(?:<!-- -->)? reviewed articles/);
 });
 
 test("builds an honest on-device learning path and tracks five focused minutes", async () => {

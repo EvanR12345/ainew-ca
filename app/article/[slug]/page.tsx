@@ -58,6 +58,10 @@ function sectionId(heading: string) {
   return heading.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
+function sourceHost(url: string) {
+  return new URL(url).hostname.replace(/^www\./, "");
+}
+
 function wordCount(article: NonNullable<ReturnType<typeof getArticle>>) {
   const text = article.sections.flatMap((section) => [...section.paragraphs, ...(section.bullets ?? []), section.example?.text ?? "", ...(section.table?.rows.flat() ?? [])]).join(" ");
   return text.trim().split(/\s+/).filter(Boolean).length;
@@ -256,6 +260,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <ul className="sourceList">
                   {sourceList.map((source) => (
                     <li key={source.url}>
+                      <span className="sourceHost">{sourceHost(source.url)}</span>
                       <a href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a>
                       {source.note && <small>{source.note}</small>}
                     </li>

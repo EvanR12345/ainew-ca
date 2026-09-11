@@ -184,11 +184,13 @@ export const articles: Article[] = [
       },
       {
         "label": "Canada's AI for All strategy",
-        "url": "https://www.canada.ca/en/innovation-science-economic-development/news/2026/06/minister-solomon-highlights-canadas-national-artificial-intelligence.html"
+        "url": "https://www.canada.ca/en/innovation-science-economic-development/news/2026/06/minister-solomon-highlights-canadas-national-artificial-intelligence.html",
+        "note": "The federal launch announcement used to confirm the strategy's stated priorities and six-pillar framing; it does not establish that promised programs have been delivered."
       },
       {
         "label": "Government of Canada: Artificial intelligence",
-        "url": "https://www.canada.ca/en/services/science/innovation/artificial-intelligence.html"
+        "url": "https://www.canada.ca/en/services/science/innovation/artificial-intelligence.html",
+        "note": "The federal AI service hub used to locate related government programs and guidance; it is background context rather than evidence of outcomes."
       }
     ],
     "internalLinks": [
@@ -319,8 +321,8 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-10T18:54:09Z",
-    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
+    "modifiedAt": "2026-09-11T00:26:59Z",
+    "updateNote": "Added an article-specific reader briefing and source-by-source evidence notes explaining what each reference supports and what it does not establish, while retaining the bounded six-pillar assessment.",
     "seoTitle": "Canada’s AI for All Strategy: six pillars explained"
   },
   {
@@ -338,15 +340,18 @@ export const articles: Article[] = [
     "sources": [
       {
         "label": "AI Strategy for the Federal Public Service 2025-2027",
-        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/gc-ai-strategy-full-text.html"
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/gc-ai-strategy-full-text.html",
+        "note": "The strategy's full text, used for its scope, four priority areas and stated implementation direction; a strategy is not evidence that every action is complete."
       },
       {
         "label": "Government of Canada guide on generative AI",
-        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html"
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
+        "note": "Operational federal guidance used for the responsibilities and cautions applied to generative-AI use by public servants."
       },
       {
         "label": "Directive on Automated Decision-Making",
-        "url": "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32592"
+        "url": "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32592",
+        "note": "The controlling federal directive used to distinguish automated administrative decisions from broader AI assistance and experimentation."
       }
     ],
     "internalLinks": [
@@ -474,8 +479,8 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-10T18:54:09Z",
-    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
+    "modifiedAt": "2026-09-11T00:26:59Z",
+    "updateNote": "Added an article-specific reader briefing and source-by-source notes explaining the role and limits of the strategy, operational guide and automated-decision directive.",
     "seoTitle": "Canada’s public-service AI strategy, 2025–2027"
   },
   {
@@ -493,15 +498,18 @@ export const articles: Article[] = [
     "sources": [
       {
         "label": "Office of the Privacy Commissioner of Canada: AI",
-        "url": "https://www.priv.gc.ca/en/privacy-topics/technology/artificial-intelligence/"
+        "url": "https://www.priv.gc.ca/en/privacy-topics/technology/artificial-intelligence/",
+        "note": "The federal privacy regulator's AI resource collection, used for Canadian privacy principles and regulator guidance; it is not individualized legal advice."
       },
       {
         "label": "Government of Canada guide on generative AI",
-        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html"
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
+        "note": "Federal operational guidance used for examples of data handling, privacy, security and human-review risks in generative-AI work."
       },
       {
         "label": "NIST AI Risk Management Framework",
-        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+        "note": "A voluntary risk-management framework used to structure governance, mapping, measurement and management steps; it does not replace Canadian privacy requirements."
       }
     ],
     "internalLinks": [
@@ -628,8 +636,8 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-10T18:54:09Z",
-    "updateNote": "Added a completed, explicitly bounded example or source-based assessment. Fictional examples are not claims of real-world testing. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
+    "modifiedAt": "2026-09-11T00:26:59Z",
+    "updateNote": "Added an article-specific reader briefing and source-by-source notes that distinguish Canadian privacy guidance, federal operational guidance and the voluntary NIST framework.",
     "seoTitle": "AI privacy impact assessments: a Canadian guide"
   },
   {
@@ -644,6 +652,11 @@ export const articles: Article[] = [
     "accent": "amber",
     "sourceLabel": "Treasury Board: Guide on the use of generative AI",
     "sourceUrl": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
+    "internalLinks": [
+      { "slug": "beginner-ai-prompts-without-magic-words", "title": "Write useful AI prompts without memorizing magic words" },
+      { "slug": "intermediate-use-ai-spreadsheets-structured-data", "title": "Use AI with spreadsheets without losing control of the numbers" },
+      { "slug": "intermediate-repeatable-ai-research-writing-workflow", "title": "Build a repeatable AI research and writing workflow" }
+    ],
     "image": "/images/articles/unique/beginner-how-to-use-ai-everyday-work.jpg",
     "evidenceStatus": "verified",
     "originalityStatus": "individually-reviewed",
@@ -756,6 +769,10 @@ export const articles: Article[] = [
     "accent": "red",
     "sourceLabel": "Treasury Board: Guide on the use of generative AI",
     "sourceUrl": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
+    "internalLinks": [
+      { "slug": "beginner-how-to-use-ai-everyday-work", "title": "Set up one useful everyday AI task in 30 minutes" },
+      { "slug": "intermediate-compare-ai-answers-evaluation-scorecard", "title": "Compare AI answers with a consistent scorecard" }
+    ],
     "image": "/images/articles/unique/beginner-ai-prompts-without-magic-words.jpg",
     "evidenceStatus": "verified",
     "originalityStatus": "individually-reviewed",
@@ -860,6 +877,11 @@ export const articles: Article[] = [
     "accent": "blue",
     "sourceLabel": "Canadian privacy authorities: Principles for generative AI",
     "sourceUrl": "https://www.priv.gc.ca/en/privacy-topics/technology/artificial-intelligence/gd_principles_ai/",
+    "internalLinks": [
+      { "slug": "canada-ai-privacy-impact-assessment-guide", "title": "Map privacy risks before an AI pilot becomes production" },
+      { "slug": "advanced-retrieval-ai-own-documents-citations", "title": "Plan document retrieval with citations and access controls" },
+      { "slug": "beginner-how-to-use-ai-everyday-work", "title": "Start with a low-risk everyday AI exercise" }
+    ],
     "image": "/images/articles/unique/beginner-use-ai-safely-files-email-private-data.jpg",
     "evidenceStatus": "verified",
     "originalityStatus": "individually-reviewed",
@@ -966,6 +988,11 @@ export const articles: Article[] = [
     "accent": "green",
     "sourceLabel": "Treasury Board: Guide on the use of generative AI",
     "sourceUrl": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
+    "internalLinks": [
+      { "slug": "advanced-retrieval-ai-own-documents-citations", "title": "Plan retrieval so citations preserve document versions" },
+      { "slug": "intermediate-compare-ai-answers-evaluation-scorecard", "title": "Score competing AI answers against the same criteria" },
+      { "slug": "intermediate-use-ai-spreadsheets-structured-data", "title": "Keep structured-data calculations reproducible" }
+    ],
     "image": "/images/articles/unique/intermediate-repeatable-ai-research-writing-workflow.jpg",
     "evidenceStatus": "verified",
     "originalityStatus": "individually-reviewed",
@@ -1070,6 +1097,11 @@ export const articles: Article[] = [
     "accent": "yellow",
     "sourceLabel": "OpenAI: Working with evals",
     "sourceUrl": "https://developers.openai.com/api/docs/guides/evals",
+    "internalLinks": [
+      { "slug": "advanced-ai-evaluation-red-team-monitor-production", "title": "Extend a scorecard into release testing and monitoring" },
+      { "slug": "beginner-ai-prompts-without-magic-words", "title": "Control the task before comparing the answers" },
+      { "slug": "advanced-human-in-the-loop-ai-agent-workflow", "title": "Design approval gates for an AI agent" }
+    ],
     "image": "/images/articles/unique/intermediate-compare-ai-answers-evaluation-scorecard.jpg",
     "evidenceStatus": "verified",
     "originalityStatus": "individually-reviewed",
@@ -1174,6 +1206,11 @@ export const articles: Article[] = [
     "accent": "sky",
     "sourceLabel": "Microsoft: SUMIFS function",
     "sourceUrl": "https://support.microsoft.com/en-us/excel/functions/sumifs-function",
+    "internalLinks": [
+      { "slug": "intermediate-repeatable-ai-research-writing-workflow", "title": "Separate source review, drafting and fact-checking" },
+      { "slug": "canada-ai-privacy-impact-assessment-guide", "title": "Map personal information across an AI workflow" },
+      { "slug": "intermediate-compare-ai-answers-evaluation-scorecard", "title": "Test AI outputs with a consistent rubric" }
+    ],
     "image": "/images/articles/unique/intermediate-use-ai-spreadsheets-structured-data.jpg",
     "evidenceStatus": "verified",
     "originalityStatus": "individually-reviewed",
@@ -1300,6 +1337,11 @@ export const articles: Article[] = [
     "accent": "lime",
     "sourceLabel": "Anthropic: Building effective agents",
     "sourceUrl": "https://www.anthropic.com/engineering/building-effective-agents",
+    "internalLinks": [
+      { "slug": "advanced-ai-evaluation-red-team-monitor-production", "title": "Define release failures, red-team tests and monitoring" },
+      { "slug": "beginner-use-ai-safely-files-email-private-data", "title": "Reduce data exposure before connecting files and email" },
+      { "slug": "canada-ai-privacy-impact-assessment-guide", "title": "Map permissions, logs and personal information" }
+    ],
     "image": "/images/articles/unique/advanced-human-in-the-loop-ai-agent-workflow.jpg",
     "evidenceStatus": "verified",
     "originalityStatus": "individually-reviewed",
@@ -1404,6 +1446,11 @@ export const articles: Article[] = [
     "accent": "magenta",
     "sourceLabel": "Cohere: Retrieval Augmented Generation",
     "sourceUrl": "https://docs.cohere.com/docs/retrieval-augmented-generation-rag",
+    "internalLinks": [
+      { "slug": "intermediate-repeatable-ai-research-writing-workflow", "title": "Build an evidence ledger before drafting" },
+      { "slug": "canada-ai-privacy-impact-assessment-guide", "title": "Assess privacy across retrieval, prompts and logs" },
+      { "slug": "advanced-ai-evaluation-red-team-monitor-production", "title": "Test retrieval failures before and after release" }
+    ],
     "image": "/images/articles/unique/advanced-retrieval-ai-own-documents-citations.jpg",
     "evidenceStatus": "verified",
     "originalityStatus": "individually-reviewed",
@@ -1505,6 +1552,11 @@ export const articles: Article[] = [
     "accent": "orange",
     "sourceLabel": "NIST: Adversarial Machine Learning taxonomy",
     "sourceUrl": "https://www.nist.gov/publications/adversarial-machine-learning-taxonomy-and-terminology-attacks-and-mitigations",
+    "internalLinks": [
+      { "slug": "intermediate-compare-ai-answers-evaluation-scorecard", "title": "Start with a small, reproducible evaluation scorecard" },
+      { "slug": "advanced-human-in-the-loop-ai-agent-workflow", "title": "Connect evaluation results to agent approval gates" },
+      { "slug": "advanced-retrieval-ai-own-documents-citations", "title": "Evaluate citations, versions and access controls" }
+    ],
     "image": "/images/articles/unique/advanced-ai-evaluation-red-team-monitor-production.jpg",
     "evidenceStatus": "verified",
     "originalityStatus": "individually-reviewed",
@@ -1614,16 +1666,24 @@ export const articles: Article[] = [
     "sources": [
       {
         "label": "Ontario Securities Commission Investor Office: DIY investing",
-        "url": "https://www.getsmarteraboutmoney.ca/learning-path/diy-investing/"
+        "url": "https://www.getsmarteraboutmoney.ca/learning-path/diy-investing/",
+        "note": "Ontario investor-education material used to define the responsibilities of managing your own portfolio; it does not recommend a security or an AI tool."
       },
       {
         "label": "NIST Generative AI Profile",
-        "url": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence"
+        "url": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
+        "note": "A risk profile used for the article's cautions about confabulation, information integrity and human oversight; it is not investment guidance."
       },
       {
         "label": "OECD AI Principles",
-        "url": "https://oecd.ai/en/ai-principles"
+        "url": "https://oecd.ai/en/ai-principles",
+        "note": "International principles used for the transparency, robustness and accountability framework; they do not validate any model's financial output."
       }
+    ],
+    "internalLinks": [
+      { "slug": "beginner-ai-investment-scam-check", "title": "Run a seven-step check before sending money" },
+      { "slug": "intermediate-compare-ai-answers-evaluation-scorecard", "title": "Compare AI answers with explicit acceptance criteria" },
+      { "slug": "intermediate-repeatable-ai-research-writing-workflow", "title": "Keep an evidence ledger while researching" }
     ],
     "image": "/images/articles/unique/how-beginners-use-ai-investment-research.jpg",
     "imageAlt": "A beginner using AI to organize an investment-research checklist",
@@ -1700,8 +1760,8 @@ export const articles: Article[] = [
         }
       }
     ],
-    "modifiedAt": "2026-09-10T18:54:09Z",
-    "updateNote": "Replaced an inaccessible regulator link with Ontario Securities Commission investor education and clarified the distinction between AI-assisted research and investment decisions. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
+    "modifiedAt": "2026-09-11T00:26:59Z",
+    "updateNote": "Added an article-specific reader briefing and source-by-source evidence notes after replacing an inaccessible regulator link and clarifying the boundary between AI-assisted research and investment decisions.",
     "seoTitle": "AI investment research: a beginner’s verification guide"
   },
   {
@@ -1719,20 +1779,28 @@ export const articles: Article[] = [
     "sources": [
       {
         "label": "Ontario Securities Commission Investor Office: AI-enhanced scams",
-        "url": "https://www.getsmarteraboutmoney.ca/learning-path/research-reports/ai-enhanced-scams-risks-and-safeguards/"
+        "url": "https://www.getsmarteraboutmoney.ca/learning-path/research-reports/ai-enhanced-scams-risks-and-safeguards/",
+        "note": "OSC research used for the reported ways generative AI can increase the reach and persuasiveness of investment fraud and for its consumer safeguards."
       },
       {
         "label": "Ontario Securities Commission Investor Office: Investor alerts",
-        "url": "https://www.getsmarteraboutmoney.ca/investor-alerts/"
+        "url": "https://www.getsmarteraboutmoney.ca/investor-alerts/",
+        "note": "The regulator's current alert index, included as a place to check named firms, products and active warnings before sending money."
       },
       {
         "label": "Ontario Securities Commission Investor Office: Checking registration",
-        "url": "https://www.getsmarteraboutmoney.ca/learning-path/checking-registration/"
+        "url": "https://www.getsmarteraboutmoney.ca/learning-path/checking-registration/",
+        "note": "Investor guidance used for the registration-check step; registration is one verification input and is not a guarantee that an investment is suitable or safe."
       },
       {
         "label": "Canadian Anti-Fraud Centre: Fraud trends in the first half of 2026",
-        "url": "https://antifraudcentre-centreantifraude.ca/features-vedette/2026/08/fraud-trends-tendances-matiere-fraude-eng.htm"
+        "url": "https://antifraudcentre-centreantifraude.ca/features-vedette/2026/08/fraud-trends-tendances-matiere-fraude-eng.htm",
+        "note": "The national fraud centre's 2026 trend summary, used for Canadian context and reporting routes; reported losses do not capture every attempted or unreported fraud."
       }
+    ],
+    "internalLinks": [
+      { "slug": "how-beginners-use-ai-investment-research", "title": "Use AI for investment research without asking what to buy" },
+      { "slug": "beginner-use-ai-safely-files-email-private-data", "title": "Protect private information when using AI tools" }
     ],
     "image": "/images/articles/unique/beginner-ai-investment-scam-check.jpg",
     "imageAlt": "An investor using a paper checklist to verify information produced by AI",
@@ -1799,8 +1867,8 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-10T18:54:09Z",
-    "updateNote": "Replaced inaccessible regulator links with Ontario Securities Commission research, registration guidance and the current investor-alert directory. Added an article-specific reader briefing that states the practical conclusion, intended use and important boundary.",
+    "modifiedAt": "2026-09-11T00:26:59Z",
+    "updateNote": "Added an article-specific reader briefing and source-by-source evidence notes after replacing inaccessible regulator links with OSC research, registration guidance and the current alert directory.",
     "seoTitle": "How to check an AI investment pitch for scam signs"
   }
 ];

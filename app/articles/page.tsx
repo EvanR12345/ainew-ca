@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { NewsletterBand, SiteFooter, SiteHeader } from "../components";
-import { ArticlesClient } from "./articles-client";
+import { ArticlesArchive } from "./articles-client";
 import { articles, toArticleCardData } from "../lib/articles";
 import { searchEligibleArticles } from "../lib/search-quality";
 import { buildPageMetadata, breadcrumbSchema, SITE_URL, WEBSITE_ID } from "../lib/seo";
@@ -35,6 +34,18 @@ export default function ArticlesPage() {
               isPartOf: { "@id": WEBSITE_ID },
               inLanguage: "en-CA",
             },
+            {
+              "@type": "ItemList",
+              "@id": `${SITE_URL}/articles/#stories`,
+              name: "Reviewed AI New Canada articles",
+              numberOfItems: articleCards.length,
+              itemListElement: articleCards.map((article, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                url: `${SITE_URL}/article/${article.slug}/`,
+                name: article.title,
+              })),
+            },
           ],
         }} />
         <section className="pageHero shell">
@@ -43,7 +54,7 @@ export default function ArticlesPage() {
           <h1>AI news with the missing context put back in.</h1>
           <p>Browse a dated, chronological edition of source-led reporting and practical analysis across Canada, models, products, business, research and policy.</p>
         </section>
-        <Suspense fallback={<div className="shell archiveLoading">Loading stories…</div>}><ArticlesClient articles={articleCards} /></Suspense>
+        <ArticlesArchive articles={articleCards} />
         <div className="shell"><NewsletterBand /></div>
       </main>
       <SiteFooter />

@@ -13,7 +13,7 @@ export function FrenchSiteHeader() {
           <Link href="/article/canada-ai-transparency-consultation-what-to-know/" lang="en-CA">
             Le Canada étudie comment l’IA devrait s’identifier
           </Link>
-          <span className="briefingDate">Salle de nouvelles indépendante · Toronto</span>
+          <span className="briefingDate">Publication canadienne indépendante</span>
         </div>
       </div>
       <header className="siteHeader">

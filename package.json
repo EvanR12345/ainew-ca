@@ -14,6 +14,7 @@
     "audit:sources": "node scripts/audit-expansion-sources.mjs --problems-only --strict",
     "audit:public-sources": "node scripts/audit-public-sources.mjs",
     "audit:originality": "node scripts/audit-public-originality.mjs",
+    "audit:value": "node scripts/audit-reader-value.mjs",
     "audit:legacy": "node scripts/audit-legacy-upgrades.mjs",
     "audit:seo": "node scripts/audit-search-quality.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",

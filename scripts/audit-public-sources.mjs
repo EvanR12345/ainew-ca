@@ -16,6 +16,12 @@ for (const entry of entries) {
   const article = schemas.find((schema) => ["Article", "NewsArticle", "TechArticle"].includes(schema["@type"]));
   assert.ok(article, `Missing article schema: ${entry.name}`);
   assert.ok(article.citation?.length >= 3, `Missing citations: ${entry.name}`);
+  const sourceCard = html.match(/<div class="sourceCard"[^>]*>([\s\S]*?)<\/div>/)?.[1] ?? "";
+  const sourceNotes = [...sourceCard.matchAll(/<small>([^<]+)<\/small>/g)]
+    .map((match) => match[1])
+    .filter((note) => note.length >= 40);
+  assert.equal(sourceNotes.length, article.citation.length, `Every citation needs a specific evidence note: ${entry.name}`);
+  assert.equal([...sourceCard.matchAll(/class="sourceHost"/g)].length, article.citation.length, `Every citation needs a visible source domain: ${entry.name}`);
   articleCount += 1;
   for (const url of article.citation) {
     assert.ok(url.startsWith("https://"), `Non-HTTPS citation: ${url}`);
