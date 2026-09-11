@@ -29,18 +29,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!article || !isSearchEligibleArticle(article)) return { title: "Story not found | AI New Canada", robots: { index: false, follow: true } };
   const url = absoluteUrl(`/article/${article.slug}/`);
   const image = absoluteUrl(article.image);
+  const briefing = getArticleBriefing(article.slug);
   const publishedTime = articlePublishedDateTime(article);
   const modifiedTime = articleModifiedDateTime(article);
   const index = isSearchEligibleArticle(article);
   return {
     title: `${article.seoTitle ?? article.title} | AI New Canada`,
-    description: article.dek,
+    description: briefing.searchSnippet,
     alternates: { canonical: url, languages: { "en-CA": url, "x-default": url } },
     robots: searchRobots(index),
     authors: [{ name: "AI New Desk", url: `${SITE_URL}/authors/ai-new-desk/` }],
     openGraph: {
       title: article.title,
-      description: article.dek,
+      description: briefing.searchSnippet,
       type: "article",
       siteName: SITE_NAME,
       url,
@@ -50,7 +51,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       authors: [`${SITE_URL}/authors/ai-new-desk/`],
       images: [{ url: image, width: 1200, height: 675, alt: article.imageAlt }],
     },
-    twitter: { card: "summary_large_image", title: article.title, description: article.dek, images: [image] },
+    twitter: { card: "summary_large_image", title: article.title, description: briefing.searchSnippet, images: [image] },
   };
 }
 
@@ -101,7 +102,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               "@id": `${absoluteUrl(`/article/${article.slug}/`)}#article`,
               url: absoluteUrl(`/article/${article.slug}/`),
               headline: article.title,
-              description: article.dek,
+              description: briefing.searchSnippet,
               datePublished: publishedTime,
               dateModified: modifiedTime,
               image: {
@@ -139,7 +140,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               wordCount: wordCount(article),
               inLanguage: "en-CA",
               isAccessibleForFree: true,
-              keywords: [article.category, "artificial intelligence", "AI news", "Canada AI"],
+              keywords: briefing.tags,
             },
           ],
         }} />
@@ -162,6 +163,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <a href="#sources">{sourceList.length} named {sourceList.length === 1 ? "source" : "sources"}</a>
               <Link href="/editorial-policy/">Method published</Link>
             </div>
+            <ul className="articleTags" aria-label="Article topics">
+              {briefing.tags.map((tag) => <li key={tag}>{tag}</li>)}
+            </ul>
             <SaveArticleButton article={{ slug: article.slug, title: article.title }} />
           </header>
 
@@ -181,6 +185,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <dl className="articleBriefingGrid">
                   <div><dt>Use this for</dt><dd>{briefing.useThisFor}</dd></div>
                   <div><dt>Do not assume</dt><dd>{briefing.boundary}</dd></div>
+                  <div><dt>What AI New adds</dt><dd>{briefing.contribution}</dd></div>
                 </dl>
                 <div className="articleBriefingEvidence">
                   <span>Evidence trail: {sourceList.length} named {sourceList.length === 1 ? "source" : "sources"}</span>

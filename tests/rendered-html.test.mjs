@@ -41,7 +41,7 @@ test("renders the beginner investment guide with its photo and financial disclai
   assert.equal(response.status, 200);
   const html = await response.text();
 
-  assert.match(html, /How beginners can use AI for investment research/);
+  assert.match(html, /Use AI for investment research without letting it choose for you/);
   assert.match(html, /how-beginners-use-ai-investment-research\.jpg/);
   assert.match(html, /general education, not personalized investment, legal or tax advice/);
   assert.match(html, /Ontario Securities Commission Investor Office/);
@@ -184,7 +184,7 @@ test("builds an honest on-device learning path and tracks five focused minutes",
 
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /beginner's 30-minute setup/i);
+  assert.match(html, /Your first useful AI task/i);
   assert.match(html, /beginner-how-to-use-ai-everyday-work\.jpg/);
   assert.match(html, /EVIDENCE &amp; FURTHER READING/);
   assert.doesNotMatch(html, /Three ideas to take with you|30-SECOND KNOWLEDGE CHECK/);
@@ -309,7 +309,7 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.match(articleHtml, /"author":\{"@type":"Organization","@id":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/#profile","name":"AI New Desk","url":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/"\}/);
   assert.match(articleHtml, /"@type":"BreadcrumbList"/);
   assert.match(articleHtml, /"datePublished":"2026-08-10T12:00:00Z"/);
-  assert.match(articleHtml, /"dateModified":"2026-09-10T18:54:09Z"/);
+  assert.match(articleHtml, /"dateModified":"2026-09-11T05:57:39Z"/);
   assert.match(authorHtml, /"@type":"ProfilePage"/);
   assert.match(authorHtml, /"dateCreated":"2026-08-11T04:06:24-04:00"/);
   assert.match(authorHtml, /"dateModified":"2026-09-09T05:18:04Z"/);
@@ -317,6 +317,8 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.match(articleHtml, /READER BRIEFING/);
   assert.match(articleHtml, /The useful answer first/);
   assert.match(articleHtml, /Do not assume/);
+  assert.match(articleHtml, /What AI New adds/);
+  assert.match(articleHtml, /proposal-versus-rule test/);
   assert.match(articleHtml, /Evidence trail:/);
   assert.match(articleHtml, /href="#sources">3/);
   assert.match(articleHtml, /named <!-- -->sources/);
@@ -389,9 +391,9 @@ test("removes AI Signal and the scroll stack completely while preserving a clear
   const homeHtml = await homeResponse.text();
   assert.match(homeHtml, /Three Canadian decisions worth understanding now\./);
   assert.ok((homeHtml.match(/canadaDecisionCard canadaDecisionCard-/g) ?? []).length >= 3);
-  assert.match(homeHtml, /Canada(?:&#x27;|&apos;|')s AI for All Strategy/);
-  assert.match(homeHtml, /Inside Canada(?:&#x27;|&apos;|')s Federal Public-Service AI Strategy/);
-  assert.match(homeHtml, /Privacy Impact Assessments for AI/);
+  assert.match(homeHtml, /Canada(?:’|&#x27;|&apos;|')s AI for All Strategy: six promises worth tracking/);
+  assert.match(homeHtml, /Canada(?:’|&#x27;|&apos;|')s federal AI strategy needs a project-level test/);
+  assert.match(homeHtml, /An AI privacy assessment should map the whole data journey/);
   assert.doesNotMatch(homeHtml, /AI SIGNAL|data-stack-card/);
   assert.doesNotMatch(`${homeSource}${componentSource}${globalStyles}${sitemapSource}`, /AISignal|aiSignal|ai-signal|signalPage|data-stack-card|tasteStack/);
   assert.match(globalStyles, /\.canadaDecisionsGrid/);

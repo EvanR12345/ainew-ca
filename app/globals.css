@@ -1899,6 +1899,9 @@ details.navMore[open] > .megaMenu { display: grid; }
 .articleAnswerSummary > p { margin: 0; color: var(--text); font: 1.2rem/1.6 var(--font-serif); }
 .articleBriefingGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin: 28px 0 0; background: var(--border); border: 1px solid var(--border); }
 .articleBriefingGrid > div { padding: 20px; background: var(--surface); }
+.articleBriefingGrid > div:last-child { grid-column: 1 / -1; }
+.articleTags { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
+.articleTags li { border: 1px solid var(--border); padding: 6px 9px; color: var(--text-muted); background: var(--surface); font: 700 .6875rem/1.2 var(--font-outfit, sans-serif); letter-spacing: .035em; }
 .articleBriefingGrid dt { margin-bottom: 8px; color: var(--accent); font-size: .6875rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
 .articleBriefingGrid dd { margin: 0; color: #323a40; font: .9375rem/1.55 var(--font-serif); }
 .articleAnswerSummary > .articleBriefingEvidence { display: flex; justify-content: space-between; gap: 18px; align-items: center; margin-top: 0; padding: 17px 2px 0; border-top: 0; font-size: .75rem; }
