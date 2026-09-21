@@ -328,7 +328,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .articleBody { min-width: 0; }
 .articleBody > section { scroll-margin-top: 20px; }
 .articleBody p, .articleBody li { font-family: var(--font-serif); font-size: 18px; line-height: 1.75; color: #323a40; }
-.articleBody > section > p:first-of-type::first-letter { float: left; font-family: "Outfit Variable", Outfit, sans-serif; font-size: 72px; font-weight: 900; line-height: .75; margin: 10px 10px 0 0; color: var(--accent); }
+.articleBody > section > p:first-of-type::first-letter { float: none; font: inherit; color: inherit; margin: 0; }
 .articleBody h2 { margin: 52px 0 14px; padding-top: 20px; border-top: 1px solid var(--text); font-family: var(--font-serif); font-size: 38px; line-height: 1.03; letter-spacing: -.035em; }
 .articleBody ul { padding-left: 22px; }
 .articleBody li { padding: 4px 0 4px 7px; }
@@ -853,7 +853,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .articleBody h2 { border-top: 0; padding-top: 0; font-family: "Outfit Variable", Outfit, sans-serif; font-size: 38px; }
 .articleBody > section { padding-top: 8px; }
 .articleBody > section + section { margin-top: 46px; padding-top: 35px; border-top: 1px solid var(--border); }
-.articleBody > section > p:first-of-type::first-letter { font-family: "Outfit Variable", Outfit, sans-serif; color: var(--accent); }
+
 .disclosure { background: #f4f7f9; border-left-color: var(--accent); }
 .articleAnswerSummary { border: 0; border-left: 5px solid var(--accent); background: #fff; box-shadow: 0 16px 44px rgba(17,17,15,.07); }
 .articleToc { padding: 0; border: 1px solid var(--border); background: #fff; }
@@ -1966,3 +1966,6 @@ details.navMore[open] > .megaMenu { display: grid; }
 .experimentRecord .articleTable th, .experimentRecord .articleTable td { padding: .65rem .35rem; }
 .experimentRecord .articleTable th:first-child { width: 31%; }
 .articleBody > .experimentRecord > p:first-of-type::first-letter { float: none; font: inherit; color: inherit; margin: 0; padding: 0; }
+
+.articleTableHint { display: none; }
+@media (max-width: 650px) { .articleBody .articleTableHint { display: block; margin: 1.5rem 0 -.9rem; font: 500 .875rem/1.5 "Outfit Variable", sans-serif; color: #475569; } }

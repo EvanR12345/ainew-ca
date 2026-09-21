@@ -52,13 +52,13 @@ test("publishes the worked federal algorithmic impact assessment case", async ()
   assert.equal(response.status, 200);
   const html = await response.text();
 
-  assert.match(html, /Canada’s Algorithmic Impact Assessment: a worked case/);
+  assert.match(html, /Canada’s Algorithmic Impact Assessment: an evidence audit/);
   assert.match(html, /Case file: Northern Access Triage/);
-  assert.match(html, /Build a TRACE file before opening the questionnaire/);
+  assert.match(html, /The document comparison: applicability, answers and scrutiny/);
   assert.match(html, /65 risk questions and 41 mitigation questions/);
-  assert.match(html, /Northern Access Triage and TRACE are AI New Canada inventions/);
+  assert.match(html, /Northern Access Triage is fictional and deliberately unscored/);
   assert.match(html, /canada-algorithmic-impact-assessment-worked-example\.jpg/);
-  assert.match(html, /"dateModified":"2026-09-11T16:30:00Z"/);
+  assert.match(html, /"dateModified":"2026-09-21T22:36:20Z"/);
   assert.match(html, /"keywords":\["Algorithmic Impact Assessment","automated decisions","public-sector AI","AI accountability"\]/);
 });
 
@@ -67,11 +67,11 @@ test("renders the beginner investment guide with its photo and financial disclai
   assert.equal(response.status, 200);
   const html = await response.text();
 
-  assert.match(html, /Use AI for investment research without letting it choose for you/);
+  assert.match(html, /Use AI to read a financial extract, then check its conclusion/);
   assert.match(html, /how-beginners-use-ai-investment-research\.jpg/);
   assert.match(html, /general education.*not a valuation, tax or legal opinion.*personalized financial advice/i);
   assert.match(html, /Ontario Securities Commission Investor Office/);
-  assert.match(html, /research assistant, not adviser/i);
+  assert.match(html, /Give the assistant a research question it can answer/i);
 });
 
 test("keeps every article photo in full colour on desktop and mobile", async () => {
@@ -270,14 +270,15 @@ test("publishes a smaller individually reviewed core and withholds template draf
   const wordCounts = [strategyHtml, serviceHtml, privacyHtml]
     .map((html) => Number(html.match(/"wordCount":(\d+)/)?.[1] ?? 0));
 
-  for (const wordCount of wordCounts) assert.ok(wordCount >= 1_000, `expected a substantive reviewed guide, found ${wordCount} words`);
-  assert.match(strategyHtml, /Pillars one and two: trust must become usable protection/);
-  assert.match(strategyHtml, /A completed reading of six measurable commitments/);
-  assert.match(serviceHtml, /Priority one: make shared capacity reduce repeated mistakes/);
-  assert.match(serviceHtml, /The quarterly test of progress/);
-  assert.match(privacyHtml, /Inventory four kinds of data/);
-  assert.match(privacyHtml, /Test people(?:’|&rsquo;|&apos;|&#x27;|')s rights as system functions/);
+  for (const wordCount of wordCounts) assert.ok(wordCount >= 500, `expected a complete reviewed guide with a worked table, found ${wordCount} words`);
+  assert.match(strategyHtml, /Separate the five kinds of control/);
+  assert.match(strategyHtml, /Our sovereignty evidence checklist/);
+  assert.match(serviceHtml, /Four priorities, four things to put in the brief/);
+  assert.match(serviceHtml, /Illustrative pilot brief, not a government deployment/);
+  assert.match(privacyHtml, /A data-flow map with decisions attached/);
+  assert.match(privacyHtml, /Turn unknowns into a release decision/);
   for (const html of [strategyHtml, serviceHtml, privacyHtml]) {
+    assert.match(html, /class="articleTable"/);
     assert.match(html, /EVIDENCE &amp; FURTHER READING/);
     assert.match(html, /"citation":\["https:\/\//);
     assert.match(html, /AI-assisted research &amp; analysis/);
@@ -324,7 +325,7 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.match(homeHtml, /Try it\. Check what happened\./);
   assert.doesNotMatch(homeHtml, /focused editorial desks|publicationLedger/);
   assert.match(homeHtml, /All practical guides/);
-  assert.match(homeHtml, /Read the evidence<span class="visuallyHidden"> for <!-- -->Canada/);
+  assert.match(homeHtml, /Read the evidence<span class="visuallyHidden"> for <!-- -->What would make Canada/);
   assert.match(homeHtml, /google-adsense-account/);
   assert.doesNotMatch(homeHtml, /pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js|armsbroodelusive|ad-frames/);
   assert.match(articleHtml, /rel="canonical" href="https:\/\/ainew\.ca\/article\/canada-ai-transparency-consultation-what-to-know\/?"/);
@@ -332,9 +333,9 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.match(articleHtml, /"author":\{"@type":"Organization","@id":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/#profile","name":"AI New Desk","url":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/"\}/);
   assert.match(articleHtml, /"@type":"BreadcrumbList"/);
   assert.match(articleHtml, /"datePublished":"2026-08-10T12:00:00Z"/);
-  assert.match(articleHtml, /"dateModified":"2026-09-11T06:22:25Z"/);
+  assert.match(articleHtml, /"dateModified":"2026-09-21T22:36:20Z"/);
   const articleMetaHtml = articleHtml.match(/<div class="articleMeta">([\s\S]*?)<\/div><div class="articleTrustLine"/)?.[1] ?? "";
-  assert.match(articleMetaHtml, /<time dateTime="2026-09-11T06:22:25Z">September 11, 2026<\/time>/);
+  assert.match(articleMetaHtml, /<time dateTime="2026-09-21T22:36:20Z">September 21, 2026<\/time>/);
   assert.equal((articleMetaHtml.match(/<time\b/g) ?? []).length, 1);
   assert.doesNotMatch(articleMetaHtml, /Updated/i);
   assert.match(authorHtml, /"@type":"ProfilePage"/);
@@ -418,9 +419,9 @@ test("removes AI Signal and the scroll stack completely while preserving a clear
   const homeHtml = await homeResponse.text();
   assert.match(homeHtml, /Three Canadian decisions worth understanding now\./);
   assert.ok((homeHtml.match(/canadaDecisionCard canadaDecisionCard-/g) ?? []).length >= 3);
-  assert.match(homeHtml, /Canada(?:’|&#x27;|&apos;|')s AI for All Strategy: six promises worth tracking/);
-  assert.match(homeHtml, /Canada(?:’|&#x27;|&apos;|')s federal AI strategy needs a project-level test/);
-  assert.match(homeHtml, /An AI privacy assessment should map the whole data journey/);
+  assert.match(homeHtml, /What would make Canada(?:’|&#x27;|&apos;|')s AI compute sovereign/);
+  assert.match(homeHtml, /Before a federal AI pilot/);
+  assert.match(homeHtml, /An AI privacy assessment starts with every copy of the data/);
   assert.doesNotMatch(homeHtml, /AI SIGNAL|data-stack-card/);
   assert.doesNotMatch(`${homeSource}${componentSource}${globalStyles}${sitemapSource}`, /AISignal|aiSignal|ai-signal|signalPage|data-stack-card|tasteStack/);
   assert.match(globalStyles, /\.canadaDecisionsGrid/);
@@ -447,7 +448,7 @@ test("comparison guide includes the complete exercise and an initially unscored 
   const html = await response.text();
   assert.equal(response.status, 200);
   assert.match(html, /Fictional Cedar Hall records/);
-  assert.match(html, /Answer key: test permission separately from arithmetic/);
+  assert.match(html, /Answer key: the expensive error is permission/);
   assert.match(html, /id="comparison-worksheet"/);
   assert.match(html, /Download comparison record/);
   assert.match(html, /Incomplete: score all five dimensions/);

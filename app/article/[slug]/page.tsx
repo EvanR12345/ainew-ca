@@ -210,6 +210,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                     {section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
                     {section.example && <figure className="articleExample"><figcaption>{section.example.label}</figcaption><pre><code>{section.example.text}</code></pre></figure>}
+                    {section.table && <p className="articleTableHint">Scroll the table sideways to see every column.</p>}
                     {section.table && <div className="articleTableWrap" role="region" aria-label={section.table.caption} tabIndex={0}><table className="articleTable"><caption>{section.table.caption}</caption><thead><tr>{section.table.columns.map((column) => <th scope="col" key={column}>{column}</th>)}</tr></thead><tbody>{section.table.rows.map((row, rowIndex) => <tr key={rowIndex}>{row.map((cell, cellIndex) => cellIndex === 0 ? <th scope="row" key={cellIndex}>{cell}</th> : <td key={cellIndex}>{cell}</td>)}</tr>)}</tbody></table></div>}
                     {index === 0 && <AdSlot format="in-feed" label="Article opening" />}
                     {index === 3 && <AdSlot format="leaderboard" label="Article mid-story" />}
