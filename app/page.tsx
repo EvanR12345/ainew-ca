@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { AdSlot, ArticleCard, NewsletterBand, SiteFooter, SiteHeader } from "./components";
+import { AdSlot, ArticleCard, SiteFooter, SiteHeader } from "./components";
 import { articleImageStyle } from "./article-image-style";
 import { articles, type Article } from "./lib/articles";
 import { articleModifiedDate, articleVisibleDate, searchEligibleArticles } from "./lib/search-quality";
@@ -79,7 +79,7 @@ function CanadianDecisions({ stories }: { stories: Article[] }) {
   return (
     <section className="canadaDecisionsSection" aria-labelledby="canadian-decisions-heading">
       <header className="shell canadaDecisionsHeader">
-        <span>CANADA / DECISION DESK</span>
+        <span>CANADA / POLICY</span>
         <h2 id="canadian-decisions-heading">Three Canadian decisions worth understanding now.</h2>
         <p>Policy, public infrastructure and implementation, read as a connected system instead of isolated announcements.</p>
       </header>
@@ -175,7 +175,7 @@ function ReaderRoutes() {
     <section className="shell readerRoutes" aria-labelledby="reader-routes-heading">
       <header>
         <span>START WITH YOUR QUESTION</span>
-        <h2 id="reader-routes-heading">Choose a route, not another endless feed.</h2>
+        <h2 id="reader-routes-heading">What do you want to work on?</h2>
         <p>Each path connects reviewed articles in an order that helps you understand, apply and verify the material.</p>
       </header>
       <div>
@@ -188,39 +188,6 @@ function ReaderRoutes() {
           </article>
         ))}
       </div>
-    </section>
-  );
-}
-
-function PublicationLedger({ publishedArticles }: { publishedArticles: Article[] }) {
-  const sourceUrls = new Set(publishedArticles.flatMap((article) => article.sources?.map((source) => source.url) ?? [article.sourceUrl]));
-  const latestReview = [...publishedArticles]
-    .map((article) => articleModifiedDate(article))
-    .sort((a, b) => b.localeCompare(a))[0];
-  const latestReviewLabel = new Date(`${latestReview}T12:00:00Z`).toLocaleDateString("en-CA", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "UTC",
-  });
-
-  return (
-    <section className="publicationLedger" aria-labelledby="publication-ledger-heading">
-      <div className="shell publicationLedgerInner">
-        <div className="publicationLedgerIntro">
-          <span>OPEN NEWSROOM</span>
-          <h2 id="publication-ledger-heading">A smaller publication, with the work visible.</h2>
-          <p>Only individually reviewed articles enter the public collection. Every one names its evidence, its practical use and the limit readers should keep in mind.</p>
-          <Link href="/editorial-policy/">Read the full publication standard <span aria-hidden="true">&rarr;</span></Link>
-        </div>
-        <dl>
-          <div><dt>{publishedArticles.length}</dt><dd>public, individually reviewed articles</dd></div>
-          <div><dt>{sourceUrls.size}</dt><dd>distinct named source links</dd></div>
-          <div><dt>{new Set(publishedArticles.map((article) => article.category)).size}</dt><dd>focused editorial desks</dd></div>
-          <div><dt>{latestReviewLabel}</dt><dd>latest substantive article update</dd></div>
-        </dl>
-      </div>
-      <p className="shell publicationLedgerNote">These figures describe AI New Canada’s documented internal process; they are not an independent certification.</p>
     </section>
   );
 }
@@ -272,12 +239,12 @@ export default function Home() {
 
         <section className="shell tasteHero" aria-labelledby="taste-hero-title">
           <div className="tasteHeroCopy">
-            <p className="tasteHeroIntro">Independent intelligence from Canada, made for consequential decisions.</p>
+            <p className="tasteHeroIntro">CANADIAN AI POLICY & PRACTICAL GUIDES</p>
             <h1 id="taste-hero-title">
-              <span>AI moves <span className="tasteInlineImage" aria-hidden="true"><Image src={`/images/articles/thumbs/${lead.slug}.webp`} alt="" width={180} height={72} unoptimized /></span> fast.</span>
-              <span>Understand what matters.</span>
+              Understand AI.
+              <span>Check the evidence.</span>
             </h1>
-            <p>News, policy and practical guides that begin with evidence and end with a decision you can make.</p>
+            <p>Read Canadian policy documents with context, compare AI answers and practise safer workflows. Worked examples are labelled so you can distinguish exercises from reported findings.</p>
             <div className="tasteHeroActions">
               <Link href={`/article/${lead.slug}/`}>Read the featured analysis <span aria-hidden="true">↗</span></Link>
               <Link href="/learn/">Build a learning path</Link>
@@ -297,37 +264,12 @@ export default function Home() {
 
         <TasteBento stories={essential} />
 
-        <nav className="tasteMarquee" aria-label="Browse the newsroom">
-          <div className="tasteMarqueeTrack">
-            <div className="tasteMarqueeSet">
-              <Link href={categoryPath("Canada")}>Canada and policy</Link><span>•</span>
-              <Link href={categoryPath("Models")}>Model evaluation</Link><span>•</span>
-              <Link href={categoryPath("Research")}>Research briefs</Link><span>•</span>
-              <Link href="/topics/using-ai/">Use AI well</Link><span>•</span>
-              <Link href="/canada-ai-resources/">Canadian AI resources</Link><span>•</span>
-            </div>
-            <div className="tasteMarqueeSet" aria-hidden="true">
-              <span className="tasteMarqueeLabel">Canada and policy</span><span>•</span>
-              <span className="tasteMarqueeLabel">Model evaluation</span><span>•</span>
-              <span className="tasteMarqueeLabel">Research briefs</span><span>•</span>
-              <span className="tasteMarqueeLabel">Use AI well</span><span>•</span>
-              <span className="tasteMarqueeLabel">Canadian AI resources</span><span>•</span>
-            </div>
-          </div>
-        </nav>
-
-        <section className="shell tasteThesis" aria-label="AI New editorial thesis">
-          <p>{"A useful AI publication does more than repeat the announcement. It shows the evidence, names the uncertainty and helps you decide what to do next.".split(" ").map((word, index) => <span data-reveal-word key={`${word}-${index}`}>{word}</span>)}</p>
-          <Link href="/editorial-policy/">How we check our work <span aria-hidden="true">↗</span></Link>
-        </section>
-
         <ReaderRoutes />
 
-        <PublicationLedger publishedArticles={publishedArticles} />
 
         <section className="shell latestSection" aria-labelledby="latest-heading">
           <header className="newsroomSectionHeader latestHeader">
-            <div><h2 id="latest-heading">Latest from the newsroom</h2></div>
+            <div><h2 id="latest-heading">Latest guides</h2></div>
             <p>Recently published or substantively revised guides, ordered by their latest documented date.</p>
             <Link href="/articles/">All latest <span aria-hidden="true">&rarr;</span></Link>
           </header>
@@ -377,7 +319,6 @@ export default function Home() {
           stories={work}
         />
 
-        <div className="shell"><NewsletterBand /></div>
 
         <section className="shell trustStrip">
           <h2>Primary sources first. Clear labels. Corrections in public.</h2>

@@ -1,3 +1,4 @@
+import { EvaluationWorksheet } from "../../evaluation-worksheet";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -173,7 +174,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <Image unoptimized src={article.image} alt={article.imageAlt} width={1200} height={675} priority />
             <span>{article.category.toUpperCase()} / AI NEW</span>
           </div>
-          <p className="articleImageCaption">Illustrative image. {article.imageAlt}</p>
+          <p className="articleImageCaption">{article.slug === "canada-algorithmic-impact-assessment-worked-example" ? "AI-generated illustration; not a photograph of a real government review. " : "Illustrative image. "}{article.imageAlt}</p>
 
           <div className="articleLayout">
             <ArticleTools />
@@ -237,6 +238,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
                 </Fragment>
               ))}
+
+              {article.slug === "intermediate-compare-ai-answers-evaluation-scorecard" && <EvaluationWorksheet />}
 
               <aside className="articleTopicPath">
                 <h2>{topicHub.title}</h2>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import quizQuestions from "../lib/learning-questions.json";
 import { AdSlot, SiteFooter, SiteHeader } from "../components";
@@ -90,6 +91,7 @@ export default function LearnPage() {
           <p>Choose a reading path, save useful articles and practise with worked examples, questions and flashcards. These are self-guided activities, not an accredited course or a measure of professional competence.</p>
           <div className="learnHeroFeatures"><span>5 curated tracks</span><span>{cards.length} individually reviewed reads</span><span>8-question knowledge circuit</span><span>12 essential flashcards</span></div>
         </section>
+        <section className="shell worksheetIntro"><h2>Put an AI answer to the test</h2><p>Use the five-dimension rubric to compare two answers, record the evidence and keep critical failures separate from the total. Download your record without creating an account.</p><Link href="/article/intermediate-compare-ai-answers-evaluation-scorecard/#comparison-worksheet">Open the comparison worksheet →</Link></section>
         <div className="shell"><LearningLab articles={cards} tracks={tracks} /></div>
       </main>
       <SiteFooter />

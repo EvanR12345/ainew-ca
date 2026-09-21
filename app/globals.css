@@ -1938,3 +1938,18 @@ details.navMore[open] > .megaMenu { display: grid; }
   .articleAnswerSummary > .articleBriefingEvidence { display: grid; }
   .articleHero { aspect-ratio: 16 / 10; }
 }
+
+/* Reader-owned evaluation record: no upload or tracking. */
+.evaluationWorksheet { border-block: 2px solid currentColor; padding-block: 2rem; margin-block: 3rem; scroll-margin-top: 6rem; }
+.evaluationWorksheet label { display: grid; gap: .5rem; margin-block: 1rem; font-size: 1rem; }
+.evaluationWorksheet textarea, .evaluationWorksheet select { width: 100%; min-width: 0; border: 1px solid #777; background: #fff; color: #17202a; border-radius: 4px; padding: .7rem; font: inherit; }
+.evaluationWorksheet textarea { resize: vertical; }
+.worksheetAnswers { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.5rem; }
+.worksheetAnswers fieldset { min-width: 0; padding: 1rem; border: 1px solid #888; }
+.worksheetAnswers legend { font-weight: 700; padding-inline: .5rem; }
+.evaluationWorksheet .worksheetCheck { display: flex; align-items: center; gap: .7rem; }
+.worksheetCheck input { width: 1.25rem; height: 1.25rem; }
+.evaluationWorksheet button { background: #17202a; color: white; font: inherit; padding: .9rem 1rem; border: 0; border-radius: 4px; cursor: pointer; margin-top: 1rem; }
+.worksheetIntro { padding-block: 2rem; border-block: 1px solid #aaa; margin-bottom: 2rem; }
+.worksheetIntro p { max-width: 65ch; line-height: 1.7; }
+@media (max-width: 600px) { .worksheetAnswers { grid-template-columns: 1fr; } }

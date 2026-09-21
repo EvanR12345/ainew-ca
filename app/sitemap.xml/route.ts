@@ -22,9 +22,9 @@ function escapeXml(value: string) {
 
 export function sitemapEntries(): SitemapEntry[] {
   const routeDates: Record<string, string> = {
-    "/": "2026-09-10",
+    "/": "2026-09-21",
     "/articles/": "2026-09-10",
-    "/learn/": "2026-09-09",
+    "/learn/": "2026-09-21",
     "/topics/": "2026-09-09",
     "/topics/canadian-ai-policy/": "2026-09-09",
     "/topics/using-ai/": "2026-09-09",
@@ -32,9 +32,9 @@ export function sitemapEntries(): SitemapEntry[] {
     "/ai-glossary/": "2026-08-11",
     "/canada-ai-resources/": SEARCH_REVIEW_DATE,
     "/authors/ai-new-desk/": "2026-09-09",
-    "/about/": "2026-09-09",
+    "/about/": "2026-09-21",
     "/editorial-policy/": "2026-09-09",
-    "/corrections-policy/": "2026-08-11",
+    "/corrections-policy/": "2026-09-21",
     "/contact/": "2026-09-09",
     "/privacy/": "2026-09-09",
     "/terms/": "2026-08-10",

@@ -19,11 +19,12 @@ export default function CorrectionsPolicyPage() {
         "@id": `${SITE_URL}/corrections-policy/#page`,
         url: `${SITE_URL}/corrections-policy/`,
         name: "AI New Canada corrections policy",
-        dateModified: "2026-08-11",
+        dateModified: "2026-09-21",
         inLanguage: "en-CA",
         about: { "@id": ORGANIZATION_ID },
       }} />
       <InfoPage eyebrow="CORRECTIONS POLICY" title="Make the record more accurate." intro="AI reporting changes quickly, but speed does not remove the obligation to correct the public record clearly.">
+        <section><h2>Correction record: article dates</h2><p><time dateTime="2026-09-21">September 21, 2026</time>: Fifteen article revision dates were previously spread across consecutive days to create a daily sequence. That sequence did not reflect the recorded editing history. We restored the September 11 revision date documented in the source history. Articles receiving substantive changes after that revision show their actual newer date. Original publication dates remain in structured data; the one date displayed beside each byline is the latest substantive revision.</p><p>Several articles can legitimately share a revision date. Changing their order in an archive is not a reason to change their dates.</p></section>
         <section><h2>How to report an error</h2><p>Use the <Link href="/contact/">contact page</Link> or email <a href="mailto:newsroom@ainew.ca">newsroom@ainew.ca</a>. Include the article URL, the exact claim you believe is wrong, why it is wrong and a reliable source that supports the correction. Commercial requests should not be presented as factual corrections.</p></section>
         <section><h2>How a report is reviewed</h2><p>We compare the disputed passage with the cited primary source and any stronger, more current evidence. A source changing its own page does not automatically mean the original article was wrong, so dates and archived context may matter.</p></section>
         <section><h2>Material corrections</h2><p>A change is material when it affects the central facts, meaning or practical conclusion. The article is updated and a visible correction note explains what changed. The modification date is also updated when the editorial substance changes.</p></section>

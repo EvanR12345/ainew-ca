@@ -19,14 +19,12 @@ export function isSourceAuditedArticle(article: Article) {
 
 export function articleModifiedDate(article: Article) {
   if (article.modifiedAt) return article.modifiedAt.slice(0, 10);
-  return isSourceAuditedArticle(article) ? SEARCH_REVIEW_DATE : article.date;
+  return article.date;
 }
 
 export function articleModifiedDateTime(article: Article) {
   if (article.modifiedAt) return article.modifiedAt;
-  return isSourceAuditedArticle(article)
-    ? SEARCH_REVIEW_DATETIME
-    : articlePublishedDateTime(article);
+  return articlePublishedDateTime(article);
 }
 
 /** The single date shown to readers is the latest documented article date. */

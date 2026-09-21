@@ -51,7 +51,7 @@ const resources = [
     title: "Algorithmic Impact Assessment tool",
     source: "Treasury Board of Canada Secretariat",
     description: "The mandatory federal risk-assessment tool supporting the Directive on Automated Decision-Making, available for public reuse.",
-    url: "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/algorithmic-impact-assessment.html",
+    url: "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/automated-decision-making/algorithmic-impact-assessment.html",
   },
   {
     group: "Privacy",

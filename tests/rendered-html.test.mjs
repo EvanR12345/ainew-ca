@@ -21,16 +21,14 @@ async function render(pathname = "/") {
   );
 }
 
-test("keeps the documented article revisions on distinct consecutive days", async () => {
-  const articleSource = await readFile(new URL("../app/lib/articles.ts", import.meta.url), "utf8");
-  const revisionDates = [...articleSource.matchAll(/"modifiedAt": "(\d{4}-\d{2}-\d{2})T/g)].map((match) => match[1]);
-
-  assert.deepEqual(revisionDates, [
-    "2026-09-11", "2026-09-10", "2026-09-09", "2026-09-08", "2026-09-07",
-    "2026-09-06", "2026-09-05", "2026-09-04", "2026-09-03", "2026-09-02",
-    "2026-09-01", "2026-08-31", "2026-08-30", "2026-08-29", "2026-08-28",
-    "2026-08-27",
-  ]);
+test("article revision dates are valid and never precede publication", async () => {
+  const source = await readFile(new URL("../app/lib/articles.ts", import.meta.url), "utf8");
+  const records = JSON.parse(source.match(/export const articles: Article\[\] = ([\s\S]*?);\n\nexport function/)[1]);
+  for (const article of records) {
+    assert.ok(Number.isFinite(Date.parse(article.modifiedAt)));
+    assert.ok(Date.parse(article.modifiedAt) >= Date.parse(article.date));
+    assert.ok(Date.parse(article.modifiedAt) <= Date.now());
+  }
 });
 
 test("server-renders the AI New Canada publication with editorial photography", async () => {
@@ -124,7 +122,7 @@ test("ships a lightweight, accessible editorial browsing shell", async () => {
   assert.match(cardSource, /unoptimized/);
   assert.match(homeSource, /className="tasteBentoImage"[\s\S]*?\/images\/articles\/thumbs\/\$\{article\.slug\}\.webp/);
   assert.doesNotMatch(homeSource, /<Link className="tasteBentoImage"/);
-  assert.match(homeSource, /className="tasteMarqueeLabel"/);
+  assert.doesNotMatch(homeSource, /className="tasteMarqueeLabel"/);
   assert.doesNotMatch(packageSource, /@gsap\/react|"gsap"/);
   assert.match(homeSource, /className="canadaDecisionMedia"[\s\S]*?\/images\/articles\/thumbs\/\$\{article\.slug\}\.webp/);
   assert.match(homeSource, /className="shell canadaDecisionsGrid"/);
@@ -324,9 +322,8 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
 
   assert.match(homeHtml, /"@type":"WebSite"/);
   assert.match(homeHtml, /"@type":"NewsMediaOrganization"/);
-  assert.match(homeHtml, /Choose a route, not another endless feed/);
-  assert.match(homeHtml, /A smaller publication, with the work visible/);
-  assert.match(homeHtml, /public, individually reviewed articles/);
+  assert.match(homeHtml, /What do you want to work on/);
+  assert.doesNotMatch(homeHtml, /focused editorial desks|publicationLedger/);
   assert.match(homeHtml, /Browse practical business coverage/);
   assert.match(homeHtml, /Read the evidence<span class="visuallyHidden"> for <!-- -->Canada/);
   assert.match(homeHtml, /google-adsense-account/);
@@ -336,9 +333,9 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.match(articleHtml, /"author":\{"@type":"Organization","@id":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/#profile","name":"AI New Desk","url":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/"\}/);
   assert.match(articleHtml, /"@type":"BreadcrumbList"/);
   assert.match(articleHtml, /"datePublished":"2026-08-10T12:00:00Z"/);
-  assert.match(articleHtml, /"dateModified":"2026-09-10T06:22:25Z"/);
+  assert.match(articleHtml, /"dateModified":"2026-09-11T06:22:25Z"/);
   const articleMetaHtml = articleHtml.match(/<div class="articleMeta">([\s\S]*?)<\/div><div class="articleTrustLine"/)?.[1] ?? "";
-  assert.match(articleMetaHtml, /<time dateTime="2026-09-10T06:22:25Z">September 10, 2026<\/time>/);
+  assert.match(articleMetaHtml, /<time dateTime="2026-09-11T06:22:25Z">September 11, 2026<\/time>/);
   assert.equal((articleMetaHtml.match(/<time\b/g) ?? []).length, 1);
   assert.doesNotMatch(articleMetaHtml, /Updated/i);
   assert.match(authorHtml, /"@type":"ProfilePage"/);
@@ -443,4 +440,17 @@ test("every quiz follow-up opens a public lesson, including links revealed after
     const response = await render(`/article/${question.slug}/`);
     assert.equal(response.status, 200, `Quiz points to an unpublished lesson: ${question.slug}`);
   }
+});
+
+
+test("comparison guide includes the complete exercise and an initially unscored worksheet", async () => {
+  const response = await render("/article/intermediate-compare-ai-answers-evaluation-scorecard/");
+  const html = await response.text();
+  assert.equal(response.status, 200);
+  assert.match(html, /Fictional Cedar Hall records/);
+  assert.match(html, /Answer key: test permission separately from arithmetic/);
+  assert.match(html, /id="comparison-worksheet"/);
+  assert.match(html, /Download comparison record/);
+  assert.match(html, /Incomplete: score all five dimensions/);
+  assert.doesNotMatch(html, /Ready for your review/);
 });

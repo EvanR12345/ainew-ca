@@ -65,21 +65,21 @@ export const articles: Article[] = [
     "signal": "PUBLIC-SYSTEM AUDIT",
     "accent": "#25708a",
     "sourceLabel": "Government of Canada: Algorithmic Impact Assessment tool",
-    "sourceUrl": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/algorithmic-impact-assessment.html",
+    "sourceUrl": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/automated-decision-making/algorithmic-impact-assessment.html",
     "sources": [
       {
         "label": "Government of Canada: Algorithmic Impact Assessment tool",
-        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/algorithmic-impact-assessment.html",
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/automated-decision-making/algorithmic-impact-assessment.html",
         "note": "The official AIA guide, checked September 11, 2026, establishes the questionnaire structure, scoring method, impact bands, timing, evidence inputs and publication process. It does not validate the fictional case in this article."
       },
       {
         "label": "Government of Canada: Guide on the Scope of the Directive on Automated Decision-Making",
-        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-scope-directive-automated-decision-making.html",
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/automated-decision-making/guide-scope-directive-automated-decision-making.html",
         "note": "The official scope guide supports the five-part scope test and the distinction between administrative decisions, partial automation, clerical checks, experiments and systems used on real clients."
       },
       {
         "label": "Government of Canada: Guide to Peer Review of Automated Decision Systems",
-        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-peer-review-automated-decision-systems.html",
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/automated-decision-making/guide-peer-review-automated-decision-systems.html",
         "note": "The official peer-review guide supports the Level II-to-IV review requirement, reviewer minimums and the kinds of technical, data, fairness, privacy and recourse evidence a review should examine."
       },
       {
@@ -129,13 +129,37 @@ export const articles: Article[] = [
         ],
         "table": {
           "caption": "AI New’s five-door reading test, derived from the federal scope guide",
-          "columns": ["Door", "Question to ask", "Evidence worth finding"],
+          "columns": [
+            "Door",
+            "Question to ask",
+            "Evidence worth finding"
+          ],
           "rows": [
-            ["Department", "Is a covered federal institution using the system?", "Accountable department, program owner and operating agreement"],
-            ["Timing", "Was it built or bought after April 1, 2020, or significantly modified?", "Procurement date, change log and description of altered scope"],
-            ["Decision", "Can the output affect a person’s rights, privileges or interests?", "Decision map, governing authority and client consequence"],
-            ["Judgment", "Does the output replace or shape discretion or critical thought?", "Rules, ranking logic, officer screen and operating instructions"],
-            ["Production", "Will an output touch a real client, even in a small pilot?", "Pilot protocol, data environment and record of decisions influenced"]
+            [
+              "Department",
+              "Is a covered federal institution using the system?",
+              "Accountable department, program owner and operating agreement"
+            ],
+            [
+              "Timing",
+              "Was it built or bought after April 1, 2020, or significantly modified?",
+              "Procurement date, change log and description of altered scope"
+            ],
+            [
+              "Decision",
+              "Can the output affect a person’s rights, privileges or interests?",
+              "Decision map, governing authority and client consequence"
+            ],
+            [
+              "Judgment",
+              "Does the output replace or shape discretion or critical thought?",
+              "Rules, ranking logic, officer screen and operating instructions"
+            ],
+            [
+              "Production",
+              "Will an output touch a real client, even in a small pilot?",
+              "Pilot protocol, data environment and record of decisions influenced"
+            ]
           ]
         }
       },
@@ -148,13 +172,37 @@ export const articles: Article[] = [
         ],
         "table": {
           "caption": "The first evidence ledger for the fictional triage project",
-          "columns": ["Claim in the project pitch", "Evidence needed", "Stop condition"],
+          "columns": [
+            "Claim in the project pitch",
+            "Evidence needed",
+            "Stop condition"
+          ],
           "rows": [
-            ["Urgent households will be seen sooner", "Compare wait times and harmful delays before and after use, by region and relevant client barriers", "Any group’s urgent files wait longer without an explained, corrected cause"],
-            ["The document flag saves officer time", "Sample false flags by document type, scan quality, language and accommodation need", "The flag causes automatic deferral or a notice that an officer cannot revise"],
-            ["Postal code captures remoteness", "Show why the proxy is relevant and test where it fails", "The team cannot explain or monitor materially different errors across communities"],
-            ["A person makes every final decision", "Observe the screen, time pressure, override rate and reasons recorded", "Officers routinely accept the ranking without enough information or authority to challenge it"],
-            ["The pilot is low risk", "Identify whether any live client’s queue position or notice changes", "A ‘pilot’ affects real applicants without the production safeguards it requires"]
+            [
+              "Urgent households will be seen sooner",
+              "Compare wait times and harmful delays before and after use, by region and relevant client barriers",
+              "Any group’s urgent files wait longer without an explained, corrected cause"
+            ],
+            [
+              "The document flag saves officer time",
+              "Sample false flags by document type, scan quality, language and accommodation need",
+              "The flag causes automatic deferral or a notice that an officer cannot revise"
+            ],
+            [
+              "Postal code captures remoteness",
+              "Show why the proxy is relevant and test where it fails",
+              "The team cannot explain or monitor materially different errors across communities"
+            ],
+            [
+              "A person makes every final decision",
+              "Observe the screen, time pressure, override rate and reasons recorded",
+              "Officers routinely accept the ranking without enough information or authority to challenge it"
+            ],
+            [
+              "The pilot is low risk",
+              "Identify whether any live client’s queue position or notice changes",
+              "A ‘pilot’ affects real applicants without the production safeguards it requires"
+            ]
           ]
         }
       },
@@ -182,12 +230,32 @@ export const articles: Article[] = [
         ],
         "table": {
           "caption": "How the official impact bands should change a reader’s questions",
-          "columns": ["Impact level", "Official range", "Public-reading question"],
+          "columns": [
+            "Impact level",
+            "Official range",
+            "Public-reading question"
+          ],
           "rows": [
-            ["I — little to no impact", "0% to 25%", "Does the low score match the real decision and population described?"],
-            ["II — moderate impact", "26% to 50%", "Where are the peer-review findings and the response to them?"],
-            ["III — high impact", "51% to 75%", "Which higher-impact controls, human roles and continuity plans are evidenced?"],
-            ["IV — very high impact", "76% to 100%", "Who were the multiple reviewers, what did they challenge and what changed before launch?"]
+            [
+              "I — little to no impact",
+              "0% to 25%",
+              "Does the low score match the real decision and population described?"
+            ],
+            [
+              "II — moderate impact",
+              "26% to 50%",
+              "Where are the peer-review findings and the response to them?"
+            ],
+            [
+              "III — high impact",
+              "51% to 75%",
+              "Which higher-impact controls, human roles and continuity plans are evidenced?"
+            ],
+            [
+              "IV — very high impact",
+              "76% to 100%",
+              "Who were the multiple reviewers, what did they challenge and what changed before launch?"
+            ]
           ]
         }
       },
@@ -306,7 +374,7 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-10T06:22:25Z",
+    "modifiedAt": "2026-09-11T06:22:25Z",
     "updateNote": "Reworked the opening around the gap between a consultation question and a legal duty. Added a bounded shop example and source notes that show exactly what each federal document establishes.",
     "sources": [
       {
@@ -495,7 +563,7 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-09T06:22:25Z",
+    "modifiedAt": "2026-09-11T06:22:25Z",
     "updateNote": "Turned the six strategy pillars into a delivery scoreboard with observable milestones. Tightened the headline and search summary so they describe that specific contribution.",
     "seoTitle": "Canada’s AI for All Strategy: six promises to track"
   },
@@ -652,7 +720,7 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-08T06:22:25Z",
+    "modifiedAt": "2026-09-11T06:22:25Z",
     "updateNote": "Converted the federal strategy into a filled project brief with acceptance conditions and stopping points. Clarified where the strategy ends and department-level evidence would begin.",
     "seoTitle": "Canada’s public-service AI strategy: a project test"
   },
@@ -808,7 +876,7 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-07T06:22:25Z",
+    "modifiedAt": "2026-09-11T06:22:25Z",
     "updateNote": "Rebuilt the guide around one prompt-to-decision data journey. The new F-104 example records risks and controls while keeping legal conclusions outside the article.",
     "seoTitle": "AI privacy assessments in Canada: map the data journey"
   },
@@ -824,9 +892,18 @@ export const articles: Article[] = [
     "sourceLabel": "Treasury Board: Guide on the use of generative AI",
     "sourceUrl": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
     "internalLinks": [
-      { "slug": "beginner-ai-prompts-without-magic-words", "title": "Write useful AI prompts without memorizing magic words" },
-      { "slug": "intermediate-use-ai-spreadsheets-structured-data", "title": "Use AI with spreadsheets without losing control of the numbers" },
-      { "slug": "intermediate-repeatable-ai-research-writing-workflow", "title": "Build a repeatable AI research and writing workflow" }
+      {
+        "slug": "beginner-ai-prompts-without-magic-words",
+        "title": "Write useful AI prompts without memorizing magic words"
+      },
+      {
+        "slug": "intermediate-use-ai-spreadsheets-structured-data",
+        "title": "Use AI with spreadsheets without losing control of the numbers"
+      },
+      {
+        "slug": "intermediate-repeatable-ai-research-writing-workflow",
+        "title": "Build a repeatable AI research and writing workflow"
+      }
     ],
     "image": "/images/articles/unique/beginner-how-to-use-ai-everyday-work.jpg",
     "evidenceStatus": "verified",
@@ -834,7 +911,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The meeting notes and expected answer are fictional practice material. Finishing the exercise does not mean a tool is approved for confidential work, customer information or actions that affect another person.",
     "imageAlt": "Illustration of task icons arranged beside a checklist on a desk.",
-    "modifiedAt": "2026-09-06T06:22:25Z",
+    "modifiedAt": "2026-09-11T06:22:25Z",
     "updateNote": "Added a timed meeting-notes exercise, the expected action list and a check for invented owners or deadlines. The page now gives a beginner a repeatable first test instead of general encouragement.",
     "sources": [
       {
@@ -940,8 +1017,14 @@ export const articles: Article[] = [
     "sourceLabel": "Treasury Board: Guide on the use of generative AI",
     "sourceUrl": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
     "internalLinks": [
-      { "slug": "beginner-how-to-use-ai-everyday-work", "title": "Set up one useful everyday AI task in 30 minutes" },
-      { "slug": "intermediate-compare-ai-answers-evaluation-scorecard", "title": "Compare AI answers with a consistent scorecard" }
+      {
+        "slug": "beginner-how-to-use-ai-everyday-work",
+        "title": "Set up one useful everyday AI task in 30 minutes"
+      },
+      {
+        "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
+        "title": "Compare AI answers with a consistent scorecard"
+      }
     ],
     "image": "/images/articles/unique/beginner-ai-prompts-without-magic-words.jpg",
     "evidenceStatus": "verified",
@@ -949,7 +1032,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "These prompts are test cases, not formulas that guarantee a correct answer. Results vary by model and context, and any claim that matters still needs to be checked outside the chat.",
     "imageAlt": "Illustration of wooden blocks with a speech bubble, arrow and light bulb beside a keyboard.",
-    "modifiedAt": "2026-09-05T06:22:25Z",
+    "modifiedAt": "2026-09-11T06:22:25Z",
     "updateNote": "Replaced generic prompting advice with one before-and-after brief, a constraint check and a repair table that explains why each revision is made.",
     "sources": [
       {
@@ -1047,9 +1130,18 @@ export const articles: Article[] = [
     "sourceLabel": "Canadian privacy authorities: Principles for generative AI",
     "sourceUrl": "https://www.priv.gc.ca/en/privacy-topics/technology/artificial-intelligence/gd_principles_ai/",
     "internalLinks": [
-      { "slug": "canada-ai-privacy-impact-assessment-guide", "title": "Map privacy risks before an AI pilot becomes production" },
-      { "slug": "advanced-retrieval-ai-own-documents-citations", "title": "Plan document retrieval with citations and access controls" },
-      { "slug": "beginner-how-to-use-ai-everyday-work", "title": "Start with a low-risk everyday AI exercise" }
+      {
+        "slug": "canada-ai-privacy-impact-assessment-guide",
+        "title": "Map privacy risks before an AI pilot becomes production"
+      },
+      {
+        "slug": "advanced-retrieval-ai-own-documents-citations",
+        "title": "Plan document retrieval with citations and access controls"
+      },
+      {
+        "slug": "beginner-how-to-use-ai-everyday-work",
+        "title": "Start with a low-risk everyday AI exercise"
+      }
     ],
     "image": "/images/articles/unique/beginner-use-ai-safely-files-email-private-data.jpg",
     "evidenceStatus": "verified",
@@ -1057,7 +1149,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The email in this guide is fictional. Privacy, security and records rules differ across workplaces, so confirm the approved tool and data policy before uploading a real file or connecting an account.",
     "imageAlt": "Illustration of a closed document folder beside a laptop and paperwork.",
-    "modifiedAt": "2026-09-04T06:22:25Z",
+    "modifiedAt": "2026-09-11T06:22:25Z",
     "updateNote": "Centred the guide on a fictional email and reduced it to the minimum context the task needs. Added separate checks for a single upload, file metadata and an ongoing account connection.",
     "sources": [
       {
@@ -1157,9 +1249,18 @@ export const articles: Article[] = [
     "sourceLabel": "Treasury Board: Guide on the use of generative AI",
     "sourceUrl": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
     "internalLinks": [
-      { "slug": "advanced-retrieval-ai-own-documents-citations", "title": "Plan retrieval so citations preserve document versions" },
-      { "slug": "intermediate-compare-ai-answers-evaluation-scorecard", "title": "Score competing AI answers against the same criteria" },
-      { "slug": "intermediate-use-ai-spreadsheets-structured-data", "title": "Keep structured-data calculations reproducible" }
+      {
+        "slug": "advanced-retrieval-ai-own-documents-citations",
+        "title": "Plan retrieval so citations preserve document versions"
+      },
+      {
+        "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
+        "title": "Score competing AI answers against the same criteria"
+      },
+      {
+        "slug": "intermediate-use-ai-spreadsheets-structured-data",
+        "title": "Keep structured-data calculations reproducible"
+      }
     ],
     "image": "/images/articles/unique/intermediate-repeatable-ai-research-writing-workflow.jpg",
     "evidenceStatus": "verified",
@@ -1167,7 +1268,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The claim ledger is a research method, not proof that a draft is accurate. The writer remains responsible for opening the sources, resolving disagreements and removing claims the evidence cannot support.",
     "imageAlt": "Illustration of source documents connected on a research board above an open notebook.",
-    "modifiedAt": "2026-09-03T06:22:25Z",
+    "modifiedAt": "2026-09-11T06:22:25Z",
     "updateNote": "Added a worked claim ledger with conflicting sources and explicit hold, narrow or remove decisions. The workflow now preserves the evidence trail before prose makes weak claims look settled.",
     "sources": [
       {
@@ -1259,15 +1360,24 @@ export const articles: Article[] = [
     "dek": "A small test set and consistent scoring rubric reveal more than repeatedly asking which model is best.",
     "category": "Models",
     "date": "2026-08-10",
-    "readTime": "3 min read",
+    "readTime": "6 min read",
     "signal": "Intermediate how-to",
     "accent": "yellow",
     "sourceLabel": "OpenAI: Working with evals",
     "sourceUrl": "https://developers.openai.com/api/docs/guides/evals",
     "internalLinks": [
-      { "slug": "advanced-ai-evaluation-red-team-monitor-production", "title": "Extend a scorecard into release testing and monitoring" },
-      { "slug": "beginner-ai-prompts-without-magic-words", "title": "Control the task before comparing the answers" },
-      { "slug": "advanced-human-in-the-loop-ai-agent-workflow", "title": "Design approval gates for an AI agent" }
+      {
+        "slug": "advanced-ai-evaluation-red-team-monitor-production",
+        "title": "Extend a scorecard into release testing and monitoring"
+      },
+      {
+        "slug": "beginner-ai-prompts-without-magic-words",
+        "title": "Control the task before comparing the answers"
+      },
+      {
+        "slug": "advanced-human-in-the-loop-ai-agent-workflow",
+        "title": "Design approval gates for an AI agent"
+      }
     ],
     "image": "/images/articles/unique/intermediate-compare-ai-answers-evaluation-scorecard.jpg",
     "evidenceStatus": "verified",
@@ -1275,8 +1385,8 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The 20-point scorecard and its weights are editorial examples for the fictional task shown. A real evaluation needs test cases, reviewers and failure limits chosen for its own users and consequences.",
     "imageAlt": "Illustration of a comparison checklist between two computer displays.",
-    "modifiedAt": "2026-09-02T06:22:25Z",
-    "updateNote": "Added a reproducible rubric, a two-reviewer disagreement and a critical-failure cap. The worked comparison shows why fluent output does not automatically win.",
+    "modifiedAt": "2026-09-21T01:21:21Z",
+    "updateNote": "Added a downloadable comparison worksheet and an original three-record practice case with a worked answer key. Rechecked the linked evaluation and risk-management sources on September 21, 2026.",
     "sources": [
       {
         "label": "OpenAI: Working with evals",
@@ -1357,6 +1467,51 @@ export const articles: Article[] = [
           "Count preparation, retries and correction time as well as the displayed generation cost. In an illustrative batch, 60 minutes spent producing eight accepted summaries means 7.5 minutes per accepted summary. The two rejected attempts still consumed time and belong in that numerator.",
           "Keep separate fields for critical failures, acceptance rate and reviewer effort. Re-run the comparison after a material change to prompts, sources, tools or model version. OpenAI's evaluation documentation supports structured testing; it does not establish that our suggested rubric predicts quality in your setting."
         ]
+      },
+      {
+        "heading": "Try it on a complete miniature source pack",
+        "paragraphs": [
+          "The following records and answers were written for this exercise. They are not outputs captured from commercial models, an actual grant programme or a performance benchmark. Everything needed to check the answers is included here, so you can reproduce the reasoning without an account or a paid tool.",
+          "Task: write a two-sentence public summary of the Cedar Hall equipment project. State the approved spending limit and the decision still outstanding. Cite record numbers. Do not call a proposal an approval. Stop condition: inventing spending authorization or a binding date disqualifies an answer."
+        ],
+        "table": {
+          "caption": "Fictional Cedar Hall records — the complete source pack",
+          "columns": [
+            "Record",
+            "Text"
+          ],
+          "rows": [
+            [
+              "R1 — meeting note, June 3",
+              "Committee approved up to $2,400 for two microphones and installation. A portable speaker was discussed but not approved."
+            ],
+            [
+              "R2 — quote, June 4",
+              "Microphones: $1,600. Installation: $500. Portable speaker: optional $700. All amounts include tax. Quote is not an order."
+            ],
+            [
+              "R3 — coordinator email, June 5",
+              "Please hold the purchase until the room booking is confirmed. June 20 is a proposed event date; the venue has not confirmed it."
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "Two answers, one expensive extra assumption",
+        "paragraphs": [
+          "Answer A: “Cedar Hall approved up to $2,400 for two microphones and installation; the quoted $2,100 leaves $300 within that limit (R1–R2). Purchasing remains on hold pending the room booking, and June 20 is only proposed (R3).”",
+          "Answer B: “Cedar Hall approved a $2,800 microphone, installation and speaker package for its confirmed June 20 event (R1–R2). The coordinator can proceed with purchasing because the quote establishes the final cost (R3).”",
+          "Before reading the key, mark each claim as supported, contradicted or not established. Both answers contain citations. Following those citations is what distinguishes traceability from the appearance of traceability. A link or record label attached to a sentence does not make that sentence correct."
+        ]
+      },
+      {
+        "heading": "Answer key: test permission separately from arithmetic",
+        "paragraphs": [
+          "For A, $1,600 plus $500 equals $2,100, and $2,400 minus $2,100 equals $300. The summary preserves the purchase hold and the tentative date. One reasonable scoring is 4 in each dimension, or 20/20, with no stop condition triggered. That is an editorial assessment of this tiny exercise, not a claim that the wording is the only acceptable answer.",
+          "B correctly adds all three quoted amounts to $2,800, but the optional speaker was never approved. It converts a proposal into a confirmed event and a quote into permission to purchase. R3 directly contradicts its final sentence. The stop condition therefore rejects B before a total can make it look acceptable. A reviewer might give it a little credit for length or arithmetic; neither rescues the authorization error.",
+          "Now change R3 to say that the room is confirmed but the purchase remains on hold. Only the room-status judgement should change. If a reviewer now accepts the purchase instruction as well, the scoring process is overlooking a separate permission requirement. This controlled variation tests whether your rubric catches the failure you intended it to catch.",
+          "Use the worksheet below to record your own scores and disagreements. A single clear case checks whether reviewers understand the method; it cannot establish how a model behaves across languages, unusual documents or repeated runs. For a real comparison, add cases from the work you actually do and retain rejected attempts alongside successful ones."
+        ]
       }
     ],
     "seoTitle": "A 20-point scorecard for comparing AI answers"
@@ -1373,9 +1528,18 @@ export const articles: Article[] = [
     "sourceLabel": "Microsoft: SUMIFS function",
     "sourceUrl": "https://support.microsoft.com/en-us/excel/functions/sumifs-function",
     "internalLinks": [
-      { "slug": "intermediate-repeatable-ai-research-writing-workflow", "title": "Separate source review, drafting and fact-checking" },
-      { "slug": "canada-ai-privacy-impact-assessment-guide", "title": "Map personal information across an AI workflow" },
-      { "slug": "intermediate-compare-ai-answers-evaluation-scorecard", "title": "Test AI outputs with a consistent rubric" }
+      {
+        "slug": "intermediate-repeatable-ai-research-writing-workflow",
+        "title": "Separate source review, drafting and fact-checking"
+      },
+      {
+        "slug": "canada-ai-privacy-impact-assessment-guide",
+        "title": "Map personal information across an AI workflow"
+      },
+      {
+        "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
+        "title": "Test AI outputs with a consistent rubric"
+      }
     ],
     "image": "/images/articles/unique/intermediate-use-ai-spreadsheets-structured-data.jpg",
     "evidenceStatus": "verified",
@@ -1383,7 +1547,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The invoice rows and totals are fictional and are provided for practice. This is not accounting, tax or financial-control advice, and a real workbook needs review against its own records and rules.",
     "imageAlt": "Illustration of spreadsheet figures, a magnifying glass and a calculator.",
-    "modifiedAt": "2026-09-01T06:22:25Z",
+    "modifiedAt": "2026-09-11T06:22:25Z",
     "updateNote": "Replaced broad spreadsheet tips with a small invoice dataset, an exact SUMIFS formula and month-end boundary checks. Every result can now be rebuilt from the visible cells.",
     "sources": [
       {
@@ -1503,9 +1667,18 @@ export const articles: Article[] = [
     "sourceLabel": "Anthropic: Building effective agents",
     "sourceUrl": "https://www.anthropic.com/engineering/building-effective-agents",
     "internalLinks": [
-      { "slug": "advanced-ai-evaluation-red-team-monitor-production", "title": "Define release failures, red-team tests and monitoring" },
-      { "slug": "beginner-use-ai-safely-files-email-private-data", "title": "Reduce data exposure before connecting files and email" },
-      { "slug": "canada-ai-privacy-impact-assessment-guide", "title": "Map permissions, logs and personal information" }
+      {
+        "slug": "advanced-ai-evaluation-red-team-monitor-production",
+        "title": "Define release failures, red-team tests and monitoring"
+      },
+      {
+        "slug": "beginner-use-ai-safely-files-email-private-data",
+        "title": "Reduce data exposure before connecting files and email"
+      },
+      {
+        "slug": "canada-ai-privacy-impact-assessment-guide",
+        "title": "Map permissions, logs and personal information"
+      }
     ],
     "image": "/images/articles/unique/advanced-human-in-the-loop-ai-agent-workflow.jpg",
     "evidenceStatus": "verified",
@@ -1513,7 +1686,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The support agent and authority matrix are fictional design examples. This article does not describe a tested production system or certify that the controls are sufficient for a particular security, legal or operational setting.",
     "imageAlt": "Illustration of a hand operating a control beside a robotic arm.",
-    "modifiedAt": "2026-08-31T06:22:25Z",
+    "modifiedAt": "2026-09-11T06:22:25Z",
     "updateNote": "Narrowed the page to one authority problem: which actions may be drafted, approved or prohibited. Connected each permission to evidence, logs and recovery steps.",
     "sources": [
       {
@@ -1611,9 +1784,18 @@ export const articles: Article[] = [
     "sourceLabel": "Cohere: Retrieval Augmented Generation",
     "sourceUrl": "https://docs.cohere.com/docs/retrieval-augmented-generation-rag",
     "internalLinks": [
-      { "slug": "intermediate-repeatable-ai-research-writing-workflow", "title": "Build an evidence ledger before drafting" },
-      { "slug": "canada-ai-privacy-impact-assessment-guide", "title": "Assess privacy across retrieval, prompts and logs" },
-      { "slug": "advanced-ai-evaluation-red-team-monitor-production", "title": "Test retrieval failures before and after release" }
+      {
+        "slug": "intermediate-repeatable-ai-research-writing-workflow",
+        "title": "Build an evidence ledger before drafting"
+      },
+      {
+        "slug": "canada-ai-privacy-impact-assessment-guide",
+        "title": "Assess privacy across retrieval, prompts and logs"
+      },
+      {
+        "slug": "advanced-ai-evaluation-red-team-monitor-production",
+        "title": "Test retrieval failures before and after release"
+      }
     ],
     "image": "/images/articles/unique/advanced-retrieval-ai-own-documents-citations.jpg",
     "evidenceStatus": "verified",
@@ -1621,7 +1803,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The policy corpus and retrieval results are fictional. They demonstrate failure patterns but do not validate a retrieval product, architecture or deployment with real documents and permissions.",
     "imageAlt": "Illustration of indexed documents in a filing drawer with a search symbol.",
-    "modifiedAt": "2026-08-30T06:22:25Z",
+    "modifiedAt": "2026-09-11T06:22:25Z",
     "updateNote": "Built a three-document version collision in which a traceable answer is still wrong. The article now follows that error through retrieval, access control and citation-fit checks.",
     "sources": [
       {
@@ -1716,9 +1898,18 @@ export const articles: Article[] = [
     "sourceLabel": "NIST: Adversarial Machine Learning taxonomy",
     "sourceUrl": "https://www.nist.gov/publications/adversarial-machine-learning-taxonomy-and-terminology-attacks-and-mitigations",
     "internalLinks": [
-      { "slug": "intermediate-compare-ai-answers-evaluation-scorecard", "title": "Start with a small, reproducible evaluation scorecard" },
-      { "slug": "advanced-human-in-the-loop-ai-agent-workflow", "title": "Connect evaluation results to agent approval gates" },
-      { "slug": "advanced-retrieval-ai-own-documents-citations", "title": "Evaluate citations, versions and access controls" }
+      {
+        "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
+        "title": "Start with a small, reproducible evaluation scorecard"
+      },
+      {
+        "slug": "advanced-human-in-the-loop-ai-agent-workflow",
+        "title": "Connect evaluation results to agent approval gates"
+      },
+      {
+        "slug": "advanced-retrieval-ai-own-documents-citations",
+        "title": "Evaluate citations, versions and access controls"
+      }
     ],
     "image": "/images/articles/unique/advanced-ai-evaluation-red-team-monitor-production.jpg",
     "evidenceStatus": "verified",
@@ -1726,7 +1917,7 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The release table is a planning example, not a safety certification. Passing a finite test set cannot establish performance outside its coverage or after the model, data, prompts, tools or users change.",
     "imageAlt": "Illustration of test icons, checklists and monitoring screens for evaluating AI.",
-    "modifiedAt": "2026-08-29T06:22:25Z",
+    "modifiedAt": "2026-09-11T06:22:25Z",
     "updateNote": "Added a release decision where a strong average score is blocked by one critical failure. Linked pre-release tests to live sampling, incidents and rollback triggers.",
     "sources": [
       {
@@ -1843,9 +2034,18 @@ export const articles: Article[] = [
       }
     ],
     "internalLinks": [
-      { "slug": "beginner-ai-investment-scam-check", "title": "Run a seven-step check before sending money" },
-      { "slug": "intermediate-compare-ai-answers-evaluation-scorecard", "title": "Compare AI answers with explicit acceptance criteria" },
-      { "slug": "intermediate-repeatable-ai-research-writing-workflow", "title": "Keep an evidence ledger while researching" }
+      {
+        "slug": "beginner-ai-investment-scam-check",
+        "title": "Run a seven-step check before sending money"
+      },
+      {
+        "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
+        "title": "Compare AI answers with explicit acceptance criteria"
+      },
+      {
+        "slug": "intermediate-repeatable-ai-research-writing-workflow",
+        "title": "Keep an evidence ledger while researching"
+      }
     ],
     "image": "/images/articles/unique/how-beginners-use-ai-investment-research.jpg",
     "imageAlt": "A beginner using AI to organize an investment-research checklist",
@@ -1922,7 +2122,7 @@ export const articles: Article[] = [
         }
       }
     ],
-    "modifiedAt": "2026-08-28T06:22:25Z",
+    "modifiedAt": "2026-09-11T06:22:25Z",
     "updateNote": "Added a fictional filing extract with an ambiguity that can change the conclusion. The revised prompt separates sourced facts, inferences and evidence that could disprove the initial thesis.",
     "seoTitle": "AI investment research without asking what to buy"
   },
@@ -1960,8 +2160,14 @@ export const articles: Article[] = [
       }
     ],
     "internalLinks": [
-      { "slug": "how-beginners-use-ai-investment-research", "title": "Use AI for investment research without asking what to buy" },
-      { "slug": "beginner-use-ai-safely-files-email-private-data", "title": "Protect private information when using AI tools" }
+      {
+        "slug": "how-beginners-use-ai-investment-research",
+        "title": "Use AI for investment research without asking what to buy"
+      },
+      {
+        "slug": "beginner-use-ai-safely-files-email-private-data",
+        "title": "Protect private information when using AI tools"
+      }
     ],
     "image": "/images/articles/unique/beginner-ai-investment-scam-check.jpg",
     "imageAlt": "An investor using a paper checklist to verify information produced by AI",
@@ -2028,7 +2234,7 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-08-27T06:22:25Z",
+    "modifiedAt": "2026-09-11T06:22:25Z",
     "updateNote": "Rebuilt the article as seven independent checks for urgency, identity, registration, evidence and payment. Updated the source trail to current Ontario regulator research, registration guidance and alerts.",
     "seoTitle": "An AI investment pitch sounds real: seven checks"
   }
