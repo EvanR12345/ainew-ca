@@ -1,0 +1,429 @@
+{
+  "datasetVersion": 1,
+  "created": "2026-09-21",
+  "provenance": "Original synthetic fixtures created for AI New Canada; not customer records, government policy or commercial model output. Expected results were specified before executing the runner.",
+  "invoices": [
+    {
+      "id": "original",
+      "rows": [
+        {
+          "id": "A01",
+          "province": "ON",
+          "status": "Paid",
+          "cents": 12000
+        },
+        {
+          "id": "A02",
+          "province": "ON",
+          "status": "Pending",
+          "cents": 8000
+        },
+        {
+          "id": "A03",
+          "province": "BC",
+          "status": "Paid",
+          "cents": 20000
+        },
+        {
+          "id": "A04",
+          "province": "ON",
+          "status": "Paid",
+          "cents": 5000
+        },
+        {
+          "id": "A05",
+          "province": "ON",
+          "status": "Refunded",
+          "cents": -2000
+        }
+      ],
+      "expected": 17000
+    },
+    {
+      "id": "new-paid-row",
+      "rows": [
+        {
+          "id": "A01",
+          "province": "ON",
+          "status": "Paid",
+          "cents": 12000
+        },
+        {
+          "id": "A02",
+          "province": "ON",
+          "status": "Pending",
+          "cents": 8000
+        },
+        {
+          "id": "A03",
+          "province": "BC",
+          "status": "Paid",
+          "cents": 20000
+        },
+        {
+          "id": "A04",
+          "province": "ON",
+          "status": "Paid",
+          "cents": 5000
+        },
+        {
+          "id": "A05",
+          "province": "ON",
+          "status": "Refunded",
+          "cents": -2000
+        },
+        {
+          "id": "A06",
+          "province": "ON",
+          "status": "Paid",
+          "cents": 3000
+        }
+      ],
+      "expected": 20000
+    },
+    {
+      "id": "new-pending-row",
+      "rows": [
+        {
+          "id": "A01",
+          "province": "ON",
+          "status": "Paid",
+          "cents": 12000
+        },
+        {
+          "id": "A02",
+          "province": "ON",
+          "status": "Pending",
+          "cents": 8000
+        },
+        {
+          "id": "A03",
+          "province": "BC",
+          "status": "Paid",
+          "cents": 20000
+        },
+        {
+          "id": "A04",
+          "province": "ON",
+          "status": "Paid",
+          "cents": 5000
+        },
+        {
+          "id": "A05",
+          "province": "ON",
+          "status": "Refunded",
+          "cents": -2000
+        },
+        {
+          "id": "A06",
+          "province": "ON",
+          "status": "Pending",
+          "cents": 3000
+        }
+      ],
+      "expected": 17000
+    },
+    {
+      "id": "duplicate-id",
+      "rows": [
+        {
+          "id": "A01",
+          "province": "ON",
+          "status": "Paid",
+          "cents": 12000
+        },
+        {
+          "id": "A02",
+          "province": "ON",
+          "status": "Pending",
+          "cents": 8000
+        },
+        {
+          "id": "A03",
+          "province": "BC",
+          "status": "Paid",
+          "cents": 20000
+        },
+        {
+          "id": "A04",
+          "province": "ON",
+          "status": "Paid",
+          "cents": 5000
+        },
+        {
+          "id": "A05",
+          "province": "ON",
+          "status": "Refunded",
+          "cents": -2000
+        },
+        {
+          "id": "A01",
+          "province": "ON",
+          "status": "Paid",
+          "cents": 12000
+        }
+      ],
+      "expected": "REVIEW"
+    },
+    {
+      "id": "trailing-space",
+      "rows": [
+        {
+          "id": "A01",
+          "province": "ON",
+          "status": "Paid ",
+          "cents": 12000
+        },
+        {
+          "id": "A02",
+          "province": "ON",
+          "status": "Pending",
+          "cents": 8000
+        },
+        {
+          "id": "A03",
+          "province": "BC",
+          "status": "Paid",
+          "cents": 20000
+        },
+        {
+          "id": "A04",
+          "province": "ON",
+          "status": "Paid",
+          "cents": 5000
+        },
+        {
+          "id": "A05",
+          "province": "ON",
+          "status": "Refunded",
+          "cents": -2000
+        }
+      ],
+      "expected": "REVIEW"
+    },
+    {
+      "id": "numeric-text",
+      "rows": [
+        {
+          "id": "A01",
+          "province": "ON",
+          "status": "Paid",
+          "cents": "12000"
+        },
+        {
+          "id": "A02",
+          "province": "ON",
+          "status": "Pending",
+          "cents": 8000
+        },
+        {
+          "id": "A03",
+          "province": "BC",
+          "status": "Paid",
+          "cents": 20000
+        },
+        {
+          "id": "A04",
+          "province": "ON",
+          "status": "Paid",
+          "cents": 5000
+        },
+        {
+          "id": "A05",
+          "province": "ON",
+          "status": "Refunded",
+          "cents": -2000
+        }
+      ],
+      "expected": "REVIEW"
+    },
+    {
+      "id": "zero-paid-amount",
+      "rows": [
+        {
+          "id": "A01",
+          "province": "ON",
+          "status": "Paid",
+          "cents": 0
+        },
+        {
+          "id": "A02",
+          "province": "ON",
+          "status": "Pending",
+          "cents": 8000
+        },
+        {
+          "id": "A03",
+          "province": "BC",
+          "status": "Paid",
+          "cents": 20000
+        },
+        {
+          "id": "A04",
+          "province": "ON",
+          "status": "Paid",
+          "cents": 5000
+        },
+        {
+          "id": "A05",
+          "province": "ON",
+          "status": "Refunded",
+          "cents": -2000
+        }
+      ],
+      "expected": 5000
+    },
+    {
+      "id": "negative-paid-amount",
+      "rows": [
+        {
+          "id": "A01",
+          "province": "ON",
+          "status": "Paid",
+          "cents": -12000
+        },
+        {
+          "id": "A02",
+          "province": "ON",
+          "status": "Pending",
+          "cents": 8000
+        },
+        {
+          "id": "A03",
+          "province": "BC",
+          "status": "Paid",
+          "cents": 20000
+        },
+        {
+          "id": "A04",
+          "province": "ON",
+          "status": "Paid",
+          "cents": 5000
+        },
+        {
+          "id": "A05",
+          "province": "ON",
+          "status": "Refunded",
+          "cents": -2000
+        }
+      ],
+      "expected": "REVIEW"
+    }
+  ],
+  "retrieval": {
+    "documents": [
+      {
+        "id": "T1",
+        "topic": "meals",
+        "audience": "staff",
+        "from": "2026-01-01",
+        "through": "2026-06-30",
+        "cad": 40,
+        "text": "Fictional travel policy: staff meal allowance is CAD 40 through June 30, 2026."
+      },
+      {
+        "id": "T2",
+        "topic": "meals",
+        "audience": "staff",
+        "from": "2026-07-01",
+        "through": "2026-12-31",
+        "cad": 45,
+        "text": "Fictional travel policy: staff meal allowance is CAD 45 from July 1 through December 31, 2026."
+      },
+      {
+        "id": "M1",
+        "topic": "meals",
+        "audience": "manager",
+        "from": "2026-01-01",
+        "through": "2026-12-31",
+        "cad": 70,
+        "text": "Fictional restricted manager policy: manager meal allowance is CAD 70 in 2026."
+      },
+      {
+        "id": "P1",
+        "topic": "parking",
+        "audience": "staff",
+        "from": "2026-01-01",
+        "through": "2026-12-31",
+        "cad": 15,
+        "text": "Fictional parking policy: staff parking allowance is CAD 15 in 2026."
+      }
+    ],
+    "cases": [
+      {
+        "id": "june-boundary",
+        "date": "2026-06-30",
+        "audience": "staff",
+        "topic": "meals",
+        "extraDocuments": [],
+        "expected": 40
+      },
+      {
+        "id": "july-boundary",
+        "date": "2026-07-01",
+        "audience": "staff",
+        "topic": "meals",
+        "extraDocuments": [],
+        "expected": 45
+      },
+      {
+        "id": "missing-date",
+        "date": null,
+        "audience": "staff",
+        "topic": "meals",
+        "extraDocuments": [],
+        "expected": "REVIEW"
+      },
+      {
+        "id": "outside-coverage",
+        "date": "2027-01-01",
+        "audience": "staff",
+        "topic": "meals",
+        "extraDocuments": [],
+        "expected": "REVIEW"
+      },
+      {
+        "id": "manager-authorized",
+        "date": "2026-07-02",
+        "audience": "manager",
+        "topic": "meals",
+        "extraDocuments": [],
+        "expected": 70
+      },
+      {
+        "id": "unknown-role",
+        "date": "2026-07-02",
+        "audience": "visitor",
+        "topic": "meals",
+        "extraDocuments": [],
+        "expected": "REVIEW"
+      },
+      {
+        "id": "conflicting-current-policy",
+        "date": "2026-07-02",
+        "audience": "staff",
+        "topic": "meals",
+        "extraDocuments": [
+          {
+            "id": "T3",
+            "topic": "meals",
+            "audience": "staff",
+            "from": "2026-07-01",
+            "through": "2026-12-31",
+            "cad": 55,
+            "text": "Fictional conflicting policy: staff meal allowance is CAD 55 for the same dates."
+          }
+        ],
+        "expected": "REVIEW"
+      },
+      {
+        "id": "invalid-calendar-date",
+        "date": "2026-02-30",
+        "audience": "staff",
+        "topic": "meals",
+        "extraDocuments": [],
+        "expected": "REVIEW"
+      }
+    ]
+  }
+}

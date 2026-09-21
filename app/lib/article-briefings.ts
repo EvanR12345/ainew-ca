@@ -102,10 +102,10 @@ const articleBriefings: Record<string, ArticleBriefing> = {
   "intermediate-use-ai-spreadsheets-structured-data": {
     heading: "Keep the workbook as the source of truth",
     bottomLine: "AI can help explain a formula or reshape rows, but the workbook must retain the source cells, assumptions and reconciliation totals. If the final number cannot be rebuilt, it cannot be trusted.",
-    useThisFor: "Follow the small invoice table when you need a spreadsheet exercise that exposes category, unit and date-boundary mistakes.",
+    useThisFor: "Use the invoice table and downloadable test cases to check duplicates, inconsistent labels, number types and unexpected amounts.",
     boundary: "Matching row counts and plausible totals are weak checks. They will not catch every wrong category, duplicated record or silent unit conversion.",
-    contribution: "The worked example includes the actual SUMIFS formula, an awkward month-end case and totals that let a second person trace the result without the chat history.",
-    searchSnippet: "Work through a fictional invoice table, one SUMIFS formula and reconciliation checks while keeping every AI-assisted change auditable.",
+    contribution: "The guide pairs a SUMIFS exercise with an executed JavaScript experiment: eight input cases, the program and its recorded outputs are available to inspect and rerun.",
+    searchSnippet: "Check a fictional invoice table with SUMIFS, then rerun eight validation cases using downloadable data, JavaScript and recorded results.",
     tags: ["AI spreadsheets", "data validation", "Excel formulas", "reconciliation"],
   },
   "advanced-human-in-the-loop-ai-agent-workflow": {
@@ -122,8 +122,8 @@ const articleBriefings: Record<string, ArticleBriefing> = {
     bottomLine: "Connecting a folder to a chatbot does not settle retrieval quality. Version dates, permissions, chunk boundaries and ranking all decide which passage appears before the model writes a word.",
     useThisFor: "The fictional policy folder is a compact test for teams designing search over their own manuals, contracts or internal guidance.",
     boundary: "A clickable citation proves that a document exists. It does not prove that the passage is current, permitted or a good match for the sentence beside it.",
-    contribution: "We built a three-document collision where the most traceable answer is still wrong, then followed the failure back through ranking, versioning and access checks.",
-    searchSnippet: "Test versions, permissions, retrieval and citation fit with a fictional policy corpus where a traceable answer can still be wrong.",
+    contribution: "An executed eight-case document-selection experiment shows the effect of date, audience and conflict checks. Download the fictional corpus, code and raw results.",
+    searchSnippet: "Rerun an eight-case policy-selection experiment with downloadable data, code and results. See why a relevant citation can still be wrong.",
     tags: ["retrieval-augmented generation", "RAG citations", "access control", "document versions"],
   },
   "advanced-ai-evaluation-red-team-monitor-production": {

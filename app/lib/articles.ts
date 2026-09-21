@@ -1522,7 +1522,7 @@ export const articles: Article[] = [
     "dek": "Use AI to explain, clean and check data while keeping calculations reproducible and source cells visible.",
     "category": "Business",
     "date": "2026-08-10",
-    "readTime": "3 min read",
+    "readTime": "8 min read",
     "signal": "Intermediate how-to",
     "accent": "sky",
     "sourceLabel": "Microsoft: SUMIFS function",
@@ -1547,13 +1547,13 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The invoice rows and totals are fictional and are provided for practice. This is not accounting, tax or financial-control advice, and a real workbook needs review against its own records and rules.",
     "imageAlt": "Illustration of spreadsheet figures, a magnifying glass and a calculator.",
-    "modifiedAt": "2026-09-11T06:22:25Z",
-    "updateNote": "Replaced broad spreadsheet tips with a small invoice dataset, an exact SUMIFS formula and month-end boundary checks. Every result can now be rebuilt from the visible cells.",
+    "modifiedAt": "2026-09-21T08:31:52Z",
+    "updateNote": "September 21, 2026: added a reproducible synthetic-data experiment, executable source, recorded outputs and a discussion of failure cases and limitations. No commercial AI model was tested.",
     "sources": [
       {
         "label": "Microsoft: SUMIFS function",
         "url": "https://support.microsoft.com/en-us/excel/functions/sumifs-function",
-        "note": "Function syntax and multiple criteria. The fictional invoice exercise below uses this syntax."
+        "note": "Function syntax and multiple criteria. The fictional invoice exercise uses this syntax."
       },
       {
         "label": "Microsoft: Structured references with Excel tables",
@@ -1650,6 +1650,20 @@ export const articles: Article[] = [
         "paragraphs": [
           "Save the question, inclusion rules, source version and formula with the workbook. A reviewer should be able to change one input and see the expected result without reopening the chat. If AI proposes a macro or script, inspect it on a copy before running it, particularly if it can overwrite files or make network requests.",
           "This exercise establishes only a simple conditional sum. It does not validate a payroll, tax return or financial statement. For higher-stakes work, expand the tests around the actual rules and have a qualified reviewer check the complete process."
+        ]
+      },
+      {
+        "heading": "What happened when we changed the input",
+        "paragraphs": [
+          "We ran a small JavaScript reconciliation experiment on September 21, 2026, using the five invoices above and seven variations. The downloadable record below contains the data, source code and actual output. This was not an Excel or AI-model test: it isolates the input checks that a generated formula cannot supply on its own.",
+          "The unguarded sum gave the expected answer in four of eight cases. It also quietly counted invoice A01 twice when its ID was duplicated, returning CAD 290 instead of stopping for review. Changing Paid to Paid followed by a space dropped that invoice from the total and returned CAD 50. Converting a number stored as text produced the right amount but concealed a type change. A plausible total was therefore not enough to pass our specified contract.",
+          "The checked version stopped on duplicates, unexpected labels, numeric text and a negative Paid amount. It accepted the original rows, the two added-row cases and a legitimate zero amount. Those eight outcomes matched the fixture expectations. That result shows these particular controls executing; it does not establish that the program handles an accounting ledger.",
+          "The trade-off is extra review. A trailing space might be harmless, and a negative amount might be a valid adjustment in your system. Silently trimming or accepting either would make a business decision. First specify whether the task is gross paid invoices, net cash received or something else. Then decide which repairs are authorized and retain the unmodified input."
+        ],
+        "bullets": [
+          "Try a province outside the fixture’s ON/BC vocabulary: the checked version stops. Extend the contract deliberately before using other provinces.",
+          "Try a refund against a paid invoice. Write the expected treatment before changing the formula or program.",
+          "The supplied code uses integer cents. It does not test Excel range expansion, workbook permissions, tax treatment or a model’s ability to generate formulas."
         ]
       }
     ],
@@ -1778,7 +1792,7 @@ export const articles: Article[] = [
     "dek": "Good retrieval depends on document preparation, permissions, ranking and citation checks—not simply connecting a folder to a chatbot.",
     "category": "Research",
     "date": "2026-08-10",
-    "readTime": "3 min read",
+    "readTime": "8 min read",
     "signal": "System design guide",
     "accent": "magenta",
     "sourceLabel": "Cohere: Retrieval Augmented Generation",
@@ -1803,8 +1817,8 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The policy corpus and retrieval results are fictional. They demonstrate failure patterns but do not validate a retrieval product, architecture or deployment with real documents and permissions.",
     "imageAlt": "Illustration of indexed documents in a filing drawer with a search symbol.",
-    "modifiedAt": "2026-09-11T06:22:25Z",
-    "updateNote": "Built a three-document version collision in which a traceable answer is still wrong. The article now follows that error through retrieval, access control and citation-fit checks.",
+    "modifiedAt": "2026-09-21T08:31:52Z",
+    "updateNote": "September 21, 2026: added a reproducible synthetic-data experiment, executable source, recorded outputs and a discussion of failure cases and limitations. No commercial AI model was tested.",
     "sources": [
       {
         "label": "Cohere: Retrieval Augmented Generation",
@@ -1881,6 +1895,21 @@ export const articles: Article[] = [
         "paragraphs": [
           "Show the document title, version and relevant page or section beside the answer, and let the reader open the permitted source. A file link alone may leave them searching hundreds of pages. If sources disagree, present the disagreement and its consequence rather than blending their values.",
           "Track unsupported material claims, missing expected passages, stale-version answers and access failures as separate measures. Repeat tests when documents, chunking, ranking, prompts or models change. The worked values here are fictional; this is a document-control method, not travel-expense advice or a benchmark result for any vendor."
+        ]
+      },
+      {
+        "heading": "A retrieval result can be relevant and still be wrong",
+        "paragraphs": [
+          "We executed a small document-selection experiment on September 21, 2026. The public download includes four fictional policy records, eight queries, expected decisions and the actual output from two selectors. Both selectors use exact topic metadata; neither uses embeddings, an AI model or a live permission service.",
+          "The first selector takes the first document about meals. It returns CAD 40 for every query because the old staff policy is first in the file. That answer is correct for June 30, but wrong for July 1. It also answers when the date is missing, the requested year is outside the policy coverage and the audience is unknown. One of eight outputs matches the expected decision.",
+          "The second selector validates the calendar date, filters by the supplied audience and effective dates, and answers only when exactly one document remains. All eight fixture outcomes match: CAD 40 at the June boundary, CAD 45 at the July boundary, CAD 70 for the manager case, and review for the five unresolved cases. Adding a conflicting staff policy triggers review instead of choosing whichever version happens to come first.",
+          "The interesting failure is not obscure wording. The naive selector finds the right subject every time. Its missing controls are about who may use the document, when it applies and what to do with conflicts. A citation to T1 would make the wrong July answer traceable; it would not make it correct.",
+          "This is a deliberately small teaching experiment, not a secure retrieval system. The caller can edit the audience field. In a real application, authenticated identity and document permissions must supply that value outside the prompt. The code also trusts metadata: if a document’s text contradicts its date or amount fields, this test does not detect it."
+        ],
+        "bullets": [
+          "Rerun with the policy records reordered: an uncontrolled first match is sensitive to storage order.",
+          "Add a contradictory paragraph without changing metadata. A separate content-verification test is needed; these checks are not enough.",
+          "Specify a revoked-access scenario before implementing a cache. This experiment does not establish safe caching or permission enforcement."
         ]
       }
     ],

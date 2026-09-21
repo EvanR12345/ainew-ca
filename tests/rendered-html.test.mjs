@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
@@ -120,7 +121,6 @@ test("ships a lightweight, accessible editorial browsing shell", async () => {
   assert.match(cardSource, /src=\{`\/images\/articles\/thumbs\/\$\{article\.slug\}\.webp`\}/);
   assert.match(cardSource, /sizes="\(max-width: 760px\) 100vw/);
   assert.match(cardSource, /unoptimized/);
-  assert.match(homeSource, /className="tasteBentoImage"[\s\S]*?\/images\/articles\/thumbs\/\$\{article\.slug\}\.webp/);
   assert.doesNotMatch(homeSource, /<Link className="tasteBentoImage"/);
   assert.doesNotMatch(homeSource, /className="tasteMarqueeLabel"/);
   assert.doesNotMatch(packageSource, /@gsap\/react|"gsap"/);
@@ -128,7 +128,6 @@ test("ships a lightweight, accessible editorial browsing shell", async () => {
   assert.match(homeSource, /className="shell canadaDecisionsGrid"/);
   assert.match(homeSource, /Three Canadian decisions worth understanding now\./);
   assert.doesNotMatch(homeSource, /data-stack-card|tasteStack|TasteMotion/);
-  assert.match(homeSource, /className="tasteAccordionMedia"[\s\S]*?\/images\/articles\/thumbs\/\$\{article\.slug\}\.webp/);
   assert.doesNotMatch(homeSource, /modelStackImages|benchmark-score-lab\.jpg/);
   assert.match(globalStyles, /\.tasteThesis p span:not\(:last-child\) \{ margin-inline-end: \.22em; \}/);
   assert.doesNotMatch(archiveSource, /import \{ articles[,}]/);
@@ -322,9 +321,9 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
 
   assert.match(homeHtml, /"@type":"WebSite"/);
   assert.match(homeHtml, /"@type":"NewsMediaOrganization"/);
-  assert.match(homeHtml, /What do you want to work on/);
+  assert.match(homeHtml, /Try it\. Check what happened\./);
   assert.doesNotMatch(homeHtml, /focused editorial desks|publicationLedger/);
-  assert.match(homeHtml, /Browse practical business coverage/);
+  assert.match(homeHtml, /All practical guides/);
   assert.match(homeHtml, /Read the evidence<span class="visuallyHidden"> for <!-- -->Canada/);
   assert.match(homeHtml, /google-adsense-account/);
   assert.doesNotMatch(homeHtml, /pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js|armsbroodelusive|ad-frames/);
@@ -340,7 +339,7 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.doesNotMatch(articleMetaHtml, /Updated/i);
   assert.match(authorHtml, /"@type":"ProfilePage"/);
   assert.match(authorHtml, /"dateCreated":"2026-08-11T04:06:24-04:00"/);
-  assert.match(authorHtml, /"dateModified":"2026-09-09T05:18:04Z"/);
+  assert.match(authorHtml, /"dateModified":"2026-09-21T08:31:52Z"/);
   assert.match(articleHtml, /Editorial note:/);
   assert.match(articleHtml, /EDITOR’S NOTE/);
   assert.match(articleHtml, /Five questions, and no final rule yet/);
@@ -453,4 +452,20 @@ test("comparison guide includes the complete exercise and an initially unscored 
   assert.match(html, /Download comparison record/);
   assert.match(html, /Incomplete: score all five dimensions/);
   assert.doesNotMatch(html, /Ready for your review/);
+});
+
+
+test("publishes inspectable experiment outputs with matching source hashes", async () => {
+  const base = new URL("../public/experiments/decision-checks/", import.meta.url);
+  const [input, runner, output] = await Promise.all(["inputs.json", "run.mjs", "results.json"].map(name => readFile(new URL(name, base))));
+  const record = JSON.parse(output);
+  const hash = bytes => createHash("sha256").update(bytes).digest("hex");
+  assert.equal(record.inputSha256, hash(input));
+  assert.equal(record.runnerSha256, hash(runner));
+  for (const slug of ["intermediate-use-ai-spreadsheets-structured-data", "advanced-retrieval-ai-own-documents-citations"]) {
+    const html = await (await render(`/article/${slug}/`)).text();
+    assert.match(html, /id="recorded-experiment"/);
+    assert.match(html, /No commercial AI model or spreadsheet application was tested/);
+    for (const file of ["inputs.json", "run.mjs", "results.json", "README.txt"]) assert.ok(html.includes(`/experiments/decision-checks/${file}`));
+  }
 });

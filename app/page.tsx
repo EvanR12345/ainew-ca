@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { AdSlot, ArticleCard, SiteFooter, SiteHeader } from "./components";
+import { ArticleCard, SiteFooter, SiteHeader } from "./components";
 import { articleImageStyle } from "./article-image-style";
 import { articles, type Article } from "./lib/articles";
-import { articleModifiedDate, articleVisibleDate, searchEligibleArticles } from "./lib/search-quality";
+import { articleVisibleDate, searchEligibleArticles } from "./lib/search-quality";
 import { buildPageMetadata, categoryPath, organizationSchema, SITE_URL, WEBSITE_ID, websiteSchema } from "./lib/seo";
 import { StructuredData } from "./structured-data";
 
@@ -49,32 +49,6 @@ function DeskSection({
   );
 }
 
-function TasteBento({ stories }: { stories: Article[] }) {
-  return (
-    <section className="shell tasteBento" aria-label="Essential AI briefings">
-      {stories.map((article, index) => (
-        <article className={`tasteBentoCard tasteBentoCard-${index + 1}`} key={article.slug}>
-          <div className="tasteBentoImage" style={articleImageStyle(article.slug)}>
-            <Image unoptimized
-              src={`/images/articles/thumbs/${article.slug}.webp`}
-              alt={article.imageAlt}
-              width={800}
-              height={450}
-              sizes="(max-width: 980px) 100vw, 58vw"
-            />
-          </div>
-          <div className="tasteBentoShade" aria-hidden="true" />
-          <div className="tasteBentoCopy">
-            <div><span>{article.category}</span><ArticleDate article={article} /></div>
-            <h2><Link href={`/article/${article.slug}/`}>{article.title}</Link></h2>
-            {index === 0 && <p>{article.dek}</p>}
-          </div>
-        </article>
-      ))}
-    </section>
-  );
-}
-
 function CanadianDecisions({ stories }: { stories: Article[] }) {
   return (
     <section className="canadaDecisionsSection" aria-labelledby="canadian-decisions-heading">
@@ -113,93 +87,13 @@ function CanadianDecisions({ stories }: { stories: Article[] }) {
   );
 }
 
-function TasteAccordion({ stories }: { stories: Article[] }) {
-  return (
-    <section className="shell tasteAccordionSection">
-      <header>
-        <h2>Understand AI answers and their evidence.</h2>
-        <Link href={categoryPath("Models")}>Browse models and research <span aria-hidden="true">↗</span></Link>
-      </header>
-      <div className="tasteAccordion">
-        {stories.slice(0, 3).map((article) => (
-          <article key={article.slug}>
-            <Link className="tasteAccordionMedia" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
-              <Image unoptimized
-                src={`/images/articles/thumbs/${article.slug}.webp`}
-                alt={article.imageAlt}
-                width={800}
-                height={450}
-                sizes="(max-width: 760px) 100vw, 50vw"
-              />
-            </Link>
-            <div>
-              <span>{article.category}</span>
-              <h3><Link href={`/article/${article.slug}/`}>{article.title}</Link></h3>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function ReaderRoutes() {
-  const routes = [
-    {
-      number: "01",
-      label: "Understand Canada",
-      title: "Follow policy from announcement to implementation.",
-      description: "Read what government documents actually say, what remains undecided and which delivery signals matter next.",
-      href: "/topics/canadian-ai-policy/",
-      action: "Open the Canada policy path",
-    },
-    {
-      number: "02",
-      label: "Use AI well",
-      title: "Build a useful workflow without losing control.",
-      description: "Start with small tasks, protect private information and keep a human check between an answer and an action.",
-      href: "/topics/using-ai/",
-      action: "Open the practical AI path",
-    },
-    {
-      number: "03",
-      label: "Test the answer",
-      title: "Evaluate claims with evidence instead of confidence.",
-      description: "Compare answers consistently, inspect citations and design tests around the failures that would actually matter.",
-      href: "/topics/ai-models/",
-      action: "Open the evaluation path",
-    },
-  ];
-
-  return (
-    <section className="shell readerRoutes" aria-labelledby="reader-routes-heading">
-      <header>
-        <span>START WITH YOUR QUESTION</span>
-        <h2 id="reader-routes-heading">What do you want to work on?</h2>
-        <p>Each path connects reviewed articles in an order that helps you understand, apply and verify the material.</p>
-      </header>
-      <div>
-        {routes.map((route) => (
-          <article key={route.number}>
-            <div><span>{route.number}</span><small>{route.label}</small></div>
-            <h3>{route.title}</h3>
-            <p>{route.description}</p>
-            <Link href={route.href}>{route.action} <span aria-hidden="true">&rarr;</span></Link>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 export default function Home() {
   const publishedArticles = searchEligibleArticles(articles);
   const lead = publishedArticles[0];
   const essential = publishedArticles.filter((article) => article.signal === "Beginner how-to").slice(0, 3);
-  const latest = [...publishedArticles].sort((a, b) => articleModifiedDate(b).localeCompare(articleModifiedDate(a))).slice(0, 4);
   const canada = publishedArticles.filter((article) => article.category === "Canada").slice(1, 4);
-  const models = publishedArticles.filter((article) => ["Models", "Research"].includes(article.category)).slice(0, 4);
-  const work = publishedArticles.filter((article) => ["Products", "Business"].includes(article.category)).slice(0, 4);
+  const experiments = ["intermediate-use-ai-spreadsheets-structured-data", "advanced-retrieval-ai-own-documents-citations", "intermediate-compare-ai-answers-evaluation-scorecard"].map(slug => publishedArticles.find(article => article.slug === slug)!);
+  const featured = [lead, ...canada, ...essential, ...experiments];
 
   return (
     <div>
@@ -218,8 +112,8 @@ export default function Home() {
               isPartOf: { "@id": WEBSITE_ID },
               mainEntity: {
                 "@type": "ItemList",
-                numberOfItems: Math.min(12, publishedArticles.length),
-                itemListElement: publishedArticles.slice(0, 12).map((article, index) => ({
+                numberOfItems: featured.length,
+                itemListElement: featured.map((article, index) => ({
                   "@type": "ListItem",
                   position: index + 1,
                   url: `${SITE_URL}/article/${article.slug}/`,
@@ -229,7 +123,6 @@ export default function Home() {
             },
           ],
         }} />
-        <div className="shell topAdWrap"><AdSlot eager /></div>
 
         <div className="shell editionLine">
           <span>CANADIAN EDITION</span>
@@ -262,68 +155,28 @@ export default function Home() {
           </article>
         </section>
 
-        <TasteBento stories={essential} />
-
-        <ReaderRoutes />
-
-
-        <section className="shell latestSection" aria-labelledby="latest-heading">
-          <header className="newsroomSectionHeader latestHeader">
-            <div><h2 id="latest-heading">Latest guides</h2></div>
-            <p>Recently published or substantively revised guides, ordered by their latest documented date.</p>
-            <Link href="/articles/">All latest <span aria-hidden="true">&rarr;</span></Link>
-          </header>
-          <div className="latestNewsList">
-            {latest.map((article) => (
-              <article className="latestNewsItem" key={article.slug}>
-                <Link className="latestNewsImage" href={`/article/${article.slug}/`} style={articleImageStyle(article.slug)}>
-                  <Image src={`/images/articles/thumbs/${article.slug}.webp`} alt={article.imageAlt} width={800} height={450} unoptimized />
-                </Link>
-                <div>
-                  <div className="latestNewsMeta"><span>{article.category}</span><ArticleDate article={article} /></div>
-                  <h3><Link href={`/article/${article.slug}/`}>{article.title}</Link></h3>
-                  <p>{article.dek}</p>
-                </div>
-                <small>{article.readTime}</small>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <div className="shell sectionAdWrap"><AdSlot label="Homepage mid-page" /></div>
-
         <CanadianDecisions stories={canada} />
 
-        <section className="learningFeature">
-          <div className="shell learningFeatureInner">
-            <div>
-              <h2>Turn the news cycle into working knowledge.</h2>
-              <p>Choose a focused path, save a reading queue and test what you understood. Progress stays on your device.</p>
-              <Link href="/learn/">Open the free lab <span aria-hidden="true">&rarr;</span></Link>
-            </div>
-            <ol>
-              <li><strong>Choose a learning track</strong><small>Start with Canada, models, business, research or practical AI.</small></li>
-              <li><strong>Read the evidence</strong><small>Every guide keeps primary sources and important limits visible.</small></li>
-              <li><strong>Check your understanding</strong><small>Short quizzes and flashcards make passive reading useful.</small></li>
-            </ol>
-          </div>
-        </section>
-
-        <TasteAccordion stories={models} />
-
         <DeskSection
-          title="From product demo to repeatable workflow."
-          description="Practical coverage of AI products, enterprise choices and the human controls that keep automation useful."
-          href={categoryPath("Business")}
-          action="Browse practical business coverage"
-          stories={work}
+          title="Try it. Check what happened."
+          description="Run the invoice and document-selection experiments from the published data and code, or score two answers in your browser. Methods and limits are included."
+          href="/topics/ai-models/"
+          action="More ways to test AI"
+          stories={experiments}
         />
 
+        <DeskSection
+          title="Start with a small, useful task."
+          description="Practical guides to writing a clear request, checking the result and keeping private information out of the wrong account."
+          href="/topics/using-ai/"
+          action="All practical guides"
+          stories={essential}
+        />
 
         <section className="shell trustStrip">
-          <h2>Primary sources first. Clear labels. Corrections in public.</h2>
-          <p>We separate reported fact, company claim and analysis, then keep the evidence open so readers can check the work.</p>
-          <Link href="/editorial-policy/">Read our standards <span aria-hidden="true">&rarr;</span></Link>
+          <h2>Follow the evidence. Ask for a correction.</h2>
+          <p>Read the source documents, inspect the experiment files, or tell us which claim needs another look.</p>
+          <Link href="/about/">About the work and its limits <span aria-hidden="true">&rarr;</span></Link>
         </section>
       </main>
       <SiteFooter />

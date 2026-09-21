@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Newsletter } from "./newsletter";
-import { categoryPath } from "./lib/seo";
 import { LanguageSwitch } from "./language-preference";
 import { PrimaryNavigationController } from "./primary-navigation";
 
@@ -27,7 +26,7 @@ export function SiteHeader() {
             <span className="brandWord">NEW</span>
             <span className="brandCa">.CA</span>
           </Link>
-          <p className="brandTagline"><strong>Intelligence, made useful.</strong><span>Canada · Policy · Models · Work</span></p>
+          <p className="brandTagline"><strong>Intelligence, made useful.</strong><span>Canadian policy · Practical AI</span></p>
           <div className="mastheadActions">
             <LanguageSwitch />
             <Link className="mastheadSearch" href="/search/">Search</Link>
@@ -37,52 +36,16 @@ export function SiteHeader() {
         <nav className="mainNav" aria-label="Main navigation" data-primary-navigation>
           <PrimaryNavigationController />
           <div className="shell navInner">
-            <Link className="navLead" href="/articles/">Latest</Link>
-            <details className="navMore navMega" name="desktop-navigation">
-              <summary>News</summary>
-              <div className="megaMenu">
-                <section>
-                  <span>Newsroom</span>
-                  <Link href="/articles/"><strong>All latest</strong><small>The complete chronological feed</small></Link>
-                  <Link href={categoryPath("Canada")}><strong>Canada</strong><small>Policy, talent, compute and adoption</small></Link>
-                </section>
-                <section>
-                  <span>Desks</span>
-                  <Link href={categoryPath("Policy")}><strong>Policy</strong><small>Rules, rights and governance</small></Link>
-                  <Link href={categoryPath("Business")}><strong>Business</strong><small>Markets, strategy and operations</small></Link>
-                </section>
-              </div>
-            </details>
-            <details className="navMore navMega" name="desktop-navigation">
-              <summary>Technology</summary>
-              <div className="megaMenu">
-                <section>
-                  <span>Follow the stack</span>
-                  <Link href={categoryPath("Models")}><strong>Models</strong><small>Capabilities, costs and evaluations</small></Link>
-                  <Link href={categoryPath("Products")}><strong>Products</strong><small>Tools, agents and workflows</small></Link>
-                </section>
-                <section>
-                  <span>Go deeper</span>
-                  <Link href={categoryPath("Research")}><strong>Research</strong><small>Methods, results and limitations</small></Link>
-                  <Link href="/topics/ai-models/"><strong>Model guide</strong><small>A curated path through the field</small></Link>
-                </section>
-              </div>
-            </details>
-            <Link href={categoryPath("Canada")}>Canada</Link>
-            <Link href="/topics/">Topic guides</Link>
-            <details className="navMore navMega navLearnMenu" name="desktop-navigation">
-              <summary>Learn</summary>
-              <div className="megaMenu">
-                <section>
-                  <span>Build knowledge</span>
-                  <Link href="/learn/"><strong>Learning Lab</strong><small>Tracks, quizzes and saved reading</small></Link>
-                  <Link href="/topics/using-ai/"><strong>Use AI well</strong><small>Practical, verifiable workflows</small></Link>
-                </section>
-                <section>
-                  <span>Reference</span>
-                  <Link href="/ai-glossary/"><strong>AI glossary</strong><small>Plain-language definitions</small></Link>
-                  <Link href="/canada-ai-resources/"><strong>Canadian AI resources</strong><small>Official programs and institutions</small></Link>
-                </section>
+            <Link className="navLead" href="/topics/canadian-ai-policy/">Canadian policy</Link>
+            <Link href="/topics/using-ai/">Use AI</Link>
+            <Link href="/topics/ai-models/">Test AI</Link>
+            <Link href="/articles/">All guides</Link>
+            <details className="navMore" name="desktop-navigation">
+              <summary>Resources</summary>
+              <div className="navDropdown">
+                <Link href="/learn/">Learning Lab</Link>
+                <Link href="/ai-glossary/">AI glossary</Link>
+                <Link href="/canada-ai-resources/">Canadian AI resources</Link>
               </div>
             </details>
             <Link className="navAbout" href="/about/">About</Link>
@@ -92,18 +55,11 @@ export function SiteHeader() {
             <summary><span>Browse AI New</span><span aria-hidden="true">Menu</span></summary>
             <div className="mobileNavPanel">
               <section>
-                <span>Newsroom</span>
-                <Link href="/articles/">Latest</Link>
-                <Link href={categoryPath("Canada")}>Canada</Link>
-                <Link href={categoryPath("Policy")}>Policy</Link>
-                <Link href={categoryPath("Business")}>Business</Link>
-              </section>
-              <section>
-                <span>Technology</span>
-                <Link href={categoryPath("Models")}>Models</Link>
-                <Link href={categoryPath("Products")}>Products</Link>
-                <Link href={categoryPath("Research")}>Research</Link>
-                <Link href="/topics/ai-models/">Model guide</Link>
+                <span>Read &amp; practise</span>
+                <Link href="/topics/canadian-ai-policy/">Canadian policy</Link>
+                <Link href="/topics/using-ai/">Use AI</Link>
+                <Link href="/topics/ai-models/">Test AI</Link>
+                <Link href="/articles/">All guides</Link>
               </section>
               <section>
                 <span>Learn</span>
@@ -139,14 +95,11 @@ export function SiteFooter() {
           <Link className="footerBriefLink" href="/articles/">Read the latest briefing →</Link>
         </div>
         <div>
-          <h3>Newsroom</h3>
-          <Link href="/articles/">All stories</Link>
-          <Link href={categoryPath("Canada")}>Canada</Link>
-          <Link href={categoryPath("Models")}>Models</Link>
-          <Link href={categoryPath("Products")}>Products</Link>
-          <Link href={categoryPath("Business")}>Business</Link>
-          <Link href={categoryPath("Research")}>Research</Link>
-          <Link href={categoryPath("Policy")}>Policy</Link>
+          <h3>Read &amp; practise</h3>
+          <Link href="/topics/canadian-ai-policy/">Canadian policy</Link>
+          <Link href="/topics/using-ai/">Use AI</Link>
+          <Link href="/topics/ai-models/">Test AI</Link>
+          <Link href="/articles/">All guides</Link>
         </div>
         <div>
           <h3>Learn &amp; explore</h3>

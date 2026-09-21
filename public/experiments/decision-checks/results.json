@@ -1,0 +1,143 @@
+{
+  "datasetVersion": 1,
+  "inputSha256": "13432c067124c3ccc69c9715e99707f1e47bfc5ae30e741d909e5eeb47d6be51",
+  "runnerSha256": "968c639d8c59f2e121a41a4a24db65ffa57bde32b1aac4f604c2a98123048dbe",
+  "method": "Deterministic rule-based comparisons on purpose-built synthetic fixtures. No AI model, Excel, live database or real permission system was executed.",
+  "units": {
+    "invoices": "integer CAD cents or REVIEW",
+    "retrieval": "CAD meal allowance or REVIEW"
+  },
+  "invoices": [
+    {
+      "id": "original",
+      "expected": 17000,
+      "baseline": 17000,
+      "checked": 17000,
+      "baselineMatches": true,
+      "checkedMatches": true
+    },
+    {
+      "id": "new-paid-row",
+      "expected": 20000,
+      "baseline": 20000,
+      "checked": 20000,
+      "baselineMatches": true,
+      "checkedMatches": true
+    },
+    {
+      "id": "new-pending-row",
+      "expected": 17000,
+      "baseline": 17000,
+      "checked": 17000,
+      "baselineMatches": true,
+      "checkedMatches": true
+    },
+    {
+      "id": "duplicate-id",
+      "expected": "REVIEW",
+      "baseline": 29000,
+      "checked": "REVIEW",
+      "baselineMatches": false,
+      "checkedMatches": true
+    },
+    {
+      "id": "trailing-space",
+      "expected": "REVIEW",
+      "baseline": 5000,
+      "checked": "REVIEW",
+      "baselineMatches": false,
+      "checkedMatches": true
+    },
+    {
+      "id": "numeric-text",
+      "expected": "REVIEW",
+      "baseline": 17000,
+      "checked": "REVIEW",
+      "baselineMatches": false,
+      "checkedMatches": true
+    },
+    {
+      "id": "zero-paid-amount",
+      "expected": 5000,
+      "baseline": 5000,
+      "checked": 5000,
+      "baselineMatches": true,
+      "checkedMatches": true
+    },
+    {
+      "id": "negative-paid-amount",
+      "expected": "REVIEW",
+      "baseline": -7000,
+      "checked": "REVIEW",
+      "baselineMatches": false,
+      "checkedMatches": true
+    }
+  ],
+  "retrieval": [
+    {
+      "id": "june-boundary",
+      "expected": 40,
+      "baseline": 40,
+      "checked": 40,
+      "baselineMatches": true,
+      "checkedMatches": true
+    },
+    {
+      "id": "july-boundary",
+      "expected": 45,
+      "baseline": 40,
+      "checked": 45,
+      "baselineMatches": false,
+      "checkedMatches": true
+    },
+    {
+      "id": "missing-date",
+      "expected": "REVIEW",
+      "baseline": 40,
+      "checked": "REVIEW",
+      "baselineMatches": false,
+      "checkedMatches": true
+    },
+    {
+      "id": "outside-coverage",
+      "expected": "REVIEW",
+      "baseline": 40,
+      "checked": "REVIEW",
+      "baselineMatches": false,
+      "checkedMatches": true
+    },
+    {
+      "id": "manager-authorized",
+      "expected": 70,
+      "baseline": 40,
+      "checked": 70,
+      "baselineMatches": false,
+      "checkedMatches": true
+    },
+    {
+      "id": "unknown-role",
+      "expected": "REVIEW",
+      "baseline": 40,
+      "checked": "REVIEW",
+      "baselineMatches": false,
+      "checkedMatches": true
+    },
+    {
+      "id": "conflicting-current-policy",
+      "expected": "REVIEW",
+      "baseline": 40,
+      "checked": "REVIEW",
+      "baselineMatches": false,
+      "checkedMatches": true
+    },
+    {
+      "id": "invalid-calendar-date",
+      "expected": "REVIEW",
+      "baseline": 40,
+      "checked": "REVIEW",
+      "baselineMatches": false,
+      "checkedMatches": true
+    }
+  ],
+  "limitations": "The guarded rules were designed for these cases. Passing is not independent validation, a security assessment or an estimate of performance on real data. The naive baselines deliberately omit controls; they do not represent a commercial product."
+}

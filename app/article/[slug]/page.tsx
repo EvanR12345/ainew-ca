@@ -1,3 +1,4 @@
+import { ExperimentRecord } from "../../experiment-record";
 import { EvaluationWorksheet } from "../../evaluation-worksheet";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -79,6 +80,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const adjacent = getAdjacentArticles(article, publicArticles);
   const internalLinks = article.internalLinks?.filter((link) => publicArticles.some((candidate) => candidate.slug === link.slug));
   const sectionLinks = article.sections.map((section) => ({ id: sectionId(section.heading), heading: section.heading }));
+  const hasExperiment = ["intermediate-use-ai-spreadsheets-structured-data", "advanced-retrieval-ai-own-documents-citations"].includes(article.slug);
+  if (hasExperiment) sectionLinks.push({ id: "recorded-experiment", heading: "Inspect and rerun the experiment" });
   const topicHub = topicForArticle(article);
   const publishedTime = articlePublishedDateTime(article);
   const modifiedTime = articleModifiedDateTime(article);
@@ -160,9 +163,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <span>{article.readTime}</span>
             </div>
             <div className="articleTrustLine" aria-label="Article review details">
-              <span>Individually reviewed</span>
               <a href="#sources">{sourceList.length} named {sourceList.length === 1 ? "source" : "sources"}</a>
-              <Link href="/editorial-policy/">Method published</Link>
+              <Link href="/editorial-policy/">Editorial process</Link>
+              {hasExperiment && <a href="#recorded-experiment">Data, code &amp; results</a>}
             </div>
             <ul className="articleTags" aria-label="Article topics">
               {briefing.tags.map((tag) => <li key={tag}>{tag}</li>)}
@@ -193,8 +196,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               </section>
 
               <details className="articleToc">
-                <summary><span>In this article</span><strong>{article.sections.length} sections</strong></summary>
-                <nav aria-label="In this article"><ol>{article.sections.map((item) => <li key={item.heading}><a href={`#${sectionId(item.heading)}`}>{item.heading}</a></li>)}</ol></nav>
+                <summary><span>In this article</span><strong>{sectionLinks.length} sections</strong></summary>
+                <nav aria-label="In this article"><ol>{sectionLinks.map((item) => <li key={item.id}><a href={`#${item.id}`}>{item.heading}</a></li>)}</ol></nav>
               </details>
 
               <p className="disclosure"><strong>Editorial note:</strong> {article.disclaimer ?? "This explainer starts with the linked primary source and adds original AI New analysis. Product claims should be tested against your own requirements."}</p>
@@ -240,6 +243,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               ))}
 
               {article.slug === "intermediate-compare-ai-answers-evaluation-scorecard" && <EvaluationWorksheet />}
+              {article.slug === "intermediate-use-ai-spreadsheets-structured-data" && <ExperimentRecord suite="invoices" />}
+              {article.slug === "advanced-retrieval-ai-own-documents-citations" && <ExperimentRecord suite="retrieval" />}
 
               <aside className="articleTopicPath">
                 <h2>{topicHub.title}</h2>
