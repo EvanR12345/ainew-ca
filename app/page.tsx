@@ -137,7 +137,7 @@ export default function Home() {
               Understand AI.
               <span>Check the evidence.</span>
             </h1>
-            <p>Read Canadian policy documents with context, compare AI answers and practise safer workflows. Worked examples are labelled so you can distinguish exercises from reported findings.</p>
+            <p>Work through a 20-point answer comparison, rerun two published code experiments, or check a Canadian AI policy against its source documents. Worked examples and measured results are labelled separately.</p>
             <div className="tasteHeroActions">
               <Link href={`/article/${lead.slug}/`}>Read the featured analysis <span aria-hidden="true">↗</span></Link>
               <Link href="/learn/">Build a learning path</Link>

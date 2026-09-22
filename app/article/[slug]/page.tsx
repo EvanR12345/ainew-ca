@@ -207,6 +207,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   <section id={sectionId(section.heading)}>
                     <h2>{section.heading}</h2>
                     {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                    {section.furtherReading && publicArticles.some((candidate) => candidate.slug === section.furtherReading?.slug) && <p className="articleContextLink"><Link href={`/article/${section.furtherReading.slug}/`}>{section.furtherReading.label}</Link><span>{section.furtherReading.reason}</span></p>}
                     {section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
                     {section.example && <figure className="articleExample"><figcaption>{section.example.label}</figcaption><pre><code>{section.example.text}</code></pre></figure>}
                     {section.table && <p className="articleTableHint">Scroll the table sideways to see every column.</p>}

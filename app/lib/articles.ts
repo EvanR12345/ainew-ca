@@ -5,6 +5,7 @@ export type ArticleSection = {
   heading: string;
   paragraphs: string[];
   bullets?: string[];
+  furtherReading?: { slug: string; label: string; reason: string };
   example?: { label: string; text: string };
   table?: { caption: string; columns: string[]; rows: string[][] };
 };
@@ -57,7 +58,7 @@ export const articles: Article[] = [
     "slug": "canada-algorithmic-impact-assessment-worked-example",
     "title": "Read a federal AI risk assessment: the missing-evidence test",
     "seoTitle": "Federal AI risk assessments: find the missing evidence",
-    "dek": "Compare the federal scope, assessment and peer-review guidance, then use a benefits-queue example to find what a risk score leaves unanswered.",
+    "dek": "Canada’s Algorithmic Impact Assessment is a starting point for scrutiny, not proof that a system is safe. Read the scope decision, supporting answers and peer review together; then identify the evidence behind the score and the consequences for affected people.",
     "category": "Policy",
     "date": "2026-09-11",
     "modifiedAt": "2026-09-21T22:36:20Z",
@@ -100,7 +101,7 @@ export const articles: Article[] = [
       },
       {
         "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
-        "title": "Score the answer, not the confidence: a 20-point AI exercise"
+        "title": "Compare AI answers: score evidence, not confidence"
       },
       {
         "slug": "advanced-ai-evaluation-red-team-monitor-production",
@@ -208,7 +209,12 @@ export const articles: Article[] = [
         "paragraphs": [
           "The peer-review guide calls for review at impact levels II, III and IV, with at least one expert at levels II and III and at least two at level IV. It also addresses conflicts of interest and supporting documentation. Those are requirements about scrutiny; they are not evidence that a particular implementation passed it.",
           "Read a finding, the department’s response and the remaining condition together. “Improve explanations” is less informative than a finding tied to a specific unsupported label, a change to the interface and a retest. If only a summary is public, note what the summary cannot establish. Do not describe absent technical details as independently verified."
-        ]
+        ],
+        "furtherReading": {
+          "slug": "buying-ai-canada-evidence-before-contract",
+          "label": "AI purchasing evidence pack",
+          "reason": "Turn the unanswered review questions into records to request from a supplier."
+        }
       },
       {
         "heading": "A reusable reading note",
@@ -230,7 +236,7 @@ export const articles: Article[] = [
   {
     "slug": "canada-ai-transparency-consultation-what-to-know",
     "title": "What should an AI disclosure tell you? Canada’s five questions",
-    "dek": "Five proposals ask for different kinds of transparency. Here is how to make a specific comment without mistaking the consultation for a new law.",
+    "dek": "Canada’s AI transparency consultation asks what people should be told about AI interactions, generated content and system activity; it does not establish final rules. A useful response names a specific failure and the information that would prevent it. The published submission deadline is September 23, 2026.",
     "category": "Canada",
     "date": "2026-08-10",
     "readTime": "3 min read",
@@ -315,7 +321,12 @@ export const articles: Article[] = [
         "paragraphs": [
           "ISED’s participation page offers a survey and an email route and warns that submissions are public documents that may be posted online. Use the official page for the current contact details. Do not attach customer messages, personal identifiers or a private incident report merely to make the example vivid.",
           "After the consultation closes, a submission deadline should be described in the past tense. A later summary of responses would still need to be distinguished from an enacted requirement. When citing this article after September 23, check the official page for the next stage rather than assuming the consultation remains open."
-        ]
+        ],
+        "furtherReading": {
+          "slug": "beginner-use-ai-safely-files-email-private-data",
+          "label": "privacy check before sharing files",
+          "reason": "Reduce the personal information in any example you send."
+        }
       }
     ],
     "modifiedAt": "2026-09-21T22:36:20Z",
@@ -354,7 +365,7 @@ export const articles: Article[] = [
   {
     "slug": "canada-ai-for-all-strategy-field-guide",
     "title": "Canadian AI sovereignty: follow the workload, not the map",
-    "dek": "Canadian location, control, access and an exit route are different things. Read the national AI strategy with a practical sovereignty checklist.",
+    "dek": "Canadian AI sovereignty involves more than locating a data centre in Canada. Check five things for your workload: location, operational control, access, continuity and exit. The national strategy describes commitments; a supplier still needs to show which controls and capacity you can actually use.",
     "category": "Canada",
     "date": "2026-08-30",
     "readTime": "4 min read",
@@ -462,7 +473,12 @@ export const articles: Article[] = [
           "Consider two hypothetical users. A university group wants to train a model over several weeks; a small manufacturer wants a reliable daily inference service. The first may care most about a large temporary allocation and the ability to move checkpoints. The second may care more about response time, support and predictable operating cost.",
           "Neither need is resolved by the phrase “domestic capacity.” For the university group, request scheduling limits and storage-transfer conditions. For the manufacturer, request a service agreement, supported deployment options and a recovery procedure. If an access program subsidizes one workload but excludes the other, report that boundary rather than calling the program universally available.",
           "This distinction also changes how to judge success. A facility opening is an infrastructure result. Reduced waiting time for eligible researchers is an access result. A reliable service at an affordable cost is an operating result. Keeping them separate makes progress reports harder to inflate."
-        ]
+        ],
+        "furtherReading": {
+          "slug": "canada-ai-compute-funding-cost-plan",
+          "label": "AI Compute Access Fund cost plan",
+          "reason": "Separate a capacity announcement from a funding assumption in your budget."
+        }
       },
       {
         "heading": "The rest of the strategy still matters",
@@ -490,7 +506,7 @@ export const articles: Article[] = [
   {
     "slug": "federal-public-service-ai-strategy-2025-2027",
     "title": "The first page of a federal AI pilot should be a decision brief",
-    "dek": "The federal strategy sets direction. A worked briefing shows what a department still needs to decide about data, authority, training and service outcomes.",
+    "dek": "A federal AI pilot needs a decision brief that names its task, data, accountable owner and stopping conditions. The 2025–2027 strategy supplies direction, not permission for a particular deployment. Start with a narrow use and evidence that would justify continuing it.",
     "category": "Canada",
     "date": "2026-08-30",
     "readTime": "3 min read",
@@ -506,7 +522,7 @@ export const articles: Article[] = [
       },
       {
         "label": "Government of Canada guide on generative AI",
-        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/generative-ai/guide-use-generative-ai.html",
         "note": "Operational federal guidance used for the responsibilities and cautions applied to generative-AI use by public servants."
       },
       {
@@ -580,7 +596,12 @@ export const articles: Article[] = [
         "paragraphs": [
           "A public-information assistant retrieves passages from published guidance. Its basic test is whether an answer matches the correct, current paragraph and explains when the source does not answer the question. A client-file summarizer adds personal information and the risk of omitting something consequential. A priority-ranking tool adds a further question: does its output change who receives attention first?",
           "Do not let a pilot’s original description survive after its role expands. Moving from public lookup to client summarization is a data change. Moving from summary to ranking is a decision change. Each should trigger a fresh examination of authority, risk and evidence. The federal scope guide is the place to begin the automated-decision applicability review; the strategy alone cannot answer it."
-        ]
+        ],
+        "furtherReading": {
+          "slug": "canada-algorithmic-impact-assessment-worked-example",
+          "label": "federal Algorithmic Impact Assessment reading guide",
+          "reason": "Check the scope question when a document assistant starts influencing an administrative decision."
+        }
       },
       {
         "heading": "A filled brief for a deliberately narrow pilot",
@@ -647,7 +668,7 @@ export const articles: Article[] = [
   {
     "slug": "canada-ai-privacy-impact-assessment-guide",
     "title": "Where did the prompt go? Trace an AI system’s personal data",
-    "dek": "Trace a fictional request through prompts, retrieval, inference and logs, with a concrete control and unresolved question at each hand-off.",
+    "dek": "An AI privacy assessment should follow personal information through the whole system: prompts, retrieved documents, model responses, logs and vendor copies. Record why each copy exists, who can access it and when it is removed. A privacy setting on the chat screen does not answer all those questions.",
     "category": "Canada",
     "date": "2026-08-30",
     "readTime": "3 min read",
@@ -663,7 +684,7 @@ export const articles: Article[] = [
       },
       {
         "label": "Government of Canada guide on generative AI",
-        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/generative-ai/guide-use-generative-ai.html",
         "note": "Federal operational guidance used for examples of data handling, privacy, security and human-review risks in generative-AI work."
       },
       {
@@ -765,6 +786,11 @@ export const articles: Article[] = [
         "example": {
           "label": "A precise provider question",
           "text": "For this product, account configuration and data category, which copies of our input and generated output are retained, who can access them, and what documented process removes or corrects each copy? Please identify any exceptions rather than answering only for the visible chat history."
+        },
+        "furtherReading": {
+          "slug": "buying-ai-canada-evidence-before-contract",
+          "label": "five procurement evidence requests",
+          "reason": "Ask for inspectable records before connecting a supplier to personal information."
         }
       },
       {
@@ -782,14 +808,14 @@ export const articles: Article[] = [
   {
     "slug": "beginner-how-to-use-ai-everyday-work",
     "title": "Turn messy meeting notes into tasks without inventing an owner",
-    "dek": "Use these fictional notes to practise extracting actions, spotting invented commitments and deciding whether the assistant saved you work.",
+    "dek": "To turn meeting notes into an action list with AI, request the task, owner, deadline and supporting words from the notes. Require missing details to stay unresolved. This fictional workshop exercise includes a complete answer key so you can spot invented commitments before using the result.",
     "category": "Products",
     "date": "2026-08-10",
     "readTime": "3 min read",
     "signal": "Beginner how-to",
     "accent": "amber",
     "sourceLabel": "Treasury Board: Guide on the use of generative AI",
-    "sourceUrl": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
+    "sourceUrl": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/generative-ai/guide-use-generative-ai.html",
     "internalLinks": [
       {
         "slug": "beginner-ai-prompts-without-magic-words",
@@ -815,7 +841,7 @@ export const articles: Article[] = [
     "sources": [
       {
         "label": "Treasury Board: Guide on the use of generative AI",
-        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/generative-ai/guide-use-generative-ai.html",
         "note": "Federal workplace guidance on checking outputs and managing information. Its institutional requirements are not a universal rule for every Canadian business."
       },
       {
@@ -902,7 +928,12 @@ export const articles: Article[] = [
         "paragraphs": [
           "Replace the sentence about Sam with “Sam confirmed the Saturday desk.” Run the extraction again. The desk commitment should change; the venue owner and workshop date should remain unresolved. This checks whether the system can make a local revision without filling unrelated gaps.",
           "Next remove the Thursday deadline. The correct result now says the deadline is not specified. If the earlier deadline survives, the tool may be carrying information from the conversation that is no longer in your source. Start a fresh conversation or explicitly identify which source version controls. Save both inputs if you want to compare the behaviour."
-        ]
+        ],
+        "furtherReading": {
+          "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
+          "label": "20-point AI answer comparison",
+          "reason": "Use a consistent rubric when the output needs more than a quick check against the notes."
+        }
       },
       {
         "heading": "Decide whether it was worth using",
@@ -917,14 +948,14 @@ export const articles: Article[] = [
   {
     "slug": "beginner-ai-prompts-without-magic-words",
     "title": "Four repairs for an AI prompt that keeps missing the brief",
-    "dek": "A fictional workshop notice shows how to specify facts, leave gaps visible and test one revision without collecting magic phrases.",
+    "dek": "To fix an AI prompt, identify the specific failure before adding more instructions: missing facts, invented details, the wrong format or an unclear audience. Give the model a bounded source card, repair one instruction and test another example. Better wording cannot supply facts the source never contained.",
     "category": "Products",
     "date": "2026-08-10",
     "readTime": "4 min read",
     "signal": "Beginner how-to",
     "accent": "red",
     "sourceLabel": "Treasury Board: Guide on the use of generative AI",
-    "sourceUrl": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
+    "sourceUrl": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/generative-ai/guide-use-generative-ai.html",
     "internalLinks": [
       {
         "slug": "beginner-how-to-use-ai-everyday-work",
@@ -932,7 +963,7 @@ export const articles: Article[] = [
       },
       {
         "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
-        "title": "Score the answer, not the confidence: a 20-point AI exercise"
+        "title": "Compare AI answers: score evidence, not confidence"
       }
     ],
     "image": "/images/articles/unique/beginner-ai-prompts-without-magic-words.jpg",
@@ -946,7 +977,7 @@ export const articles: Article[] = [
     "sources": [
       {
         "label": "Treasury Board: Guide on the use of generative AI",
-        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/generative-ai/guide-use-generative-ai.html",
         "note": "Federal workplace guidance on checking outputs and managing information. Its institutional requirements are not a universal rule for every Canadian business."
       },
       {
@@ -1034,7 +1065,12 @@ export const articles: Article[] = [
         "paragraphs": [
           "A request cannot make an unavailable document available or turn uncertain information into a verified fact. When the source is missing, retrieve it or leave the claim unresolved. When the task needs calculation, check the calculation independently. When an action would affect someone else, obtain the required authority outside the prompt.",
           "Treasury Board’s guidance and NIST’s risk profile supply background on output checking and confabulation. They do not endorse this particular brief. Our contribution is the repair procedure: identify the failed requirement, change the relevant instruction, and test whether the change solved that problem without introducing another."
-        ]
+        ],
+        "furtherReading": {
+          "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
+          "label": "AI answer evaluation worksheet",
+          "reason": "Separate a wording improvement from a result that actually meets the requirements."
+        }
       }
     ],
     "seoTitle": "Fix an AI prompt: four repairs you can check"
@@ -1042,7 +1078,7 @@ export const articles: Article[] = [
   {
     "slug": "beginner-use-ai-safely-files-email-private-data",
     "title": "Share less with AI: reduce a private email to the useful facts",
-    "dek": "A complete email-redaction exercise explains what the task needs, what stays out, and why connecting an account is a separate decision.",
+    "dek": "Before uploading a file to AI, remove information the task does not need and check hidden contents as well as visible text. Share a minimal extract where possible. Connecting an email account or folder grants a different scope of access and needs a separate permissions check.",
     "category": "Policy",
     "date": "2026-08-10",
     "readTime": "4 min read",
@@ -1080,7 +1116,7 @@ export const articles: Article[] = [
       },
       {
         "label": "Treasury Board: Guide on the use of generative AI",
-        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/generative-ai/guide-use-generative-ai.html",
         "note": "Federal workplace guidance on checking outputs and managing information. Its institutional requirements are not a universal rule for every Canadian business."
       },
       {
@@ -1163,7 +1199,12 @@ export const articles: Article[] = [
         "paragraphs": [
           "A connector can make future material available without a fresh file upload. Read the permissions before connecting it: which account, which folders, which actions and which period of access? Read-only access still permits information to be read. Write access introduces the possibility of sending or changing something.",
           "Prefer the smallest authorized scope that serves the task. Confirm how to revoke it and what happens to material already copied or indexed. Product names and settings change, so verify the current documentation for the exact plan and account. This article does not claim that a generic “private” mode resolves every retention or access question."
-        ]
+        ],
+        "furtherReading": {
+          "slug": "canada-ai-privacy-impact-assessment-guide",
+          "label": "AI privacy data-flow assessment",
+          "reason": "Map access, copies and retention when the task expands beyond a small extract."
+        }
       },
       {
         "heading": "If you shared the wrong material",
@@ -1178,7 +1219,7 @@ export const articles: Article[] = [
   {
     "slug": "intermediate-repeatable-ai-research-writing-workflow",
     "title": "Can you trace that AI claim? Build a three-source ledger",
-    "dek": "Follow a real policy question from source selection to publishable sentences, with the claims that must remain unresolved.",
+    "dek": "To verify AI-assisted research, make a claim ledger with the source, supporting passage, date and limitation for each important statement. Use the model to organize the material, then inspect the originals yourself. This guide applies that method to three government sources about Canada’s AI consultation.",
     "category": "Research",
     "date": "2026-08-10",
     "readTime": "4 min read",
@@ -1193,7 +1234,7 @@ export const articles: Article[] = [
       },
       {
         "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
-        "title": "Score the answer, not the confidence: a 20-point AI exercise"
+        "title": "Compare AI answers: score evidence, not confidence"
       },
       {
         "slug": "intermediate-use-ai-spreadsheets-structured-data",
@@ -1289,7 +1330,12 @@ export const articles: Article[] = [
         "paragraphs": [
           "This source comparison did not establish a conflict over the dates. For a future update, suppose a participation page changes its deadline while an older announcement keeps the original one. Record both versions and investigate which page governs current submissions. Do not rewrite the announcement’s history or ask a model to vote between the dates.",
           "If the controlling source remains unclear, narrow the claim and contact the source through its official route. A useful ledger can contain “not resolved.” The unresolved field protects the draft from turning a research problem into false certainty."
-        ]
+        ],
+        "furtherReading": {
+          "slug": "canada-ai-transparency-consultation-what-to-know",
+          "label": "Canada’s AI transparency consultation guide",
+          "reason": "Read the policy context behind the three-source example."
+        }
       },
       {
         "heading": "Build the next update from the claims that can expire",
@@ -1303,8 +1349,8 @@ export const articles: Article[] = [
   },
   {
     "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
-    "title": "Score the answer, not the confidence: a 20-point AI exercise",
-    "dek": "Score two fictional answers against the same records, catch an unauthorized purchase and export your own review from the worksheet.",
+    "title": "Compare AI answers: score evidence, not confidence",
+    "dek": "To compare AI answers, use the same task and sources, then score evidence, completeness, uncertainty, usefulness and permissions. A fluent answer must still fail if it invents authority to act. The 20-point worksheet below includes two fictional answers, source records and an answer key.",
     "category": "Models",
     "date": "2026-08-10",
     "readTime": "4 min read",
@@ -1347,7 +1393,7 @@ export const articles: Article[] = [
       },
       {
         "label": "Treasury Board: Guide on the use of generative AI",
-        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-generative-ai.html",
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/generative-ai/guide-use-generative-ai.html",
         "note": "Federal workplace guidance on checking outputs and managing information. Its institutional requirements are not a universal rule for every Canadian business."
       }
     ],
@@ -1443,7 +1489,12 @@ export const articles: Article[] = [
           "Use the worksheet below to record the task, evidence, stop conditions and scores. Its export remains a file on your device; it does not send your source pack to a model. Avoid putting confidential material into a shared review file without authorization.",
           "For a real tool comparison, keep inputs and allowed tools consistent and record the product, date and disclosed settings. Add ordinary, ambiguous, conflicting and unanswered cases. Reserve some examples from prompt development. Repeat cases when variability could change your decision, and report the limits of the sample instead of declaring a universal winner.",
           "Finally, count review time and rejected attempts. If a fictional batch takes 60 minutes and produces eight accepted summaries, the effort is 7.5 minutes per accepted summary. A higher raw score can still be less useful if it requires more checking or produces a critical failure."
-        ]
+        ],
+        "furtherReading": {
+          "slug": "advanced-ai-evaluation-red-team-monitor-production",
+          "label": "AI release evaluation and blocking failures",
+          "reason": "Decide which failures should prevent use even when the total score looks good."
+        }
       }
     ],
     "seoTitle": "AI answer comparison: a 20-point scoring exercise"
@@ -1451,7 +1502,7 @@ export const articles: Article[] = [
   {
     "slug": "intermediate-use-ai-spreadsheets-structured-data",
     "title": "The $170 spreadsheet check: catch a total that hides bad rows",
-    "dek": "Reconcile a five-row invoice table, then inspect the executed cases where a plausible total hides duplicate IDs, text values or unexpected labels.",
+    "dek": "To check an AI-assisted spreadsheet, verify which rows were included before trusting the total. The worked invoice example totals $170, but duplicates, text amounts and changed labels can make a plausible result misleading. Eight published code cases show which errors the sample checks catch.",
     "category": "Business",
     "date": "2026-08-10",
     "readTime": "4 min read",
@@ -1470,7 +1521,7 @@ export const articles: Article[] = [
       },
       {
         "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
-        "title": "Score the answer, not the confidence: a 20-point AI exercise"
+        "title": "Compare AI answers: score evidence, not confidence"
       }
     ],
     "image": "/images/articles/unique/intermediate-use-ai-spreadsheets-structured-data.jpg",
@@ -1606,6 +1657,11 @@ export const articles: Article[] = [
               "Is this a credit, correction or invalid input?"
             ]
           ]
+        },
+        "furtherReading": {
+          "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
+          "label": "compare AI answers against a fixed rubric",
+          "reason": "Score the explanation and its supporting evidence as well as checking the arithmetic."
         }
       },
       {
@@ -1621,7 +1677,7 @@ export const articles: Article[] = [
   {
     "slug": "advanced-human-in-the-loop-ai-agent-workflow",
     "title": "Approve one action: the boundary an AI agent must keep",
-    "dek": "A support-message example connects permissions, immutable approval details, ambiguous send results and recovery tests.",
+    "dek": "An AI agent approval should authorize one exact action: the recipient, payload, scope and conditions must match what the person reviewed. Stop and ask again when those details change. A timeout needs an outcome check before retrying an action that could run twice.",
     "category": "Products",
     "date": "2026-08-10",
     "readTime": "3 min read",
@@ -1745,7 +1801,12 @@ export const articles: Article[] = [
           "Place instructions inside a support document asking the agent to export other tickets. Retrieved text must not grant that authority.",
           "Revoke the reviewer’s permission before execution. The downstream authorization check must still apply.",
           "Simulate an ambiguous send response. The workflow must reconcile the result rather than assume failure and repeat it."
-        ]
+        ],
+        "furtherReading": {
+          "slug": "advanced-ai-evaluation-red-team-monitor-production",
+          "label": "release gates for consequential AI failures",
+          "reason": "Connect these permission cases to an explicit stop or release decision."
+        }
       },
       {
         "heading": "Plan recovery around what cannot be undone",
@@ -1760,7 +1821,7 @@ export const articles: Article[] = [
   {
     "slug": "advanced-retrieval-ai-own-documents-citations",
     "title": "Eight document traps for an AI retrieval system",
-    "dek": "Inspect a fictional policy corpus and rerun two selectors to see why a relevant citation can still give the wrong answer.",
+    "dek": "To test AI document retrieval, check version, audience, conflicting evidence and missing answers as well as topic relevance. Our eight-case synthetic experiment compares two document selectors: one passes 1 of 8 cases, the other 8 of 8. These are code results, not a benchmark of commercial AI models.",
     "category": "Research",
     "date": "2026-08-10",
     "readTime": "4 min read",
@@ -1879,7 +1940,12 @@ export const articles: Article[] = [
           "First ask whether an authorized user received the applicable passage. Then ask whether the generated statement follows from it. A model could receive T2 and still write CAD 40; that is an answer-support failure rather than the selection failure measured here.",
           "Also compare metadata with the source text. Change the amount in a paragraph without changing its metadata and our selector will not detect the contradiction. A complete pipeline needs ingestion and content-consistency checks in addition to this date-and-audience logic.",
           "For your own system, retain the question, authenticated scope, source version, selected passage and unresolved conflict. Show readers a permitted passage they can inspect. A citation earns its usefulness from applicability and support, not from the mere presence of a link."
-        ]
+        ],
+        "furtherReading": {
+          "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
+          "label": "AI answer comparison exercise",
+          "reason": "Assess the written answer after checking that retrieval selected the right evidence."
+        }
       }
     ],
     "seoTitle": "Test AI document retrieval with eight evidence traps"
@@ -1887,7 +1953,7 @@ export const articles: Article[] = [
   {
     "slug": "advanced-ai-evaluation-red-team-monitor-production",
     "title": "The one failure that outweighs 99 passing AI checks",
-    "dek": "A worked release decision shows why an average score can hide the error that matters, and how to carry that failure into live monitoring.",
+    "dek": "An AI release can pass 99 of 100 checks and still be unsafe to launch if the remaining failure breaks a critical boundary. Define blocking failures before testing, report results by failure type and plan a rollback. The 99-of-100 example here is hypothetical, not a measured product result.",
     "category": "Models",
     "date": "2026-08-10",
     "readTime": "3 min read",
@@ -1898,7 +1964,7 @@ export const articles: Article[] = [
     "internalLinks": [
       {
         "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
-        "title": "Score the answer, not the confidence: a 20-point AI exercise"
+        "title": "Compare AI answers: score evidence, not confidence"
       },
       {
         "slug": "advanced-human-in-the-loop-ai-agent-workflow",
@@ -1995,7 +2061,12 @@ export const articles: Article[] = [
         "paragraphs": [
           "A red-team case should test a failure path the system could actually take. Put a misleading instruction inside a retrieved document and see whether it changes tool authority. Ask for a record belonging to another user. Change a permission after an answer is cached. Use an invalid date or conflicting source to test whether the system admits uncertainty.",
           "Run these checks in an authorized environment. Document the expected behaviour and the observed result, including partial failures. A refusal in the chat window does not prove that no restricted material appeared in logs or previews. Inspect the relevant boundary rather than judging only the final prose."
-        ]
+        ],
+        "furtherReading": {
+          "slug": "advanced-human-in-the-loop-ai-agent-workflow",
+          "label": "exact-action approval for AI agents",
+          "reason": "Specify the permission boundary before turning it into a release test."
+        }
       },
       {
         "heading": "Connect the failed case to a live signal",
@@ -2018,7 +2089,7 @@ export const articles: Article[] = [
     "slug": "canada-ai-compute-funding-cost-plan",
     "title": "Canada’s AI compute fund is closed. Build the cost plan anyway.",
     "seoTitle": "AI Compute Access Fund: status and a worked cost plan",
-    "dek": "Separate the supplier bill, potential eligible costs and cash you must front. A fictional $156,000 budget makes the differences visible.",
+    "dek": "The AI Compute Access Fund is closed to new applications. For cost planning, separate the full supplier bill, potentially eligible expenses and cash needed before reimbursement. Our fictional $156,000 quote leaves $60,000 before tax after an assumed $96,000 contribution; without an award, the team pays the full bill.",
     "category": "Business",
     "date": "2026-09-22",
     "modifiedAt": "2026-09-22T04:20:14Z",
@@ -2136,20 +2207,25 @@ export const articles: Article[] = [
           "The application guide asks applicants to explain their project and commercialization case. For this exercise, the useful preparation is a folder that connects each budget line to a workload and an observable result. “Train an AI model” is too vague to explain why a particular capacity reservation is needed.",
           "For the $120,000 compute line, our fictional team would record the experiment schedule, expected hours, quoted unit rate, cancellation terms and the person allowed to increase the reservation. For storage, it would record what is retained, for how long and why. A provider’s Canadian sales address alone does not settle where a workload or its data will run; request supporting documentation and check it against the actual program conditions.",
           "End the worksheet with three unresolved questions: Which costs would the agreement accept? What rate and repayment terms would apply? Can the company pay the supplier without relying on an unconfirmed receipt? Those questions survive changes to program dates and make the cost plan useful even if no further call opens."
-        ]
+        ],
+        "furtherReading": {
+          "slug": "canada-ai-for-all-strategy-field-guide",
+          "label": "five checks for Canadian AI sovereignty",
+          "reason": "Examine control, continuity and exit alongside the quoted compute price."
+        }
       }
     ],
     "publishedAt": "2026-09-22T04:20:14Z"
   },
   {
     "slug": "buying-ai-canada-evidence-before-contract",
-    "title": "Before buying AI, ask for the evidence that survives the demo",
-    "seoTitle": "Buying AI in Canada: an evidence pack before the contract",
-    "dek": "A supplier listing, a convincing demo and an accepted product answer different questions. Work through a fictional purchase with five evidence requests.",
+    "title": "AI demo vs pilot vs acceptance test: what a buyer learns",
+    "seoTitle": "AI demo vs pilot vs acceptance test: a buyer’s guide",
+    "dek": "An AI demo shows a selected example; a pilot explores a bounded workflow; an acceptance test checks requirements agreed before purchase or release. None automatically substitutes for the others. For a Canadian AI purchase, request the test inputs, outputs, configuration and unresolved failures rather than relying on a supplier listing.",
     "category": "Business",
     "date": "2026-09-22",
-    "modifiedAt": "2026-09-22T04:20:14Z",
-    "updateNote": "New independently structured guide with verified primary sources and an original worked exercise.",
+    "modifiedAt": "2026-09-22T17:30:48Z",
+    "updateNote": "Added an editorial comparison of demos, bounded pilots and acceptance tests, including evidence to retain and limits of each stage.",
     "readTime": "6 min read",
     "signal": "Canadian AI buying guide",
     "accent": "blue",
@@ -2179,7 +2255,7 @@ export const articles: Article[] = [
       },
       {
         "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
-        "title": "Score the answer, not the confidence: a 20-point AI exercise"
+        "title": "Compare AI answers: score evidence, not confidence"
       },
       {
         "slug": "federal-public-service-ai-strategy-2025-2027",
@@ -2198,6 +2274,47 @@ export const articles: Article[] = [
         "paragraphs": [
           "Public Services and Procurement Canada maintains an AI source list as a way for federal buyers to acquire AI goods and services. Being qualified for a procurement route is not proof that every product, configuration or use case from that supplier meets a buyer’s needs. The official description concerns access to a procurement process; it does not report the results of your acceptance test. Treat any broader conclusion as something that needs its own evidence.",
           "This guide starts at that gap. A fictional organization wants an assistant that answers staff questions from internal operating manuals. The demonstration looks convincing. Before the buyer commits, what records would let someone else check the proposed system? Our five-row evidence pack is an editorial exercise for that purchase, not an official federal form or a claim that all Canadian buyers follow the same rules."
+        ]
+      },
+      {
+        "heading": "Demo, pilot or acceptance test: choose the question first",
+        "paragraphs": [
+          "These three activities answer different questions. The comparison below is our planning framework for the fictional manual assistant, not terminology prescribed by CanadaBuys or a universal contract sequence. Decide what uncertainty you need to resolve before choosing the activity. A small buyer may combine stages, but should still distinguish exploration from a decision to accept delivery.",
+          "A demo is useful when you need to understand an interaction. A pilot becomes useful when the uncertainty is whether the workflow works for your staff and documents. Acceptance testing is useful when you need a repeatable yes-or-no decision against agreed requirements. Ask the contracting authority how those activities fit the applicable procurement process; this comparison does not authorize a purchase."
+        ],
+        "table": {
+          "caption": "Editorial comparison for the fictional internal-manual assistant; no supplier has been tested",
+          "columns": [
+            "Activity",
+            "Useful question",
+            "Evidence to keep",
+            "What it cannot establish"
+          ],
+          "rows": [
+            [
+              "Demo",
+              "Can we understand the proposed interaction?",
+              "Exact scenario, input and demonstrated configuration",
+              "Performance on unshown cases or ordinary staff accounts"
+            ],
+            [
+              "Bounded pilot",
+              "Does the workflow fit this limited use?",
+              "Cases, failures, review time and scope changes observed during the pilot",
+              "Reliability outside the tested scope or automatic approval to deploy"
+            ],
+            [
+              "Acceptance test",
+              "Did this configuration meet the agreed requirements?",
+              "Predefined criteria, retained outputs and pass/fail reasons",
+              "Permanent approval after material model, data or permission changes"
+            ]
+          ]
+        },
+        "bullets": [
+          "If the demo succeeds but the pilot leaks a restricted document, keep that failure visible; do not average it away with successful demonstrations.",
+          "If a pilot reveals a new requirement, record the change and follow the applicable process. Do not silently change evaluation rules after seeing competing offers.",
+          "If acceptance passes, record the tested version and the changes that would trigger another check."
         ]
       },
       {
@@ -2254,7 +2371,12 @@ export const articles: Article[] = [
           "Create a tiny pack of invented manuals before involving real internal records. In this exercise, version A says requests go to the service desk, while version B replaces it and names an online form. A third document is restricted to a different test account. Include a question no document answers. Ask the supplier to show the inputs, output and source selection for each case.",
           "We have not run this procurement trial against a vendor. These are proposed acceptance cases, so the result column starts blank. That distinction matters: a template full of green ticks would imply work nobody performed. Save the actual outputs unchanged when a test is run, record the service configuration and have the buyer assess the failure conditions agreed in advance.",
           "A supplier may explain that a requested control requires a different product tier or extra implementation. Record the dependency and its price. Do not count a future feature as a passed test. Likewise, a successful demonstration by an administrator does not establish what a normal staff account can access."
-        ]
+        ],
+        "furtherReading": {
+          "slug": "advanced-retrieval-ai-own-documents-citations",
+          "label": "eight-case document retrieval experiment",
+          "reason": "Inspect executable selection tests before designing your own supplier trial."
+        }
       },
       {
         "heading": "Keep the scoring rule ahead of the evidence",

@@ -1964,3 +1964,8 @@ details.navMore[open] > .megaMenu { display: grid; }
 
 .articleTableHint { display: none; }
 @media (max-width: 650px) { .articleBody .articleTableHint { display: block; margin: 1.5rem 0 -.9rem; font: 500 .875rem/1.5 "Outfit Variable", sans-serif; color: #475569; } }
+
+/* Contextual next steps stay in the reading flow, with no card or advert styling. */
+.articleBody .articleContextLink { margin: 1.25rem 0; padding-left: 1rem; border-left: 2px solid var(--border); }
+.articleContextLink a { font-weight: 650; text-decoration: underline; text-underline-offset: .18em; }
+.articleContextLink span { display: block; margin-top: .3rem; font-size: 1rem; line-height: 1.6; color: var(--text-muted); }

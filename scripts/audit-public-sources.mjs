@@ -38,8 +38,10 @@ const urls = [...sources.keys()];
 for (let index = 0; index < urls.length; index += 6) {
   results.push(...await Promise.all(urls.slice(index, index + 6).map(async (url) => {
     try {
-      const response = await fetch(url, { redirect: "follow", signal: AbortSignal.timeout(20000), headers: { "user-agent": "AI-New-Canada-Editorial-Link-Checker/1.0 (+https://ainew.ca/editorial-policy/)" } });
-      await response.body?.cancel();
+      const response = await fetch(url, { redirect: "follow", signal: AbortSignal.timeout(45000), headers: { "user-agent": "AI-New-Canada-Editorial-Link-Checker/1.0 (+https://ainew.ca/editorial-policy/)" } });
+      // Only the response status and final URL are needed. Do not let stream cleanup
+      // block the entire audit when a source keeps its response open.
+      void response.body?.cancel().catch(() => {});
       return { url, status: response.status, finalUrl: response.url, ok: response.status === 200 && response.url === url };
     } catch (error) {
       return { url, ok: false, error: error.message };

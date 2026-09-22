@@ -476,3 +476,29 @@ test("publishes inspectable experiment outputs with matching source hashes", asy
     for (const file of ["inputs.json", "run.mjs", "results.json", "README.txt"]) assert.ok(html.includes(`/experiments/decision-checks/${file}`));
   }
 });
+
+test("puts a concise answer before article imagery and links contextual next steps to public lessons", async () => {
+  const source = await readFile(new URL("../app/lib/articles.ts", import.meta.url), "utf8");
+  const records = JSON.parse(source.match(/export const articles: Article\[\] = ([\s\S]*?);\n\nexport function/)[1]);
+  const eligible = new Set(records.filter((article) => article.evidenceStatus === "verified" && article.originalityStatus === "individually-reviewed" && article.searchEligible !== false).map((article) => article.slug));
+  const inbound = new Map();
+  for (const article of records) {
+    const html = await (await render(`/article/${article.slug}/`)).text();
+    const header = html.match(/<header class="articleHeader">([\s\S]*?)<\/header>/)?.[1] ?? "";
+    const answer = header.match(/<p class="articleDek">([\s\S]*?)<\/p>/)?.[1] ?? "";
+    assert.ok(answer.trim().split(/\s+/).length >= 25 && answer.trim().split(/\s+/).length <= 80, `${article.slug}: missing concise answer`);
+    assert.ok(html.indexOf('class="articleDek"') < html.indexOf('class="articleHero"'), `${article.slug}: answer buried beneath image`);
+    const contextual = article.sections.flatMap((section) => section.furtherReading ? [section.furtherReading] : []);
+    assert.ok(contextual.length > 0, `${article.slug}: no relevant next step`);
+    for (const link of contextual) {
+      assert.ok(eligible.has(link.slug) && link.slug !== article.slug, `${article.slug}: invalid contextual destination`);
+      inbound.set(link.slug, (inbound.get(link.slug) ?? 0) + 1);
+      assert.ok(html.includes(`href="/article/${link.slug}/"`));
+      assert.ok(link.reason.length > 30 && link.label.length > 10);
+    }
+  }
+  assert.ok(inbound.get("intermediate-compare-ai-answers-evaluation-scorecard") >= 3);
+  const comparison = await (await render("/article/buying-ai-canada-evidence-before-contract/")).text();
+  assert.match(comparison, /Demo, pilot or acceptance test: choose the question first/);
+  assert.match(comparison, /no supplier has been tested/);
+});

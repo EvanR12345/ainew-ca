@@ -22,22 +22,22 @@ function escapeXml(value: string) {
 
 export function sitemapEntries(): SitemapEntry[] {
   const routeDates: Record<string, string> = {
-    "/": "2026-09-21",
-    "/articles/": "2026-09-10",
-    "/learn/": "2026-09-21",
-    "/topics/": "2026-09-09",
-    "/topics/canadian-ai-policy/": "2026-09-09",
-    "/topics/using-ai/": "2026-09-09",
+    "/": "2026-09-22",
+    "/articles/": "2026-09-22",
+    "/learn/": "2026-09-22",
+    "/topics/": "2026-09-22",
+    "/topics/canadian-ai-policy/": "2026-09-22",
+    "/topics/using-ai/": "2026-09-22",
     "/topics/ai-models/": "2026-09-09",
     "/ai-glossary/": "2026-08-11",
     "/canada-ai-resources/": SEARCH_REVIEW_DATE,
-    "/authors/ai-new-desk/": "2026-09-09",
-    "/about/": "2026-09-21",
-    "/editorial-policy/": "2026-09-09",
+    "/authors/ai-new-desk/": "2026-09-22",
+    "/about/": "2026-09-22",
+    "/editorial-policy/": "2026-09-22",
     "/corrections-policy/": "2026-09-21",
     "/contact/": "2026-09-09",
-    "/privacy/": "2026-09-09",
-    "/terms/": "2026-08-10",
+    "/privacy/": "2026-09-22",
+    "/terms/": "2026-09-22",
   };
   const staticRoutes = Object.entries(routeDates).map(([route, lastModified]) => ({
     url: absoluteUrl(route),

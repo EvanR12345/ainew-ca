@@ -155,7 +155,7 @@ const articleBriefings: Record<string, ArticleBriefing> = {
     "useThisFor": "Adapt five evidence requests for an internal-manual assistant before a demonstration becomes a commitment.",
     "boundary": "The buyer, manuals and tests are fictional. No vendor trial was conducted, and this is not an official procurement or legal checklist.",
     "contribution": "Our evidence pack turns five sales questions into records and blocking conditions, with a rehearsal that leaves unmeasured results blank.",
-    "searchSnippet": "Before buying an AI assistant, request five records that distinguish supplier eligibility, observed results and promises still awaiting proof.",
+    "searchSnippet": "Compare AI demos, pilots and acceptance tests, then request five evidence records before a Canadian AI purchase. Includes a fictional manual assistant.",
     "tags": [
         "AI procurement",
         "supplier evidence",
