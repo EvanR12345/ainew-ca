@@ -38,7 +38,7 @@ test("server-renders the AI New Canada publication with editorial photography", 
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Canadian AI News, Guides &amp; Analysis \| AI New Canada/);
+  assert.match(html, /<title>Canadian AI Policy &amp; Practical Evidence \| AI New Canada/);
   assert.match(html, /canada-algorithmic-impact-assessment-worked-example\.jpg/);
   assert.match(html, /storyCard-photo-clean/);
   assert.match(html, /canada-ai-for-all-strategy-field-guide/);
@@ -52,7 +52,7 @@ test("publishes the worked federal algorithmic impact assessment case", async ()
   assert.equal(response.status, 200);
   const html = await response.text();
 
-  assert.match(html, /Canada’s Algorithmic Impact Assessment: an evidence audit/);
+  assert.match(html, /Federal AI risk assessments: find the missing evidence/);
   assert.match(html, /Case file: Northern Access Triage/);
   assert.match(html, /The document comparison: applicability, answers and scrutiny/);
   assert.match(html, /65 risk questions and 41 mitigation questions/);
@@ -62,16 +62,26 @@ test("publishes the worked federal algorithmic impact assessment case", async ()
   assert.match(html, /"keywords":\["Algorithmic Impact Assessment","automated decisions","public-sector AI","AI accountability"\]/);
 });
 
-test("renders the beginner investment guide with its photo and financial disclaimer", async () => {
-  const response = await render("/article/how-beginners-use-ai-investment-research/");
-  assert.equal(response.status, 200);
-  const html = await response.text();
-
-  assert.match(html, /Use AI to read a financial extract, then check its conclusion/);
-  assert.match(html, /how-beginners-use-ai-investment-research\.jpg/);
-  assert.match(html, /general education.*not a valuation, tax or legal opinion.*personalized financial advice/i);
-  assert.match(html, /Ontario Securities Commission Investor Office/);
-  assert.match(html, /Give the assistant a research question it can answer/i);
+test("publishes the cost-plan and purchasing guides and retires both finance routes", async () => {
+  for (const slug of ["canada-ai-compute-funding-cost-plan", "buying-ai-canada-evidence-before-contract"]) {
+    const response = await render(`/article/${slug}/`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, /AI-generated editorial illustration/);
+    assert.match(html, /fictional/);
+    assert.match(html, /class="articleTable"/);
+  }
+  const costHtml = await (await render("/article/canada-ai-compute-funding-cost-plan/")).text();
+  assert.match(costHtml, /closed to applications/);
+  assert.match(costHtml, /156000 − 96000 = 60000/);
+  for (const slug of ["how-beginners-use-ai-investment-research", "beginner-ai-investment-scam-check"]) {
+    const response = await render(`/article/${slug}/`);
+    assert.equal(response.status, 404);
+    const sitemap = await (await render("/sitemap.xml/")).text();
+    assert.ok(!sitemap.includes(slug));
+    const archive = await (await render("/articles/")).text();
+    assert.ok(!archive.includes(slug));
+  }
 });
 
 test("keeps every article photo in full colour on desktop and mobile", async () => {
@@ -88,8 +98,8 @@ test("keeps every article photo in full colour on desktop and mobile", async () 
   assert.doesNotMatch(cardSource, /article_card_(?:impression|click)/);
   assert.doesNotMatch(cardSource, /localStorage|IntersectionObserver|dataLayer|gtag|CARD_EXPERIMENT_KEY/);
   assert.doesNotMatch(cardSource, /crypto\.getRandomValues/);
-  assert.match(privacySource, /No other advertising provider is configured/i);
-  assert.match(articleSource, /how-beginners-use-ai-investment-research/);
+  assert.match(privacySource, /No advertising provider is active/i);
+  assert.match(articleSource, /canada-ai-compute-funding-cost-plan/);
   assert.doesNotMatch(articleSource, /generatedArticles|expansionSeeds/);
   assert.match(articleSource, /beginner-how-to-use-ai-everyday-work/);
   assert.match(articleSource, /intermediate-repeatable-ai-research-writing-workflow/);
@@ -97,7 +107,7 @@ test("keeps every article photo in full colour on desktop and mobile", async () 
   assert.equal(imageFiles.filter((file) => file.endsWith(".jpg")).length, 0);
   assert.equal(uniqueFiles.filter((file) => file.endsWith(".jpg")).length, 16);
   assert.doesNotMatch(articleSource, /ciro\.ca|Canadian Investment Regulatory Organization/);
-  assert.match(articleSource, /Ontario Securities Commission Investor Office: AI-enhanced scams/);
+  assert.match(articleSource, /CanadaBuys: prepare for an evaluation/);
   assert.doesNotMatch(imageStyleSource, /--image-tint/);
   assert.doesNotMatch(imageStyleSource, /--image-saturation|--image-contrast/);
   assert.doesNotMatch(globalStyles, /rgba\(240,68,47,\.42\)/);
@@ -237,7 +247,7 @@ test("turns the publication into a device-local Learning Lab", async () => {
 
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Turn AI news into knowledge you can actually use/);
+  assert.match(html, /Read it, try it, check your answer/);
   assert.match(html, /5 curated tracks/);
   assert.match(html, /16(?:<!-- -->)? individually reviewed reads/);
   assert.match(labSource, /quizQuestions/);
@@ -325,7 +335,7 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.match(homeHtml, /Try it\. Check what happened\./);
   assert.doesNotMatch(homeHtml, /focused editorial desks|publicationLedger/);
   assert.match(homeHtml, /All practical guides/);
-  assert.match(homeHtml, /Read the evidence<span class="visuallyHidden"> for <!-- -->What would make Canada/);
+  assert.match(homeHtml, /Read the evidence<span class="visuallyHidden"> for <!-- -->Canadian AI sovereignty/);
   assert.match(homeHtml, /google-adsense-account/);
   assert.doesNotMatch(homeHtml, /pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js|armsbroodelusive|ad-frames/);
   assert.match(articleHtml, /rel="canonical" href="https:\/\/ainew\.ca\/article\/canada-ai-transparency-consultation-what-to-know\/?"/);
@@ -382,22 +392,18 @@ test("gives every public article a distinct decision briefing", async () => {
 });
 
 test("keeps all advertising off while preserving only Google's ownership verification", async () => {
-  const [featureSource, componentSource, layoutSource, globalStyles, privacySource] = await Promise.all([
-    readFile(new URL("../app/lib/site-features.ts", import.meta.url), "utf8"),
+  const [componentSource, layoutSource, globalStyles, privacySource] = await Promise.all([
     readFile(new URL("../app/components.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/privacy/page.tsx", import.meta.url), "utf8"),
   ]);
 
-  assert.match(featureSource, /ads: false/);
-  assert.match(featureSource, /Google AdSense is the only configured/);
-  assert.match(componentSource, /export function AdSlot\(_props:[\s\S]*?return null/);
-  assert.match(componentSource, /export function NativeAd\(_props:[\s\S]*?return null/);
   assert.match(layoutSource, /name="google-adsense-account" content="ca-pub-4610762209559364"/);
-  assert.match(layoutSource, /SITE_FEATURES\.ads &&/);
+  assert.doesNotMatch(`${componentSource}${layoutSource}`, /AdSlot|NativeAd|adsbygoogle|SITE_FEATURES/);
+  await assert.rejects(readFile(new URL("../app/lib/site-features.ts", import.meta.url)), { code: "ENOENT" });
   assert.doesNotMatch(`${componentSource}${layoutSource}${globalStyles}`, /Adsterra|adsterra|armsbroodelusive|ad-frames|Popunder|ANTI-ADBLOCK|Smartlink/);
-  assert.match(privacySource, /Advertising scripts and visible ads are disabled/);
+  assert.match(privacySource, /This site displays no advertisements and loads no advertising scripts/);
   await assert.rejects(readFile(new URL("../app/adsterra.tsx", import.meta.url)), { code: "ENOENT" });
   await assert.rejects(readFile(new URL("../public/ad-frames/native.html", import.meta.url)), { code: "ENOENT" });
 });
@@ -419,9 +425,9 @@ test("removes AI Signal and the scroll stack completely while preserving a clear
   const homeHtml = await homeResponse.text();
   assert.match(homeHtml, /Three Canadian decisions worth understanding now\./);
   assert.ok((homeHtml.match(/canadaDecisionCard canadaDecisionCard-/g) ?? []).length >= 3);
-  assert.match(homeHtml, /What would make Canada(?:’|&#x27;|&apos;|')s AI compute sovereign/);
-  assert.match(homeHtml, /Before a federal AI pilot/);
-  assert.match(homeHtml, /An AI privacy assessment starts with every copy of the data/);
+  assert.match(homeHtml, /Canadian AI sovereignty: follow the workload/);
+  assert.match(homeHtml, /The first page of a federal AI pilot/);
+  assert.match(homeHtml, /Where did the prompt go/);
   assert.doesNotMatch(homeHtml, /AI SIGNAL|data-stack-card/);
   assert.doesNotMatch(`${homeSource}${componentSource}${globalStyles}${sitemapSource}`, /AISignal|aiSignal|ai-signal|signalPage|data-stack-card|tasteStack/);
   assert.match(globalStyles, /\.canadaDecisionsGrid/);

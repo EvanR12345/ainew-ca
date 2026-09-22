@@ -35,6 +35,8 @@ export const topicHubs: TopicHub[] = [
       "canada-ai-for-all-strategy-field-guide",
       "federal-public-service-ai-strategy-2025-2027",
       "canada-ai-privacy-impact-assessment-guide",
+      "canada-ai-compute-funding-cost-plan",
+      "buying-ai-canada-evidence-before-contract",
     ],
   },
   {
@@ -63,8 +65,6 @@ export const topicHubs: TopicHub[] = [
       "advanced-human-in-the-loop-ai-agent-workflow",
       "advanced-retrieval-ai-own-documents-citations",
       "advanced-ai-evaluation-red-team-monitor-production",
-      "how-beginners-use-ai-investment-research",
-      "beginner-ai-investment-scam-check",
     ],
   },
   {

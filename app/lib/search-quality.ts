@@ -8,7 +8,7 @@ export const SEARCH_REVIEW_DATETIME = "2026-08-30T21:58:27-04:00";
  * day stable across Canadian time zones while satisfying DateTime consumers.
  */
 export function articlePublishedDateTime(article: Article) {
-  return `${article.date}T12:00:00Z`;
+  return article.publishedAt ?? `${article.date}T12:00:00Z`;
 }
 
 /** Search eligibility is an explicit editorial state, not a source-count shortcut. */

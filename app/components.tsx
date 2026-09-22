@@ -129,20 +129,6 @@ export function SiteFooter() {
   );
 }
 
-export function AdSlot(_props: {
-  format?: "leaderboard" | "rectangle" | "in-feed";
-  label?: string;
-  eager?: boolean;
-}) {
-  void _props;
-  return null;
-}
-
-export function NativeAd(_props: { placement: string }) {
-  void _props;
-  return null;
-}
-
 export function NewsletterBand() {
   return (
     <section className="newsletterBand" id="newsletter">

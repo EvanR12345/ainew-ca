@@ -14,7 +14,7 @@ function ArticleDate({ article }: { article: Pick<Article, "date" | "modifiedAt"
 }
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Canadian AI News, Guides & Analysis | AI New Canada",
+  title: "Canadian AI Policy & Practical Evidence | AI New Canada",
   description: "Canadian AI policy explained, plus practical guides to prompts, research, spreadsheets and safer AI use. Read the evidence and work through examples.",
   path: "/",
   languages: { "en-CA": `${SITE_URL}/`, "x-default": `${SITE_URL}/` },

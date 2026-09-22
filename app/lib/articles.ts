@@ -28,6 +28,7 @@ export type Article = {
   dek: string;
   category: "Canada" | "Models" | "Products" | "Business" | "Research" | "Policy";
   date: string;
+  publishedAt?: string;
   modifiedAt?: string;
   updateNote?: string;
   readTime: string;
@@ -54,8 +55,8 @@ export type ArticleCardData = Pick<Article, "slug" | "title" | "dek" | "category
 export const articles: Article[] = [
   {
     "slug": "canada-algorithmic-impact-assessment-worked-example",
-    "title": "How to read Canada’s Algorithmic Impact Assessment beyond the score",
-    "seoTitle": "Canada’s Algorithmic Impact Assessment: an evidence audit",
+    "title": "Read a federal AI risk assessment: the missing-evidence test",
+    "seoTitle": "Federal AI risk assessments: find the missing evidence",
     "dek": "Compare the federal scope, assessment and peer-review guidance, then use a benefits-queue example to find what a risk score leaves unanswered.",
     "category": "Policy",
     "date": "2026-09-11",
@@ -91,19 +92,19 @@ export const articles: Article[] = [
     "internalLinks": [
       {
         "slug": "federal-public-service-ai-strategy-2025-2027",
-        "title": "Before a federal AI pilot: turn the 2025–2027 strategy into a project brief"
+        "title": "The first page of a federal AI pilot should be a decision brief"
       },
       {
         "slug": "canada-ai-privacy-impact-assessment-guide",
-        "title": "An AI privacy assessment starts with every copy of the data"
+        "title": "Where did the prompt go? Trace an AI system’s personal data"
       },
       {
         "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
-        "title": "Compare two AI answers without rewarding the confident mistake"
+        "title": "Score the answer, not the confidence: a 20-point AI exercise"
       },
       {
         "slug": "advanced-ai-evaluation-red-team-monitor-production",
-        "title": "When an AI release passes 99 checks and still must stop"
+        "title": "The one failure that outweighs 99 passing AI checks"
       }
     ],
     "image": "/images/articles/unique/canada-algorithmic-impact-assessment-worked-example.jpg",
@@ -228,7 +229,7 @@ export const articles: Article[] = [
   },
   {
     "slug": "canada-ai-transparency-consultation-what-to-know",
-    "title": "Canada’s AI transparency consultation: what to say before September 23",
+    "title": "What should an AI disclosure tell you? Canada’s five questions",
     "dek": "Five proposals ask for different kinds of transparency. Here is how to make a specific comment without mistaking the consultation for a new law.",
     "category": "Canada",
     "date": "2026-08-10",
@@ -339,20 +340,20 @@ export const articles: Article[] = [
     "internalLinks": [
       {
         "slug": "canada-ai-for-all-strategy-field-guide",
-        "title": "What would make Canada’s AI compute sovereign? Five checks on AI for All"
+        "title": "Canadian AI sovereignty: follow the workload, not the map"
       },
       {
         "slug": "canada-ai-privacy-impact-assessment-guide",
-        "title": "An AI privacy assessment starts with every copy of the data"
+        "title": "Where did the prompt go? Trace an AI system’s personal data"
       }
     ],
     "disclaimer": "This is a reading of the federal consultation documents, not a statement of current law. The delivery-assistant notice is an AI New Canada example. Check the linked government pages for any change in status.",
     "originalityStatus": "individually-reviewed",
-    "seoTitle": "Canada AI transparency consultation: questions and response guide"
+    "seoTitle": "Canada’s AI transparency debate: five disclosure questions"
   },
   {
     "slug": "canada-ai-for-all-strategy-field-guide",
-    "title": "What would make Canada’s AI compute sovereign? Five checks on AI for All",
+    "title": "Canadian AI sovereignty: follow the workload, not the map",
     "dek": "Canadian location, control, access and an exit route are different things. Read the national AI strategy with a practical sovereignty checklist.",
     "category": "Canada",
     "date": "2026-08-30",
@@ -381,15 +382,15 @@ export const articles: Article[] = [
     "internalLinks": [
       {
         "slug": "federal-public-service-ai-strategy-2025-2027",
-        "title": "Before a federal AI pilot: turn the 2025–2027 strategy into a project brief"
+        "title": "The first page of a federal AI pilot should be a decision brief"
       },
       {
         "slug": "canada-ai-privacy-impact-assessment-guide",
-        "title": "An AI privacy assessment starts with every copy of the data"
+        "title": "Where did the prompt go? Trace an AI system’s personal data"
       },
       {
         "slug": "canada-ai-transparency-consultation-what-to-know",
-        "title": "Canada’s AI transparency consultation: what to say before September 23"
+        "title": "What should an AI disclosure tell you? Canada’s five questions"
       }
     ],
     "image": "/images/articles/unique/canada-ai-for-all-strategy-field-guide.jpg",
@@ -484,11 +485,11 @@ export const articles: Article[] = [
     ],
     "modifiedAt": "2026-09-21T22:36:20Z",
     "updateNote": "Rewritten throughout on September 21, 2026, with a complete worked method, explicit evidence limits and checked primary sources.",
-    "seoTitle": "Canada AI sovereignty and compute: five evidence checks"
+    "seoTitle": "Canadian AI sovereignty: five checks for a workload"
   },
   {
     "slug": "federal-public-service-ai-strategy-2025-2027",
-    "title": "Before a federal AI pilot: turn the 2025–2027 strategy into a project brief",
+    "title": "The first page of a federal AI pilot should be a decision brief",
     "dek": "The federal strategy sets direction. A worked briefing shows what a department still needs to decide about data, authority, training and service outcomes.",
     "category": "Canada",
     "date": "2026-08-30",
@@ -517,11 +518,11 @@ export const articles: Article[] = [
     "internalLinks": [
       {
         "slug": "canada-ai-for-all-strategy-field-guide",
-        "title": "What would make Canada’s AI compute sovereign? Five checks on AI for All"
+        "title": "Canadian AI sovereignty: follow the workload, not the map"
       },
       {
         "slug": "canada-ai-privacy-impact-assessment-guide",
-        "title": "An AI privacy assessment starts with every copy of the data"
+        "title": "Where did the prompt go? Trace an AI system’s personal data"
       }
     ],
     "image": "/images/articles/unique/federal-public-service-ai-strategy-2025-2027.jpg",
@@ -641,11 +642,11 @@ export const articles: Article[] = [
     ],
     "modifiedAt": "2026-09-21T22:36:20Z",
     "updateNote": "Rewritten throughout on September 21, 2026, with a complete worked method, explicit evidence limits and checked primary sources.",
-    "seoTitle": "Federal AI strategy 2025–2027: a usable project brief"
+    "seoTitle": "Federal AI pilots: write the decision brief first"
   },
   {
     "slug": "canada-ai-privacy-impact-assessment-guide",
-    "title": "An AI privacy assessment starts with every copy of the data",
+    "title": "Where did the prompt go? Trace an AI system’s personal data",
     "dek": "Trace a fictional request through prompts, retrieval, inference and logs, with a concrete control and unresolved question at each hand-off.",
     "category": "Canada",
     "date": "2026-08-30",
@@ -674,11 +675,11 @@ export const articles: Article[] = [
     "internalLinks": [
       {
         "slug": "federal-public-service-ai-strategy-2025-2027",
-        "title": "Before a federal AI pilot: turn the 2025–2027 strategy into a project brief"
+        "title": "The first page of a federal AI pilot should be a decision brief"
       },
       {
         "slug": "canada-ai-for-all-strategy-field-guide",
-        "title": "What would make Canada’s AI compute sovereign? Five checks on AI for All"
+        "title": "Canadian AI sovereignty: follow the workload, not the map"
       }
     ],
     "image": "/images/articles/unique/canada-ai-privacy-impact-assessment-guide.jpg",
@@ -776,11 +777,11 @@ export const articles: Article[] = [
     ],
     "modifiedAt": "2026-09-21T22:36:20Z",
     "updateNote": "Rewritten throughout on September 21, 2026, with a complete worked method, explicit evidence limits and checked primary sources.",
-    "seoTitle": "AI privacy assessment in Canada: follow every data copy"
+    "seoTitle": "AI privacy assessments: trace every copy of the data"
   },
   {
     "slug": "beginner-how-to-use-ai-everyday-work",
-    "title": "Your first useful AI task: meeting notes with an answer key",
+    "title": "Turn messy meeting notes into tasks without inventing an owner",
     "dek": "Use these fictional notes to practise extracting actions, spotting invented commitments and deciding whether the assistant saved you work.",
     "category": "Products",
     "date": "2026-08-10",
@@ -792,15 +793,15 @@ export const articles: Article[] = [
     "internalLinks": [
       {
         "slug": "beginner-ai-prompts-without-magic-words",
-        "title": "Repair an AI prompt by finding the instruction that failed"
+        "title": "Four repairs for an AI prompt that keeps missing the brief"
       },
       {
         "slug": "intermediate-use-ai-spreadsheets-structured-data",
-        "title": "An AI spreadsheet total can be right for the wrong reason"
+        "title": "The $170 spreadsheet check: catch a total that hides bad rows"
       },
       {
         "slug": "intermediate-repeatable-ai-research-writing-workflow",
-        "title": "A source ledger in practice: three claims about Canada’s AI consultation"
+        "title": "Can you trace that AI claim? Build a three-source ledger"
       }
     ],
     "image": "/images/articles/unique/beginner-how-to-use-ai-everyday-work.jpg",
@@ -911,11 +912,11 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "seoTitle": "AI meeting notes: a beginner exercise with an answer key"
+    "seoTitle": "AI meeting notes: an exercise with a checkable answer key"
   },
   {
     "slug": "beginner-ai-prompts-without-magic-words",
-    "title": "Repair an AI prompt by finding the instruction that failed",
+    "title": "Four repairs for an AI prompt that keeps missing the brief",
     "dek": "A fictional workshop notice shows how to specify facts, leave gaps visible and test one revision without collecting magic phrases.",
     "category": "Products",
     "date": "2026-08-10",
@@ -927,11 +928,11 @@ export const articles: Article[] = [
     "internalLinks": [
       {
         "slug": "beginner-how-to-use-ai-everyday-work",
-        "title": "Your first useful AI task: meeting notes with an answer key"
+        "title": "Turn messy meeting notes into tasks without inventing an owner"
       },
       {
         "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
-        "title": "Compare two AI answers without rewarding the confident mistake"
+        "title": "Score the answer, not the confidence: a 20-point AI exercise"
       }
     ],
     "image": "/images/articles/unique/beginner-ai-prompts-without-magic-words.jpg",
@@ -1036,11 +1037,11 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "seoTitle": "Better AI prompts: a complete brief-and-revision exercise"
+    "seoTitle": "Fix an AI prompt: four repairs you can check"
   },
   {
     "slug": "beginner-use-ai-safely-files-email-private-data",
-    "title": "Before uploading a file to AI, make a smaller source",
+    "title": "Share less with AI: reduce a private email to the useful facts",
     "dek": "A complete email-redaction exercise explains what the task needs, what stays out, and why connecting an account is a separate decision.",
     "category": "Policy",
     "date": "2026-08-10",
@@ -1052,15 +1053,15 @@ export const articles: Article[] = [
     "internalLinks": [
       {
         "slug": "canada-ai-privacy-impact-assessment-guide",
-        "title": "An AI privacy assessment starts with every copy of the data"
+        "title": "Where did the prompt go? Trace an AI system’s personal data"
       },
       {
         "slug": "advanced-retrieval-ai-own-documents-citations",
-        "title": "The right topic, the wrong policy: a small retrieval experiment"
+        "title": "Eight document traps for an AI retrieval system"
       },
       {
         "slug": "beginner-how-to-use-ai-everyday-work",
-        "title": "Your first useful AI task: meeting notes with an answer key"
+        "title": "Turn messy meeting notes into tasks without inventing an owner"
       }
     ],
     "image": "/images/articles/unique/beginner-use-ai-safely-files-email-private-data.jpg",
@@ -1172,11 +1173,11 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "seoTitle": "AI file and email privacy: what to remove before sharing"
+    "seoTitle": "AI file privacy: make a smaller, safer source"
   },
   {
     "slug": "intermediate-repeatable-ai-research-writing-workflow",
-    "title": "A source ledger in practice: three claims about Canada’s AI consultation",
+    "title": "Can you trace that AI claim? Build a three-source ledger",
     "dek": "Follow a real policy question from source selection to publishable sentences, with the claims that must remain unresolved.",
     "category": "Research",
     "date": "2026-08-10",
@@ -1188,15 +1189,15 @@ export const articles: Article[] = [
     "internalLinks": [
       {
         "slug": "advanced-retrieval-ai-own-documents-citations",
-        "title": "The right topic, the wrong policy: a small retrieval experiment"
+        "title": "Eight document traps for an AI retrieval system"
       },
       {
         "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
-        "title": "Compare two AI answers without rewarding the confident mistake"
+        "title": "Score the answer, not the confidence: a 20-point AI exercise"
       },
       {
         "slug": "intermediate-use-ai-spreadsheets-structured-data",
-        "title": "An AI spreadsheet total can be right for the wrong reason"
+        "title": "The $170 spreadsheet check: catch a total that hides bad rows"
       }
     ],
     "image": "/images/articles/unique/intermediate-repeatable-ai-research-writing-workflow.jpg",
@@ -1298,11 +1299,11 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "seoTitle": "AI research workflow: a real primary-source claim ledger"
+    "seoTitle": "Verify AI research with a three-source claim ledger"
   },
   {
     "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
-    "title": "Compare two AI answers without rewarding the confident mistake",
+    "title": "Score the answer, not the confidence: a 20-point AI exercise",
     "dek": "Score two fictional answers against the same records, catch an unauthorized purchase and export your own review from the worksheet.",
     "category": "Models",
     "date": "2026-08-10",
@@ -1314,15 +1315,15 @@ export const articles: Article[] = [
     "internalLinks": [
       {
         "slug": "advanced-ai-evaluation-red-team-monitor-production",
-        "title": "When an AI release passes 99 checks and still must stop"
+        "title": "The one failure that outweighs 99 passing AI checks"
       },
       {
         "slug": "beginner-ai-prompts-without-magic-words",
-        "title": "Repair an AI prompt by finding the instruction that failed"
+        "title": "Four repairs for an AI prompt that keeps missing the brief"
       },
       {
         "slug": "advanced-human-in-the-loop-ai-agent-workflow",
-        "title": "An AI agent approval should name the exact action"
+        "title": "Approve one action: the boundary an AI agent must keep"
       }
     ],
     "image": "/images/articles/unique/intermediate-compare-ai-answers-evaluation-scorecard.jpg",
@@ -1445,11 +1446,11 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "seoTitle": "AI answer scorecard: a complete exercise and working worksheet"
+    "seoTitle": "AI answer comparison: a 20-point scoring exercise"
   },
   {
     "slug": "intermediate-use-ai-spreadsheets-structured-data",
-    "title": "An AI spreadsheet total can be right for the wrong reason",
+    "title": "The $170 spreadsheet check: catch a total that hides bad rows",
     "dek": "Reconcile a five-row invoice table, then inspect the executed cases where a plausible total hides duplicate IDs, text values or unexpected labels.",
     "category": "Business",
     "date": "2026-08-10",
@@ -1461,15 +1462,15 @@ export const articles: Article[] = [
     "internalLinks": [
       {
         "slug": "intermediate-repeatable-ai-research-writing-workflow",
-        "title": "A source ledger in practice: three claims about Canada’s AI consultation"
+        "title": "Can you trace that AI claim? Build a three-source ledger"
       },
       {
         "slug": "canada-ai-privacy-impact-assessment-guide",
-        "title": "An AI privacy assessment starts with every copy of the data"
+        "title": "Where did the prompt go? Trace an AI system’s personal data"
       },
       {
         "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
-        "title": "Compare two AI answers without rewarding the confident mistake"
+        "title": "Score the answer, not the confidence: a 20-point AI exercise"
       }
     ],
     "image": "/images/articles/unique/intermediate-use-ai-spreadsheets-structured-data.jpg",
@@ -1615,11 +1616,11 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "seoTitle": "AI spreadsheet checks: SUMIFS and eight reproducible cases"
+    "seoTitle": "Check an AI spreadsheet: the $170 invoice exercise"
   },
   {
     "slug": "advanced-human-in-the-loop-ai-agent-workflow",
-    "title": "An AI agent approval should name the exact action",
+    "title": "Approve one action: the boundary an AI agent must keep",
     "dek": "A support-message example connects permissions, immutable approval details, ambiguous send results and recovery tests.",
     "category": "Products",
     "date": "2026-08-10",
@@ -1631,15 +1632,15 @@ export const articles: Article[] = [
     "internalLinks": [
       {
         "slug": "advanced-ai-evaluation-red-team-monitor-production",
-        "title": "When an AI release passes 99 checks and still must stop"
+        "title": "The one failure that outweighs 99 passing AI checks"
       },
       {
         "slug": "beginner-use-ai-safely-files-email-private-data",
-        "title": "Before uploading a file to AI, make a smaller source"
+        "title": "Share less with AI: reduce a private email to the useful facts"
       },
       {
         "slug": "canada-ai-privacy-impact-assessment-guide",
-        "title": "An AI privacy assessment starts with every copy of the data"
+        "title": "Where did the prompt go? Trace an AI system’s personal data"
       }
     ],
     "image": "/images/articles/unique/advanced-human-in-the-loop-ai-agent-workflow.jpg",
@@ -1754,11 +1755,11 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "seoTitle": "Human-in-the-loop AI agents: an action-by-action design"
+    "seoTitle": "AI agent approvals: bind permission to one action"
   },
   {
     "slug": "advanced-retrieval-ai-own-documents-citations",
-    "title": "The right topic, the wrong policy: a small retrieval experiment",
+    "title": "Eight document traps for an AI retrieval system",
     "dek": "Inspect a fictional policy corpus and rerun two selectors to see why a relevant citation can still give the wrong answer.",
     "category": "Research",
     "date": "2026-08-10",
@@ -1770,15 +1771,15 @@ export const articles: Article[] = [
     "internalLinks": [
       {
         "slug": "intermediate-repeatable-ai-research-writing-workflow",
-        "title": "A source ledger in practice: three claims about Canada’s AI consultation"
+        "title": "Can you trace that AI claim? Build a three-source ledger"
       },
       {
         "slug": "canada-ai-privacy-impact-assessment-guide",
-        "title": "An AI privacy assessment starts with every copy of the data"
+        "title": "Where did the prompt go? Trace an AI system’s personal data"
       },
       {
         "slug": "advanced-ai-evaluation-red-team-monitor-production",
-        "title": "When an AI release passes 99 checks and still must stop"
+        "title": "The one failure that outweighs 99 passing AI checks"
       }
     ],
     "image": "/images/articles/unique/advanced-retrieval-ai-own-documents-citations.jpg",
@@ -1881,11 +1882,11 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "seoTitle": "RAG document checks: dates, access and eight recorded cases"
+    "seoTitle": "Test AI document retrieval with eight evidence traps"
   },
   {
     "slug": "advanced-ai-evaluation-red-team-monitor-production",
-    "title": "When an AI release passes 99 checks and still must stop",
+    "title": "The one failure that outweighs 99 passing AI checks",
     "dek": "A worked release decision shows why an average score can hide the error that matters, and how to carry that failure into live monitoring.",
     "category": "Models",
     "date": "2026-08-10",
@@ -1897,15 +1898,15 @@ export const articles: Article[] = [
     "internalLinks": [
       {
         "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
-        "title": "Compare two AI answers without rewarding the confident mistake"
+        "title": "Score the answer, not the confidence: a 20-point AI exercise"
       },
       {
         "slug": "advanced-human-in-the-loop-ai-agent-workflow",
-        "title": "An AI agent approval should name the exact action"
+        "title": "Approve one action: the boundary an AI agent must keep"
       },
       {
         "slug": "advanced-retrieval-ai-own-documents-citations",
-        "title": "The right topic, the wrong policy: a small retrieval experiment"
+        "title": "Eight document traps for an AI retrieval system"
       }
     ],
     "image": "/images/articles/unique/advanced-ai-evaluation-red-team-monitor-production.jpg",
@@ -2011,299 +2012,266 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "seoTitle": "AI release evaluation: critical failures, monitoring and rollback"
+    "seoTitle": "AI release decisions: when one failure blocks launch"
   },
   {
-    "slug": "how-beginners-use-ai-investment-research",
-    "title": "Use AI to read a financial extract, then check its conclusion",
-    "dek": "A fictional two-year extract gives you a complete arithmetic check and a boundary between a supported observation and an investment recommendation.",
+    "slug": "canada-ai-compute-funding-cost-plan",
+    "title": "Canada’s AI compute fund is closed. Build the cost plan anyway.",
+    "seoTitle": "AI Compute Access Fund: status and a worked cost plan",
+    "dek": "Separate the supplier bill, potential eligible costs and cash you must front. A fictional $156,000 budget makes the differences visible.",
     "category": "Business",
-    "date": "2026-08-10",
-    "readTime": "3 min read",
-    "signal": "Beginner guide",
-    "accent": "green",
-    "sourceLabel": "Ontario Securities Commission Investor Office",
-    "sourceUrl": "https://www.getsmarteraboutmoney.ca/learning-path/diy-investing/",
+    "date": "2026-09-22",
+    "modifiedAt": "2026-09-22T04:20:14Z",
+    "updateNote": "New independently structured guide with verified primary sources and an original worked exercise.",
+    "readTime": "6 min read",
+    "signal": "Canadian AI buying guide",
+    "accent": "blue",
+    "sourceLabel": "ISED: AI Compute Access Fund status and overview",
+    "sourceUrl": "https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy/ai-compute-access-fund",
     "sources": [
       {
-        "label": "Ontario Securities Commission Investor Office: DIY investing",
-        "url": "https://www.getsmarteraboutmoney.ca/learning-path/diy-investing/",
-        "note": "Ontario investor-education material used to define the responsibilities of managing your own portfolio; it does not recommend a security or an AI tool."
+        "label": "ISED: AI Compute Access Fund status and overview",
+        "url": "https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy/ai-compute-access-fund",
+        "note": "Confirms the closed intake, last application deadline and headline support description; check this page for any future call."
       },
       {
-        "label": "NIST Generative AI Profile",
-        "url": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
-        "note": "A risk profile used for the article's cautions about confabulation, information integrity and human oversight; it is not investment guidance."
+        "label": "ISED: program guide",
+        "url": "https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy/ai-compute-access-fund/program-guide-ai-compute-access-fund",
+        "note": "Sections 1.4–1.6 support the rate comparison, cost exclusions and payment conditions. Actual agreements govern individual awards."
       },
       {
-        "label": "Ontario Securities Commission Investor Office: Checking registration",
-        "url": "https://www.getsmarteraboutmoney.ca/learning-path/checking-registration/",
-        "note": "Investor guidance used for the registration-check step; registration is one verification input and is not a guarantee that an investment is suitable or safe."
+        "label": "ISED: application guide",
+        "url": "https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy/ai-compute-access-fund/application-guide-ai-compute-access-fund",
+        "note": "Explains the project, budget and commercialization evidence expected in an application; reading it does not establish an open intake."
       }
     ],
     "internalLinks": [
       {
-        "slug": "beginner-ai-investment-scam-check",
-        "title": "An AI investment pitch passed one check. That does not make it safe."
+        "slug": "canada-ai-for-all-strategy-field-guide",
+        "title": "Canadian AI sovereignty: follow the workload, not the map"
+      },
+      {
+        "slug": "intermediate-use-ai-spreadsheets-structured-data",
+        "title": "The $170 spreadsheet check: catch a total that hides bad rows"
+      }
+    ],
+    "image": "/images/articles/unique/canada-ai-compute-funding-cost-plan.jpg",
+    "imageAlt": "AI-generated editorial illustration of server equipment, a calculator and a cost worksheet with a maple leaf motif.",
+    "disclaimer": "This funding explainer uses a fictional quote and hand-checkable arithmetic. It is not accounting advice or a determination of eligibility. The fund is closed; any future intake and signed agreement may have different terms.",
+    "evidenceStatus": "verified",
+    "originalityStatus": "individually-reviewed",
+    "searchEligible": true,
+    "sections": [
+      {
+        "heading": "Start with the closed door",
+        "paragraphs": [
+          "ISED’s AI Compute Access Fund page currently says the fund is closed to applications. The last call ended on July 31, 2025. That status comes before any calculation: a published funding percentage is not money a new applicant can claim today. Check the linked program page again before preparing a submission or making a purchase that depends on support.",
+          "There is still a useful planning exercise here. A team shopping for compute needs three separate numbers: the supplier’s full bill, the portion a program might accept, and the cash the business must provide before reimbursement. Combining them into one “discounted cloud cost” hides the most consequential uncertainty. Below, a deliberately fictional budget keeps those three numbers apart. It is not an application or an estimate of anyone’s award."
+        ]
+      },
+      {
+        "heading": "The bill is not the eligible-cost base",
+        "paragraphs": [
+          "The program guide lists compute, storage and certain compute-specific expenses as potentially eligible. It excludes support plans, data-transfer fees, legal fees and sales taxes. Reimbursement follows payment of accepted expenses; signing and timing conditions also matter. In the table, assume the first two lines have been accepted under an agreement. That assumption is part of the exercise, not a finding about a real supplier.",
+          "Our sample team needs a year of Canadian-hosted capacity. Its quote includes four lines, before tax. The worksheet flags each line separately rather than treating a cloud provider’s entire invoice as eligible. A mixed invoice needs an allocation that the team can explain and reproduce."
+        ],
+        "table": {
+          "caption": "Fictional annual quote: all amounts in Canadian dollars, before tax",
+          "columns": [
+            "Invoice line",
+            "Amount",
+            "Treatment in this exercise"
+          ],
+          "rows": [
+            [
+              "Compute capacity",
+              "$120,000",
+              "Assumed accepted eligible cost"
+            ],
+            [
+              "Storage",
+              "$24,000",
+              "Assumed accepted eligible cost"
+            ],
+            [
+              "Support plan",
+              "$9,000",
+              "Excluded from eligible base"
+            ],
+            [
+              "Data transfer",
+              "$3,000",
+              "Excluded from eligible base"
+            ],
+            [
+              "Total supplier bill",
+              "$156,000",
+              "$144,000 assumed eligible; $12,000 excluded"
+            ]
+          ]
+        }
+      },
+      {
+        "heading": "Calculate two ceilings, then keep the uncertainty",
+        "paragraphs": [
+          "The overview describes support of up to two-thirds for eligible Canadian services. The program guide also uses 67% in an explanatory note. Those are close, but they are not the same number. On our $144,000 assumed base, two-thirds is $96,000; 67% is $96,480. The $480 difference is a reason to confirm the agreement’s rate and calculation, not to choose the larger figure for a cash forecast.",
+          "Using the more conservative two-thirds illustration, the supplier bill less potential support is $60,000: $156,000 minus $96,000. That is $48,000 of eligible costs left with the business plus $12,000 of excluded costs. It is not $52,000, which is what subtracting two-thirds from the entire supplier bill would suggest. That shortcut understates the residual by $8,000.",
+          "Even the $60,000 result assumes an award, accepted costs and payment in full. It excludes taxes, financing costs and possible repayment obligations. Put those assumptions beside the number wherever it travels. An impressive funding slide can become an unreliable operating budget when its footnotes disappear."
+        ],
+        "example": {
+          "label": "Reproduce the arithmetic",
+          "text": "Eligible base = 120000 + 24000 = 144000\nExcluded lines = 9000 + 3000 = 12000\nSupplier bill = 144000 + 12000 = 156000\nIllustrative ceiling = 144000 × 2 / 3 = 96000\nResidual before tax = 156000 − 96000 = 60000\nNo-award scenario = 156000\n67% comparison = 144000 × 0.67 = 96480"
+        }
+      },
+      {
+        "heading": "Cash due and final cost belong on different lines",
+        "paragraphs": [
+          "Imagine the fictional supplier invoices the full $156,000 before a claim is paid. The team needs a way to pay that bill even if it expects support later. Calling the net figure the “cash needed” would conceal a $96,000 bridge in this simplified example. A monthly contract would produce a different schedule; a delayed claim would extend the gap. Neither can be inferred from the headline support rate.",
+          "Build a dated cash ledger with invoice due date, gross amount, proof of payment, claim submission and actual reimbursement. Leave a forecast reimbursement clearly marked as forecast. Add a no-award column before deciding whether the project is affordable. Do not sign an unaffordable commitment on the assumption a future intake will reopen or that an existing application will succeed."
+        ]
+      },
+      {
+        "heading": "Prepare an evidence folder, not a promise of approval",
+        "paragraphs": [
+          "The application guide asks applicants to explain their project and commercialization case. For this exercise, the useful preparation is a folder that connects each budget line to a workload and an observable result. “Train an AI model” is too vague to explain why a particular capacity reservation is needed.",
+          "For the $120,000 compute line, our fictional team would record the experiment schedule, expected hours, quoted unit rate, cancellation terms and the person allowed to increase the reservation. For storage, it would record what is retained, for how long and why. A provider’s Canadian sales address alone does not settle where a workload or its data will run; request supporting documentation and check it against the actual program conditions.",
+          "End the worksheet with three unresolved questions: Which costs would the agreement accept? What rate and repayment terms would apply? Can the company pay the supplier without relying on an unconfirmed receipt? Those questions survive changes to program dates and make the cost plan useful even if no further call opens."
+        ]
+      }
+    ],
+    "publishedAt": "2026-09-22T04:20:14Z"
+  },
+  {
+    "slug": "buying-ai-canada-evidence-before-contract",
+    "title": "Before buying AI, ask for the evidence that survives the demo",
+    "seoTitle": "Buying AI in Canada: an evidence pack before the contract",
+    "dek": "A supplier listing, a convincing demo and an accepted product answer different questions. Work through a fictional purchase with five evidence requests.",
+    "category": "Business",
+    "date": "2026-09-22",
+    "modifiedAt": "2026-09-22T04:20:14Z",
+    "updateNote": "New independently structured guide with verified primary sources and an original worked exercise.",
+    "readTime": "6 min read",
+    "signal": "Canadian AI buying guide",
+    "accent": "blue",
+    "sourceLabel": "PSPC: artificial intelligence source list",
+    "sourceUrl": "https://www.canada.ca/en/public-services-procurement/services/acquisitions/better-buying/simplifying-procurement-process/artificial-intelligence-source-list.html",
+    "sources": [
+      {
+        "label": "PSPC: artificial intelligence source list",
+        "url": "https://www.canada.ca/en/public-services-procurement/services/acquisitions/better-buying/simplifying-procurement-process/artificial-intelligence-source-list.html",
+        "note": "Describes the federal AI procurement vehicle and qualified suppliers; it does not certify the fictional product or its acceptance cases."
+      },
+      {
+        "label": "CanadaBuys: prepare for an evaluation",
+        "url": "https://canadabuys.canada.ca/en/buyer-s-portal/buyer-s-guide/receive-and-evaluate/offer-evaluation/prepare-evaluation",
+        "note": "Supports checking required offer documents and using a requirements checklist before technical and financial evaluation."
+      },
+      {
+        "label": "CanadaBuys: choose the method of supply",
+        "url": "https://canadabuys.canada.ca/en/buyer-s-portal/buyer-s-guide/plan/determine-procurement-strategy/choose-method-supply",
+        "note": "Explains distinct procurement instruments. The article’s five-row evidence pack is our exercise, not an official procurement form."
+      }
+    ],
+    "internalLinks": [
+      {
+        "slug": "advanced-retrieval-ai-own-documents-citations",
+        "title": "Eight document traps for an AI retrieval system"
       },
       {
         "slug": "intermediate-compare-ai-answers-evaluation-scorecard",
-        "title": "Compare two AI answers without rewarding the confident mistake"
+        "title": "Score the answer, not the confidence: a 20-point AI exercise"
       },
       {
-        "slug": "intermediate-repeatable-ai-research-writing-workflow",
-        "title": "A source ledger in practice: three claims about Canada’s AI consultation"
+        "slug": "federal-public-service-ai-strategy-2025-2027",
+        "title": "The first page of a federal AI pilot should be a decision brief"
       }
     ],
-    "image": "/images/articles/unique/how-beginners-use-ai-investment-research.jpg",
-    "imageAlt": "A beginner using AI to organize an investment-research checklist",
+    "image": "/images/articles/unique/buying-ai-canada-evidence-before-contract.jpg",
+    "imageAlt": "AI-generated editorial illustration of evidence folders, a magnifying glass and a processor diagram on a procurement desk.",
+    "disclaimer": "This procurement exercise proposes tests for an invented manual assistant; it reports no vendor results. It is general education, not legal advice or an official solicitation. A contracting authority must decide the applicable rules.",
     "evidenceStatus": "verified",
     "originalityStatus": "individually-reviewed",
     "searchEligible": true,
-    "disclaimer": "This is general education, not a valuation, tax or legal opinion, personalized financial advice or a recommendation to buy or sell a security. Verify decision-relevant facts in current filings and consider a registered adviser for personal decisions.",
     "sections": [
       {
-        "heading": "Give the assistant a research question it can answer",
+        "heading": "A supplier list answers only the first question",
         "paragraphs": [
-          "“Is this a good investment?” bundles facts, forecasts, price and personal circumstances into one question. A smaller task is easier to verify: did revenue and operating profit move in the same direction in this supplied extract? You can check the numbers and identify what the extract leaves out.",
-          "Use the fictional figures below to practise. They describe no real issuer and support no trade. The assistant’s role is to organize and explain public information while you verify the calculation and source. This is general financial education, not personalized advice, a valuation or a recommendation to buy, sell or hold a security."
+          "Public Services and Procurement Canada maintains an AI source list as a way for federal buyers to acquire AI goods and services. Being qualified for a procurement route is not proof that every product, configuration or use case from that supplier meets a buyer’s needs. The official description concerns access to a procurement process; it does not report the results of your acceptance test. Treat any broader conclusion as something that needs its own evidence.",
+          "This guide starts at that gap. A fictional organization wants an assistant that answers staff questions from internal operating manuals. The demonstration looks convincing. Before the buyer commits, what records would let someone else check the proposed system? Our five-row evidence pack is an editorial exercise for that purchase, not an official federal form or a claim that all Canadian buyers follow the same rules."
         ]
       },
       {
-        "heading": "The complete extract",
+        "heading": "Write the task so a supplier can fail it",
         "paragraphs": [
-          "Assume both years use the same currency, units and definitions for this exercise. A real filing needs those assumptions checked, including whether comparative figures were restated. A table copied without its notes can conceal a change in the meaning of a number."
-        ],
-        "table": {
-          "caption": "Invented company figures, in millions of dollars",
-          "columns": [
-            "Measure",
-            "Year one",
-            "Year two"
-          ],
-          "rows": [
-            [
-              "Revenue",
-              "100",
-              "120"
-            ],
-            [
-              "Operating profit",
-              "15",
-              "12"
-            ]
-          ]
-        },
-        "example": {
-          "label": "A bounded research prompt",
-          "text": "Using only this extract, calculate revenue growth and operating margin for both years. Show the arithmetic. Separate numerical observations from possible explanations. List the information missing for a wider assessment. Do not recommend a trade."
-        }
-      },
-      {
-        "heading": "The answer key: growth and margin tell different stories",
-        "paragraphs": [
-          "Revenue growth is (120 − 100) ÷ 100 = 20%. Operating margin is operating profit divided by revenue: 15 ÷ 100 = 15% in year one and 12 ÷ 120 = 10% in year two. The margin fell by five percentage points.",
-          "Operating profit itself fell by (12 − 15) ÷ 15 = −20%. A sentence saying “profitability improved because sales grew” contradicts this extract if profitability means operating margin or operating profit. It may sound plausible because it substitutes one measure for another.",
-          "Five percentage points and five percent are not interchangeable. The margin’s relative decline is (10 − 15) ÷ 15, approximately −33.3%. Label the measure you are discussing so a reader does not have to infer which calculation produced the number."
+          "The sample assistant has one job: answer a staff question using the current manual, or say it cannot find enough evidence. It must not decide employee benefits, browse private personnel files or send messages. This small scope makes several failures observable. An answer from last year’s manual fails even if it sounds sensible. A correct answer obtained from a file the employee cannot open also fails.",
+          "The buyer writes those limits before watching a second demonstration. Otherwise the demonstration can quietly define what counts as success: whichever examples the supplier has prepared become the requirements. CanadaBuys guidance on preparing an evaluation asks buyers to check the information required by the solicitation and recommends a requirements checklist. Our practical extension is to attach a piece of inspectable evidence to each requirement."
         ]
       },
       {
-        "heading": "A correct calculation still leaves the explanation open",
+        "heading": "The five records to request",
         "paragraphs": [
-          "The extract does not say why operating profit fell. Costs may have increased, product mix may have changed, or a one-time item may be involved. Those are questions to investigate, not facts to insert into the summary. Ask the assistant to keep competing explanations in an unanswered field."
+          "Each row below asks for something more specific than a reassuring sentence. A diagram can describe an intended design; an execution record can show what happened in a defined test. A contractual commitment has a different purpose again. Keep those evidence types separate rather than awarding all three the same “verified” mark."
         ],
         "table": {
-          "caption": "What the extract permits",
+          "caption": "Original evidence pack for a fictional internal-manual assistant",
           "columns": [
-            "Statement",
-            "Assessment",
-            "Next evidence"
+            "Question",
+            "Record to request",
+            "What would block acceptance"
           ],
           "rows": [
             [
-              "Revenue rose by 20%",
-              "Supported calculation",
-              "Confirm periods, units and definitions in the real source."
+              "Which manual produced this answer?",
+              "Answer, source excerpt, document version and retrieval record",
+              "Superseded guidance presented as current"
             ],
             [
-              "Operating margin fell",
-              "Supported calculation",
-              "Read the notes explaining the operating result."
+              "Can an employee cross a permission boundary?",
+              "Two test accounts with different access; retained test outputs",
+              "Restricted text appears for the wrong account"
             ],
             [
-              "Management spent more on expansion",
-              "Not established",
-              "Management discussion and relevant expense notes."
+              "What happens when evidence is absent?",
+              "A deliberately unanswerable question and the full response",
+              "An invented procedure or unsupported instruction"
             ],
             [
-              "The shares are undervalued",
-              "Not established",
-              "A much broader analysis, including price and assumptions."
+              "Can we leave the service?",
+              "Export of a sample collection and configuration; removal procedure",
+              "Important records cannot be exported or removal is undefined"
             ],
             [
-              "This suits a particular investor",
-              "Not established",
-              "Personal circumstances and appropriate professional judgment."
+              "Who authorizes a system change?",
+              "Named owner, change notice and rerun criteria",
+              "A material update can bypass the agreed acceptance checks"
             ]
           ]
         }
       },
       {
-        "heading": "Move to a real filing without losing the audit trail",
+        "heading": "A purchase rehearsal with no invented results",
         "paragraphs": [
-          "Find the issuer’s official filing or the relevant regulated disclosure. Record issuer, document, reporting period, currency, units and page or section. Compare like periods. Keep audited statements, management explanations and your own interpretation distinguishable; they carry different kinds of support.",
-          "If an assistant cites a page, open it. Check the row heading and the notes rather than searching only for the same number. A figure can appear in several contexts. Use a calculator or spreadsheet to recompute decision-relevant arithmetic and keep the formula beside the source reference."
+          "Create a tiny pack of invented manuals before involving real internal records. In this exercise, version A says requests go to the service desk, while version B replaces it and names an online form. A third document is restricted to a different test account. Include a question no document answers. Ask the supplier to show the inputs, output and source selection for each case.",
+          "We have not run this procurement trial against a vendor. These are proposed acceptance cases, so the result column starts blank. That distinction matters: a template full of green ticks would imply work nobody performed. Save the actual outputs unchanged when a test is run, record the service configuration and have the buyer assess the failure conditions agreed in advance.",
+          "A supplier may explain that a requested control requires a different product tier or extra implementation. Record the dependency and its price. Do not count a future feature as a passed test. Likewise, a successful demonstration by an administrator does not establish what a normal staff account can access."
         ]
       },
       {
-        "heading": "End with unanswered questions rather than a trade",
+        "heading": "Keep the scoring rule ahead of the evidence",
         "paragraphs": [
-          "A useful research note might conclude: revenue rose while operating margin fell; the extract does not explain the cause or establish cash generation, debt capacity or value. That is a stronger result than a confident recommendation built on missing information.",
-          "Keep account identifiers, portfolio screenshots and private financial records out of an unnecessary chatbot prompt. If you seek an adviser, use official registration guidance and independently verify the person and firm. The related scam-check guide explains why a copied registration number or convincing AI-generated pitch does not authenticate an offer."
-        ]
-      }
-    ],
-    "modifiedAt": "2026-09-21T22:36:20Z",
-    "updateNote": "Rewritten throughout on September 21, 2026, with a complete worked method, explicit evidence limits and checked primary sources.",
-    "seoTitle": "AI investment research: verify growth, margins and missing facts"
-  },
-  {
-    "slug": "beginner-ai-investment-scam-check",
-    "title": "An AI investment pitch passed one check. That does not make it safe.",
-    "dek": "Work through a fictional impersonation to separate a real registration record from a verified sender, product and payment destination.",
-    "category": "Business",
-    "date": "2026-08-10",
-    "readTime": "4 min read",
-    "signal": "Fraud defence",
-    "accent": "red",
-    "sourceLabel": "Ontario Securities Commission Investor Office",
-    "sourceUrl": "https://www.getsmarteraboutmoney.ca/learning-path/research-reports/ai-enhanced-scams-risks-and-safeguards/",
-    "sources": [
-      {
-        "label": "Ontario Securities Commission Investor Office: AI-enhanced scams",
-        "url": "https://www.getsmarteraboutmoney.ca/learning-path/research-reports/ai-enhanced-scams-risks-and-safeguards/",
-        "note": "OSC research used for the reported ways generative AI can increase the reach and persuasiveness of investment fraud and for its consumer safeguards."
-      },
-      {
-        "label": "Ontario Securities Commission Investor Office: Investor alerts",
-        "url": "https://www.getsmarteraboutmoney.ca/investor-alerts/",
-        "note": "The regulator's current alert index, included as a place to check named firms, products and active warnings before sending money."
-      },
-      {
-        "label": "Ontario Securities Commission Investor Office: Checking registration",
-        "url": "https://www.getsmarteraboutmoney.ca/learning-path/checking-registration/",
-        "note": "Investor guidance used for the registration-check step; registration is one verification input and is not a guarantee that an investment is suitable or safe."
-      },
-      {
-        "label": "Canadian Anti-Fraud Centre: What to do if you are a victim",
-        "url": "https://antifraudcentre-centreantifraude.ca/scams-fraudes/victim-victime-eng.htm",
-        "note": "Official guidance on preserving records, contacting financial institutions and police, reporting fraud and avoiding subsequent recovery scams; it does not promise recovery."
-      },
-      {
-        "label": "Canadian Anti-Fraud Centre and CIRO: Recovery scams",
-        "url": "https://antifraudcentre-centreantifraude.ca/news-nouvelles/2024/2024-09-25-eng.htm",
-        "note": "The joint warning supports independent verification and the caution against advance-fee recovery offers and unsolicited remote access. Historical loss figures are not used in this article."
-      }
-    ],
-    "internalLinks": [
-      {
-        "slug": "how-beginners-use-ai-investment-research",
-        "title": "Use AI to read a financial extract, then check its conclusion"
-      },
-      {
-        "slug": "beginner-use-ai-safely-files-email-private-data",
-        "title": "Before uploading a file to AI, make a smaller source"
-      }
-    ],
-    "image": "/images/articles/unique/beginner-ai-investment-scam-check.jpg",
-    "imageAlt": "An investor using a paper checklist to verify information produced by AI",
-    "evidenceStatus": "verified",
-    "originalityStatus": "individually-reviewed",
-    "searchEligible": true,
-    "disclaimer": "This checklist cannot certify that an investment is legitimate or suitable. If money or account credentials may be at risk, stop contact through the suspicious channel and reach your financial institution and the appropriate authorities directly.",
-    "sections": [
-      {
-        "heading": "Verify the offer without relying on the face or voice",
-        "paragraphs": [
-          "A realistic video or familiar voice can make an investment pitch feel personal before you have checked a single claim. The Ontario Securities Commission’s investor research describes how AI can make scams more persuasive and easier to scale. Trying to spot a visual defect is therefore a weak first step.",
-          "Begin outside the conversation. Pause the transfer, close the supplied link and locate the relevant institution through an independent official route. The procedure below examines a fictional impersonation. It cannot certify an investment as safe, but it prevents one convincing detail from standing in for the identity, registration, documents and payment checks that remain unfinished."
+          "A weighted total can help compare convenience, cost and support. It should not allow enough pleasant features to cancel a disclosure of restricted information. In this fictional purchase, permission leakage is a blocking condition. Response speed is a scored preference. The exact distinction is a buyer decision that belongs in the requirements before offers are assessed, with procurement advice where applicable.",
+          "CanadaBuys distinguishes procurement instruments, including supply arrangements and contracts. Choose the applicable route with the contracting authority; do not assume an exercise in this article authorizes a purchase. Federal procedures also do not automatically govern a private business or a provincial institution. The transferable part is the evidence discipline, not a universal legal checklist."
         ]
       },
       {
-        "heading": "The fictional pitch",
+        "heading": "The decision record should outlive the sales meeting",
         "paragraphs": [
-          "An invented sender calling itself North Lake AI Returns offers an automated investment service. The message includes a registration number copied from a real-looking record, a video endorsement and instructions to transfer money to a newly supplied account. These names and circumstances are a teaching example, not an allegation about a real firm.",
-          "Suppose you find a matching registration record. You have established that the record exists. You have not established that the sender controls that identity, that the offered product matches it or that the payment destination belongs to the registered business. Keep those conclusions separate."
-        ]
-      },
-      {
-        "heading": "Use four results instead of one “verified” badge",
-        "paragraphs": [
-          "Begin from your securities regulator’s official website when checking registration and warnings. Independently contact the firm through details you obtain from a trusted official route. Do not use the pitch’s callback number to verify the pitch."
-        ],
-        "table": {
-          "caption": "Verification record for the fictional offer",
-          "columns": [
-            "Check",
-            "What a positive result establishes",
-            "What remains unresolved"
-          ],
-          "rows": [
-            [
-              "Registration record",
-              "A record exists for the named person or firm",
-              "Whether the sender is that person or firm."
-            ],
-            [
-              "Independent contact",
-              "The genuine firm confirms or denies the communication",
-              "Whether the product is suitable for you."
-            ],
-            [
-              "Product documents",
-              "The claimed product can be compared with official documents",
-              "Whether the claims and risks have been understood."
-            ],
-            [
-              "Payment destination",
-              "The genuine institution confirms the intended route",
-              "Whether making the investment is appropriate."
-            ]
-          ]
-        }
-      },
-      {
-        "heading": "A warning search with no match is not clearance",
-        "paragraphs": [
-          "A new impersonation may not yet appear in an alert list. Search warnings as one input, then continue the independent checks. Likewise, finding the original video on an official channel may establish what was actually said without authenticating the message that reused it.",
-          "Ask for the legal product name, issuer, fees, custody arrangements and withdrawal terms. Compare the claims with official documents. Do not allow “AI-powered” to replace an explanation of how returns arise or what losses are possible. Guaranteed high returns and pressure to act before checking are reasons to stop."
-        ]
-      },
-      {
-        "heading": "Protect the account while you investigate",
-        "paragraphs": [
-          "Do not share a one-time security code, recovery phrase or remote-control access with someone who contacted you unexpectedly. If a caller says your money must move to a safe account, end the call and contact the institution independently. A second chatbot’s opinion of the pitch is not identity verification.",
-          "Bring in someone who is not invested in the promised outcome. Give them the original message and your unresolved checks, not only the reassuring parts. If the offer depends on secrecy or prevents you from asking your bank questions, treat that pressure as part of the evidence."
-        ]
-      },
-      {
-        "heading": "If money or credentials have already moved",
-        "paragraphs": [
-          "Contact the financial institution promptly using an independently verified route. Preserve the original messages, transaction references, destination information and relevant times. Report through the appropriate police, Canadian Anti-Fraud Centre and securities-regulator channels for the circumstances. Follow the institution’s instructions for securing affected accounts.",
-          "Do not pay another unsolicited party an advance fee to recover the funds or grant it account access. Recovery promises can extend the original loss. A report may help investigation and containment, but no checklist or reporting route can promise that a transfer will be reversed."
-        ]
-      },
-      {
-        "heading": "The outcome of this exercise is “not verified”",
-        "paragraphs": [
-          "In the fictional case, a registration match alone leaves sender, product and destination unresolved. The appropriate next step is independent confirmation before any payment, not a smaller trial payment. A successful small withdrawal would not establish that a later larger transfer is safe either.",
-          "Keep the unresolved fields visible. This is the practical advantage of a written record: it slows the moment when confidence outruns evidence and gives a bank, trusted person or regulator something concrete to examine."
+          "At the end of the fictional exercise, the buyer should be able to hand a colleague one short record: the permitted task, tested configuration, cases and outputs, unresolved exceptions, contract dependencies and the person accepting the residual risk. Put promises in a separate column from observed results. If a record is missing, name it rather than replacing it with a general assurance about responsible AI.",
+          "After purchase, repeat the relevant cases when the model, permission setup or document-processing behaviour changes. The acceptance decision applied to a configuration and a use, not to the supplier’s brand forever. A small evidence pack is useful precisely because another person can rerun it and disagree with the conclusion without having attended the original demonstration."
         ]
       }
     ],
-    "modifiedAt": "2026-09-21T22:36:20Z",
-    "updateNote": "Rewritten throughout on September 21, 2026, with a complete worked method, explicit evidence limits and checked primary sources.",
-    "seoTitle": "AI investment scam checks: identity, registration and payments"
+    "publishedAt": "2026-09-22T04:20:14Z"
   }
 ];
 

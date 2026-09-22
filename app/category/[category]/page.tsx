@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Fragment } from "react";
 import { notFound } from "next/navigation";
-import { AdSlot, ArticleCard, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
+import { ArticleCard, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
 import { articles, categories } from "../../lib/articles";
 import { searchEligibleArticles } from "../../lib/search-quality";
 import { absoluteUrl, breadcrumbSchema, buildPageMetadata, categoryDescriptions, categoryPath, SITE_URL, WEBSITE_ID } from "../../lib/seo";
@@ -92,17 +92,14 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           <section>
             <div className="archiveTitle"><h2>Latest {category.toLowerCase()} stories</h2><span>{categoryArticles.length} articles</span></div>
             <div className="archiveGrid">
-              {categoryArticles.map((article, index) => (
+              {categoryArticles.map((article) => (
                 <Fragment key={article.slug}>
                   <div><ArticleCard article={article} /></div>
-                  {index === 3 && <div className="archiveAdQuad"><AdSlot label={`Category ${category} mid-list`} /></div>}
-                  {index === 7 && <div className="archiveAdQuad"><NativeAd placement={`category-${category.toLowerCase()}-native`} /></div>}
                 </Fragment>
               ))}
             </div>
           </section>
           <aside className="archiveRail">
-            <AdSlot format="rectangle" />
             <div className="sourceBox">
               <span className="eyebrow">EXPLORE AI NEW</span>
               <h3>From headlines to working knowledge.</h3>

@@ -135,24 +135,34 @@ const articleBriefings: Record<string, ArticleBriefing> = {
     searchSnippet: "A worked release decision shows why an average score can hide the error that matters, and how to carry that failure into live monitoring.",
     tags: ["AI evaluation", "red teaming", "production monitoring", "release gates"],
   },
-  "how-beginners-use-ai-investment-research": {
-    heading: "Use the chatbot to organize the work, not make the trade",
-    bottomLine: "AI is useful for turning a broad investment question into a research plan. It is a poor place to verify a number that could change a decision. That job belongs to the current filing or regulated record.",
-    useThisFor: "Check revenue growth, operating profit and margin from a complete two-year extract before attempting a broader research conclusion.",
-    boundary: "This is general education. It is not a valuation, personalized financial advice or a recommendation to trade any security.",
-    contribution: "Our arithmetic key distinguishes percentage points from relative change and marks the claims the financial extract cannot support.",
-    searchSnippet: "A fictional two-year extract gives you a complete arithmetic check and a boundary between a supported observation and an investment recommendation.",
-    tags: ["investment research", "AI verification", "Canadian filings", "financial education"],
-  },
-  "beginner-ai-investment-scam-check": {
-    heading: "One passed check leaves several unanswered",
-    bottomLine: "A convincing face or voice is no longer useful proof of identity. End the conversation, find the person or firm through an independent official channel, and verify the claim and payment route there.",
-    useThisFor: "Keep registration, sender identity, product evidence and the payment destination separate when checking an investment pitch.",
-    boundary: "No checklist can certify an investment as safe. Registration can be misrepresented, familiar brands can be copied and even a real person can make a poor claim.",
-    contribution: "The fictional impersonation ends with an explicit not-verified outcome and a record showing what each positive check does and does not establish.",
-    searchSnippet: "Work through a fictional impersonation to separate a real registration record from a verified sender, product and payment destination.",
-    tags: ["investment scams", "deepfakes", "registration check", "fraud prevention"],
-  },
+  "canada-ai-compute-funding-cost-plan": {
+    "heading": "The budget before the application",
+    "bottomLine": "The fund is closed. A cost plan can still separate a full supplier bill from a conditional reimbursement and the cash needed to pay it.",
+    "useThisFor": "Reproduce the $156,000 fictional quote and carry a no-award case into your own planning.",
+    "boundary": "This is an illustrative calculation, not a funding offer, eligibility decision or forecast that the program will reopen.",
+    "contribution": "We reconcile the two-thirds and 67% descriptions and show how applying the rate to an entire invoice understates the residual cost.",
+    "searchSnippet": "The AI Compute Access Fund is closed. Work through a $156,000 fictional quote to separate eligible costs, potential support and cash needed.",
+    "tags": [
+        "AI Compute Access Fund",
+        "Canadian compute",
+        "AI project budgets",
+        "funding evidence"
+    ]
+},
+  "buying-ai-canada-evidence-before-contract": {
+    "heading": "Make the purchase inspectable",
+    "bottomLine": "A procurement listing is one piece of evidence. A product still needs a defined task, an acceptance test and a record of what was actually observed.",
+    "useThisFor": "Adapt five evidence requests for an internal-manual assistant before a demonstration becomes a commitment.",
+    "boundary": "The buyer, manuals and tests are fictional. No vendor trial was conducted, and this is not an official procurement or legal checklist.",
+    "contribution": "Our evidence pack turns five sales questions into records and blocking conditions, with a rehearsal that leaves unmeasured results blank.",
+    "searchSnippet": "Before buying an AI assistant, request five records that distinguish supplier eligibility, observed results and promises still awaiting proof.",
+    "tags": [
+        "AI procurement",
+        "supplier evidence",
+        "acceptance testing",
+        "CanadaBuys"
+    ]
+},
 };
 
 export function getArticleBriefing(slug: string): ArticleBriefing {

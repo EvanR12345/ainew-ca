@@ -56,7 +56,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .navMore > div a:last-child { border-bottom: 0; }
 .searchLink { margin-left: auto; }
 
-.topAdWrap, .sectionAdWrap { display: none; }
 
 .sectionKicker { border-top: 5px solid var(--text); border-bottom: 1px solid var(--text); padding: 9px 0; display: flex; justify-content: space-between; text-transform: uppercase; font-size: 10px; letter-spacing: .14em; font-weight: 800; }
 .homeMission { padding: 42px 0 26px; border-bottom: 1px solid var(--border); }
@@ -286,7 +285,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .archiveGrid .storyVisual strong { display: none; }
 .archiveGrid .storyContent { padding: 0; }
 .archiveGrid .storyContent h3 { margin-top: 8px; font-size: 27px; }
-.archiveAdQuad { grid-column: 1 / -1; }
 .loadMoreWrap { grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 42px; padding-top: 28px; border-top: 1px solid var(--border); }
 .loadMoreButton { border: 1px solid var(--text); background: var(--text); color: white; padding: 14px 20px; font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
 .loadMoreButton:hover { background: var(--accent); }
@@ -557,8 +555,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .navMore > div { top: 29px; right: -40px; width: min(230px, calc(100vw - 28px)); }
   .searchLink { margin-left: 0; }
   .searchWord { display: none; }
-  .topAdWrap { padding: 12px 0; }
-  .sectionAdWrap { padding: 2px 0 34px; }
   .heroGrid { padding-top: 18px; gap: 28px; }
   .leadVisual { min-height: 250px; }
   .leadVisualWords { left: 18px; bottom: 18px; max-width: 85%; }
@@ -834,7 +830,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .archiveGrid .storyCard { display: block; }
 .archiveGrid .storyVisual { min-height: 0; }
 .archiveGrid .storyContent h3 { font-size: 24px; }
-.archiveAdQuad { grid-column: 1 / -1; }
 .sourceBox, .stickyBrief, .railNewsletter { border: 0; background: var(--accent-soft); }
 
 .articleShell { max-width: 1260px; }

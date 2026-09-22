@@ -4,13 +4,12 @@ import "@fontsource-variable/newsreader/wght.css";
 import "./globals.css";
 import { ScrollToTop } from "./scroll-to-top";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./lib/seo";
-import { SITE_FEATURES } from "./lib/site-features";
 import { LanguagePreference } from "./language-preference";
 
 export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
     applicationName: SITE_NAME,
-    title: { default: "AI New Canada — Canadian AI News & Practical Guides", template: "%s" },
+    title: { default: "AI New Canada — Canadian Policy & Practical Evidence", template: "%s" },
     description: SITE_DESCRIPTION,
     authors: [{ name: "AI New Desk", url: `${SITE_URL}/authors/ai-new-desk/` }],
     creator: "AI New Desk",
@@ -36,7 +35,7 @@ export const metadata: Metadata = {
     openGraph: {
       type: "website",
       siteName: SITE_NAME,
-      title: "AI New Canada — Intelligence, made useful",
+      title: "AI New Canada — Understand the decision. Check the evidence.",
       description: SITE_DESCRIPTION,
       url: `${SITE_URL}/`,
       locale: "en_CA",
@@ -50,13 +49,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en-CA" data-language="en" suppressHydrationWarning>
       <head>
         <meta name="google-adsense-account" content="ca-pub-4610762209559364" />
-        {SITE_FEATURES.ads && (
-          <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4610762209559364"
-            crossOrigin="anonymous"
-          />
-        )}
         <link rel="alternate" type="application/rss+xml" title={`${SITE_NAME} RSS feed`} href="/feed.xml" />
       </head>
       <body><ScrollToTop /><LanguagePreference />{children}</body>

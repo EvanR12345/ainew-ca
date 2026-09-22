@@ -6,7 +6,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Fragment } from "react";
 import { articleImageStyle } from "../../article-image-style";
-import { AdSlot, NativeAd, NewsletterBand, SiteFooter, SiteHeader } from "../../components";
+import { NewsletterBand, SiteFooter, SiteHeader } from "../../components";
 import { SaveArticleButton } from "../../learning-actions";
 import { articles, getAdjacentArticles, getArticle, getRelatedArticles, toArticleCardData } from "../../lib/articles";
 import { getArticleBriefing } from "../../lib/article-briefings";
@@ -149,7 +149,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             },
           ],
         }} />
-        <div className="shell topAdWrap"><AdSlot eager /></div>
         <article className="articleShell shell">
           <header className="articleHeader">
             <div className="articleBreadcrumb"><Link href="/">Home</Link><span>/</span><Link href={categoryPath(article.category)}>{article.category}</Link></div>
@@ -212,9 +211,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     {section.example && <figure className="articleExample"><figcaption>{section.example.label}</figcaption><pre><code>{section.example.text}</code></pre></figure>}
                     {section.table && <p className="articleTableHint">Scroll the table sideways to see every column.</p>}
                     {section.table && <div className="articleTableWrap" role="region" aria-label={section.table.caption} tabIndex={0}><table className="articleTable"><caption>{section.table.caption}</caption><thead><tr>{section.table.columns.map((column) => <th scope="col" key={column}>{column}</th>)}</tr></thead><tbody>{section.table.rows.map((row, rowIndex) => <tr key={rowIndex}>{row.map((cell, cellIndex) => cellIndex === 0 ? <th scope="row" key={cellIndex}>{cell}</th> : <td key={cellIndex}>{cell}</td>)}</tr>)}</tbody></table></div>}
-                    {index === 0 && <AdSlot format="in-feed" label="Article opening" />}
-                    {index === 3 && <AdSlot format="leaderboard" label="Article mid-story" />}
-                    {index === 5 && <NativeAd placement={`article-${article.slug}-native`} />}
                     {index === 1 && article.video && (
                       <aside className="videoModule" aria-label="Related video">
                         <h3>{article.video.title}</h3>
@@ -287,12 +283,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <Link href={`/article/${adjacent.next.slug}`}><span>Next story →</span><strong>{adjacent.next.title}</strong></Link>
               </nav>
 
-              <AdSlot format="leaderboard" label="Article end" />
 
               <div className="articleUpdate"><strong>Corrections & updates</strong>{article.updateNote && <p>{article.updateNote}</p>}<p>{indexEligible && modifiedTime === SEARCH_REVIEW_DATETIME ? "Sources and external URLs reviewed on August 30, 2026. " : ""}See something we should fix or clarify? <Link href="/corrections-policy/">Read the corrections policy</Link> or <Link href="/contact">tell the newsroom</Link>. Material changes are noted here.</p></div>
             </div>
             <aside className="articleAdRail">
-              <AdSlot format="rectangle" />
               <div className="articleEvidenceRail">
                 <span className="eyebrow">EVIDENCE TRAIL</span>
                 <strong>{sourceList.length} named {sourceList.length === 1 ? "source" : "sources"}</strong>

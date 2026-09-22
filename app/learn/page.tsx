@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import quizQuestions from "../lib/learning-questions.json";
-import { AdSlot, SiteFooter, SiteHeader } from "../components";
+import { SiteFooter, SiteHeader } from "../components";
 import { LearningLab, type LearningTrack } from "../learning-lab";
 import { articles, toArticleCardData } from "../lib/articles";
 import { searchEligibleArticles } from "../lib/search-quality";
@@ -9,7 +9,7 @@ import { buildPageMetadata, breadcrumbSchema, SITE_URL, WEBSITE_ID } from "../li
 import { StructuredData } from "../structured-data";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "AI Learning Lab — Reading Paths & Practice Quizzes | AI New Canada",
+  title: "Practise AI: Reading Paths & Checkable Exercises | AI New Canada",
   description: "Build practical AI knowledge with five free guided learning paths, quizzes, flashcards, saved stories and honest progress tracking.",
   path: "/learn/",
 });
@@ -84,10 +84,9 @@ export default function LearnPage() {
             },
           ],
         }} />
-        <div className="shell topAdWrap"><AdSlot eager /></div>
         <section className="shell pageHero learnHero">
           <span className="eyebrow">AI NEW LEARNING LAB</span>
-          <h1>Turn AI news into knowledge you can actually use.</h1>
+          <h1>Read it, try it, check your answer.</h1>
           <p>Choose a reading path, save useful articles and practise with worked examples, questions and flashcards. These are self-guided activities, not an accredited course or a measure of professional competence.</p>
           <div className="learnHeroFeatures"><span>5 curated tracks</span><span>{cards.length} individually reviewed reads</span><span>8-question knowledge circuit</span><span>12 essential flashcards</span></div>
         </section>

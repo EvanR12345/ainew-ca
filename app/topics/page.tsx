@@ -6,7 +6,7 @@ import { topicHubs } from "../lib/topic-hubs";
 import { StructuredData } from "../structured-data";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "AI Topic Guides & Learning Paths | AI New Canada",
+  title: "Explore Canadian AI Policy, Workflows & Testing | AI New Canada",
   description: "Start with a structured guide to Canadian AI policy, using AI well, or understanding AI models and evaluation.",
   path: "/topics/",
 });
@@ -44,7 +44,7 @@ export default function TopicsPage() {
         <header className="topicDirectoryHeader">
           <div className="articleBreadcrumb"><Link href="/">Home</Link><span>/</span><span>Topic guides</span></div>
           <span className="eyebrow">START WITH A QUESTION</span>
-          <h1>Three maps through a noisy AI landscape.</h1>
+          <h1>Policy, practice and proof.</h1>
           <p>These editor-curated guides connect the stories, concepts and primary questions that matter. Choose a subject and follow a deliberate path instead of an endless feed.</p>
         </header>
         <div className="topicIndexGrid">

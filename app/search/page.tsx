@@ -7,7 +7,7 @@ import { articles, toArticleCardData } from "../lib/articles";
 import { searchEligibleArticles } from "../lib/search-quality";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Search AI News & Guides | AI New Canada",
+  title: "Find an AI Guide, Exercise or Source | AI New Canada",
   description: "Search AI New Canada stories, explainers and practical artificial intelligence guides.",
   path: "/search/",
   index: false,

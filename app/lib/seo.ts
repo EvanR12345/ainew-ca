@@ -11,7 +11,7 @@ export const categoryDescriptions: Record<string, string> = {
   Canada: "Canadian AI strategy, public-service policy and privacy explained through primary documents and worked examples.",
   Models: "Practical methods for comparing AI answers and planning evaluations, with limits and failure cases.",
   Products: "Guides to everyday AI tasks, useful prompts and permissions for human-reviewed agents.",
-  Business: "AI spreadsheet exercises, educational investment-research methods and fraud-verification checks.",
+  Business: "AI compute cost planning, purchasing evidence and reproducible spreadsheet exercises for Canadian teams.",
   Research: "Methods for source-backed research and document retrieval, with examples of citation and version errors.",
   Policy: "Practical guidance on handling files, email and private information when using AI.",
 };

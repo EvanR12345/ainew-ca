@@ -7,7 +7,7 @@ import { buildPageMetadata, breadcrumbSchema, SITE_URL, WEBSITE_ID } from "../li
 import { StructuredData } from "../structured-data";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Latest AI News & Analysis | AI New Canada",
+  title: "Canadian AI Guides, Tests & Source Notes | AI New Canada",
   description: "Browse evidence-first coverage of AI models, products, policy, business, research and the Canadian artificial intelligence ecosystem.",
   path: "/articles/",
 });
@@ -51,7 +51,7 @@ export default function ArticlesPage() {
         <section className="pageHero shell">
           <div className="pageHeroIndex">NEWSROOM / 01</div>
           <span className="eyebrow">THE COMPLETE EDITION</span>
-          <h1>AI news with the missing context put back in.</h1>
+          <h1>Choose a question. Follow the evidence.</h1>
           <p>Browse a dated, chronological edition of source-led reporting and practical analysis across Canada, models, products, business, research and policy.</p>
         </section>
         <ArticlesArchive articles={articleCards} />
