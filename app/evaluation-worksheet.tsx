@@ -26,7 +26,9 @@ export function EvaluationWorksheet() {
     const record = { worksheet: "AI New Canada comparison worksheet v2", recordedAt: new Date().toISOString(), task, prompt, sourcePack, sharedSettings: settings, stopCondition: stop,
       answers: answers.map((answer, i) => ({ label: String.fromCharCode(65 + i), system: answer.system, version: answer.version, accountTier: answer.tier, actualOutput: answer.output, scores: Object.fromEntries(dimensions.map((name, n) => [name, answer.scores[n] === "" ? null : Number(answer.scores[n])])), evidence: answer.evidence, criticalFailure: answer.critical, result: result(answer) })) };
     const url = URL.createObjectURL(new Blob([JSON.stringify(record, null, 2)], { type: "application/json" }));
-    const link = document.createElement("a"); link.href = url; link.download = "ai-answer-comparison.json"; link.click(); URL.revokeObjectURL(url);
+    const link = document.createElement("a"); link.href = url; link.download = "ai-answer-comparison.json";
+    document.body.appendChild(link); link.click();
+    window.setTimeout(() => { URL.revokeObjectURL(url); link.remove(); }, 30_000);
   }
   return <section className="evaluationWorksheet" id="comparison-worksheet" aria-labelledby="worksheet-title">
     <noscript><p>The interactive worksheet needs JavaScript. You can still use the rubric and source pack above with a paper record.</p></noscript>
