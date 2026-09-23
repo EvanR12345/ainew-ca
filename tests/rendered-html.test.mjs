@@ -58,7 +58,7 @@ test("publishes the worked federal algorithmic impact assessment case", async ()
   assert.match(html, /65 risk questions and 41 mitigation questions/);
   assert.match(html, /Northern Access Triage is fictional and deliberately unscored/);
   assert.match(html, /canada-algorithmic-impact-assessment-worked-example\.jpg/);
-  assert.match(html, /"dateModified":"2026-09-21T22:36:20Z"/);
+  assert.match(html, /"dateModified":"2026-09-23T17:07:11Z"/);
   assert.match(html, /"keywords":\["Algorithmic Impact Assessment","automated decisions","public-sector AI","AI accountability"\]/);
 });
 
@@ -343,14 +343,14 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.match(articleHtml, /"author":\{"@type":"Organization","@id":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/#profile","name":"AI New Desk","url":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/"\}/);
   assert.match(articleHtml, /"@type":"BreadcrumbList"/);
   assert.match(articleHtml, /"datePublished":"2026-08-10T12:00:00Z"/);
-  assert.match(articleHtml, /"dateModified":"2026-09-21T22:36:20Z"/);
+  assert.match(articleHtml, /"dateModified":"2026-09-23T17:07:11Z"/);
   const articleMetaHtml = articleHtml.match(/<div class="articleMeta">([\s\S]*?)<\/div><div class="articleTrustLine"/)?.[1] ?? "";
-  assert.match(articleMetaHtml, /<time dateTime="2026-09-21T22:36:20Z">September 21, 2026<\/time>/);
+  assert.match(articleMetaHtml, /<time dateTime="2026-09-23T17:07:11Z">September 23, 2026<\/time>/);
   assert.equal((articleMetaHtml.match(/<time\b/g) ?? []).length, 1);
   assert.doesNotMatch(articleMetaHtml, /Updated/i);
   assert.match(authorHtml, /"@type":"ProfilePage"/);
   assert.match(authorHtml, /"dateCreated":"2026-08-11T04:06:24-04:00"/);
-  assert.match(authorHtml, /"dateModified":"2026-09-21T08:31:52Z"/);
+  assert.match(authorHtml, /"dateModified":"2026-09-23T17:07:11Z"/);
   assert.match(articleHtml, /Editorial note:/);
   assert.match(articleHtml, /EDITOR’S NOTE/);
   assert.match(articleHtml, /Five questions, and no final rule yet/);
@@ -457,7 +457,7 @@ test("comparison guide includes the complete exercise and an initially unscored 
   assert.match(html, /Answer key: the expensive error is permission/);
   assert.match(html, /id="comparison-worksheet"/);
   assert.match(html, /Download comparison record/);
-  assert.match(html, /Incomplete: score all five dimensions/);
+  assert.match(html, /Incomplete: record the common task, prompt, sources, stop condition, actual output and evidence/);
   assert.doesNotMatch(html, /Ready for your review/);
 });
 
@@ -475,6 +475,25 @@ test("publishes inspectable experiment outputs with matching source hashes", asy
     assert.match(html, /No commercial AI model or spreadsheet application was tested/);
     for (const file of ["inputs.json", "run.mjs", "results.json", "README.txt"]) assert.ok(html.includes(`/experiments/decision-checks/${file}`));
   }
+  const [probeInput, probeRunner, probeOutput] = await Promise.all(["probes-2026-09-23.json", "probe.mjs", "probes-results-2026-09-23.json"].map(name => readFile(new URL(name, base))));
+  const fixture = JSON.parse(probeInput);
+  const recorded = JSON.parse(probeOutput);
+  assert.equal(recorded.inputSha256, hash(probeInput));
+  assert.equal(recorded.runnerSha256, hash(runner));
+  assert.equal(recorded.probeSha256, hash(probeRunner));
+  const { checkedSum, checkedMatch } = await import(new URL("run.mjs", base));
+  for (const [caseInput, result] of fixture.invoiceCases.map((item, index) => [item, recorded.invoices[index]])) {
+    assert.equal(result.id, caseInput.id);
+    assert.equal(result.observed, checkedSum(caseInput.rows));
+    assert.equal(result.pass, result.observed === caseInput.expected);
+  }
+  for (const [caseInput, result] of fixture.retrievalCases.map((item, index) => [item, recorded.retrieval[index]])) {
+    const docs = fixture.retrievalDocuments.filter(d => d.id !== caseInput.replaceId).concat(caseInput.extraDocuments);
+    assert.equal(result.id, caseInput.id);
+    assert.equal(result.observed, checkedMatch(docs, caseInput.query));
+    assert.equal(result.pass, result.observed === caseInput.expected);
+  }
+  assert.equal(recorded.retrieval.filter(item => !item.pass).length, 4);
 });
 
 test("puts a concise answer before article imagery and links contextual next steps to public lessons", async () => {

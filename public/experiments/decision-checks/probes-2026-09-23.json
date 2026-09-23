@@ -1,0 +1,23 @@
+{
+  "question": "Do the published guarded rules reject additional malformed records and internal contradictions?",
+  "specifiedBeforeRun": "2026-09-23",
+  "method": "Call the published checkedSum and checkedMatch functions without changing their rules. REVIEW is the expected result when a record violates the stated data contract, even if its metadata would yield a plausible number. Compare exact values; preserve failed cases.",
+  "invoiceCases": [
+    {"id":"single-valid-row","rows":[{"id":"B01","province":"ON","status":"Paid","cents":125}],"expected":125,"reason":"Valid amount in integer cents"},
+    {"id":"missing-amount","rows":[{"id":"B02","province":"ON","status":"Paid"}],"expected":"REVIEW","reason":"Amount absent"},
+    {"id":"unsupported-province","rows":[{"id":"B03","province":"QC","status":"Paid","cents":250}],"expected":"REVIEW","reason":"Outside this teaching fixture's ON/BC vocabulary"},
+    {"id":"unsafe-total","rows":[{"id":"B04","province":"ON","status":"Paid","cents":9007199254740991},{"id":"B05","province":"ON","status":"Paid","cents":1}],"expected":"REVIEW","reason":"Sum exceeds safe integer range"}
+  ],
+  "retrievalDocuments": [
+    {"id":"T1","topic":"meals","audience":"staff","from":"2026-01-01","through":"2026-06-30","cad":40,"text":"Staff meals: CAD 40 through June 30."},
+    {"id":"T2","topic":"meals","audience":"staff","from":"2026-07-01","through":"2026-12-31","cad":45,"text":"Staff meals: CAD 45 from July 1."}
+  ],
+  "retrievalCases": [
+    {"id":"unknown-topic","query":{"topic":"lodging","date":"2026-07-02","audience":"staff"},"extraDocuments":[],"expected":"REVIEW","reason":"No eligible document"},
+    {"id":"text-disagrees-with-metadata","query":{"topic":"meals","date":"2026-07-02","audience":"staff"},"extraDocuments":[{"id":"T2-conflict","topic":"meals","audience":"staff","from":"2026-07-01","through":"2026-12-31","cad":45,"text":"Staff meals: CAD 55 from July 1."}],"replaceId":"T2","expected":"REVIEW","reason":"A policy's written amount contradicts its metadata"},
+    {"id":"numeric-text-amount","query":{"topic":"meals","date":"2026-07-02","audience":"staff"},"extraDocuments":[{"id":"T2-text","topic":"meals","audience":"staff","from":"2026-07-01","through":"2026-12-31","cad":"45","text":"Staff meals: CAD 45 from July 1."}],"replaceId":"T2","expected":"REVIEW","reason":"Amount has an unexpected type"},
+    {"id":"missing-document-text","query":{"topic":"meals","date":"2026-07-02","audience":"staff"},"extraDocuments":[{"id":"T2-empty","topic":"meals","audience":"staff","from":"2026-07-01","through":"2026-12-31","cad":45}],"replaceId":"T2","expected":"REVIEW","reason":"No source text to inspect"},
+    {"id":"invalid-document-range","query":{"topic":"meals","date":"2026-12-31","audience":"staff"},"extraDocuments":[{"id":"T2-date","topic":"meals","audience":"staff","from":"2026-07-01","through":"2026-12-32","cad":45,"text":"Staff meals: CAD 45."}],"replaceId":"T2","expected":"REVIEW","reason":"Impossible end date in document metadata"}
+  ],
+  "limitations": "The extra cases are synthetic and chosen by the same investigator. This is an implementation probe, not independent validation of real document retrieval or permission enforcement. No model or live account is involved."
+}

@@ -122,8 +122,8 @@ const articleBriefings: Record<string, ArticleBriefing> = {
     bottomLine: "Connecting a folder to a chatbot does not settle retrieval quality. Version dates, permissions, chunk boundaries and ranking all decide which passage appears before the model writes a word.",
     useThisFor: "The fictional policy folder is a compact test for teams designing search over their own manuals, contracts or internal guidance.",
     boundary: "A clickable citation proves that a document exists. It does not prove that the passage is current, permitted or a good match for the sentence beside it.",
-    contribution: "We trace the executed eight-case selection result through date, audience and conflict handling, then identify the access and content checks the experiment cannot establish.",
-    searchSnippet: "Inspect a fictional policy corpus and rerun two selectors to see why a relevant citation can still give the wrong answer.",
+    contribution: "The original eight-case run and five additional probes expose four failures where source records are incomplete or contradict their metadata. Both result sets are retained.",
+    searchSnippet: "Rerun a fictional document selector: its original eight cases pass, while four of five additional source-quality probes fail.",
     tags: ["retrieval-augmented generation", "RAG citations", "access control", "document versions"],
   },
   "advanced-ai-evaluation-red-team-monitor-production": {

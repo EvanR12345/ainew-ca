@@ -318,7 +318,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .articleHero::before { content: ""; position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg, rgba(17,17,15,.28), rgba(17,17,15,0) 35%); }
 .articleHero > :not(img) { position: relative; z-index: 2; }
 .articleHero span, .articleHero small { align-self: flex-start; background: var(--text); color: white; padding: 7px 9px; font-size: 9px; letter-spacing: .15em; font-weight: 900; }
-.articleImageCaption { max-width: 970px; margin: 9px auto 0; color: var(--text-muted); font-size: 10px; line-height: 1.45; }
+.articleImageCaption { max-width: 970px; margin: 9px auto 0; color: var(--text-muted); font-size: 14px; line-height: 1.45; }
 .articleLayout { display: grid; grid-template-columns: 52px minmax(0, 680px) 300px; gap: 36px; justify-content: center; padding: 52px 0 90px; }
 .shareRail { position: sticky; top: 20px; height: max-content; display: grid; gap: 8px; text-align: center; }
 .shareRail span { writing-mode: vertical-rl; margin: 0 auto 8px; color: var(--text-muted); font-size: 8px; letter-spacing: .16em; }
@@ -1937,7 +1937,7 @@ details.navMore[open] > .megaMenu { display: grid; }
 /* Reader-owned evaluation record: no upload or tracking. */
 .evaluationWorksheet { border-block: 2px solid currentColor; padding-block: 2rem; margin-block: 3rem; scroll-margin-top: 6rem; }
 .evaluationWorksheet label { display: grid; gap: .5rem; margin-block: 1rem; font-size: 1rem; }
-.evaluationWorksheet textarea, .evaluationWorksheet select { width: 100%; min-width: 0; border: 1px solid #777; background: #fff; color: #17202a; border-radius: 4px; padding: .7rem; font: inherit; }
+.evaluationWorksheet textarea, .evaluationWorksheet select, .evaluationWorksheet input:not([type="checkbox"]) { width: 100%; min-width: 0; border: 1px solid #777; background: #fff; color: #17202a; border-radius: 4px; padding: .7rem; font: inherit; }
 .evaluationWorksheet textarea { resize: vertical; }
 .worksheetAnswers { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.5rem; }
 .worksheetAnswers fieldset { min-width: 0; padding: 1rem; border: 1px solid #888; }

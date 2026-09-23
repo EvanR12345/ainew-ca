@@ -24,7 +24,7 @@ export default function AiNewDeskPage() {
           "@id": `${SITE_URL}/authors/ai-new-desk/#page`,
           url: `${SITE_URL}/authors/ai-new-desk/`,
           dateCreated: "2026-08-11T04:06:24-04:00",
-          dateModified: "2026-09-21T08:31:52Z",
+          dateModified: "2026-09-23T17:07:11Z",
           mainEntity: {
             "@type": "Organization",
             "@id": AUTHOR_ID,
@@ -39,7 +39,7 @@ export default function AiNewDeskPage() {
         <header className="authorHeader">
           <div className="articleBreadcrumb"><Link href="/">Home</Link><span>/</span><span>Authors</span><span>/</span><span>AI New Desk</span></div>
           <div className="authorIdentity"><div className="authorBadge" aria-hidden="true">AN</div><div><span className="eyebrow">PUBLICATION BYLINE</span><h1>AI New Desk</h1></div></div>
-          <p>AI New Desk is the publication byline for AI New Canada. It is an organization byline. Individual editor identities and professional credentials are not currently published, and the byline does not establish independent expert review.</p>
+          <p>AI New Desk is the publication byline for the owner-operated AI New Canada website. It is an organization byline, not a group of named reporters. Individual editor identities and professional credentials are not currently published, and the byline does not establish independent expert review.</p>
         </header>
         <div className="authorDetails">
           <section><h2>What the desk covers</h2><p>Canadian AI policy, practical workflows, model evaluation, research methods and safer AI use. Coverage is written for readers who want to understand what changed, what evidence supports it and what to do next.</p></section>

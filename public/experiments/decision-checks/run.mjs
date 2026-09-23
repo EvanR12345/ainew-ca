@@ -2,6 +2,7 @@
 // These are transparent rule-based comparisons, not tests of Excel or an AI model.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 const inputBytes = readFileSync(new URL('./inputs.json', import.meta.url));
 const inputs = JSON.parse(inputBytes);
 const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
@@ -10,7 +11,7 @@ function sum(rows) {
   return rows.filter(r => r.province === 'ON' && r.status === 'Paid')
     .reduce((n, r) => n + Number(r.cents), 0);
 }
-function checkedSum(rows) {
+export function checkedSum(rows) {
   const ids = new Set();
   for (const r of rows) {
     if (ids.has(r.id) || !r.id || !['ON', 'BC'].includes(r.province)
@@ -29,7 +30,7 @@ function validDate(date) {
 function firstMatch(docs, query) {
   return docs.find(d => d.topic === query.topic)?.cad ?? review;
 }
-function checkedMatch(docs, query) {
+export function checkedMatch(docs, query) {
   if (!validDate(query.date) || !['staff', 'manager'].includes(query.audience)) return review;
   // The audience must come from a trusted identity layer, never from a user's prompt.
   const eligible = docs.filter(d => d.topic === query.topic && d.audience === query.audience
@@ -45,6 +46,9 @@ const retrieval = inputs.retrieval.cases.map(c => {
   return record(c.id, c.expected, firstMatch(docs, c), checkedMatch(docs, c));
 });
 const results = {
+  originalRunDate: '2026-09-21',
+  rerunDate: '2026-09-23',
+  runtime: process.version,
   datasetVersion: inputs.datasetVersion,
   inputSha256: sha256(inputBytes),
   runnerSha256: sha256(readFileSync(new URL(import.meta.url))),
@@ -53,7 +57,9 @@ const results = {
   invoices, retrieval,
   limitations: 'The guarded rules were designed for these cases. Passing is not independent validation, a security assessment or an estimate of performance on real data. The naive baselines deliberately omit controls; they do not represent a commercial product.'
 };
-writeFileSync(new URL('./results.json', import.meta.url), JSON.stringify(results, null, 2) + '\n');
-for (const [name, cases] of Object.entries({ invoices, retrieval })) {
-  console.log(`${name}: baseline ${cases.filter(c => c.baselineMatches).length}/${cases.length}; checked ${cases.filter(c => c.checkedMatches).length}/${cases.length}`);
+if (process.argv[1] && fileURLToPath(import.meta.url) === fileURLToPath(new URL(`file://${process.argv[1]}`))) {
+  writeFileSync(new URL('./results.json', import.meta.url), JSON.stringify(results, null, 2) + '\n');
+  for (const [name, cases] of Object.entries({ invoices, retrieval })) {
+    console.log(`${name}: baseline ${cases.filter(c => c.baselineMatches).length}/${cases.length}; checked ${cases.filter(c => c.checkedMatches).length}/${cases.length}`);
+  }
 }

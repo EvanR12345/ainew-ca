@@ -61,8 +61,8 @@ export const articles: Article[] = [
     "dek": "Canada’s Algorithmic Impact Assessment is a starting point for scrutiny, not proof that a system is safe. Read the scope decision, supporting answers and peer review together; then identify the evidence behind the score and the consequences for affected people.",
     "category": "Policy",
     "date": "2026-09-11",
-    "modifiedAt": "2026-09-21T22:36:20Z",
-    "updateNote": "Rewritten throughout on September 21, 2026, with a complete worked method, explicit evidence limits and checked primary sources.",
+    "modifiedAt": "2026-09-23T17:07:11Z",
+    "updateNote": "September 23: clarified the official unknown-answer scoring instruction and its evidence limit.",
     "readTime": "4 min read",
     "signal": "PUBLIC-SYSTEM AUDIT",
     "accent": "#25708a",
@@ -201,7 +201,7 @@ export const articles: Article[] = [
         "heading": "The arithmetic has a boundary",
         "paragraphs": [
           "The official tool contains 65 risk questions and 41 mitigation questions. Its scoring guidance distinguishes raw risk from mitigation and describes when a mitigation score reduces the current score. Use the official questionnaire for that calculation; our invented case is deliberately unscored.",
-          "Here is the more useful audit question: which answers depended on an assumption? Keep a separate unknowns list even if the questionnaire requires a selected response. A precise total built from uncertain inputs remains uncertain. The guidance also requires the assessment to be revisited as the system changes. An old published record is evidence about an old description until someone establishes that it still matches the deployed workflow."
+          "The official instructions say to choose the lowest-score option when an answer is unknown and to be ready to provide documentary evidence on request. Keep a separate unknowns list: a precise score can conceal unanswered factual questions. The guidance also requires reassessment as the system changes. An old published record describes an old workflow until someone establishes that it still matches the deployed system."
         ]
       },
       {
@@ -252,7 +252,7 @@ export const articles: Article[] = [
       {
         "heading": "The deadline is real; the proposed rules are not final",
         "paragraphs": [
-          "As checked on September 21, 2026, ISED’s participation page lists an AI transparency consultation running from July 23 to September 23, 2026. The discussion paper asks how transparency should work. It does not, by itself, enact the measures it describes. If you are preparing a response, open the participation page again before sending it and use its current instructions.",
+          "As checked on September 23, 2026, ISED’s participation page still lists the consultation as open through September 23. It does not publish a time-of-day cutoff there, so do not infer one. The discussion paper asks how transparency should work; it does not enact those measures. Check the official participation page for its current submission route and status before sending anything.",
           "The useful contribution is a concrete failure and a workable remedy. “AI should be transparent” leaves almost every design question unresolved. A customer who needs to correct an automated interaction, a journalist checking synthetic media and an investigator reconstructing an incident need different information. We read the five consultation areas with those different users in mind."
         ]
       },
@@ -329,8 +329,8 @@ export const articles: Article[] = [
         }
       }
     ],
-    "modifiedAt": "2026-09-21T22:36:20Z",
-    "updateNote": "Rewritten throughout on September 21, 2026, with a complete worked method, explicit evidence limits and checked primary sources.",
+    "modifiedAt": "2026-09-23T17:07:11Z",
+    "updateNote": "September 23: rechecked the official consultation status and clarified the published deadline without assuming a time cutoff.",
     "sources": [
       {
         "label": "Canada's AI transparency consultation",
@@ -462,7 +462,7 @@ export const articles: Article[] = [
       {
         "heading": "Read the infrastructure promises as milestones",
         "paragraphs": [
-          "The strategy describes a public supercomputer and an expansion of sovereign compute and cloud infrastructure. Its wording also distinguishes partnerships being finalized from capacity proposed for later years. An announcement, a construction commitment and usable compute are different milestones. We have not independently verified the delivery of the announced infrastructure.",
+          "The strategy describes a public supercomputer as a goal by 2031 and an expansion of sovereign compute and cloud infrastructure. Its wording also distinguishes partnerships being finalized from capacity proposed for later years. An announcement, a construction commitment and usable compute are different milestones. We have not independently verified the delivery of the announced infrastructure.",
           "For each project you follow, keep four dates: announcement, agreement, operational opening and first service available to your user group. Leave a date blank until there is evidence. This avoids converting “planned” into “available” as the same announcement passes through news stories and presentations.",
           "A published megawatt figure describes a kind of infrastructure scale. It does not tell a small research team how many accelerators it can book, which software is supported or whether its application is eligible. Ask for the service catalogue and allocation process before translating an infrastructure headline into practical access."
         ]
@@ -499,8 +499,8 @@ export const articles: Article[] = [
         }
       }
     ],
-    "modifiedAt": "2026-09-21T22:36:20Z",
-    "updateNote": "Rewritten throughout on September 21, 2026, with a complete worked method, explicit evidence limits and checked primary sources.",
+    "modifiedAt": "2026-09-23T17:07:11Z",
+    "updateNote": "September 23: distinguished the strategy’s 2031 public-supercomputer goal from delivered capacity.",
     "seoTitle": "Canadian AI sovereignty: five checks for a workload"
   },
   {
@@ -526,9 +526,9 @@ export const articles: Article[] = [
         "note": "Operational federal guidance used for the responsibilities and cautions applied to generative-AI use by public servants."
       },
       {
-        "label": "Directive on Automated Decision-Making",
-        "url": "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32592",
-        "note": "The controlling federal directive used to distinguish automated administrative decisions from broader AI assistance and experimentation."
+        "label": "Treasury Board: guide on the scope of the automated decision directive",
+        "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/automated-decision-making/guide-scope-directive-automated-decision-making.html",
+        "note": "Official scope guidance explains partial automation, human involvement and the production boundary. The directive itself still governs applicability."
       }
     ],
     "internalLinks": [
@@ -595,7 +595,7 @@ export const articles: Article[] = [
         "heading": "Three versions of a document assistant",
         "paragraphs": [
           "A public-information assistant retrieves passages from published guidance. Its basic test is whether an answer matches the correct, current paragraph and explains when the source does not answer the question. A client-file summarizer adds personal information and the risk of omitting something consequential. A priority-ranking tool adds a further question: does its output change who receives attention first?",
-          "Do not let a pilot’s original description survive after its role expands. Moving from public lookup to client summarization is a data change. Moving from summary to ranking is a decision change. Each should trigger a fresh examination of authority, risk and evidence. The federal scope guide is the place to begin the automated-decision applicability review; the strategy alone cannot answer it."
+          "Do not let a pilot’s original description survive after its role expands. Moving from public lookup to client summarization is a data change. Moving from summary to ranking is a decision change. Each should trigger a fresh examination of authority, risk and evidence. The federal scope guide says that even a human's final decision can be within the directive when a system assists judgment; a small pilot on real clients may count as production. An experiment using only invented records is a different situation. The strategy alone cannot answer the applicability question."
         ],
         "furtherReading": {
           "slug": "canada-algorithmic-impact-assessment-worked-example",
@@ -661,8 +661,8 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-21T22:36:20Z",
-    "updateNote": "Rewritten throughout on September 21, 2026, with a complete worked method, explicit evidence limits and checked primary sources.",
+    "modifiedAt": "2026-09-23T17:07:11Z",
+    "updateNote": "September 23: strengthened the directive scope explanation with the official guide and replaced a source URL inaccessible in this review.",
     "seoTitle": "Federal AI pilots: write the decision brief first"
   },
   {
@@ -774,7 +774,7 @@ export const articles: Article[] = [
         "heading": "An inference can create a new privacy problem",
         "paragraphs": [
           "Suppose the fictional source says “payment is pending while documentation is checked.” A draft that calls the customer financially distressed adds a personal inference the source did not establish. Even if nobody uploads a new field, the output now says something new about an identifiable person.",
-          "Our design response is to keep the draft tied to the status, reject the inference and prevent it from becoming a searchable customer note. The commissioners’ principles treat inferences about identifiable people as a collection requiring legal authority. A reviewer should therefore ask both whether the sentence is accurate and whether this is an appropriate use at all."
+          "Our design response is to keep the draft tied to the status, reject the inference and prevent it from becoming a searchable customer note. The privacy commissioners’ principles say to treat inferences about identifiable people as personal information, use them for specified purposes and assess their accuracy. That guidance does not by itself decide which law applies to this fictional business. A reviewer should ask whether the sentence is accurate and whether the use is authorized."
         ]
       },
       {
@@ -801,8 +801,8 @@ export const articles: Article[] = [
         ]
       }
     ],
-    "modifiedAt": "2026-09-21T22:36:20Z",
-    "updateNote": "Rewritten throughout on September 21, 2026, with a complete worked method, explicit evidence limits and checked primary sources.",
+    "modifiedAt": "2026-09-23T17:07:11Z",
+    "updateNote": "Correction, September 23: narrowed the description of the privacy commissioners’ guidance on inferences; see the correction record.",
     "seoTitle": "AI privacy assessments: trace every copy of the data"
   },
   {
@@ -1378,8 +1378,8 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The 20-point scorecard and its weights are editorial examples for the fictional task shown. A real evaluation needs test cases, reviewers and failure limits chosen for its own users and consequences.",
     "imageAlt": "Illustration of a comparison checklist between two computer displays.",
-    "modifiedAt": "2026-09-21T22:36:20Z",
-    "updateNote": "Rewritten throughout on September 21, 2026, with a complete worked method, explicit evidence limits and checked primary sources.",
+    "modifiedAt": "2026-09-23T17:07:11Z",
+    "updateNote": "September 23: expanded the comparison worksheet to retain prompts, source text, settings and full outputs.",
     "sources": [
       {
         "label": "OpenAI: Working with evals",
@@ -1486,7 +1486,7 @@ export const articles: Article[] = [
       {
         "heading": "Turn this exercise into a comparison of your own",
         "paragraphs": [
-          "Use the worksheet below to record the task, evidence, stop conditions and scores. Its export remains a file on your device; it does not send your source pack to a model. Avoid putting confidential material into a shared review file without authorization.",
+          "Use the worksheet below to preserve the same task, prompt, source text, settings and stop condition for both answers. Keep each actual output unchanged beside its score, system name, disclosed version and account tier. The exported JSON stays on your device; the worksheet does not send your source pack to a model. Avoid entering confidential material without authorization.",
           "For a real tool comparison, keep inputs and allowed tools consistent and record the product, date and disclosed settings. Add ordinary, ambiguous, conflicting and unanswered cases. Reserve some examples from prompt development. Repeat cases when variability could change your decision, and report the limits of the sample instead of declaring a universal winner.",
           "Finally, count review time and rejected attempts. If a fictional batch takes 60 minutes and produces eight accepted summaries, the effort is 7.5 minutes per accepted summary. A higher raw score can still be less useful if it requires more checking or produces a critical failure."
         ],
@@ -1530,8 +1530,8 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The invoice rows and totals are fictional and are provided for practice. This is not accounting, tax or financial-control advice, and a real workbook needs review against its own records and rules.",
     "imageAlt": "Illustration of spreadsheet figures, a magnifying glass and a calculator.",
-    "modifiedAt": "2026-09-21T22:36:20Z",
-    "updateNote": "Rewritten throughout on September 21, 2026, with a complete worked method, explicit evidence limits and checked primary sources.",
+    "modifiedAt": "2026-09-23T17:07:11Z",
+    "updateNote": "September 23: added four synthetic input probes and preserved their outputs alongside the original experiment.",
     "sources": [
       {
         "label": "Microsoft: SUMIFS function",
@@ -1620,7 +1620,7 @@ export const articles: Article[] = [
         "paragraphs": [
           "We executed the downloadable JavaScript runner on September 21, 2026. Its baseline selects exact ON/Paid labels and sums amounts with numeric conversion. The checked version first enforces the fixture’s data contract. Raw outputs, input data and code appear in the experiment record below.",
           "The baseline matched four of eight expected decisions; the checked version matched all eight. Duplicate A01 produced CAD 290 in the baseline. A trailing space after Paid excluded A01 and produced CAD 50. A numeric text value still produced CAD 170, but failed the contract because the type had changed. This last case is the clearest reason to inspect more than the total.",
-          "The contract also permits zero and sends a negative Paid amount for review. That is our rule for this teaching dataset, not a universal accounting rule. A credit note or adjustment might legitimately be negative in another system. The data owner must define that treatment before a cleaning routine changes it."
+          "The contract also permits zero and sends a negative Paid amount for review. That is our rule for this teaching dataset, not a universal accounting rule. A credit note or adjustment might legitimately be negative in another system. The data owner must define that treatment before a cleaning routine changes it. Four further cases specified on September 23 matched their expected decisions: a valid one-row amount, a missing amount, a province outside this fixture's vocabulary and a total beyond the safe integer range. The extra probes still do not validate Excel or a real accounting workflow."
         ]
       },
       {
@@ -1667,7 +1667,7 @@ export const articles: Article[] = [
       {
         "heading": "Rerun, extend, and keep the limitation visible",
         "paragraphs": [
-          "Download the four experiment files together and follow the included instructions. The JSON uses integer cents, so 17000 represents CAD 170. The runner and input hashes let you check which files produced the recorded result. A changed fixture should be accompanied by an explicit expected decision before it is run.",
+          "Download the original experiment files and the additional probes below; keep the original results before rerunning either script. The JSON uses integer cents, so 17000 represents CAD 170. The runner and input hashes let you check which files produced the recorded result. Write an expected decision before executing a new fixture.",
           "Add a mixed-currency case or an unknown status to see where your real contract needs more work. Our eight cases were designed alongside the rules; passing them is not independent validation. Keep separate evidence for formula correctness, input validity and the business definition of the measure. None of those alone validates an entire financial report."
         ]
       }
@@ -1821,7 +1821,7 @@ export const articles: Article[] = [
   {
     "slug": "advanced-retrieval-ai-own-documents-citations",
     "title": "Eight document traps for an AI retrieval system",
-    "dek": "To test AI document retrieval, check version, audience, conflicting evidence and missing answers as well as topic relevance. Our eight-case synthetic experiment compares two document selectors: one passes 1 of 8 cases, the other 8 of 8. These are code results, not a benchmark of commercial AI models.",
+    "dek": "Our synthetic selector passed its original eight document cases, then failed four of five additional probes involving bad or contradictory source records. Inspect both sets of inputs and outputs to see what version, audience and citation checks do—and what they leave untested.",
     "category": "Research",
     "date": "2026-08-10",
     "readTime": "4 min read",
@@ -1849,8 +1849,8 @@ export const articles: Article[] = [
     "searchEligible": true,
     "disclaimer": "The corpus is synthetic; the downloadable results are actual outputs of our deterministic teaching program. They are not model benchmarks or evidence of secure access control in a deployed retrieval system.",
     "imageAlt": "Illustration of indexed documents in a filing drawer with a search symbol.",
-    "modifiedAt": "2026-09-21T22:36:20Z",
-    "updateNote": "Rewritten throughout on September 21, 2026, with a complete worked method, explicit evidence limits and checked primary sources.",
+    "modifiedAt": "2026-09-23T17:07:11Z",
+    "updateNote": "Research update, September 23: added five synthetic source-quality probes; four failed the selector and remain visible in the results.",
     "sources": [
       {
         "label": "Cohere: Retrieval Augmented Generation",
@@ -1938,7 +1938,8 @@ export const articles: Article[] = [
         "heading": "Test selection separately from the written answer",
         "paragraphs": [
           "First ask whether an authorized user received the applicable passage. Then ask whether the generated statement follows from it. A model could receive T2 and still write CAD 40; that is an answer-support failure rather than the selection failure measured here.",
-          "Also compare metadata with the source text. Change the amount in a paragraph without changing its metadata and our selector will not detect the contradiction. A complete pipeline needs ingestion and content-consistency checks in addition to this date-and-audience logic.",
+          "We tested that limitation on September 23 using five further cases whose expected decisions were written before the run. Only the missing-topic case returned the expected REVIEW. The selector returned CAD 45 when the document text said CAD 55, when the amount was stored as text, when document text was absent, and when the document's end date was impossible. Those four failures are preserved in the probe data and outputs below. The original eight-of-eight result describes only its original fixtures.",
+          "Compare metadata with the source text and validate both before relying on a selected passage. The additional probe set is synthetic and investigator-designed; it is not a measure of a commercial retrieval system. A complete pipeline needs ingestion and content-consistency checks in addition to this date-and-audience logic.",
           "For your own system, retain the question, authenticated scope, source version, selected passage and unresolved conflict. Show readers a permitted passage they can inspect. A citation earns its usefulness from applicability and support, not from the mere presence of a link."
         ],
         "furtherReading": {
@@ -2089,11 +2090,11 @@ export const articles: Article[] = [
     "slug": "canada-ai-compute-funding-cost-plan",
     "title": "Canada’s AI compute fund is closed. Build the cost plan anyway.",
     "seoTitle": "AI Compute Access Fund: status and a worked cost plan",
-    "dek": "The AI Compute Access Fund is closed to new applications. For cost planning, separate the full supplier bill, potentially eligible expenses and cash needed before reimbursement. Our fictional $156,000 quote leaves $60,000 before tax after an assumed $96,000 contribution; without an award, the team pays the full bill.",
+    "dek": "The AI Compute Access Fund is closed to new applications. Our fictional $156,000 quote produces a $60,000 before-tax residual only if a $96,000 contribution is awarded and accepted. The full bill may be due before reimbursement, and repayable funding can change lifetime cost.",
     "category": "Business",
     "date": "2026-09-22",
-    "modifiedAt": "2026-09-22T04:20:14Z",
-    "updateNote": "New independently structured guide with verified primary sources and an original worked exercise.",
+    "modifiedAt": "2026-09-23T17:07:11Z",
+    "updateNote": "September 23: rechecked closed status and added the eligible-cost range, foreign-compute cutoff and repayment caveat.",
     "readTime": "6 min read",
     "signal": "Canadian AI buying guide",
     "accent": "blue",
@@ -2136,7 +2137,7 @@ export const articles: Article[] = [
       {
         "heading": "Start with the closed door",
         "paragraphs": [
-          "ISED’s AI Compute Access Fund page currently says the fund is closed to applications. The last call ended on July 31, 2025. That status comes before any calculation: a published funding percentage is not money a new applicant can claim today. Check the linked program page again before preparing a submission or making a purchase that depends on support.",
+          "As checked September 23, 2026, ISED’s AI Compute Access Fund page says the fund is closed to applications. The last call ended on July 31, 2025. That status comes before any calculation: a published funding percentage is not money a new applicant can claim today. Check the linked program page again before preparing a submission or making a purchase that depends on support.",
           "There is still a useful planning exercise here. A team shopping for compute needs three separate numbers: the supplier’s full bill, the portion a program might accept, and the cash the business must provide before reimbursement. Combining them into one “discounted cloud cost” hides the most consequential uncertainty. Below, a deliberately fictional budget keeps those three numbers apart. It is not an application or an estimate of anyone’s award."
         ]
       },
@@ -2144,7 +2145,7 @@ export const articles: Article[] = [
         "heading": "The bill is not the eligible-cost base",
         "paragraphs": [
           "The program guide lists compute, storage and certain compute-specific expenses as potentially eligible. It excludes support plans, data-transfer fees, legal fees and sales taxes. Reimbursement follows payment of accepted expenses; signing and timing conditions also matter. In the table, assume the first two lines have been accepted under an agreement. That assumption is part of the exercise, not a finding about a real supplier.",
-          "Our sample team needs a year of Canadian-hosted capacity. Its quote includes four lines, before tax. The worksheet flags each line separately rather than treating a cloud provider’s entire invoice as eligible. A mixed invoice needs an allocation that the team can explain and reproduce."
+          "Our sample team needs a year of Canadian-hosted capacity. Its quote includes four lines, before tax. The worksheet flags each line separately rather than treating a cloud provider’s entire invoice as eligible. A mixed invoice needs an allocation that the team can explain and reproduce. The guide sets a $100,000 to $5 million eligible-cost range for proposals and warns that costs before a signed agreement are normally at the applicant's risk, with a stated case-by-case exception. Our fictional $144,000 base falls inside that numeric range; it establishes neither applicant nor project eligibility."
         ],
         "table": {
           "caption": "Fictional annual quote: all amounts in Canadian dollars, before tax",
@@ -2185,9 +2186,9 @@ export const articles: Article[] = [
       {
         "heading": "Calculate two ceilings, then keep the uncertainty",
         "paragraphs": [
-          "The overview describes support of up to two-thirds for eligible Canadian services. The program guide also uses 67% in an explanatory note. Those are close, but they are not the same number. On our $144,000 assumed base, two-thirds is $96,000; 67% is $96,480. The $480 difference is a reason to confirm the agreement’s rate and calculation, not to choose the larger figure for a cash forecast.",
+          "The overview describes support of up to two-thirds for eligible Canadian services. The program guide also uses 67% in an explanatory note. Those are close, but they are not the same number. On our $144,000 assumed base, two-thirds is $96,000; 67% is $96,480. The $480 difference is a reason to confirm the agreement’s rate and calculation, not to choose the larger figure for a cash forecast. For foreign compute, the guide describes a lower rate and makes expenditures after March 31, 2027 ineligible for an offset; those dates would matter to a mixed-provider plan, although this example assumes domestic service throughout.",
           "Using the more conservative two-thirds illustration, the supplier bill less potential support is $60,000: $156,000 minus $96,000. That is $48,000 of eligible costs left with the business plus $12,000 of excluded costs. It is not $52,000, which is what subtracting two-thirds from the entire supplier bill would suggest. That shortcut understates the residual by $8,000.",
-          "Even the $60,000 result assumes an award, accepted costs and payment in full. It excludes taxes, financing costs and possible repayment obligations. Put those assumptions beside the number wherever it travels. An impressive funding slide can become an unreliable operating budget when its footnotes disappear."
+          "Even the $60,000 residual assumes an award, accepted costs and payment in full. It excludes taxes, financing costs and possible repayment obligations. The guide allows non-repayable, conditionally repayable and repayable contributions. A repayable award may lower the initial funding gap while leaving a later repayment, so $60,000 is not a guaranteed final cost. Put the award type beside the number wherever it travels."
         ],
         "example": {
           "label": "Reproduce the arithmetic",

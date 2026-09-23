@@ -1,0 +1,77 @@
+{
+  "runDate": "2026-09-23",
+  "runtime": "v24.19.0",
+  "inputSha256": "6905f0e1921eb6efaf9c000ed9857b921d44893f7a3d53b4887d9953ddf953e7",
+  "runnerSha256": "75df8e2ab99f435ced5d94c8277cd16f7ec70447f515592ff4a0ecc34b9d25f0",
+  "probeSha256": "e4a893c4ea8cf6b73fba1131ec814b001f5b282ed83e5ee53d09f2ab0fcd7c77",
+  "question": "Do the published guarded rules reject additional malformed records and internal contradictions?",
+  "method": "Call the published checkedSum and checkedMatch functions without changing their rules. REVIEW is the expected result when a record violates the stated data contract, even if its metadata would yield a plausible number. Compare exact values; preserve failed cases.",
+  "invoices": [
+    {
+      "id": "single-valid-row",
+      "expected": 125,
+      "observed": 125,
+      "pass": true,
+      "reason": "Valid amount in integer cents"
+    },
+    {
+      "id": "missing-amount",
+      "expected": "REVIEW",
+      "observed": "REVIEW",
+      "pass": true,
+      "reason": "Amount absent"
+    },
+    {
+      "id": "unsupported-province",
+      "expected": "REVIEW",
+      "observed": "REVIEW",
+      "pass": true,
+      "reason": "Outside this teaching fixture's ON/BC vocabulary"
+    },
+    {
+      "id": "unsafe-total",
+      "expected": "REVIEW",
+      "observed": "REVIEW",
+      "pass": true,
+      "reason": "Sum exceeds safe integer range"
+    }
+  ],
+  "retrieval": [
+    {
+      "id": "unknown-topic",
+      "expected": "REVIEW",
+      "observed": "REVIEW",
+      "pass": true,
+      "reason": "No eligible document"
+    },
+    {
+      "id": "text-disagrees-with-metadata",
+      "expected": "REVIEW",
+      "observed": 45,
+      "pass": false,
+      "reason": "A policy's written amount contradicts its metadata"
+    },
+    {
+      "id": "numeric-text-amount",
+      "expected": "REVIEW",
+      "observed": "45",
+      "pass": false,
+      "reason": "Amount has an unexpected type"
+    },
+    {
+      "id": "missing-document-text",
+      "expected": "REVIEW",
+      "observed": 45,
+      "pass": false,
+      "reason": "No source text to inspect"
+    },
+    {
+      "id": "invalid-document-range",
+      "expected": "REVIEW",
+      "observed": 45,
+      "pass": false,
+      "reason": "Impossible end date in document metadata"
+    }
+  ],
+  "limitation": "The extra cases are synthetic and chosen by the same investigator. This is an implementation probe, not independent validation of real document retrieval or permission enforcement. No model or live account is involved."
+}

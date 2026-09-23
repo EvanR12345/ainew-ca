@@ -1,5 +1,9 @@
 AI New Canada: decision checks, version 1
-Executed September 21, 2026 with Node.js v24.19.0.
+Original suites executed September 21, 2026 and rerun September 23 with
+Node.js v24.19.0. The current run.mjs was amended on September 23 to expose
+its checked functions to probe.mjs without writing results on import. The
+published results.json hash identifies the rerun source, not a preserved
+September 21 byte-for-byte copy. The original eight-case totals are unchanged.
 The runner uses built-in APIs available in Node.js 22 or later.
 
 WHAT WAS RUN
@@ -14,7 +18,10 @@ With Node.js 22 or later installed, open a terminal in that folder and run:
   node run.mjs
 This overwrites results.json. Compare it with the published copy first if you
 want to preserve both. No packages, API key or network connection are required.
-The output includes SHA-256 hashes of the exact input and runner.
+The output includes SHA-256 hashes of the exact input and runner. To rerun the
+additional September 23 probes, also download probes-2026-09-23.json and
+probe.mjs into this folder and run `node probe.mjs`. Preserve the published
+probes-results-2026-09-23.json before rerunning if comparing versions.
 
 DESIGN
 Each fixture specifies its expected answer before execution. The invoice suite
@@ -34,8 +41,12 @@ RESULTS AND LIMITS
 Invoice baseline matches 4 of 8 expected outcomes; checked version 8 of 8.
 Retrieval baseline matches 1 of 8; checked version 8 of 8.
 The deliberately incomplete baselines are not representative AI products.
-Rules and fixtures were designed together. There is no held-out test set,
-statistical estimate, model ranking or independent security validation.
+Rules and original fixtures were designed together. A separate investigator-
+designed probe set specified expected outcomes before its run. Four invoice
+probes matched their expected decisions. Only one of five retrieval probes
+matched: the selector trusted malformed or contradictory document metadata.
+The extra set is not a representative held-out sample, statistical estimate,
+model ranking or independent security validation.
 Use failures to decide what to check, not to infer that a system is reliable.
 
 TRY TO BREAK IT
@@ -48,5 +59,7 @@ resolve revocations or verify that metadata agrees with document text.
 Record expected outcomes before changing the implementation.
 
 Files: inputs.json (fixtures), run.mjs (executable source), results.json (raw
-recorded output), README.txt (method and limitations). Corrections:
+recorded output), probes-2026-09-23.json (predeclared extra cases), probe.mjs
+(additional runner), probes-results-2026-09-23.json (all results), README.txt
+(method and limitations). Corrections:
 https://ainew.ca/contact/

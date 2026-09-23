@@ -19,7 +19,7 @@ export default function EditorialPolicyPage() {
         "@id": `${SITE_URL}/editorial-policy/#page`,
         url: `${SITE_URL}/editorial-policy/`,
         name: "AI New Canada editorial policy and standards",
-        dateModified: "2026-09-21",
+        dateModified: "2026-09-23",
         inLanguage: "en-CA",
         about: { "@id": ORGANIZATION_ID },
       }} />
@@ -33,7 +33,7 @@ export default function EditorialPolicyPage() {
         <section><h2>Recorded experiments</h2><p>A recorded experiment must publish its input, method, executable source where applicable, actual results and limitations. Synthetic data must be labelled. Tests designed alongside an implementation are not held-out validation. Running a small program does not establish the performance of an AI model, a spreadsheet application or a production security system. Results must identify what was actually executed.</p></section>
         <section><h2>Headlines, images and context</h2><p>Headlines should accurately represent the article and avoid manufactured urgency. Article images are illustrations or illustrative photographs and use descriptive alternative text; they are not documentary proof of the event. Dates and read times are displayed clearly.</p></section>
         <section><h2>Practical and consequential guidance</h2><p>Guides explain processes and questions to consider, but they are not individualized legal, medical, investment or tax advice. Readers should verify consequential decisions with qualified sources and professionals appropriate to their situation.</p></section>
-        <section><h2>Independence, conflicts and advertising</h2><p>This site displays no advertisements and contains no advertising scripts or placement components. Any future advertising must remain visually and operationally separate from article copy. Ads may not obscure navigation, outweigh publisher content or be paired with language that encourages clicks. Advertisers do not approve editorial coverage. Paid or affiliated material must be labelled beside the relevant content. We do not invent endorsements, traffic figures, contributor credentials or institutional affiliations.</p></section>
+        <section><h2>Independence, conflicts and advertising</h2><p>This owner-operated site is seeking advertising eligibility. A static seller declaration and ownership tag remain; no ad script or placement is active. Any future advertising must remain separate from article copy. Ads may not obscure navigation or be paired with language that encourages clicks. Advertisers do not approve editorial coverage. Paid or affiliated material, supplied access and material financial interests must be identified beside the relevant content. We do not invent endorsements, traffic figures, contributor credentials or institutional affiliations.</p></section>
         <section><h2>Updates and corrections</h2><p>Material factual changes receive a visible note on the article. Minor spelling, formatting and clarity edits may be made without a note. Publication and modification dates are changed only when the editorial substance changes. See the <Link href="/corrections-policy/">full corrections policy</Link>.</p></section>
         <section><h2>Reader accountability</h2><p>Readers can send a correction with the page URL, disputed claim and supporting evidence through the <Link href="/contact/">contact page</Link>. Our ownership, funding approach and current publication status are documented on the <Link href="/about/">About page</Link>.</p></section>
       </InfoPage>
