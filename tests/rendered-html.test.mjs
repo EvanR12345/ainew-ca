@@ -3,6 +3,27 @@ import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
+test("serves three manually copied articles without representing them as reviewed reporting", async () => {
+  const records = JSON.parse(await readFile(new URL("../app/lib/copied-articles.json", import.meta.url), "utf8"));
+  const archive = await (await render("/articles/")).text();
+  const sitemap = await (await render("/sitemap.xml/")).text();
+  const feed = await (await render("/feed.xml/")).text();
+  for (const article of records) {
+    const url = `/articles/${article.slug}/`;
+    const response = await render(url);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, /name="robots" content="noindex, follow"/);
+    assert.match(html, /AI-generated article was manually copied from AutoSEO/);
+    assert.ok(html.includes(article.image));
+    assert.ok(html.includes(article.html));
+    assert.ok(archive.includes(url));
+    assert.ok(!sitemap.includes(url));
+    assert.ok(!feed.includes(url));
+    assert.doesNotMatch(html, /https:\/\/getautoseo\.com|signature=|RSS Feed URL/);
+  }
+});
+
 async function render(pathname = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);

@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import Image from "next/image";
 import { NewsletterBand, SiteFooter, SiteHeader } from "../components";
 import { ArticlesArchive } from "./articles-client";
 import { articles, toArticleCardData } from "../lib/articles";
 import { searchEligibleArticles } from "../lib/search-quality";
 import { buildPageMetadata, breadcrumbSchema, SITE_URL, WEBSITE_ID } from "../lib/seo";
 import { StructuredData } from "../structured-data";
+import { copiedArticles } from "../lib/copied-articles";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Canadian AI Guides, Tests & Source Notes | AI New Canada",
@@ -55,6 +58,20 @@ export default function ArticlesPage() {
           <p>Browse a dated, chronological edition of source-led reporting and practical analysis across Canada, models, products, business, research and policy.</p>
         </section>
         <ArticlesArchive articles={articleCards} />
+        <section className="shell copiedArticleCollection" id="additional-articles" aria-labelledby="additional-articles-heading">
+          <div className="archiveTitle"><h2 id="additional-articles-heading">Additional articles</h2><span>3 AI-generated articles</span></div>
+          <p>Manually copied articles from AutoSEO. Source review is pending; these articles are outside search promotion.</p>
+          <div className="archiveGrid">
+            {copiedArticles.map((article) => (
+              <article className="copiedArticleCard" key={article.slug}>
+                <Link href={`/articles/${article.slug}/`}><Image unoptimized src={article.image} alt={article.imageAlt} width={1200} height={675} sizes="(max-width: 760px) 100vw, 33vw" /></Link>
+                <span className="eyebrow">AI-GENERATED / {article.readTime}</span>
+                <h3><Link href={`/articles/${article.slug}/`}>{article.title}</Link></h3>
+                <p>{article.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
         <div className="shell"><NewsletterBand /></div>
       </main>
       <SiteFooter />

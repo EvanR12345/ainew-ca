@@ -1969,3 +1969,21 @@ details.navMore[open] > .megaMenu { display: grid; }
 .articleBody .articleContextLink { margin: 1.25rem 0; padding-left: 1rem; border-left: 2px solid var(--border); }
 .articleContextLink a { font-weight: 650; text-decoration: underline; text-underline-offset: .18em; }
 .articleContextLink span { display: block; margin-top: .3rem; font-size: 1rem; line-height: 1.6; color: var(--text-muted); }
+
+.copiedArticleCollection { margin-block: 4rem; }
+.copiedArticleCollection > p { max-width: 65ch; margin-block: 1rem 2rem; color: var(--text-muted); }
+.copiedArticleCard img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.copiedArticleCard .eyebrow { display: block; margin-top: 1.25rem; }
+.copiedArticleCard h3 { font-size: clamp(1.35rem, 2vw, 1.8rem); line-height: 1.2; margin-block: .75rem; }
+.copiedArticleCard p { color: var(--text-muted); line-height: 1.6; }
+.copiedArticleLayout { max-width: 800px; margin: 3rem auto; }
+.copiedArticleBody { min-width: 0; }
+.copiedArticleBody h2, .copiedArticleBody h3 { scroll-margin-top: 7rem; }
+.copiedArticleBody .key-takeaways, .copiedArticleBody .table-of-contents { padding: 1.5rem; margin-block: 2rem; background: var(--surface); border: 1px solid var(--border); }
+.copiedArticleBody .key-takeaways h2, .copiedArticleBody .table-of-contents h2 { margin-top: 0; }
+.copiedArticleBody .table-of-contents a { text-decoration: underline; text-underline-offset: .2em; }
+.copiedArticleBody .infographic-container { margin-block: 2.5rem; }
+.copiedArticleBody img { display: block; width: 100%; height: auto; }
+.copiedArticleBody table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin-block: 2rem; font-size: 1rem; }
+.copiedArticleBody th, .copiedArticleBody td { min-width: 10rem; border: 1px solid var(--border); padding: .75rem; vertical-align: top; text-align: left; }
+.copiedArticleBody th { background: var(--surface); }
