@@ -16,6 +16,7 @@ import { articleModifiedDateTime, articlePublishedDateTime, articleVisibleDate, 
 import { ArticleReadTracker, MarkArticleRead, ReadingJourney, RelatedRecommendations } from "../../reading-history";
 import { StructuredData } from "../../structured-data";
 import { ArticleTools } from "../../article-tools";
+import { AdSenseLoader } from "../../adsense-loader";
 
 const publicArticles = searchEligibleArticles(articles);
 
@@ -90,6 +91,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   return (
     <div>
+      <AdSenseLoader />
       <SiteHeader />
       <main id="content">
         <ArticleReadTracker slug={article.slug} category={article.category} />

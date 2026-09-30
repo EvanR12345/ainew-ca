@@ -98,7 +98,7 @@ test("keeps every article photo in full colour on desktop and mobile", async () 
   assert.doesNotMatch(cardSource, /article_card_(?:impression|click)/);
   assert.doesNotMatch(cardSource, /localStorage|IntersectionObserver|dataLayer|gtag|CARD_EXPERIMENT_KEY/);
   assert.doesNotMatch(cardSource, /crypto\.getRandomValues/);
-  assert.match(privacySource, /No advertising provider is active/i);
+  assert.match(privacySource, /This site loads Google AdSense to request ads/i);
   assert.match(articleSource, /canada-ai-compute-funding-cost-plan/);
   assert.doesNotMatch(articleSource, /generatedArticles|expansionSeeds/);
   assert.match(articleSource, /beginner-how-to-use-ai-everyday-work/);
@@ -337,7 +337,7 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.match(homeHtml, /All practical guides/);
   assert.match(homeHtml, /Read the evidence<span class="visuallyHidden"> for <!-- -->Canadian AI sovereignty/);
   assert.match(homeHtml, /google-adsense-account/);
-  assert.doesNotMatch(homeHtml, /pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js|armsbroodelusive|ad-frames/);
+  assert.doesNotMatch(homeHtml, /armsbroodelusive|ad-frames|amp-auto-ads/);
   assert.match(articleHtml, /rel="canonical" href="https:\/\/ainew\.ca\/article\/canada-ai-transparency-consultation-what-to-know\/?"/);
   assert.match(articleHtml, /"@type":"NewsArticle"/);
   assert.match(articleHtml, /"author":\{"@type":"Organization","@id":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/#profile","name":"AI New Desk","url":"https:\/\/ainew\.ca\/authors\/ai-new-desk\/"\}/);
@@ -350,7 +350,7 @@ test("publishes crawlable trust pages and limits every discovery surface to the 
   assert.doesNotMatch(articleMetaHtml, /Updated/i);
   assert.match(authorHtml, /"@type":"ProfilePage"/);
   assert.match(authorHtml, /"dateCreated":"2026-08-11T04:06:24-04:00"/);
-  assert.match(authorHtml, /"dateModified":"2026-09-23T17:07:11Z"/);
+  assert.match(authorHtml, /"dateModified":"2026-09-30T\d{2}:\d{2}:\d{2}Z"/);
   assert.match(articleHtml, /Editorial note:/);
   assert.match(articleHtml, /EDITOR’S NOTE/);
   assert.match(articleHtml, /Five questions, and no final rule yet/);
@@ -391,7 +391,7 @@ test("gives every public article a distinct decision briefing", async () => {
   assert.match(sampleHtml, /Read the source notes/);
 });
 
-test("keeps all advertising off while preserving only Google's ownership verification", async () => {
+test("loads the requested AdSense publisher once in the head without competing ad networks", async () => {
   const [componentSource, layoutSource, globalStyles, privacySource] = await Promise.all([
     readFile(new URL("../app/components.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
@@ -400,10 +400,23 @@ test("keeps all advertising off while preserving only Google's ownership verific
   ]);
 
   assert.match(layoutSource, /name="google-adsense-account" content="ca-pub-4610762209559364"/);
-  assert.doesNotMatch(`${componentSource}${layoutSource}`, /AdSlot|NativeAd|adsbygoogle|SITE_FEATURES/);
+  assert.doesNotMatch(`${componentSource}${layoutSource}`, /AdSlot|NativeAd|amp-auto-ads|SITE_FEATURES/);
+  for (const route of ["/", "/article/canada-ai-compute-funding-cost-plan/"]) {
+    const html = await (await render(route)).text();
+    const head = html.split("</head>")[0];
+    const scripts = [...head.matchAll(/<script\b[^>]*src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=ca-pub-4610762209559364"[^>]*>/g)];
+    assert.equal(scripts.length, 1, `${route}: AdSense must load once in head`);
+    assert.match(scripts[0][0], /async(?:=""|\s|>)/);
+    assert.match(scripts[0][0], /crossorigin="anonymous"/i);
+  }
+  for (const route of ["/privacy/", "/search/", "/article/nonexistent-ad-check/"]) {
+    const html = await (await render(route)).text();
+    assert.doesNotMatch(html, /pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js/);
+  }
   await assert.rejects(readFile(new URL("../app/lib/site-features.ts", import.meta.url)), { code: "ENOENT" });
   assert.doesNotMatch(`${componentSource}${layoutSource}${globalStyles}`, /Adsterra|adsterra|armsbroodelusive|ad-frames|Popunder|ANTI-ADBLOCK|Smartlink/);
-  assert.match(privacySource, /This site displays no advertisements and loads no advertising scripts/);
+  assert.match(privacySource, /This site loads Google AdSense to request ads/);
+  assert.match(privacySource, /policies\.google\.com\/technologies\/partner-sites/);
   await assert.rejects(readFile(new URL("../app/adsterra.tsx", import.meta.url)), { code: "ENOENT" });
   await assert.rejects(readFile(new URL("../public/ad-frames/native.html", import.meta.url)), { code: "ENOENT" });
 });

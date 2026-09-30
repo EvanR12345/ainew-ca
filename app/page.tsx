@@ -7,6 +7,7 @@ import { articles, type Article } from "./lib/articles";
 import { articleVisibleDate, searchEligibleArticles } from "./lib/search-quality";
 import { buildPageMetadata, categoryPath, organizationSchema, SITE_URL, WEBSITE_ID, websiteSchema } from "./lib/seo";
 import { StructuredData } from "./structured-data";
+import { AdSenseLoader } from "./adsense-loader";
 
 function ArticleDate({ article }: { article: Pick<Article, "date" | "modifiedAt"> }) {
   const visibleDate = articleVisibleDate(article);
@@ -97,6 +98,7 @@ export default function Home() {
 
   return (
     <div>
+      <AdSenseLoader />
       <SiteHeader />
       <main id="content">
         <StructuredData data={{
